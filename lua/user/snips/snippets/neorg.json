@@ -1,0 +1,20 @@
+{
+    "note": {
+        "prefix": "note",
+        "body": [
+            "* ${1:TITLE}",
+            "** References",
+            "** Categories"
+        ]
+    },
+    "project": {
+        "prefix": "project",
+
+        "body": [
+            "* ${1:PROJECT NAME}",
+            "** References",
+            "** Categories"
+        ]
+    }
+}
+
