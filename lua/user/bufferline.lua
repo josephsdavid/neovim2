@@ -1,52 +1,34 @@
-local map = vim.api.nvim_set_keymap
-local mappings = require('user.utils').mappings
-local opts = { noremap = true, silent = true }
-
--- Move to previous/next
-map('n', '<A-,>', ':BufferPrevious<CR>', opts)
-map('n', '<A-.>', ':BufferNext<CR>', opts)
--- Re-order to previous/next
-map('n', '<A-<>', ':BufferMovePrevious<CR>', opts)
-map('n', '<A->>', ' :BufferMoveNext<CR>', opts)
--- Goto buffer in position...
-map('n', '<A-1>', ':BufferGoto 1<CR>', opts)
-map('n', '<A-2>', ':BufferGoto 2<CR>', opts)
-map('n', '<A-3>', ':BufferGoto 3<CR>', opts)
-map('n', '<A-4>', ':BufferGoto 4<CR>', opts)
-map('n', '<A-5>', ':BufferGoto 5<CR>', opts)
-map('n', '<A-6>', ':BufferGoto 6<CR>', opts)
-map('n', '<A-7>', ':BufferGoto 7<CR>', opts)
-map('n', '<A-8>', ':BufferGoto 8<CR>', opts)
-map('n', '<A-9>', ':BufferGoto 9<CR>', opts)
-map('n', '<A-0>', ':BufferLast<CR>', opts)
--- Close buffer
-map('n', '<A-x>', ':BufferClose<CR>', opts)
--- Wipeout buffer
---                 :BufferWipeout<CR>
--- Close commands
---                 :BufferCloseAllButCurrent<CR>
---                 :BufferCloseBuffersLeft<CR>
---                 :BufferCloseBuffersRight<CR>
--- Magic buffer-picking mode
-map('n', '<C-p>', ':BufferPick<CR>', opts)
--- Sort automatically by...
-map('n', mappings.bufferleader("l"), ':bprevious<CR>', opts)
-map('n', mappings.bufferleader("p"), ':bprevious<CR>', opts)
-map('n', mappings.bufferleader("n"), ':bnext<CR>', opts)
-map('n', mappings.bufferleader("b"), ':bnext<CR>', opts)
-map('n', mappings.bufferleader(" "), ':bnext<CR>', opts)
-map('n', mappings.bufferleader("x"), ':BufferClose<CR>', opts) -- i never really close buffers so it does not matter too much
-map('n', mappings.bufferleader("s"), ' :b ', {silent = false, noremap=true})
-map('n',mappings.bufferleader('1'), ':bfirst<CR>', opts)
-map('n',mappings.bufferleader('2'), ':b 2<CR>', opts)
-map('n',mappings.bufferleader('3'), ':b 3<CR>', opts)
-map('n',mappings.bufferleader('4'), ':b 4<CR>', opts)
-map('n',mappings.bufferleader('5'), ':b 5<CR>', opts)
-map('n',mappings.bufferleader('6'), ':b 6<CR>', opts)
-map('n',mappings.bufferleader('7'), ':b 7<CR>', opts)
-map('n',mappings.bufferleader('8'), ':b 8<CR>', opts)
-map('n',mappings.bufferleader('9'), ':b 9<CR>', opts)
-map('n',mappings.bufferleader('0'), ':blast<CR>', opts)
+-- local map = vim.api.nvim_set_keymap
+-- local mappings = require('user.utils').mappings
+-- local opts = { noremap = true, silent = true }
+--
+-- -- Move to previous/next
+-- -- Wipeout buffer
+-- --                 :BufferWipeout<CR>
+-- -- Close commands
+-- --                 :BufferCloseAllButCurrent<CR>
+-- --                 :BufferCloseBuffersLeft<CR>
+-- --                 :BufferCloseBuffersRight<CR>
+-- -- Magic buffer-picking mode
+-- map('n', '<C-p>', ':BufferPick<CR>', opts)
+-- -- Sort automatically by...
+-- map('n', mappings.bufferleader("l"), ':bprevious<CR>', opts)
+-- map('n', mappings.bufferleader("p"), ':bprevious<CR>', opts)
+-- map('n', mappings.bufferleader("n"), ':bnext<CR>', opts)
+-- map('n', mappings.bufferleader("b"), ':bnext<CR>', opts)
+-- map('n', mappings.bufferleader(" "), ':bnext<CR>', opts)
+-- map('n', mappings.bufferleader("x"), ':BufferClose<CR>', opts) -- i never really close buffers so it does not matter too much
+-- map('n', mappings.bufferleader("s"), ' :b ', {silent = false, noremap=true})
+-- map('n',mappings.bufferleader('1'), ':bfirst<CR>', opts)
+-- map('n',mappings.bufferleader('2'), ':b 2<CR>', opts)
+-- map('n',mappings.bufferleader('3'), ':b 3<CR>', opts)
+-- map('n',mappings.bufferleader('4'), ':b 4<CR>', opts)
+-- map('n',mappings.bufferleader('5'), ':b 5<CR>', opts)
+-- map('n',mappings.bufferleader('6'), ':b 6<CR>', opts)
+-- map('n',mappings.bufferleader('7'), ':b 7<CR>', opts)
+-- map('n',mappings.bufferleader('8'), ':b 8<CR>', opts)
+-- map('n',mappings.bufferleader('9'), ':b 9<CR>', opts)
+-- map('n',mappings.bufferleader('0'), ':blast<CR>', opts)
 
 -- Set barbar's options
 vim.g.bufferline = {

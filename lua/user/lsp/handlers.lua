@@ -1,5 +1,4 @@
 local M = {}
-local mappings = require("user/utils").mappings
 
 
 -- TODO: backfill this to template
@@ -74,30 +73,30 @@ end
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("d"), "<cmd>lua require('goto-preview').goto_preview_definition()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("i"), "<cmd>lua require('goto-preview').goto_preview_implementation()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("x"), "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("r"), "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("d"), "<cmd>vsp<cr><cmd>lua vim.lsp.buf.definition()<cr>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("i"), "<cmd>vsp<cr><cmd>lua vim.lsp.buf.implementation()<cr>", opts)
+	--vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("x"), "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
 
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", leader .. "D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("D"), "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("D"), "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("k"), "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("k"), "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.actionleader("a"), "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("a"), "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
 	vim.api.nvim_buf_set_keymap(
 		bufnr,
 		"n",
-		mappings.go("l"),
+		Keys.go("l"),
 		'<cmd>lua vim.diagnostic.open_float({ border = "rounded" })<CR>',
 		opts
 	)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", mappings.go("q"), "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("q"), "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 end
 

@@ -60,26 +60,29 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/nvim-cmp")
 	use("saadparwaiz1/cmp_luasnip")
-	use("Rigellute/rigel")
-	use("Yggdroot/hiPairs")
-	use("axvr/zepl.vim")
-	use("tpope/vim-repeat")
-	use("tpope/vim-vinegar")
-	use("tpope/vim-surround")
-	use("tpope/vim-fugitive")
-	use("vimlab/split-term.vim")
-	use("lukas-reineke/indent-blankline.nvim")
+	use({ "Yggdroot/hiPairs", event = "BufRead" })
+	use({ "axvr/zepl.vim", cmd = { "Repl" }, opt = true })
+	use({ "tpope/vim-repeat", event = "BufRead" })
+	use({ "tpope/vim-vinegar", event = "BufRead" })
+	use({ "tpope/vim-surround", event = "BufRead" })
+	use({ "tpope/vim-fugitive", cmd = { "Git" }, opt = true })
+	use({ "vimlab/split-term.vim", cmd = { "VTerm", "Term" }, opt = true })
+	use({
+		"lukas-reineke/indent-blankline.nvim",
+		ft = { "python", "lua" },
+		config = function()
+			require("user.indentline")
+		end,
+	})
 	use("akinsho/toggleterm.nvim")
 	use("lewis6991/impatient.nvim")
 	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use("folke/lsp-colors.nvim")
-	use("folke/tokyonight.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
-	use({ "TimUntersberger/neogit", requires = "nvim-lua/plenary.nvim" })
 	use({ "ray-x/lsp_signature.nvim" })
 	use("ray-x/cmp-treesitter")
-  use("nvim-treesitter/playground")
-  use 'arkav/lualine-lsp-progress'
+	use("nvim-treesitter/playground")
+	use("arkav/lualine-lsp-progress")
 	use({
 		"danymat/neogen",
 		config = function()
@@ -95,40 +98,86 @@ return packer.startup(function(use)
 			})
 		end,
 		requires = "nvim-treesitter/nvim-treesitter",
+		opt = true,
+		ft = { "python", "lua" },
 	})
-	use("jbyuki/instant.nvim")
-	use("jbyuki/dash.nvim")
 	use("romgrk/nvim-treesitter-context")
 	use("RRethy/nvim-treesitter-textsubjects")
 	use({
 		"lewis6991/spellsitter.nvim",
 	})
-	use("elihunter173/dirbuf.nvim")
-  use { 'romgrk/barbar.nvim', requires = {'kyazdani42/nvim-web-devicons'} }
-  use('sainnhe/everforest')
-  use('direnv/direnv.vim')
+	use({ "elihunter173/dirbuf.nvim", cmd = "Dirbuf" })
+	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
+	use({
+		"sainnhe/everforest",
+		config = function()
+			require("colors")
+		end,
+	})
   use {
-    'tamton-aquib/duck.nvim',
+    "startup-nvim/startup.nvim",
+    requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
     config = function()
-      vim.api.nvim_set_keymap('n', '<leader>dd', ':lua require("duck").hatch("🐔")<CR>', {noremap=true, silent = true})
-      vim.api.nvim_set_keymap('n', '<leader>dc', ':lua require("duck").cook()<CR>', {noremap=true, silent = true})
+      require"startup".setup(require("user.startup"))
     end
   }
-  use 'xiyaowong/telescope-emoji.nvim'
--- Lua
+  -- use({
+  --   "themercorp/themer.lua",
+  --   config = function()
+  --     require("themer").setup({
+  --       colorscheme = "everforest",
+  --       transparent = true,
+  --       styles = {
+  --         comment = { style = 'italic' },
+  --         ["function"] = { style = 'italic' },
+  --         functionbuiltin = { style = 'italic' },
+  --         -- variable = { style = 'italic' },
+  --         -- variableBuiltIn = { style = 'italic' },
+  --         parameter  = { style = 'italic' },
+  --       },
+  --     })
+  --   end
+  -- })
+	use("direnv/direnv.vim")
+	use({
+		"tamton-aquib/duck.nvim",
+		config = function()
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>dd",
+				':lua require("duck").hatch("🐔")<CR>',
+				{ noremap = true, silent = true }
+			)
+			vim.api.nvim_set_keymap(
+				"n",
+				"<leader>dc",
+				':lua require("duck").cook()<CR>',
+				{ noremap = true, silent = true }
+			)
+		end,
+	})
+	use({ "xiyaowong/telescope-emoji.nvim",  })
 
-  use "mfussenegger/nvim-ts-hint-textobject"
+	-- Lua
 
+	use("mfussenegger/nvim-ts-hint-textobject")
 
-  use "Pocco81/TrueZen.nvim"
+	use({
+		"pocco81/truezen.nvim",
+		cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist" },
+    ft = {"norg"},
+		config = function()
+			require("user.zen")
+		end,
+	})
 
 	-- HACK
 	-- ADD MORE STUFF HERE
--- Lua
-  use {
-    "SmiteshP/nvim-gps",
-    wants = "nvim-treesitter/nvim-treesitter"
-  }
+	-- Lua
+	use({
+		"SmiteshP/nvim-gps",
+		wants = "nvim-treesitter/nvim-treesitter",
+	})
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -139,50 +188,56 @@ return packer.startup(function(use)
 			})
 		end,
 	})
-	use({
-		"rmagatti/goto-preview",
-		config = function()
-			require("goto-preview").setup({})
-		end,
-	})
-	use({ "mcchrish/zenbones.nvim", requires = "rktjmp/lush.nvim" })
-	use({
-		"folke/which-key.nvim",
-		config = function()
-			require("which-key").setup({})
-		end,
-	})
+	use({ "folke/which-key.nvim" })
 	use({
 		"numToStr/Comment.nvim",
-		config = function()
-			require("Comment").setup()
-		end,
 	})
 	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
 
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("nvim-treesitter/nvim-treesitter-refactor")
+	use("lewis6991/gitsigns.nvim")
 
 	use({
 		"folke/twilight.nvim",
-		config = function()
-			require("twilight").setup({
-				-- your configuration comes here
-				-- or leave it empty to use the default settings
-				-- refer to the configuration section below
-			})
-		end,
 	})
-	use({ "nvim-telescope/telescope.nvim", requires = { { "nvim-lua/plenary.nvim" } } })
-	use("nvim-telescope/telescope-project.nvim")
+	use({
+		"nvim-telescope/telescope.nvim",
+		requires = { { "nvim-lua/plenary.nvim" } },
+		config = function()
+			require("user.telescope")
+		end,
+    -- module = "telescope",
+    -- keys = {
+    --   {"n", Keys.telescopeleader("f")},
+    --   {"n", Keys.go("r")},
+    --   {"n", Keys.telescopeleader("g")},
+    --   {"n", Keys.telescopeleader("b")},
+    --   {"n", Keys.telescopeleader("h")},
+    --   {"n", Keys.telescopeleader("m")},
+    --   {"n", Keys.telescopeleader("p")},
+    --   {"n", Keys.telescopeleader(" ")},
+    --   {"n", Keys.telescopeleader("/")},
+    --   {"n", Keys.telescopeleader("R")},
+    --   {"n", Keys.telescopeleader("j")},
+    --   {"n", Keys.telescopeleader("e")},
+    --   {"n", Keys.telescopeleader("D")},
+    --   {"n", Keys.telescopeleader("d")},
+    --   {"n", Keys.telescopeleader("r")},
+    --   {"n", Keys.telescopeleader("t")},
+    --   {"n", Keys.harpoonleader("t")},
+    -- },
+    -- ft = {"norg"}
+	})
+	use({ "nvim-telescope/telescope-project.nvim",   })
+  use({"chentau/marks.nvim"})
+
 	use({
 		"nvim-telescope/telescope-frecency.nvim",
-		config = function()
-			require("telescope").load_extension("frecency")
-		end,
 		requires = { "tami5/sqlite.lua" },
 	})
+  use({"ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim"})
 
 	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" } })
 

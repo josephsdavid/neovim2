@@ -1,9 +1,5 @@
-local status_ok, comment = pcall(require, "Comment")
-if not status_ok then
-  return
-end
+local comment = require("Comment")
 
-local mappings = require("user.utils").mappings
 
 comment.setup {
   pre_hook = function(ctx)
@@ -23,27 +19,40 @@ comment.setup {
   end,
   toggler = {
     ---Line-comment toggle keymap
-    line = mappings.commentleader("c"),
+    line = Keys.go("cc"),
     ---Block-comment toggle keymap
-    block = mappings.commentleader("b"),
+    block = Keys.go("cb"),
   },
-  ---LHS of operator-pending mappings in NORMAL + VISUAL mode
+  ---LHS of operator-pending Keys in NORMAL + VISUAL mode
   ---@type table
   opleader = {
     ---Line-comment keymap
-    line = mappings.vcommentleader("c"),
+    line = Keys.go("c"),
     ---Block-comment keymap
-    block = mappings.vcommentleader("b"),
+    block = Keys.go("b"),
   },
 
-  ---LHS of extra mappings
+  ---LHS of extra Keys
   ---@type table
   extra = {
     ---Add comment on the line above
-    above = mappings.commentleader("O"),
+    above = Keys.go("cO"),
     ---Add comment on the line below
-    below = mappings.commentleader("o"),
+    below = Keys.go("co"),
     ---Add comment at the end of line
-    eol = mappings.commentleader("O"),
+    eol = Keys.go("cl"),
   },
+
+    mappings = {
+        ---Operator-pending mapping
+        ---Includes `gcc`, `gbc`, `gc[count]{motion}` and `gb[count]{motion}`
+        ---NOTE: These mappings can be changed individually by `opleader` and `toggler` config
+        basic = true,
+        ---Extra mapping
+        ---Includes `gco`, `gcO`, `gcA`
+        extra = true,
+        ---Extended mapping
+        ---Includes `g>`, `g<`, `g>[count]{motion}` and `g<[count]{motion}`
+        extended = true,
+    },
 }

@@ -9,7 +9,6 @@ if not snip_status_ok then
 end
 
 
-local mappings = require("user.utils").mappings
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
@@ -55,13 +54,13 @@ cmp.setup {
     end,
   },
   mapping = {
-    [mappings.C("k")] = cmp.mapping.select_prev_item(),
-		[mappings.C("j")] = cmp.mapping.select_next_item(),
-    [mappings.C("b")] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-    [mappings.C("f")] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-    [mappings.C("Space")] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-    [mappings.C("y")] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-    [mappings.C("e")] = cmp.mapping {
+    [Keys.C("k")] = cmp.mapping.select_prev_item(),
+		[Keys.C("j")] = cmp.mapping.select_next_item(),
+    [Keys.C("b")] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+    [Keys.C("f")] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+    [Keys.C("Space")] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+    [Keys.C("y")] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    [Keys.C("e")] = cmp.mapping {
       i = cmp.mapping.abort(),
       c = cmp.mapping.close(),
     },
