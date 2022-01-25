@@ -94,8 +94,6 @@ local move = {
 	},
 }
 
-
-
 local lsp_interop = {
 	enable = true,
 	border = "none",

@@ -6,7 +6,7 @@ require("indent_blankline").setup({
 	show_current_context_start = true,
 })
 
-vim.g.indent_blankline_char_list = {  " " }
+vim.g.indent_blankline_char_list = { " " }
 vim.g.indent_blankline_context_char = ""
 vim.g.indent_blankline_use_treesitter = true
 vim.g.indent_blankline_context_patterns = {

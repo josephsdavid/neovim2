@@ -1,18 +1,18 @@
 local function make_leader(leader)
-  local function ret(s)
-    return leader .. s
-  end
-  return ret
+	local function ret(s)
+		return leader .. s
+	end
+	return ret
 end
 
 local function make_mod(leader)
-  local function ret(s)
-    return "<"..leader.."-" .. s..">"
-  end
-  return ret
+	local function ret(s)
+		return "<" .. leader .. "-" .. s .. ">"
+	end
+	return ret
 end
 
-local tz_config =  {
+local tz_config = {
 	ui = {
 		bottom = {
 			laststatus = 0,
@@ -98,18 +98,15 @@ mappings.troubleleader = make_leader(mappings.leader("x"))
 mappings.zeplleader = make_leader(mappings.leader("s"))
 mappings.C = make_mod("c")
 mappings.A = make_mod("a")
-mappings.S  = make_mod("s")
-mappings.hopleader =  make_leader(mappings.leader("h"))
+mappings.S = make_mod("s")
+mappings.hopleader = make_leader(mappings.leader("h"))
 mappings.go = make_leader("g")
 mappings.tableader = make_leader(mappings.leader("t"))
 mappings.bufferleader = make_leader(mappings.leader("b"))
-mappings.norgleader = make_leader(mappings.leader('o'))
-
-
+mappings.norgleader = make_leader(mappings.leader("o"))
 
 M.mappings = mappings
 M.border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" }
 M.tz_config = tz_config
-
 
 return M

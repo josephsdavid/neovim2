@@ -114,30 +114,30 @@ return packer.startup(function(use)
 			require("colors")
 		end,
 	})
-  use {
-    "startup-nvim/startup.nvim",
-    requires = {"nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim"},
-    config = function()
-      require"startup".setup(require("user.startup"))
-    end
-  }
-  -- use({
-  --   "themercorp/themer.lua",
-  --   config = function()
-  --     require("themer").setup({
-  --       colorscheme = "everforest",
-  --       transparent = true,
-  --       styles = {
-  --         comment = { style = 'italic' },
-  --         ["function"] = { style = 'italic' },
-  --         functionbuiltin = { style = 'italic' },
-  --         -- variable = { style = 'italic' },
-  --         -- variableBuiltIn = { style = 'italic' },
-  --         parameter  = { style = 'italic' },
-  --       },
-  --     })
-  --   end
-  -- })
+	use({
+		"startup-nvim/startup.nvim",
+		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
+		config = function()
+			require("startup").setup(require("user.startup"))
+		end,
+	})
+	-- use({
+	--   "themercorp/themer.lua",
+	--   config = function()
+	--     require("themer").setup({
+	--       colorscheme = "everforest",
+	--       transparent = true,
+	--       styles = {
+	--         comment = { style = 'italic' },
+	--         ["function"] = { style = 'italic' },
+	--         functionbuiltin = { style = 'italic' },
+	--         -- variable = { style = 'italic' },
+	--         -- variableBuiltIn = { style = 'italic' },
+	--         parameter  = { style = 'italic' },
+	--       },
+	--     })
+	--   end
+	-- })
 	use("direnv/direnv.vim")
 	use({
 		"tamton-aquib/duck.nvim",
@@ -156,7 +156,7 @@ return packer.startup(function(use)
 			)
 		end,
 	})
-	use({ "xiyaowong/telescope-emoji.nvim",  })
+	use({ "xiyaowong/telescope-emoji.nvim" })
 
 	-- Lua
 
@@ -165,7 +165,7 @@ return packer.startup(function(use)
 	use({
 		"pocco81/truezen.nvim",
 		cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist" },
-    ft = {"norg"},
+		ft = { "norg" },
 		config = function()
 			require("user.zen")
 		end,
@@ -208,36 +208,36 @@ return packer.startup(function(use)
 		config = function()
 			require("user.telescope")
 		end,
-    -- module = "telescope",
-    -- keys = {
-    --   {"n", Keys.telescopeleader("f")},
-    --   {"n", Keys.go("r")},
-    --   {"n", Keys.telescopeleader("g")},
-    --   {"n", Keys.telescopeleader("b")},
-    --   {"n", Keys.telescopeleader("h")},
-    --   {"n", Keys.telescopeleader("m")},
-    --   {"n", Keys.telescopeleader("p")},
-    --   {"n", Keys.telescopeleader(" ")},
-    --   {"n", Keys.telescopeleader("/")},
-    --   {"n", Keys.telescopeleader("R")},
-    --   {"n", Keys.telescopeleader("j")},
-    --   {"n", Keys.telescopeleader("e")},
-    --   {"n", Keys.telescopeleader("D")},
-    --   {"n", Keys.telescopeleader("d")},
-    --   {"n", Keys.telescopeleader("r")},
-    --   {"n", Keys.telescopeleader("t")},
-    --   {"n", Keys.harpoonleader("t")},
-    -- },
-    -- ft = {"norg"}
+		-- module = "telescope",
+		-- keys = {
+		--   {"n", Keys.telescopeleader("f")},
+		--   {"n", Keys.go("r")},
+		--   {"n", Keys.telescopeleader("g")},
+		--   {"n", Keys.telescopeleader("b")},
+		--   {"n", Keys.telescopeleader("h")},
+		--   {"n", Keys.telescopeleader("m")},
+		--   {"n", Keys.telescopeleader("p")},
+		--   {"n", Keys.telescopeleader(" ")},
+		--   {"n", Keys.telescopeleader("/")},
+		--   {"n", Keys.telescopeleader("R")},
+		--   {"n", Keys.telescopeleader("j")},
+		--   {"n", Keys.telescopeleader("e")},
+		--   {"n", Keys.telescopeleader("D")},
+		--   {"n", Keys.telescopeleader("d")},
+		--   {"n", Keys.telescopeleader("r")},
+		--   {"n", Keys.telescopeleader("t")},
+		--   {"n", Keys.harpoonleader("t")},
+		-- },
+		-- ft = {"norg"}
 	})
-	use({ "nvim-telescope/telescope-project.nvim",   })
-  use({"chentau/marks.nvim"})
+	use({ "nvim-telescope/telescope-project.nvim" })
+	use({ "chentau/marks.nvim" })
 
 	use({
 		"nvim-telescope/telescope-frecency.nvim",
 		requires = { "tami5/sqlite.lua" },
 	})
-  use({"ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim"})
+	use({ "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" })
 
 	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" } })
 

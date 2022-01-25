@@ -67,4 +67,4 @@ local config = {
 	},
 }
 
-require('true-zen').setup(config)
+require("true-zen").setup(config)

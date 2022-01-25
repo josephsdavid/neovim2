@@ -1,6 +1,6 @@
 local opts = { noremap = true, silent = true }
 local tab_opts = { noremap = true, silent = false }
-local buf_opts = { noremap = true, silent = true}
+local buf_opts = { noremap = true, silent = true }
 
 local zepl_opts = { noremap = false, silent = true }
 
@@ -9,7 +9,7 @@ local term_opts = { silent = true }
 -- Shorten function name
 local keymap = vim.api.nvim_set_keymap
 
-local mappings = require('user.utils').mappings
+local mappings = require("user.utils").mappings
 
 --Remap comma as leader key
 keymap("", "< >", "<Nop>", opts)
@@ -124,24 +124,23 @@ keymap("", mappings.tableader("n"), ":tabnext<CR>", opts)
 keymap("", mappings.tableader("N"), ":tabnew<CR>", opts)
 keymap("", mappings.tableader("o"), ":tabonly<CR>", opts)
 keymap("", mappings.tableader("c"), ":tabclose<CR>", opts)
-keymap("", mappings.tableader("m"), ":tabmove ",tab_opts)
+keymap("", mappings.tableader("m"), ":tabmove ", tab_opts)
 keymap("", mappings.tableader("e"), ":tabedit ", tab_opts)
 keymap("", mappings.tableader(mappings.leader("")), ":tabnext<CR>", opts)
 vim.g.lasttab = 1
 keymap("", mappings.tableader("l"), ":exe 'tabn '.g:lasttab<CR>", opts)
-vim.cmd[[au TabLeave * let g:lasttab = tabpagenr()]]
+vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 
 -- buffer magic
 -- nnoremap <silent>[b :BufferLineCycleNext<CR>
 -- nnoremap <silent>b] :BufferLineCyclePrev<CR>
 
-
-vim.cmd[[
+vim.cmd([[
 function! InsertLine()
   let trace = expand("__import__('pdb').set_trace()")
   execute "normal O".trace
 endfunction
-]]
+]])
 keymap("", mappings.C("b"), ":call InsertLine()<CR>", opts)
 
 -- keymap("n", mappings.troubleleader("x"), "<cmd>TroubleToggle<cr>", opts)
@@ -151,10 +150,5 @@ keymap("", mappings.C("b"), ":call InsertLine()<CR>", opts)
 -- keymap("n", mappings.troubleleader("l"), "<cmd>TroubleToggle loclist<cr>", opts)
 -- keymap("n", mappings.troubleleader("r"), "<cmd>TroubleToggle lsp_references<cr>", opts)
 
-
 -- dirbuf
-keymap("n", mappings.leader("D"), ":Dirbuf<CR>", { noremap = true, silent = true, nowait=true })
-
-
-
-
+keymap("n", mappings.leader("D"), ":Dirbuf<CR>", { noremap = true, silent = true, nowait = true })

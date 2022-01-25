@@ -13,12 +13,10 @@ local function make_modifier(leader)
 end
 
 Paths = {
-  snippets = "/home/david/.config/nvim/lua/user/snips"
+	snippets = "/home/david/.config/nvim/lua/user/snips",
 }
 
-
 Keys = {}
-
 
 Keys.leader = make_leader("<leader>")
 Keys.swapleader = make_leader(Keys.leader("m"))
@@ -34,15 +32,15 @@ Keys.zeplleader = make_leader(Keys.leader("s"))
 Keys.C = make_modifier("c")
 Keys.A = make_modifier("a")
 Keys.M = make_modifier("a")
-Keys.S  = make_modifier("s")
-Keys.hopleader =  make_leader(Keys.leader("j"))
+Keys.S = make_modifier("s")
+Keys.hopleader = make_leader(Keys.leader("j"))
 Keys.go = make_leader("g")
 Keys.tableader = make_leader(Keys.leader("t"))
 Keys.bufferleader = make_leader(Keys.leader("b"))
-Keys.norgleader = make_leader(Keys.leader('o'))
+Keys.norgleader = make_leader(Keys.leader("o"))
 Keys.harpoonleader = make_leader(Keys.leader("h"))
 
-Prequire = function(module)  -- Stolen from danymat
+Prequire = function(module) -- Stolen from danymat
 	local ok, mod = pcall(require, module)
 	return ok, mod
 end

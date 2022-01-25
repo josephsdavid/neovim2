@@ -35,7 +35,7 @@ null_ls.setup({
 		--[[ diagnostics.pylama,
 		diagnostics.pylint, ]]
 		diagnostics.hadolint,
-    diagnostics.selene,
-    diagnostics.shellcheck,
+		diagnostics.selene,
+		diagnostics.shellcheck,
 	},
 })
