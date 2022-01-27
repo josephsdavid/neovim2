@@ -15,6 +15,7 @@ end
 Paths = {
 	snippets = "/home/david/.config/nvim/lua/user/snips",
 }
+PDB = "__import__('pdb').set_trace()"
 
 Keys = {}
 

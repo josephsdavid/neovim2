@@ -18,8 +18,8 @@ local config = {
 	},
 	modes = {
 		ataraxis = {
-			left_padding = 32,
-			right_padding = 32,
+			left_padding = 1,
+			right_padding = 1,
 			top_padding = 1,
 			bottom_padding = 1,
 			ideal_writing_area_width = { 0 },
@@ -28,7 +28,7 @@ local config = {
 			custom_bg = { "none", "" },
 			bg_configuration = true,
 			quit = "untoggle",
-			ignore_floating_windows = true,
+			ignore_floating_windows = false,
 			affected_higroups = {
 				NonText = true,
 				FoldColumn = true,
@@ -37,6 +37,26 @@ local config = {
 				StatusLine = true,
 				StatusLineNC = true,
 				SignColumn = true,
+			},
+			focus = {
+				margin_of_error = 5,
+				focus_method = "experimental",
+			},
+			integrations = {
+				vim_gitgutter = false,
+				galaxyline = false,
+				tmux = false,
+				gitsigns = false,
+				nvim_bufferline = false,
+				limelight = false,
+				twilight = true,
+				vim_airline = false,
+				vim_powerline = false,
+				vim_signify = false,
+				express_line = false,
+				lualine = true,
+				lightline = false,
+				feline = false,
 			},
 		},
 		focus = {

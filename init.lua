@@ -9,7 +9,7 @@ require "user.cmp"
 require "user.luasnip"
 -- require "user.telescope"
 require "user.toggleterm"
-require "user.comment"
+-- require "user.comment"
 require "user.lualine"
 -- require "user.clickfree"
 -- require "user.lightspeed"
@@ -19,15 +19,17 @@ require "user.null-ls"
 -- require "user.vimscript"
 require "user.neorg"
 require "user.bufferline"
+require "user.mini"
+-- require "user.dap"
 -- require "user.staline"
 -- require "user.indentline"
+-- require "colors"
 require "keybinds"
 require "user.whichkey"
 -- vim.opt.list = true
 -- require "globals"
 -- require "plugins"
 -- require "treesitter"
--- require "colors"
 -- require "keybinds"
 -- require "options"
 
@@ -56,6 +58,8 @@ vim.cmd [[
     autocmd!
     autocmd FileType markdown setlocal wrap
     autocmd FileType markdown setlocal spell
+    autocmd FileType norg setlocal wrap
+    autocmd FileType norg setlocal spell
   augroup end
 
   augroup _auto_resize
@@ -84,7 +88,6 @@ autocmd FileType r setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType rmd setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType lua setlocal expandtab shiftwidth=2 softtabstop=2
-autocmd FileType norg setlocal wrap
 
 " Run currently focused python script with F9
 autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>

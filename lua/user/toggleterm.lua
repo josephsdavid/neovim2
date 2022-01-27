@@ -2,6 +2,8 @@ local status_ok, toggleterm = pcall(require, "toggleterm")
 if not status_ok then
 	return
 end
+local wk = require("which-key")
+
 
 toggleterm.setup({
 	size = function(term)
@@ -11,12 +13,12 @@ toggleterm.setup({
 			return vim.o.columns * 0.4
 		end
 	end,
-	open_mapping = [[<c-\>]],
+	open_mapping = Keys.C("\\"),
 	hide_numbers = true,
 	shade_filetypes = {},
-	shade_terminals = true,
+	shade_terminals = false,
 	shading_factor = 2,
-	start_in_insert = true,
+	start_in_insert = false,
 	insert_mappings = true,
 	persist_size = true,
 	direction = "float",
@@ -46,11 +48,24 @@ vim.cmd("autocmd! TermOpen term://* lua set_terminal_keymaps()")
 
 local Terminal = require("toggleterm.terminal").Terminal
 
+local vert = Terminal:new({hidden = true, direction = "vertical"})
+local horiz = Terminal:new({hidden = true, direction = "horizontal"})
+
+function _VERT_TOGGLE()
+	vert:toggle()
+end
+function _HORIZ_TOGGLE()
+	horiz:toggle()
+end
+vim.api.nvim_set_keymap("n", Keys.A("v"), "<cmd>lua _VERT_TOGGLE()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n",Keys.A("t"), "<cmd>lua _HORIZ_TOGGLE()<CR>", {noremap = true, silent = true})
+
 local python = Terminal:new({ cmd = "python", hidden = true, direction = "vertical" })
 
 function _PYTHON_TOGGLE()
 	python:toggle()
 end
+vim.api.nvim_set_keymap("n",Keys.A("p"), "<cmd>lua _PYTHON_TOGGLE()<CR>", {noremap = true, silent = true})
 
 local node = Terminal:new({ cmd = "node", hidden = true })
 

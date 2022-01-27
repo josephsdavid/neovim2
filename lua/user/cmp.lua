@@ -102,8 +102,8 @@ cmp.setup({
 			-- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
 			vim_item.menu = ({
 				luasnip = "[SNIP]",
-				treesitter = "[TS]",
 				nvim_lsp = "[LSP]",
+				treesitter = "[TS]",
 				nvim_lua = "[NVIM_LUA]",
 				path = "[PATH]",
 				neorg = "[NEORG]",

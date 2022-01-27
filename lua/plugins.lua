@@ -82,6 +82,12 @@ return packer.startup(function(use)
 	use({ "ray-x/lsp_signature.nvim" })
 	use("ray-x/cmp-treesitter")
 	use("nvim-treesitter/playground")
+	-- use({
+	--   'j-hui/fidget.nvim',
+	-- config = function()
+	-- 	require("fidget").setup()
+	-- end,
+	-- })
 	use("arkav/lualine-lsp-progress")
 	use({
 		"danymat/neogen",
@@ -107,13 +113,11 @@ return packer.startup(function(use)
 		"lewis6991/spellsitter.nvim",
 	})
 	use({ "elihunter173/dirbuf.nvim", cmd = "Dirbuf" })
-	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" } })
-	use({
-		"sainnhe/everforest",
-		config = function()
-			require("colors")
-		end,
-	})
+	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" },    event = "BufWinEnter", })
+	-- use({
+	-- 	"sainnhe/everforest",
+	-- })
+	use({ "echasnovski/mini.nvim", requires = { "lewis6991/gitsigns.nvim", "kyazdani42/nvim-web-devicons" } })
 	use({
 		"startup-nvim/startup.nvim",
 		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
@@ -121,23 +125,50 @@ return packer.startup(function(use)
 			require("startup").setup(require("user.startup"))
 		end,
 	})
-	-- use({
-	--   "themercorp/themer.lua",
-	--   config = function()
-	--     require("themer").setup({
-	--       colorscheme = "everforest",
-	--       transparent = true,
-	--       styles = {
-	--         comment = { style = 'italic' },
-	--         ["function"] = { style = 'italic' },
-	--         functionbuiltin = { style = 'italic' },
-	--         -- variable = { style = 'italic' },
-	--         -- variableBuiltIn = { style = 'italic' },
-	--         parameter  = { style = 'italic' },
-	--       },
-	--     })
-	--   end
-	-- })
+	use({
+	  "themercorp/themer.lua",
+	  config = function()
+	    require("themer").setup({
+	      colorscheme = "everforest",
+	      transparent = false,
+	      styles = {
+	        comment = { style = 'italic' },
+	        -- ["function"] = { style = 'italic' },
+	        functionbuiltin = { style = 'italic' },
+        type = {style = 'italic'},
+        typeBuiltIn = {style = 'italic'},
+	        -- variable = { style = 'italic' },
+	        variableBuiltIn = { style = 'italic' },
+	        -- parameter  = { style = 'italic' },
+	      },
+
+    remaps = {
+        palette = {
+          everforest = {
+            bg = {
+              base = "#323d43"
+            }
+          }
+        },
+        -- per colorscheme palette remaps, for example:
+        -- remaps.palette = {
+        --     rose_pine = {
+        --     	fg = "#000000"
+        --     }
+        -- },
+        -- would recommend to look into vim.api.nvim_set_hl() docs before using this
+        -- remaps.highlights = {
+        --     rose_pine = {
+        --     	Normal = { bg = "#000000" }
+        --     }
+        -- },
+        --
+        -- Also you can do remaps.highlights.globals  for global highlight remaps
+        highlights = {},
+    },
+	    })
+	  end
+	})
 	use("direnv/direnv.vim")
 	use({
 		"tamton-aquib/duck.nvim",
@@ -189,9 +220,9 @@ return packer.startup(function(use)
 		end,
 	})
 	use({ "folke/which-key.nvim" })
-	use({
-		"numToStr/Comment.nvim",
-	})
+	-- use({
+	-- 	"numToStr/Comment.nvim",
+	-- })
 	use({ "nvim-lualine/lualine.nvim", requires = { "kyazdani42/nvim-web-devicons", opt = true } })
 
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
@@ -237,9 +268,45 @@ return packer.startup(function(use)
 		"nvim-telescope/telescope-frecency.nvim",
 		requires = { "tami5/sqlite.lua" },
 	})
-	use({ "ThePrimeagen/harpoon", requires = "nvim-lua/plenary.nvim" })
+	use({
+		"ThePrimeagen/harpoon",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("harpoon").setup({
+				projects = {
+					["$HOME/tasq/setpoint-rec"] = {},
+				},
+			})
+		end,
+	})
 
 	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" } })
+	use({
+		"rebelot/kanagawa.nvim",
+		config = function()
+			require("kanagawa").setup({
+				undercurl = true, -- enable undercurls
+				commentStyle = "italic",
+				functionStyle = "bold",
+				keywordStyle = "italic",
+				statementStyle = "bold",
+				typeStyle = "italic",
+				variablebuiltinStyle = "italic",
+				specialReturn = true, -- special highlight for the return keyword
+				specialException = true, -- special highlight for exception handling keywords
+				transparent = false, -- do not set background color
+				dimInactive = false, -- dim inactive window `:h hl-NormalNC`
+				colors = {},
+				overrides = {},
+			})
+		end,
+	})
+
+
+	-- use'mfussenegger/nvim-dap'
+	-- use{'mfussenegger/nvim-dap-python', requires = {"mfussenger/nvim-dap"}}
+	-- use{ "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
+	-- use{ "theHamsta/nvim-dap-virtual-text", requires = {"mfussenegger/nvim-dap"} }
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

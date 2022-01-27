@@ -108,7 +108,7 @@ telescope.setup({
 	},
 })
 
-telescope.load_extension("project")
-telescope.load_extension("frecency")
-telescope.load_extension("emoji")
-telescope.load_extension("harpoon")
+-- telescope.load_extension("project")
+-- telescope.load_extension("frecency")
+-- telescope.load_extension("emoji")
+-- telescope.load_extension("harpoon")

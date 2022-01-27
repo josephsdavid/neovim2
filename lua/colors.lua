@@ -8,8 +8,8 @@ vim.g.everforest_enable_italic = 1
 vim.g.everforest_disable_italic_comment = 0
 vim.g.everforest_ui_contrast = "high"
 vim.g.everforest_diagnostic_text_highlight = 1
-vim.g.everforest_current_word = "bold"
--- vim.g.everforest_better_performance = 1
+-- vim.g.everforest_current_word = "bold"
+vim.g.everforest_better_performance = 1
 
 -- vim.g.kanagawabones = { solid_line_nr = true, darken_comments = 45, darkness="stark" }
 -- vim.g.tokyonight_style = "night"
