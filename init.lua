@@ -59,7 +59,7 @@ vim.cmd [[
     autocmd FileType markdown setlocal wrap
     autocmd FileType markdown setlocal spell
     autocmd FileType norg setlocal wrap
-    autocmd FileType norg setlocal spell
+    " autocmd FileType norg setlocal spell
   augroup end
 
   augroup _auto_resize
