@@ -89,7 +89,10 @@ telescope.setup({
 		-- builtin picker
 	},
 	extensions = {
-		"project",
+		workspaces = {
+			-- keep insert mode after selection in the picker, default is false
+			keep_insert = true,
+		},
 		frecency = {
 			show_scores = false,
 			show_unindexed = true,
@@ -97,6 +100,7 @@ telescope.setup({
 			disable_devicons = false,
 			workspaces = {
 				["conf"] = "/home/david/.config",
+				["nvim"] = "/home/david/.config/nvim",
 				["data"] = "/home/david/.local/share",
 				["tasq"] = "/home/david/tasq",
 				["setpoints"] = "/home/david/tasq/setpoint-rec/",

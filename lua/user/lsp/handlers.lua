@@ -1,6 +1,5 @@
 local M = {}
 
-
 -- TODO: backfill this to template
 M.setup = function()
 	local signs = {
@@ -15,13 +14,12 @@ M.setup = function()
 	end
 
 	local config = {
-		-- disable virtual text
 		scope = "cursor",
 		virtual_text = true,
 		{
-      prefix = "»",
-      spacing = 4,
-    },
+			prefix = "»",
+			spacing = 4,
+		},
 		-- show signs
 		signs = {
 			active = signs,
@@ -68,15 +66,41 @@ local function lsp_highlight_document(client)
 	end
 end
 
-
+require("goto-preview").setup({
+	width = 120, -- Width of the floating window
+	height = 15, -- Height of the floating window
+	border = { "↖", "─", "┐", "│", "┘", "─", "└", "│" }, -- Border characters of the floating window
+	default_mappings = false, -- Bind default mappings
+	debug = false, -- Print debug information
+	opacity = nil, -- 0-100 opacity level of the floating window where 100 is fully transparent.
+	resizing_mappings = false, -- Binds arrow keys to resizing the floating window.
+	post_open_hook = nil, -- A function taking two arguments, a buffer and a window to be ran as a hook.
+	-- These two configs can also be passed down to the goto-preview definition and implementation calls for one off "peak" functionality.
+	focus_on_open = true, -- Focus the floating window when opening it.
+	dismiss_on_move = false, -- Dismiss the floating window when moving the cursor.
+	force_close = true, -- passed into vim.api.nvim_win_close's second argument. See :h nvim_win_close
+	bufhidden = "wipe", -- the bufhidden option to set on the floating window. See :h bufhidden
+})
 
 local function lsp_keymaps(bufnr)
 	local opts = { noremap = true, silent = true }
 
-	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("d"), "<cmd>vsp<cr><cmd>lua vim.lsp.buf.definition()<cr>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("i"), "<cmd>vsp<cr><cmd>lua vim.lsp.buf.implementation()<cr>", opts)
-	--vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("x"), "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(
+		bufnr,
+		"n",
+		Keys.go("d"),
+		"<cmd>lua require('goto-preview').goto_preview_definition()<cr>",
+		opts
+	)
+	vim.api.nvim_buf_set_keymap(
+		bufnr,
+		"n",
+		Keys.go("i"),
+		"<cmd>vsp<cr><cmd>lua require('goto-preview').goto_preview_implementation()<cr>",
+		opts
+	)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("x"), "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
+	-- vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
 
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", leader .. "D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("D"), "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
@@ -100,12 +124,10 @@ local function lsp_keymaps(bufnr)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 end
 
-
-
 M.on_attach = function(client, bufnr)
-  vim.o.updatetime = 250
-  -- vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
-  vim.cmd [[autocmd CursorHoldI * lua vim.lsp.buf.hover(nil, {focus=false})]]
+	vim.o.updatetime = 250
+	-- vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
+	vim.cmd([[autocmd CursorHoldI * lua vim.lsp.buf.hover(nil, {focus=false})]])
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false
 	end

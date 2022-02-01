@@ -51,9 +51,9 @@ local map_table = {
 		opts = { noremap = true, silent = true },
 		maps = {
 			[{ "n", "e" }] = { ":Lex 30<cr>", "File Explorer" },
-			[{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
+			-- [{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
-			-- [{ "n", "cd" }] = ":cd %:p:h<CR>:pwd<CR>",
+			[{ "n", "cd" }] = { "<cmd>cd %:p:h<cr><cmd>lua Notifications.cwd()<cr>", "cd to current file" },
 		},
 	},
 
@@ -161,14 +161,20 @@ local map_table = {
 		},
 	},
 
-	zepl = { -- mappings to zeplleader
-		leader = Keys.zeplleader,
-		name = "zepl",
+	repl = { -- mappings to replleader
+		leader = Keys.replleader,
+		name = "repl",
 		opts = { noremap = false, silent = true },
 		maps = {
-			[{ "n", "" }] = { "<Plug>ReplSend_Motion", "Send to repl" },
-			[{ "v", "" }] = { "<Plug>ReplSend_Visual", "Send to repl" },
-			[{ "n", "s" }] = { ":ReplSend<CR>", "Send to repl (line)" },
+			[{ "n", "" }]= { "<Plug>(iron-send-motion)", "Send to repl" },
+			-- [{ "v", "" }] = { "<Plug>ReplSend_Visual", "Send to repl" },
+			[{ "v", "" }] = { "<Plug>(iron-visual-send)", "Send to repl" },
+			-- [{ "n", "s" }] = { ":ReplSend<CR>", "Send to repl (line)" },
+			[{ "n", "g" }] = { "<Plug>(iron-send-line)", "Send to repl (line)" },
+			[{ "n", "f" }] = { ":IronRepl<cr>", "Start repl" },
+			[{ "n", "d" }] = { "<Plug>(iron-interrupt)", "Repl interrupt" },
+			[{ "n", "q" }] = { "<Plug>(iron-exit)", "Repl quit" },
+			[{ "n", "c" }] = { "<Plug>(iron-exit)", "Repl clear" },
 		},
 	},
 
@@ -213,17 +219,19 @@ local map_table = {
 				"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
 				"find buffers",
 			},
-			[{ "n", "h" }] = { "<cmd>lua require('telescope.builtins').help_tags()<cr>", "get help" },
-			[{ "n", "m" }] = { "<cmd>lua require('telescope.builtins').marks()<cr>", "find markers" },
-			[{ "n", "p" }] = { "<cmd>lua require('telescope').extensions.project.project()<cr>", "find projects" },
+			[{ "n", "H" }] = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "get help" },
+			[{ "n", "m" }] = { "<cmd>lua require('telescope.builtin').marks()<cr>", "find markers" },
+			[{ "n", "p" }] = { "<cmd>lua require('telescope').extensions.workspaces.workspaces()<cr>", "find projects" },
+			[{ "n", "w" }] = { "<cmd>lua require('telescope').extensions.workspaces.workspaces()<cr>", "find projects" },
 			[{ "n", " " }] = { "<cmd>lua require('telescope').extensions.frecency.frecency()<CR>", "find recents" },
-			[{ "n", "/" }] = { "<cmd>lua require('telescope.builtins').search_history()<cr>", "find searches" },
-			[{ "n", "R" }] = { "<cmd>lua require('telescope.builtins').reloader()<cr>", "reload configs" },
-			[{ "n", "j" }] = { "<cmd>lua require('telescope.builtins').jumplist()<cr>", "find jumps" },
+			[{ "n", "/" }] = { "<cmd>lua require('telescope.builtin').search_history()<cr>", "find searches" },
+			[{ "n", "R" }] = { "<cmd>lua require('telescope.builtin').reloader()<cr>", "reload configs" },
+			[{ "n", "j" }] = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "find jumps" },
+			[{ "n", "s" }] = { "<cmd>lua require('telescope.builtin').symbols()<cr>", "find symbols" },
 			[{ "n", "e" }] = { "<cmd>lua require('telescope').extensions.emoji.emoji()<cr>", "find emoji" },
 			[{ "n", "d" }] = { "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", "find lsp definitions" },
 			[{ "n", "r" }] = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "find lsp references" },
-			[{ "n", "t" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
+			[{ "n", "h" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
 			[{ "n", "D" }] = {
 				"<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>",
 				"find lsp type definitions",
@@ -244,6 +252,7 @@ local map_table = {
 			[{ "n", " " }] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
 			[{ "n", "p" }] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
 			[{ "n", "t" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
+			[{ "n", "c" }] = { "<cmd>cd %:p:h<cr>", "cd to current file" },
 		},
 	},
 }
@@ -256,3 +265,6 @@ for _, v in pairs(map_table) do
 		wk.register({ [v.leader("")] = { name = v.name } })
 	end
 end
+vim.cmd [[
+nnoremap <expr> <LocalLeader>s nvim_exec('MagmaEvaluateOperator', v:true)
+]]

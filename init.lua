@@ -14,12 +14,13 @@ require "user.lualine"
 -- require "user.clickfree"
 -- require "user.lightspeed"
 require "user.null-ls"
--- require "user.gitsigns"
+require "user.gitsigns"
 -- require "user.neogit"
 -- require "user.vimscript"
 require "user.neorg"
 require "user.bufferline"
 require "user.mini"
+require "user.iron"
 -- require "user.dap"
 -- require "user.staline"
 -- require "user.indentline"
@@ -45,6 +46,8 @@ vim.cmd [[
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
     autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})
     autocmd BufWinEnter * :set formatoptions-=cro
+    autocmd InsertLeave,WinEnter * set cursorline
+    autocmd InsertEnter,WinLeave * set nocursorline
     autocmd FileType qf set nobuflisted
   augroup end
 
@@ -72,7 +75,7 @@ vim.cmd [[
   "     autocmd VimEnter * if argc() == 0 | Explore! | endif
   " augroup END
 
-  autocmd BufEnter * if expand("%:p:h") !~ '*.norg' | silent! lcd %:p:h | endif
+  " autocmd BufEnter * if expand("%:p:h") !~ '*.norg' | silent! lcd %:p:h | endif
 
   let g:hiPairs_enable_matchParen = 0
   let g:hiPairs_hl_matchPair = { 'term'    : 'underline,bold',

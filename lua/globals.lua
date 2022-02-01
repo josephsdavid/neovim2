@@ -29,7 +29,7 @@ Keys.vcommentleader = make_leader(Keys.leader("v"))
 Keys.actionleader = make_leader(Keys.leader("a"))
 Keys.telescopeleader = make_leader(Keys.leader("f"))
 Keys.troubleleader = make_leader(Keys.leader("x"))
-Keys.zeplleader = make_leader(Keys.leader("s"))
+Keys.replleader = make_leader(Keys.leader("g"))
 Keys.C = make_modifier("c")
 Keys.A = make_modifier("a")
 Keys.M = make_modifier("a")
@@ -45,3 +45,14 @@ Prequire = function(module) -- Stolen from danymat
 	local ok, mod = pcall(require, module)
 	return ok, mod
 end
+
+Notifications = {}
+
+Notifications.cwd = function()
+	require("notify")(vim.fn.getcwd(), "info", {
+		title = "CWD Changed!",
+		icon = "📂",
+    timeout = 1000
+	})
+end
+

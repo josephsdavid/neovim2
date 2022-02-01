@@ -2,6 +2,7 @@ local null_ls_status_ok, null_ls = pcall(require, "null-ls")
 if not null_ls_status_ok then
 	return
 end
+local lspconfig =require"lspconfig"
 
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
 local formatting = null_ls.builtins.formatting
@@ -34,8 +35,17 @@ null_ls.setup({
 		}), ]]
 		--[[ diagnostics.pylama,
 		diagnostics.pylint, ]]
+    -- diagnostics.flake8.with({
+    --   extra_args = { "--config", vim.fn.expand("~/.config/flake8") },
+    -- }),
 		diagnostics.hadolint,
 		diagnostics.selene,
 		diagnostics.shellcheck,
 	},
+  root_dir = lspconfig.util.root_pattern(
+  "pyproject.toml",
+  ".null-ls-root",
+  ".git",
+  ".env"
+  )
 })

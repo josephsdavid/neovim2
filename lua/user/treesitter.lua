@@ -179,6 +179,7 @@ require("nvim-treesitter.configs").setup({
 	textobjects = textob,
 	ensure_installed = {
 		"python",
+    "html",
 		"norg",
 		"c",
 		"norg_meta",
@@ -248,7 +249,13 @@ require("nvim-treesitter.configs").setup({
 			show_help = "?",
 		},
 	},
-})
+  query_linter = {
+    enable = true,
+    use_virtual_text = true,
+    lint_events = {"BufWrite", "CursorHold"},
+  },
+}
+)
 
 wk.register({
 	[Keys.refactorleader("")] = {

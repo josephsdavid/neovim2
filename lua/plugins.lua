@@ -60,11 +60,24 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/nvim-cmp")
 	use("saadparwaiz1/cmp_luasnip")
-	use({ "Yggdroot/hiPairs", event = "BufRead" })
-	use({ "axvr/zepl.vim", cmd = { "Repl" }, opt = true })
+	-- use({ "Yggdroot/hiPairs", event = "BufRead" })
+	-- use({ "axvr/zepl.vim", cmd = { "Repl" }, opt = true })
 	use({ "tpope/vim-repeat", event = "BufRead" })
 	use({ "tpope/vim-vinegar", event = "BufRead" })
-	use({ "tpope/vim-surround", event = "BufRead" })
+	use({
+    "blackCauldron7/surround.nvim",
+    event = "BufRead",
+    config = function ()
+     require('surround').setup{
+       mappings_style = "surround",
+       pairs = {
+         nestable = { b = { "(", ")" }, s = { "[", "]" }, B = { "{", "}" }, a = { "<", ">" }, S = {"*","*"} },
+         linear = { q = { "'", "'" }, t = { "`", "`" }, d = { '"', '"' }
+       },
+     }
+   }
+    end
+  })
 	use({ "tpope/vim-fugitive", cmd = { "Git" }, opt = true })
 	use({ "vimlab/split-term.vim", cmd = { "VTerm", "Term" }, opt = true })
 	use({
@@ -112,8 +125,9 @@ return packer.startup(function(use)
 	use({
 		"lewis6991/spellsitter.nvim",
 	})
-	use({ "elihunter173/dirbuf.nvim", cmd = "Dirbuf" })
-	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" },    event = "BufWinEnter", })
+	-- use({ "elihunter173/dirbuf.nvim", cmd = "Dirbuf" })
+	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" }, event = "BufWinEnter" })
+  -- use({"noib3/nvim-cokeline",requires = { "kyazdani42/nvim-web-devicons" } })
 	-- use({
 	-- 	"sainnhe/everforest",
 	-- })
@@ -126,48 +140,49 @@ return packer.startup(function(use)
 		end,
 	})
 	use({
-	  "themercorp/themer.lua",
-	  config = function()
-	    require("themer").setup({
-	      colorscheme = "everforest",
-	      transparent = false,
-	      styles = {
-	        comment = { style = 'italic' },
-	        -- ["function"] = { style = 'italic' },
-	        functionbuiltin = { style = 'italic' },
-        type = {style = 'italic'},
-        typeBuiltIn = {style = 'italic'},
-	        -- variable = { style = 'italic' },
-	        variableBuiltIn = { style = 'italic' },
-	        -- parameter  = { style = 'italic' },
-	      },
+		"themercorp/themer.lua",
+		config = function()
+			require("themer").setup({
+				colorscheme = "everforest",
+				transparent = false,
+				styles = {
+					comment = { style = "italic" },
+					-- ["function"] = { style = 'italic' },
+					functionbuiltin = { style = "italic" },
+					type = { style = "italic" },
+					typeBuiltIn = { style = "italic" },
+					-- variable = { style = 'italic' },
+					variableBuiltIn = { style = "italic" },
+					-- parameter  = { style = 'italic' },
+				},
 
-    remaps = {
-        palette = {
-          everforest = {
-            bg = {
-              base = "#323d43"
-            }
-          }
-        },
-        -- per colorscheme palette remaps, for example:
-        -- remaps.palette = {
-        --     rose_pine = {
-        --     	fg = "#000000"
-        --     }
-        -- },
-        -- would recommend to look into vim.api.nvim_set_hl() docs before using this
-        -- remaps.highlights = {
-        --     rose_pine = {
-        --     	Normal = { bg = "#000000" }
-        --     }
-        -- },
-        --
-        -- Also you can do remaps.highlights.globals  for global highlight remaps
-        highlights = {},
-    },
-	    })
-	  end
+				remaps = {
+					palette = {
+						everforest = {
+							bg = {
+								base = "#323d43",
+                selected = '#4b565c',
+							},
+						},
+					},
+					-- per colorscheme palette remaps, for example:
+					-- remaps.palette = {
+					--     rose_pine = {
+					--     	fg = "#000000"
+					--     }
+					-- },
+					-- would recommend to look into vim.api.nvim_set_hl() docs before using this
+					-- remaps.highlights = {
+					--     rose_pine = {
+					--     	Normal = { bg = "#000000" }
+					--     }
+					-- },
+					--
+					-- Also you can do remaps.highlights.globals  for global highlight remaps
+					highlights = {},
+				},
+			})
+		end,
 	})
 	use("direnv/direnv.vim")
 	use({
@@ -281,6 +296,30 @@ return packer.startup(function(use)
 	})
 
 	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" } })
+	use("nathom/filetype.nvim")
+  use({
+    "rcarriga/nvim-notify",
+    config = function ()
+      require"notify".setup({})
+    end
+  })
+  -- use({"dccsillag/magma-nvim", ft="python", run = ":UpdateRemotePlugins"})
+  use({"hkupty/iron.nvim"})
+  use("nvim-telescope/telescope-symbols.nvim")
+  use "folke/lua-dev.nvim"
+  use "rmagatti/goto-preview"
+  use({
+    "natecraddock/workspaces.nvim",
+    config = function ()
+      require("workspaces").setup({
+        hooks = {
+          open = { "Telescope find_files" },
+        }
+      })
+
+    end
+
+  })
 	use({
 		"rebelot/kanagawa.nvim",
 		config = function()
@@ -301,7 +340,6 @@ return packer.startup(function(use)
 			})
 		end,
 	})
-
 
 	-- use'mfussenegger/nvim-dap'
 	-- use{'mfussenegger/nvim-dap-python', requires = {"mfussenger/nvim-dap"}}
