@@ -100,7 +100,7 @@ local function lsp_keymaps(bufnr)
 		opts
 	)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("x"), "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
-	-- vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('telescope.builtin').lsp_references()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts)
 
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", leader .. "D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("D"), "<cmd>lua vim.lsp.buf.definition()<CR>", opts)

@@ -34,6 +34,13 @@ require("neorg").setup({
 			config = {
 				default_keybinds = true, -- Generate the default keybinds
 				neorg_leader = Keys.norgleader(""), -- This is the default if unspecified
+				hook = function(keybinds)
+					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable")
+					keybinds.map("norg", "n", Keys.C("j"), "core.norg.manouver.item_down")
+					keybinds.map("norg", "n", Keys.C("k"), "core.norg.manouver.item_up")
+					keybinds.map("norg", "n", Keys.C("k"), "core.norg.manouver.item_up")
+					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link")
+				end,
 			},
 		},
 		["core.norg.dirman"] = { -- Manage your directories with Neorg
@@ -53,39 +60,39 @@ require("neorg").setup({
 	},
 })
 
-local neorg_callbacks = require("neorg.callbacks")
+-- local neorg_callbacks = require("neorg.callbacks")
 
-neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, keybinds)
-	-- Map all the below keybinds only when the "norg" mode is active
-	keybinds.map_event_to_mode("norg", {
-		n = { -- Bind keys in normal mode
-			{ Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable" },
-			{ Keys.C("j"), "core.norg.manoeuvre.item_down" },
-			{ Keys.C("k"), "core.norg.manoeuvre.item_up" },
-			{ Keys.C("k"), "core.norg.manoeuvre.item_up" },
-		},
-
-		i = { -- Bind in insert mode
-			{ Keys.C("l"), "core.integrations.telescope.insert_link" },
-		},
-	}, {
-		silent = true,
-		noremap = true,
-	})
-
-	keybinds.map_event_to_mode("presenter", {
-		n = { -- Bind keys in normal mode
-			{ Keys.S("l"), "core.presenter.next_page" },
-			{ Keys.S("h"), "core.presenter.previous_page" },
-			{ Keys.S("c"), "core.presenter.close" },
-		},
-	}, {
-		silent = true,
-		noremap = true,
-		nowait = true,
-	})
-end)
-
+-- neorg_callbacks.on_event("core.keybinds.events.enable_keybinds", function(_, keybinds)
+-- 	-- Map all the below keybinds only when the "norg" mode is active
+-- 	keybinds.map_event_to_mode("norg", {
+-- 		n = { -- Bind keys in normal mode
+-- 			{ Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable" },
+-- 			{ Keys.C("j"), "core.norg.manoeuvre.item_down" },
+-- 			{ Keys.C("k"), "core.norg.manoeuvre.item_up" },
+-- 			{ Keys.C("k"), "core.norg.manoeuvre.item_up" },
+-- 		},
+--
+-- 		i = { -- Bind in insert mode
+-- 			{ Keys.C("l"), "core.integrations.telescope.insert_link" },
+-- 		},
+-- 	}, {
+-- 		silent = true,
+-- 		noremap = true,
+-- 	})
+--
+-- 	keybinds.map_event_to_mode("presenter", {
+-- 		n = { -- Bind keys in normal mode
+-- 			{ Keys.S("l"), "core.presenter.next_page" },
+-- 			{ Keys.S("h"), "core.presenter.previous_page" },
+-- 			{ Keys.S("c"), "core.presenter.close" },
+-- 		},
+-- 	}, {
+-- 		silent = true,
+-- 		noremap = true,
+-- 		nowait = true,
+-- 	})
+-- end)
+--
 -- local neorg = require('neorg')
 -- local function load_completion()
 --     neorg.modules.load_module("core.norg.completion", nil, {

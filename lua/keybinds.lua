@@ -37,6 +37,7 @@ local map_table = {
 			-- [{ "i", "jk" }] = "<ESC>",
 			[{ "t", "<Esc>" }] = { "<C-\\><C-n>", "Terminal escape" },
 			[{ "n", "_" }] = { "<C-^>", "Last Buffer" },
+			[{ "n", "cl" }] = { "s", "delete and insert mode" },
 			[{ "v", "<" }] = { "<gv", "Move text left" },
 			[{ "v", ">" }] = { ">gv", "Move text right" },
 			[{ "v", "p" }] = { '"_dP', "" },
@@ -54,6 +55,8 @@ local map_table = {
 			-- [{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
 			[{ "n", "cd" }] = { "<cmd>cd %:p:h<cr><cmd>lua Notifications.cwd()<cr>", "cd to current file" },
+			[{ "n", "l" }] = { "<cmd>ISwapWith<cr>", "Swap elements" },
+			[{ "n", "L" }] = { "<cmd>ISwap<cr>", "Swap elements (hard mode)" },
 		},
 	},
 
@@ -265,6 +268,3 @@ for _, v in pairs(map_table) do
 		wk.register({ [v.leader("")] = { name = v.name } })
 	end
 end
-vim.cmd [[
-nnoremap <expr> <LocalLeader>s nvim_exec('MagmaEvaluateOperator', v:true)
-]]

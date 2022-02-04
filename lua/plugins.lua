@@ -60,24 +60,26 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/nvim-cmp")
 	use("saadparwaiz1/cmp_luasnip")
-	-- use({ "Yggdroot/hiPairs", event = "BufRead" })
+	use({ "Yggdroot/hiPairs", event = "BufRead" })
 	-- use({ "axvr/zepl.vim", cmd = { "Repl" }, opt = true })
 	use({ "tpope/vim-repeat", event = "BufRead" })
-	use({ "tpope/vim-vinegar", event = "BufRead" })
-	use({
-    "blackCauldron7/surround.nvim",
-    event = "BufRead",
-    config = function ()
-     require('surround').setup{
-       mappings_style = "surround",
-       pairs = {
-         nestable = { b = { "(", ")" }, s = { "[", "]" }, B = { "{", "}" }, a = { "<", ">" }, S = {"*","*"} },
-         linear = { q = { "'", "'" }, t = { "`", "`" }, d = { '"', '"' }
-       },
-     }
-   }
-    end
-  })
+	-- use({ "tpope/vim-vinegar", event = "BufRead" })
+	use({ "tpope/vim-surround", event = "BufRead" })
+	-- use({
+	--    "blackCauldron7/surround.nvim",
+	--    event = "BufRead",
+	--    config = function ()
+	--     require('surround').setup{
+	--       mappings_style = "surround",
+	--       pairs = {
+	--         nestable = { b = { "(", ")" }, s = { "[", "]" }, B = { "{", "}" }, a = { "<", ">" }, S = {"*","*"} },
+	--         linear = { q = { "'", "'" }, t = { "`", "`" }, d = { '"', '"' }
+	--       },
+	--     }
+	--   }
+	--    end
+	--  })
+  use 'mizlan/iswap.nvim'
 	use({ "tpope/vim-fugitive", cmd = { "Git" }, opt = true })
 	use({ "vimlab/split-term.vim", cmd = { "VTerm", "Term" }, opt = true })
 	use({
@@ -117,8 +119,6 @@ return packer.startup(function(use)
 			})
 		end,
 		requires = "nvim-treesitter/nvim-treesitter",
-		opt = true,
-		ft = { "python", "lua" },
 	})
 	use("romgrk/nvim-treesitter-context")
 	use("RRethy/nvim-treesitter-textsubjects")
@@ -210,11 +210,6 @@ return packer.startup(function(use)
 
 	use({
 		"pocco81/truezen.nvim",
-		cmd = { "TZAtaraxis", "TZFocus", "TZMinimalist" },
-		ft = { "norg" },
-		config = function()
-			require("user.zen")
-		end,
 	})
 
 	-- HACK
@@ -224,6 +219,7 @@ return packer.startup(function(use)
 		"SmiteshP/nvim-gps",
 		wants = "nvim-treesitter/nvim-treesitter",
 	})
+  use 'ggandor/lightspeed.nvim'
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -308,6 +304,15 @@ return packer.startup(function(use)
   use("nvim-telescope/telescope-symbols.nvim")
   use "folke/lua-dev.nvim"
   use "rmagatti/goto-preview"
+
+  use({
+    "andweeb/presence.nvim",
+    config = function()
+      require("presence"):setup({
+        enable_line_number = true,
+      })
+    end,
+  })
   use({
     "natecraddock/workspaces.nvim",
     config = function ()
@@ -340,6 +345,32 @@ return packer.startup(function(use)
 			})
 		end,
 	})
+  use({
+    "jbyuki/venn.nvim",
+    config = function()
+      -- venn.nvim: enable or disable keymappings
+      function _G.Toggle_venn()
+        local venn_enabled = vim.inspect(vim.b.venn_enabled)
+        if venn_enabled == "nil" then
+          vim.b.venn_enabled = true
+          vim.cmd[[setlocal ve=all]]
+          -- draw a line on HJKL keystokes
+          vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
+          vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
+          vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
+          vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
+          -- draw a box by pressing "f" with visual selection
+          vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
+        else
+          vim.cmd[[setlocal ve=]]
+          vim.cmd[[mapclear <buffer>]]
+          vim.b.venn_enabled = nil
+        end
+      end
+      -- toggle keymappings for venn using <leader>v
+      vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true})
+    end,
+  })
 
 	-- use'mfussenegger/nvim-dap'
 	-- use{'mfussenegger/nvim-dap-python', requires = {"mfussenger/nvim-dap"}}

@@ -52,7 +52,7 @@ local select = {
 }
 
 local swap = {
-	enable = true,
+	enable = false,
 	swap_next = {
 		[Keys.swapleader("p")] = "@parameter.inner",
 		[Keys.swapleader("f")] = "@function.outer",
@@ -63,15 +63,15 @@ local swap = {
 	},
 }
 
-wk.register({
-	[Keys.swapleader("")] = {
-		name = "Swap",
-		p = { name = "Move parameter forward" },
-		["P"] = { name = "Move parameter backward" },
-		f = { name = "Move function forward" },
-		["F"] = { name = "Move function backward" },
-	},
-})
+-- wk.register({
+-- 	[Keys.swapleader("")] = {
+-- 		name = "Swap",
+-- 		p = { name = "Move parameter forward" },
+-- 		["P"] = { name = "Move parameter backward" },
+-- 		f = { name = "Move function forward" },
+-- 		["F"] = { name = "Move function backward" },
+-- 	},
+-- })
 
 local move = {
 	enable = true,
@@ -98,14 +98,18 @@ local lsp_interop = {
 	enable = true,
 	border = "none",
 	peek_definition_code = {
-		[Keys.peekleader("f")] = "@function.outer",
-		[Keys.peekleader("c")] = "@class.outer",
+		[Keys.peekleader("f")] = "@function.inner",
+		[Keys.peekleader("c")] = "@class.inner",
+		[Keys.peekleader("F")] = "@function.outer",
+		[Keys.peekleader("C")] = "@class.outer",
 	},
 }
 
 wk.register({
 	[Keys.peekleader("")] = {
 		name = "peek",
+		F = { name = "function peek" },
+		C = { name = "class peek" },
 		f = { name = "function peek" },
 		c = { name = "class peek" },
 	},
@@ -261,8 +265,8 @@ wk.register({
 	[Keys.refactorleader("")] = {
 		name = "refactor",
 		n = { name = "rename" },
-		d = { name = "defintion" },
-		["D"] = { name = "defintion list" },
-		["gO"] = { name = "defintion toc" },
+		d = { name = "definition" },
+		 ["D"] = { name = "definition list" },
+		["gO"] = { name = "definition toc" },
 	},
 })

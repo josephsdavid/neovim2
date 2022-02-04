@@ -11,8 +11,8 @@ require "user.luasnip"
 require "user.toggleterm"
 -- require "user.comment"
 require "user.lualine"
--- require "user.clickfree"
--- require "user.lightspeed"
+require "user.zen"
+require "user.lightspeed"
 require "user.null-ls"
 require "user.gitsigns"
 -- require "user.neogit"
@@ -37,7 +37,28 @@ require "user.whichkey"
 
 
 -- local utils = require("user.utils")
--- local mappings = utils.mappings
+-- local mappings = utils.-- local mappings = utils.mappingsA
+
+function _G.Toggle_venn()
+  local venn_enabled = vim.inspect(vim.b.venn_enabled)
+  if venn_enabled == "nil" then
+    vim.b.venn_enabled = true
+    vim.cmd[[setlocal ve=all]]
+    -- draw a line on HJKL keystokes
+    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
+    -- draw a box by pressing "f" with visual selection
+    vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
+  else
+    vim.cmd[[setlocal ve=]]
+    vim.cmd[[mapclear <buffer>]]
+    vim.b.venn_enabled = nil
+  end
+end
+-- toggle keymappings for venn using <leader>v
+vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true})
 
 
 vim.cmd [[
@@ -78,6 +99,8 @@ vim.cmd [[
   " autocmd BufEnter * if expand("%:p:h") !~ '*.norg' | silent! lcd %:p:h | endif
 
   let g:hiPairs_enable_matchParen = 0
+  let g:hiPairs_timeout = 1
+  let g:hiPairs_insert_timeout = 1
   let g:hiPairs_hl_matchPair = { 'term'    : 'underline,bold',
               \                  'cterm'   : 'underline,bold',
               \                  'ctermfg' : '0',
