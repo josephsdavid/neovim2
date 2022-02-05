@@ -6,6 +6,7 @@ iron.core.set_config {
   preferred = {
     python = "ptpython",
     lua = "lua",
+    julia = "julia",
   }
 }
 vim.g.iron_map_defaults = 0

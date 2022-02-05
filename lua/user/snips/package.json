@@ -280,6 +280,10 @@
         "path": "./snippets/cobol/vscode_cobol_jcl.json"
       },
       {
+        "language": "julia",
+        "path": "./snippets/julia.json"
+      },
+      {
         "language": "kotlin",
         "path": "./snippets/kotlin.json"
       },

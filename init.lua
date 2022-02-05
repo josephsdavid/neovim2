@@ -24,7 +24,7 @@ require "user.iron"
 -- require "user.dap"
 -- require "user.staline"
 -- require "user.indentline"
--- require "colors"
+require "colors"
 require "keybinds"
 require "user.whichkey"
 -- vim.opt.list = true
@@ -81,8 +81,10 @@ vim.cmd [[
   augroup _markdown
     autocmd!
     autocmd FileType markdown setlocal wrap
+    autocmd FileType markdown setlocal linebreak
     autocmd FileType markdown setlocal spell
     autocmd FileType norg setlocal wrap
+    autocmd FileType norg setlocal linebreak
     " autocmd FileType norg setlocal spell
   augroup end
 

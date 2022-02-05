@@ -9,12 +9,43 @@ local formatting = null_ls.builtins.formatting
 -- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
 local diagnostics = null_ls.builtins.diagnostics
 
+local helpers = require("null-ls.helpers")
+
+-- local jet_julia = {
+--   method = null_ls.methods.DIAGNOSTICS,
+--   filetypes = { "julia" },
+--   generator = null_ls.generator({
+--     command = "jet",
+--     to_stdin = true,
+--     from_stderr = true,
+--     timeout = 15000, -- arbitrary large number. Depending on how long JET takes, you may need to increase this number
+--     format = "line",
+--     check_exit_code = function(code)
+--       return code <= 1
+--     end,
+--     args = function(params)
+--       local filename = params.bufname
+--       return { filename }
+--     end,
+--     on_output = helpers.diagnostics.from_patterns({
+--       {
+--         pattern = [[(%d+):(.*)]],
+--         groups = { "row", "message" },
+--       },
+--     }),
+--   }),
+-- }
+--
+-- null_ls.register(jet_julia)
+
+
 null_ls.setup({
 	debug = false,
 	sources = {
 		formatting.yapf,
 		formatting.stylua,
 		formatting.isort,
+    -- jet_julia,
 		--[[ diagnostics.mypy.with({
 			extra_args = {
 				"--ignore-missing-imports",

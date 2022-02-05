@@ -25,9 +25,27 @@ lsp_installer.on_server_ready(function(server)
 	 	local pyright_opts = require("user.lsp.settings.pyright")
 	 	opts = vim.tbl_deep_extend("force", pyright_opts, opts)
 	 end
+	 if server.name == "julials" then
+	 	local jlopts = require("user.lsp.settings.julials")
+	 	opts = vim.tbl_deep_extend("force", jlopts, opts)
+	 end
+
+
+	 -- if server.name == "julials" then
+	 -- 	local jl_opts = {
+	 --     julia = {
+	 --       NumThreads = 4
+	 --     }
+	 --
+	 --   }
+	 -- 	opts = vim.tbl_deep_extend("force", jl_opts, opts)
+	 -- end
+
+
 
 	-- This setup() function is exactly the same as lspconfig's setup function.
 	-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 	server:setup(opts)
 end)
+
 

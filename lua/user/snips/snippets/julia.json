@@ -1,0 +1,48 @@
+{
+  "Function Declaration": {
+    "prefix": "function",
+    "body": [
+      "function ${1:name}${2}",
+      "\t$0",
+      "end  # function ${1:name}"
+    ],
+    "description": "Function declaration with ending comment"
+  },
+  "Macro Declaration": {
+    "prefix": "macro",
+    "body": [
+      "macro ${1:name}${2}",
+      "\t$0",
+      "end  # macro ${1:name}"
+    ],
+    "description": "Macro declaration with ending comment"
+  },
+
+  "Module":{ 
+    "prefix": "module",
+    "body": [
+    "module ${1:name}",
+    "${2}",
+    "end  # module ${1}"
+    ]
+  },
+  "Bang":{ 
+    "prefix": "#!",
+    "body": [
+      "#! /usr/bin/env julia",
+    "${1}"
+    ]
+  },
+  "Using":{
+      "prefix": "using",
+      "body": "using ${1:module}"
+  }
+  "Include":{ 
+    "prefix": "include",
+    "body": "include('${1:file}')"
+  }   
+  "Typed variable":{
+      "prefix": "tv",
+      "body": "${1:var}::${2:type}",
+      }
+}

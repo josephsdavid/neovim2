@@ -146,6 +146,18 @@ local map_table = {
 			-- [{ "n", "?" }] = { ":lua local widgets=require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>", "scopes" },
 		},
 	},
+	refactor = { -- mappings to refactorleader
+		leader = Keys.refactorleader,
+		name = "refactor",
+		opts = { noremap = true, silent = false },
+		maps = {
+			[{ "v", "r" }] = { "<Esc><Cmd>lua require('refactoring').refactor('Extract Function')<CR>", "Refactor function" },
+			[{ "v", "f" }] = { "<Esc><Cmd>lua require('refactoring').refactor('Extract Function To File')<CR>", "Refactor funciton to file" },
+			[{ "v", "v" }] = { "<Esc><Cmd>lua require('refactoring').refactor('Extract Variable')<CR>", "Refactor var" },
+			[{ "v", "i" }] = { "<Esc><Cmd>lua require('refactoring').refactor('Inline Variable')<CR>", "Refactor  var inline" },
+			[{ "v", " " }] = { "<Esc><cmd>lua require('telescope').extensions.refactoring.refactors()<CR>", "Refactor help" },
+		},
+	},
 
 	hop = { -- mappings to hopleader
 		leader = Keys.hopleader,

@@ -183,6 +183,7 @@ require("nvim-treesitter.configs").setup({
 	textobjects = textob,
 	ensure_installed = {
 		"python",
+		"julia",
     "html",
 		"norg",
 		"c",

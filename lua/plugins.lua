@@ -54,6 +54,7 @@ return packer.startup(function(use)
 	use("neovim/nvim-lspconfig")
 	use("williamboman/nvim-lsp-installer") -- simple to use language server installer
 	use("L3MON4D3/LuaSnip")
+	use("kdheepak/cmp-latex-symbols")
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
@@ -97,12 +98,12 @@ return packer.startup(function(use)
 	use({ "ray-x/lsp_signature.nvim" })
 	use("ray-x/cmp-treesitter")
 	use("nvim-treesitter/playground")
-	-- use({
-	--   'j-hui/fidget.nvim',
-	-- config = function()
-	-- 	require("fidget").setup()
-	-- end,
-	-- })
+	use({
+	  'j-hui/fidget.nvim',
+	config = function()
+		require("fidget").setup()
+	end,
+	})
 	use("arkav/lualine-lsp-progress")
 	use({
 		"danymat/neogen",
@@ -128,9 +129,14 @@ return packer.startup(function(use)
 	-- use({ "elihunter173/dirbuf.nvim", cmd = "Dirbuf" })
 	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" }, event = "BufWinEnter" })
   -- use({"noib3/nvim-cokeline",requires = { "kyazdani42/nvim-web-devicons" } })
-	-- use({
-	-- 	"sainnhe/everforest",
-	-- })
+	use({
+		"sainnhe/everforest",
+	})
+  use {
+      "mcchrish/zenbones.nvim",
+      requires = "rktjmp/lush.nvim"
+  }
+  use 'folke/tokyonight.nvim'
 	use({ "echasnovski/mini.nvim", requires = { "lewis6991/gitsigns.nvim", "kyazdani42/nvim-web-devicons" } })
 	use({
 		"startup-nvim/startup.nvim",
@@ -139,51 +145,52 @@ return packer.startup(function(use)
 			require("startup").setup(require("user.startup"))
 		end,
 	})
-	use({
-		"themercorp/themer.lua",
-		config = function()
-			require("themer").setup({
-				colorscheme = "everforest",
-				transparent = false,
-				styles = {
-					comment = { style = "italic" },
-					-- ["function"] = { style = 'italic' },
-					functionbuiltin = { style = "italic" },
-					type = { style = "italic" },
-					typeBuiltIn = { style = "italic" },
-					-- variable = { style = 'italic' },
-					variableBuiltIn = { style = "italic" },
-					-- parameter  = { style = 'italic' },
-				},
-
-				remaps = {
-					palette = {
-						everforest = {
-							bg = {
-								base = "#323d43",
-                selected = '#4b565c',
-							},
-						},
-					},
-					-- per colorscheme palette remaps, for example:
-					-- remaps.palette = {
-					--     rose_pine = {
-					--     	fg = "#000000"
-					--     }
-					-- },
-					-- would recommend to look into vim.api.nvim_set_hl() docs before using this
-					-- remaps.highlights = {
-					--     rose_pine = {
-					--     	Normal = { bg = "#000000" }
-					--     }
-					-- },
-					--
-					-- Also you can do remaps.highlights.globals  for global highlight remaps
-					highlights = {},
-				},
-			})
-		end,
-	})
+	-- use({
+	-- 	"themercorp/themer.lua",
+	-- 	config = function()
+	-- 		require("themer").setup({
+	-- 			-- colorscheme = "everforest",
+	-- 			transparent = false,
+	-- 			styles = {
+	-- 				comment = { style = "italic" },
+	-- 				-- ["function"] = { style = 'italic' },
+	-- 				functionbuiltin = { style = "italic" },
+	-- 				type = { style = "italic" },
+	-- 				typeBuiltIn = { style = "italic" },
+	-- 				-- variable = { style = 'italic' },
+	-- 				variableBuiltIn = { style = "italic" },
+	-- 				-- parameter  = { style = 'italic' },
+	-- 			},
+	--
+	-- 			remaps = {
+	-- 				palette = {
+	-- 					everforest = {
+	-- 						bg = {
+	-- 							base = "#323d43",
+	--                selected = '#4b565c',
+	-- 						},
+	-- 					},
+	-- 				},
+	-- 				-- per colorscheme palette remaps, for example:
+	-- 				-- remaps.palette = {
+	-- 				--     rose_pine = {
+	-- 				--     	fg = "#000000"
+	-- 				--     }
+	-- 				-- },
+	-- 				-- would recommend to look into vim.api.nvim_set_hl() docs before using this
+	-- 				-- remaps.highlights = {
+	-- 				--     rose_pine = {
+	-- 				--     	Normal = { bg = "#000000" }
+	-- 				--     }
+	-- 				-- },
+	-- 				--
+	-- 				-- Also you can do remaps.highlights.globals  for global highlight remaps
+	-- 				highlights = {},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
+  -- use "GustavoPrietoP/doom-themes.nvim"
 	use("direnv/direnv.vim")
 	use({
 		"tamton-aquib/duck.nvim",
@@ -345,6 +352,18 @@ return packer.startup(function(use)
 			})
 		end,
 	})
+  use {
+      "ThePrimeagen/refactoring.nvim",
+      requires = {
+          {"nvim-lua/plenary.nvim"},
+          {"nvim-treesitter/nvim-treesitter"}
+      }
+  }
+  -- use({
+  --   "kdheepak/JET.nvim",
+  --   requires = "jose-elias-alvarez/null-ls.nvim",
+  --   run = [[mkdir -p ~/.julia/environments/nvim-null-ls && julia --startup-file=no --project=~/.julia/environments/nvim-null-ls -e 'using Pkg; Pkg.add("JET")']],
+  -- })
   use({
     "jbyuki/venn.nvim",
     config = function()

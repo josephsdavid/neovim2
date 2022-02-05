@@ -108,6 +108,7 @@ cmp.setup({
 				path = "[PATH]",
 				neorg = "[NEORG]",
 				buffer = "[BUFF]",
+				latex_symbols = "[TEX]",
 			})[entry.source.name]
 			return vim_item
 		end,
@@ -120,6 +121,7 @@ cmp.setup({
 		{ name = "path" },
 		{ name = "neorg" },
 		{ name = "buffer" },
+		{ name = "latex_symbols" },
 	},
 	confirm_opts = {
 		behavior = cmp.ConfirmBehavior.Replace,
