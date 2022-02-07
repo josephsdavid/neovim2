@@ -52,17 +52,17 @@ local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.resolved_capabilities.document_highlight then
 
-		-- vim.api.nvim_exec(
-		-- 	[[
-		--     augroup lsp_document_highlight
-		--       autocmd! * <buffer>
-		--       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-		--       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-		--     augroup END
-		--
-		--   ]],
-		-- 	false
-		-- )
+		vim.api.nvim_exec(
+			[[
+		    augroup lsp_document_highlight
+		      autocmd! * <buffer>
+		      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+		      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+		    augroup END
+
+		  ]],
+			false
+		)
 	end
 end
 
@@ -100,7 +100,7 @@ local function lsp_keymaps(bufnr)
 		opts
 	)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("x"), "<cmd>lua require('goto-preview').close_all_win()<CR>", opts)
-	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('goto-preview').goto_preview_references()<CR>", opts)
+	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("r"), "<cmd>lua require('telescope.builtin').lsp_references()<cr>", opts)
 
 	-- vim.api.nvim_buf_set_keymap(bufnr, "n", leader .. "D", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", Keys.go("D"), "<cmd>lua vim.lsp.buf.definition()<CR>", opts)

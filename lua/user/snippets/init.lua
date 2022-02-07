@@ -19,10 +19,8 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
--- If you're reading this file for the first time, best skip to around line 190
--- where the actual snippet-definitions start.
 
--- Every unspecified option will be set to the default.
+
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
@@ -201,8 +199,9 @@ ls.snippets = {
     pair('"', '"', neg, even_count),
     pair("`", "`", neg, even_count),
   },
+  python = require('user.snippets.python'),
+  julia = require('user.snippets.julia').snippets,
 }
-
 
 
 ls.autosnippets = {
@@ -216,6 +215,3 @@ ls.autosnippets = {
 ls.filetype_set("cpp", { "c" })
 require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
 ls.filetype_extend("all", { "_" })
-
-
-

@@ -6,7 +6,7 @@ require 'packer_compiled'
 require "user.lsp"
 require "user.treesitter"
 require "user.cmp"
-require "user.luasnip"
+require "user.snippets"
 -- require "user.telescope"
 require "user.toggleterm"
 -- require "user.comment"
