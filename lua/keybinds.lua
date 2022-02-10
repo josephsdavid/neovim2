@@ -1,7 +1,5 @@
 local wk = require("which-key")
-
-local function apply_maps(list, opts)
-	for key, value in pairs(list) do
+local function apply_maps(list, opts) for key, value in pairs(list) do
 		vim.api.nvim_set_keymap(key[1], key[2], value[1], opts)
 		wk.register({ [key[2]] = value[2] })
 	end
@@ -55,8 +53,8 @@ local map_table = {
 			-- [{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
 			[{ "n", "cd" }] = { "<cmd>cd %:p:h<cr><cmd>lua Notifications.cwd()<cr>", "cd to current file" },
-			[{ "n", "l" }] = { "<cmd>ISwapWith<cr>", "Swap elements" },
-			[{ "n", "L" }] = { "<cmd>ISwap<cr>", "Swap elements (hard mode)" },
+			-- [{ "n", "l" }] = { "<cmd>ISwapWith<cr>", "Swap elements" },
+			-- [{ "n", "L" }] = { "<cmd>ISwap<cr>", "Swap elements (hard mode)" },
 		},
 	},
 
@@ -130,8 +128,9 @@ local map_table = {
 		name = "duck/docs",
 		opts = { noremap = true, silent = false },
 		maps = {
-			[{ "n", "c" }] = { ":lua require('neogen').generate({type = 'class'})<CR>", "Document class" },
+			[{ "n", "C" }] = { ":lua require('neogen').generate({type = 'class'})<CR>", "Document class" },
 			[{ "n", "f" }] = { ":lua require('neogen').generate()<CR>", "Document function" },
+			[{ "n", " " }] = { ":lua require('neogen').generate()<CR>", "Document function" },
 			[{ "n", "d" }] = { ":lua require('duck').hatch('🐔')<CR>", "make duck" },
 			[{ "n", "D" }] = { ":lua require('duck').cook()<CR>", "kill duck" },
 			-- [{ "n", "h" }] = { ":lua require('dap').toggle_breakpoint()<CR>", "breakpoint" },
@@ -230,6 +229,7 @@ local map_table = {
 				"find files",
 			},
 			[{ "n", "g" }] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Live grep" },
+			[{ "n", "t" }] = { "<cmd>TodoTelescope<cr>", "Todo" },
 			[{ "n", "b" }] = {
 				"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
 				"find buffers",
@@ -268,6 +268,19 @@ local map_table = {
 			[{ "n", "p" }] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
 			[{ "n", "t" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
 			[{ "n", "c" }] = { "<cmd>cd %:p:h<cr>", "cd to current file" },
+		},
+	},
+	qf = { -- mappings to harpoonleader
+		leader = Keys.qfleader,
+		name = "quickfix",
+		opts = { noremap = true, silent = true },
+		maps = {
+
+			[{ "n", "t" }] = { "<cmd>TodoQuickFix<cr>", "Todos" },
+			[{ "n", "d" }] = { "<cmd>lua vim.diagnostic.setloclist()<CR>", "diagnostics" },
+			[{ "n", "r" }] = { "<cmd>lua vim.lsp.buf.references()<CR>", "references" },
+			[{ "n", "s" }] = { "<cmd>lua vim.lsp.buf.document_symbol()<CR>", "symbols" },
+			[{ "n", "S" }] = { "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>", "symbols (more)" },
 		},
 	},
 }

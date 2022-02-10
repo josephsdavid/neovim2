@@ -37,6 +37,7 @@ Keys.tableader = make_leader(Keys.leader("t"))
 Keys.bufferleader = make_leader(Keys.leader("b"))
 Keys.norgleader = make_leader(Keys.leader("o"))
 Keys.harpoonleader = make_leader(Keys.leader("m"))
+Keys.qfleader = make_leader(Keys.leader("q"))
 
 Prequire = function(module) -- Stolen from danymat
 	local ok, mod = pcall(require, module)

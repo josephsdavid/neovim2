@@ -80,30 +80,29 @@ return packer.startup(function(use)
 	--   }
 	--    end
 	--  })
-  use 'mizlan/iswap.nvim'
+	-- use("mizlan/iswap.nvim")
 	use({ "tpope/vim-fugitive", cmd = { "Git" }, opt = true })
 	use({ "vimlab/split-term.vim", cmd = { "VTerm", "Term" }, opt = true })
 	use({
 		"lukas-reineke/indent-blankline.nvim",
-		ft = { "python", "lua" },
+		ft = { "python", "lua", "julia" },
 		config = function()
 			require("user.indentline")
 		end,
 	})
 	use("akinsho/toggleterm.nvim")
 	use("lewis6991/impatient.nvim")
-	use("JoosepAlviste/nvim-ts-context-commentstring")
 	use("folke/lsp-colors.nvim")
 	use("jose-elias-alvarez/null-ls.nvim")
 	use({ "ray-x/lsp_signature.nvim" })
 	use("ray-x/cmp-treesitter")
 	use("nvim-treesitter/playground")
-	use({
-	  'j-hui/fidget.nvim',
-	config = function()
-		require("fidget").setup()
-	end,
-	})
+	-- use({
+	-- 	"j-hui/fidget.nvim",
+	-- 	config = function()
+	-- 		require("fidget").setup()
+	-- 	end,
+	-- })
 	use("arkav/lualine-lsp-progress")
 	use({
 		"danymat/neogen",
@@ -128,15 +127,15 @@ return packer.startup(function(use)
 	})
 	-- use({ "elihunter173/dirbuf.nvim", cmd = "Dirbuf" })
 	use({ "romgrk/barbar.nvim", requires = { "kyazdani42/nvim-web-devicons" }, event = "BufWinEnter" })
-  -- use({"noib3/nvim-cokeline",requires = { "kyazdani42/nvim-web-devicons" } })
+	-- use({"noib3/nvim-cokeline",requires = { "kyazdani42/nvim-web-devicons" } })
 	use({
 		"sainnhe/everforest",
 	})
-  use {
-      "mcchrish/zenbones.nvim",
-      requires = "rktjmp/lush.nvim"
-  }
-  use 'folke/tokyonight.nvim'
+	use({
+		"mcchrish/zenbones.nvim",
+		requires = "rktjmp/lush.nvim",
+	})
+	use("folke/tokyonight.nvim")
 	use({ "echasnovski/mini.nvim", requires = { "lewis6991/gitsigns.nvim", "kyazdani42/nvim-web-devicons" } })
 	use({
 		"startup-nvim/startup.nvim",
@@ -190,7 +189,7 @@ return packer.startup(function(use)
 	-- 		})
 	-- 	end,
 	-- })
-  -- use "GustavoPrietoP/doom-themes.nvim"
+	-- use "GustavoPrietoP/doom-themes.nvim"
 	use("direnv/direnv.vim")
 	use({
 		"tamton-aquib/duck.nvim",
@@ -226,7 +225,7 @@ return packer.startup(function(use)
 		"SmiteshP/nvim-gps",
 		wants = "nvim-treesitter/nvim-treesitter",
 	})
-  use 'ggandor/lightspeed.nvim'
+	use("ggandor/lightspeed.nvim")
 	use({
 		"phaazon/hop.nvim",
 		branch = "v1", -- optional but strongly recommended
@@ -280,7 +279,37 @@ return packer.startup(function(use)
 		-- ft = {"norg"}
 	})
 	use({ "nvim-telescope/telescope-project.nvim" })
-	use({ "chentau/marks.nvim" })
+	use({
+		"chentau/marks.nvim",
+		config = function()
+			require("marks").setup({
+				-- whether to map keybinds or not. default true
+				default_mappings = true,
+				-- which builtin marks to show. default {}
+				builtin_marks = {},
+				-- whether movements cycle back to the beginning/end of buffer. default true
+				cyclic = true,
+				-- whether the shada file is updated after modifying uppercase marks. default false
+				force_write_shada = false,
+				-- how often (in ms) to redraw signs/recompute mark positions.
+				-- higher values will have better performance but may cause visual lag,
+				-- while lower values may cause performance penalties. default 150.
+				refresh_interval = 250,
+				-- sign priorities for each type of mark - builtin marks, uppercase marks, lowercase
+				-- marks, and bookmarks.
+				-- can be either a table with all/none of the keys, or a single number, in which case
+				-- the priority applies to all marks.
+				-- default 10.
+				sign_priority = { lower = 18, upper = 18, builtin = 1, bookmark = 10 },
+				excluded_filetypes = {},
+				bookmark_0 = {
+					sign = "⚑",
+					virt_text = "hello world",
+				},
+				mappings = {},
+			})
+		end,
+	})
 
 	use({
 		"nvim-telescope/telescope-frecency.nvim",
@@ -300,38 +329,36 @@ return packer.startup(function(use)
 
 	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" } })
 	use("nathom/filetype.nvim")
-  use({
-    "rcarriga/nvim-notify",
-    config = function ()
-      require"notify".setup({})
-    end
-  })
-  -- use({"dccsillag/magma-nvim", ft="python", run = ":UpdateRemotePlugins"})
-  use({"hkupty/iron.nvim"})
-  use("nvim-telescope/telescope-symbols.nvim")
-  use "folke/lua-dev.nvim"
-  use "rmagatti/goto-preview"
+	use({
+		"rcarriga/nvim-notify",
+		config = function()
+			require("notify").setup({})
+		end,
+	})
+	-- use({"dccsillag/magma-nvim", ft="python", run = ":UpdateRemotePlugins"})
+	use({ "hkupty/iron.nvim" })
+	use("nvim-telescope/telescope-symbols.nvim")
+	use("folke/lua-dev.nvim")
+	use("rmagatti/goto-preview")
 
-  use({
-    "andweeb/presence.nvim",
-    config = function()
-      require("presence"):setup({
-        enable_line_number = true,
-      })
-    end,
-  })
-  use({
-    "natecraddock/workspaces.nvim",
-    config = function ()
-      require("workspaces").setup({
-        hooks = {
-          open = { "Telescope find_files" },
-        }
-      })
-
-    end
-
-  })
+	use({
+		"andweeb/presence.nvim",
+		config = function()
+			require("presence"):setup({
+				enable_line_number = true,
+			})
+		end,
+	})
+	use({
+		"natecraddock/workspaces.nvim",
+		config = function()
+			require("workspaces").setup({
+				hooks = {
+					open = { "Telescope find_files" },
+				},
+			})
+		end,
+	})
 	use({
 		"rebelot/kanagawa.nvim",
 		config = function()
@@ -352,44 +379,121 @@ return packer.startup(function(use)
 			})
 		end,
 	})
-  use {
-      "ThePrimeagen/refactoring.nvim",
-      requires = {
-          {"nvim-lua/plenary.nvim"},
-          {"nvim-treesitter/nvim-treesitter"}
-      }
-  }
-  -- use({
-  --   "kdheepak/JET.nvim",
-  --   requires = "jose-elias-alvarez/null-ls.nvim",
-  --   run = [[mkdir -p ~/.julia/environments/nvim-null-ls && julia --startup-file=no --project=~/.julia/environments/nvim-null-ls -e 'using Pkg; Pkg.add("JET")']],
-  -- })
-  use({
-    "jbyuki/venn.nvim",
-    config = function()
-      -- venn.nvim: enable or disable keymappings
-      function _G.Toggle_venn()
-        local venn_enabled = vim.inspect(vim.b.venn_enabled)
-        if venn_enabled == "nil" then
-          vim.b.venn_enabled = true
-          vim.cmd[[setlocal ve=all]]
-          -- draw a line on HJKL keystokes
-          vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
-          vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
-          vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
-          vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
-          -- draw a box by pressing "f" with visual selection
-          vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
-        else
-          vim.cmd[[setlocal ve=]]
-          vim.cmd[[mapclear <buffer>]]
-          vim.b.venn_enabled = nil
-        end
-      end
-      -- toggle keymappings for venn using <leader>v
-      vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true})
-    end,
-  })
+	use({
+		"ThePrimeagen/refactoring.nvim",
+		requires = {
+			{ "nvim-lua/plenary.nvim" },
+			{ "nvim-treesitter/nvim-treesitter" },
+		},
+	})
+	-- use({
+	--   "kdheepak/JET.nvim",
+	--   requires = "jose-elias-alvarez/null-ls.nvim",
+	--   run = [[mkdir -p ~/.julia/environments/nvim-null-ls && julia --startup-file=no --project=~/.julia/environments/nvim-null-ls -e 'using Pkg; Pkg.add("JET")']],
+	-- })
+	-- Lua
+	use({
+		"abecodes/tabout.nvim",
+		config = function()
+			require("tabout").setup({
+				tabkey = "<Tab>", -- key to trigger tabout, set to an empty string to disable
+				backwards_tabkey = "<S-Tab>", -- key to trigger backwards tabout, set to an empty string to disable
+				act_as_tab = true, -- shift content if tab out is not possible
+				act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
+				enable_backwards = true, -- well ...
+				completion = true, -- if the tabkey is used in a completion pum
+				tabouts = {
+					{ open = "'", close = "'" },
+					{ open = '"', close = '"' },
+					{ open = "`", close = "`" },
+					{ open = "(", close = ")" },
+					{ open = "[", close = "]" },
+					{ open = "{", close = "}" },
+				},
+				ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
+				exclude = {}, -- tabout will ignore these filetypes
+			})
+		end,
+		wants = { "nvim-treesitter" }, -- or require if not used so far
+		after = { "nvim-cmp" }, -- if a completion plugin is using tabs load it before
+	})
+	-- Lua
+	use({
+		"folke/todo-comments.nvim",
+		requires = "nvim-lua/plenary.nvim",
+		config = function()
+			require("todo-comments").setup({
+        keywords = {
+          FIX = {
+            icon = " ", -- icon used for the sign, and in search results
+            color = "error", -- can be a hex color, or a named color (see below)
+            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+            -- signs = false, -- configure signs for some keywords individually
+          },
+          TODO = { icon = " ", color = "info" },
+          HACK = { icon = " ", color = "warning" },
+          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+        },
+
+				priority = 19,
+				highlight = {
+					before = "", -- "fg" or "bg" or empty
+					keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+					after = "fg", -- "fg" or "bg" or empty
+					pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlightng (vim regex)
+					comments_only = true, -- uses treesitter to match keywords in comments only
+					max_line_len = 400, -- ignore lines longer than this
+					exclude = {}, -- list of file types to exclude highlighting
+				},
+				-- your configuration comes here
+				-- or leave it empty to use the default settings
+				-- refer to the configuration section below
+			})
+		end,
+	})
+	use({
+		"kevinhwang91/nvim-bqf",
+		ft = "qf",
+		-- config = function()
+		-- 	require("user.qf")
+		-- end,
+	})
+
+	-- optional
+	use({
+		"junegunn/fzf",
+		run = function()
+			vim.fn["fzf#install"]()
+		end,
+	})
+	use({
+		"jbyuki/venn.nvim",
+		config = function()
+			-- venn.nvim: enable or disable keymappings
+			function _G.Toggle_venn()
+				local venn_enabled = vim.inspect(vim.b.venn_enabled)
+				if venn_enabled == "nil" then
+					vim.b.venn_enabled = true
+					vim.cmd([[setlocal ve=all]])
+					-- draw a line on HJKL keystokes
+					vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
+					vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", { noremap = true })
+					vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", { noremap = true })
+					vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", { noremap = true })
+					-- draw a box by pressing "f" with visual selection
+					vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
+				else
+					vim.cmd([[setlocal ve=]])
+					vim.cmd([[mapclear <buffer>]])
+					vim.b.venn_enabled = nil
+				end
+			end
+			-- toggle keymappings for venn using <leader>v
+			vim.api.nvim_set_keymap("n", "<leader>v", ":lua Toggle_venn()<CR>", { noremap = true })
+		end,
+	})
 
 	-- use'mfussenegger/nvim-dap'
 	-- use{'mfussenegger/nvim-dap-python', requires = {"mfussenger/nvim-dap"}}

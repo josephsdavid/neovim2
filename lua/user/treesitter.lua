@@ -158,7 +158,7 @@ require("nvim-treesitter.configs").setup({
 		smart_rename = {
 			enable = true,
 			keymaps = {
-				smart_rename = Keys.refactorleader("n"), -- mapping to rename reference under cursor
+				smart_rename = Keys.refactorleader("l"), -- mapping to rename reference under cursor
 			},
 		},
 		navigation = { -- use lsp

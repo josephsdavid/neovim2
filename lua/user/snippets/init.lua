@@ -19,8 +19,6 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
-
-
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
@@ -28,7 +26,7 @@ ls.config.set_config({
 	ext_opts = {
 		[types.choiceNode] = {
 			active = {
-				virt_text = { { "choiceNode", "Comment" } },
+				virt_text = { { "<-", "Error" } },
 			},
 		},
 	},
@@ -157,14 +155,14 @@ local function char_count_same(c1, c2)
 	local line = vim.api.nvim_get_current_line()
 	-- '%'-escape chars to force explicit match (gsub accepts patterns).
 	-- second return value is number of substitutions.
-	local _, ct1 = string.gsub(line, '%'..c1, '')
-	local _, ct2 = string.gsub(line, '%'..c2, '')
+	local _, ct1 = string.gsub(line, "%" .. c1, "")
+	local _, ct2 = string.gsub(line, "%" .. c2, "")
 	return ct1 == ct2
 end
 
 local function even_count(c)
 	local line = vim.api.nvim_get_current_line()
-	local _, ct = string.gsub(line, c, '')
+	local _, ct = string.gsub(line, c, "")
 	return ct % 2 == 0
 end
 
@@ -173,37 +171,45 @@ local function neg(fn, ...)
 end
 
 local function part(fn, ...)
-	local args = {...}
-	return function() return fn(unpack(args)) end
+	local args = { ... }
+	return function()
+		return fn(unpack(args))
+	end
 end
 
 -- This makes creation of pair-type snippets easier.
 local function pair(pair_begin, pair_end, expand_func, ...)
 	-- triggerd by opening part of pair, wordTrig=false to trigger anywhere.
 	-- ... is used to pass any args following the expand_func to it.
-	return s({trig = pair_begin, wordTrig=false},{
-			t({pair_begin}), i(1), t({pair_end})
-		}, {
-			condition = part(expand_func, part(..., pair_begin, pair_end))
-		})
+	return s({ trig = pair_begin, wordTrig = false }, {
+		t({ pair_begin }),
+		i(1),
+		t({ pair_end }),
+	}, {
+		condition = part(expand_func, part(..., pair_begin, pair_end)),
+	})
 end
 
+require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
 -- these should be inside your snippet-table.
 ls.snippets = {
-  all = {
-    pair("(", ")", neg, char_count_same),
-    pair("{", "}", neg, char_count_same),
-    pair("[", "]", neg, char_count_same),
-    pair("<", ">", neg, char_count_same),
-    pair("'", "'", neg, even_count),
-    pair('"', '"', neg, even_count),
-    pair("`", "`", neg, even_count),
-  },
-  python = require('user.snippets.python'),
-  julia = require('user.snippets.julia').snippets,
+	all = {
+		pair("(", ")", neg, char_count_same),
+		pair("{", "}", neg, char_count_same),
+		pair("[", "]", neg, char_count_same),
+		pair("<", ">", neg, char_count_same),
+		pair("'", "'", neg, even_count),
+		pair('"', '"', neg, even_count),
+		pair("`", "`", neg, even_count),
+	},
+	python = require("user.snippets.python"),
+	lua = {
+		ls.parser.parse_snippet("lf", "-- Defined in $TM_FILE\nlocal $1 = function($2)\n\t$0\nend"),
+		ls.parser.parse_snippet("mf", "-- Defined in $TM_FILE\nlocal $1.$2 = function($3)\n\t$0\nend"),
+		s("lreq", fmt("local {} = require('{}')", { i(1, "default"), rep(1) })), -- to lreq, bind parse the list
+	},
+	-- julia = require('user.snippets.julia').snippets,
 }
-
-
 ls.autosnippets = {
 	all = {
 		s("autotrigger", {
@@ -213,5 +219,4 @@ ls.autosnippets = {
 }
 
 ls.filetype_set("cpp", { "c" })
-require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
 ls.filetype_extend("all", { "_" })

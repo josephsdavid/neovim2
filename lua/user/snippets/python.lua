@@ -140,13 +140,13 @@ M = {
         t{'import '}, i(1, 'sys')
     }),
     s(
-        { trig = 'fro(m?)', regTrig = true },
+        { trig = 'from', regTrig = true },
         {
             t{'from '}, i(1, 'os'), t{' import '}, i(2, 'path')
         }
     ),
     s(
-        { trig = "if(e?)", regTrig = true },
+        { trig = "if", regTrig = true },
         {
             t{"if "}, i(1, 'condition'), t{":", ""},
                 d(2, saved_text, {}, {text = 'pass', indent = true}),
@@ -193,7 +193,7 @@ M = {
             d(2, saved_text, {}, {text = 'pass', indent = true}),
     }),
     s(
-        { trig = "(d?)cl", regTrig = true },
+        { trig = "dcl", regTrig = true },
         {
             d(1, python_dataclass, {}, {}),
             t{"class "}, i(2, 'Class'), t{"("},

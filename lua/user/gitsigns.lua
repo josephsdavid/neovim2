@@ -5,7 +5,7 @@ if not ok then
 end
 
 gitsigns.setup({
-	signcolumn = true,
+	signcolumn = false,
 	numhl = true,
 	current_line_blame = true,
 	keymaps = {},

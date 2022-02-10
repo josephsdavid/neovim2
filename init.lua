@@ -3,6 +3,7 @@ require "globals"
 require "options"
 require "plugins"
 require 'packer_compiled'
+require "user.lightspeed"
 require "user.lsp"
 require "user.treesitter"
 require "user.cmp"
@@ -12,7 +13,6 @@ require "user.toggleterm"
 -- require "user.comment"
 require "user.lualine"
 require "user.zen"
-require "user.lightspeed"
 require "user.null-ls"
 require "user.gitsigns"
 -- require "user.neogit"
@@ -38,6 +38,63 @@ require "user.whichkey"
 
 -- local utils = require("user.utils")
 -- local mappings = utils.-- local mappings = utils.mappingsA
+
+local fn = vim.fn
+
+function _G.qftf(info)
+    local items
+    local ret = {}
+    if info.quickfix == 1 then
+        items = fn.getqflist({id = info.id, items = 0}).items
+    else
+        items = fn.getloclist(info.winid, {id = info.id, items = 0}).items
+    end
+    local limit = 31
+    local fname_fmt1, fname_fmt2 = '%-' .. limit .. 's', '…%.' .. (limit - 1) .. 's'
+    local valid_fmt = '%s │%5d:%-3d│%s %s'
+    for i = info.start_idx, info.end_idx do
+        local e = items[i]
+        local fname = ''
+        local str
+        if e.valid == 1 then
+            if e.bufnr > 0 then
+                fname = fn.bufname(e.bufnr)
+                if fname == '' then
+                    fname = '[No Name]'
+                else
+                    fname = fname:gsub('^' .. vim.env.HOME, '~')
+                end
+                -- char in fname may occur more than 1 width, ignore this issue in order to keep performance
+                if #fname <= limit then
+                    fname = fname_fmt1:format(fname)
+                else
+                    fname = fname_fmt2:format(fname:sub(1 - limit))
+                end
+            end
+            local lnum = e.lnum > 99999 and -1 or e.lnum
+            local col = e.col > 999 and -1 or e.col
+            local qtype = e.type == '' and '' or ' ' .. e.type:sub(1, 1):upper()
+            str = valid_fmt:format(fname, lnum, col, qtype, e.text)
+        else
+            str = e.text
+        end
+        table.insert(ret, str)
+    end
+    return ret
+end
+
+vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
+
+-- Adapt fzf's delimiter in nvim-bqf
+require('bqf').setup({
+    filter = {
+        fzf = {
+            extra_opts = {'--bind', 'ctrl-o:toggle-all', '--delimiter', '│'}
+        }
+    }
+})
+
+vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
 function _G.Toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
@@ -159,4 +216,5 @@ let g:repl_config = {
             \ }
 " tnoremap <Esc> <C-\><C-n>
 runtime zepl/contrib/nvim_autoscroll_hack.vim
+
 ]]

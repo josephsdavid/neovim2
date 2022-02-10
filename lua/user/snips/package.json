@@ -284,6 +284,10 @@
         "path": "./snippets/julia.json"
       },
       {
+        "language": "jl",
+        "path": "./snippets/julia.json"
+      },
+      {
         "language": "kotlin",
         "path": "./snippets/kotlin.json"
       },

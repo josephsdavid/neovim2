@@ -30,7 +30,7 @@ ls.config.set_config({
 	ext_opts = {
 		[types.choiceNode] = {
 			active = {
-				virt_text = { { "choiceNode", "Comment" } },
+				virt_text = { { "<-", "Error" } },
 			},
 		},
 	},
@@ -159,14 +159,14 @@ local function char_count_same(c1, c2)
 	local line = vim.api.nvim_get_current_line()
 	-- '%'-escape chars to force explicit match (gsub accepts patterns).
 	-- second return value is number of substitutions.
-	local _, ct1 = string.gsub(line, '%'..c1, '')
-	local _, ct2 = string.gsub(line, '%'..c2, '')
+	local _, ct1 = string.gsub(line, "%" .. c1, "")
+	local _, ct2 = string.gsub(line, "%" .. c2, "")
 	return ct1 == ct2
 end
 
 local function even_count(c)
 	local line = vim.api.nvim_get_current_line()
-	local _, ct = string.gsub(line, c, '')
+	local _, ct = string.gsub(line, c, "")
 	return ct % 2 == 0
 end
 
@@ -175,35 +175,37 @@ local function neg(fn, ...)
 end
 
 local function part(fn, ...)
-	local args = {...}
-	return function() return fn(unpack(args)) end
+	local args = { ... }
+	return function()
+		return fn(unpack(args))
+	end
 end
 
 -- This makes creation of pair-type snippets easier.
 local function pair(pair_begin, pair_end, expand_func, ...)
 	-- triggerd by opening part of pair, wordTrig=false to trigger anywhere.
 	-- ... is used to pass any args following the expand_func to it.
-	return s({trig = pair_begin, wordTrig=false},{
-			t({pair_begin}), i(1), t({pair_end})
-		}, {
-			condition = part(expand_func, part(..., pair_begin, pair_end))
-		})
+	return s({ trig = pair_begin, wordTrig = false }, {
+		t({ pair_begin }),
+		i(1),
+		t({ pair_end }),
+	}, {
+		condition = part(expand_func, part(..., pair_begin, pair_end)),
+	})
 end
 
 -- these should be inside your snippet-table.
 ls.snippets = {
-  all = {
-    pair("(", ")", neg, char_count_same),
-    pair("{", "}", neg, char_count_same),
-    pair("[", "]", neg, char_count_same),
-    pair("<", ">", neg, char_count_same),
-    pair("'", "'", neg, even_count),
-    pair('"', '"', neg, even_count),
-    pair("`", "`", neg, even_count),
-  },
+	all = {
+		pair("(", ")", neg, char_count_same),
+		pair("{", "}", neg, char_count_same),
+		pair("[", "]", neg, char_count_same),
+		pair("<", ">", neg, char_count_same),
+		pair("'", "'", neg, even_count),
+		pair('"', '"', neg, even_count),
+		pair("`", "`", neg, even_count),
+	},
 }
-
-
 
 ls.autosnippets = {
 	all = {
@@ -216,6 +218,3 @@ ls.autosnippets = {
 ls.filetype_set("cpp", { "c" })
 require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
 ls.filetype_extend("all", { "_" })
-
-
-

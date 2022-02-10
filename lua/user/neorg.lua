@@ -35,11 +35,8 @@ require("neorg").setup({
 				default_keybinds = true, -- Generate the default keybinds
 				neorg_leader = Keys.norgleader(""), -- This is the default if unspecified
 				hook = function(keybinds)
-					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable")
-					keybinds.map("norg", "n", Keys.C("j"), "core.norg.manouver.item_down")
-					keybinds.map("norg", "n", Keys.C("k"), "core.norg.manouver.item_up")
-					keybinds.map("norg", "n", Keys.C("k"), "core.norg.manouver.item_up")
-					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link")
+					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable()")
+					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link()")
 				end,
 			},
 		},
