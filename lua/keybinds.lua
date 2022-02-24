@@ -41,6 +41,8 @@ local map_table = {
 			[{ "v", "p" }] = { '"_dP', "" },
 			[{ "x", "J" }] = { ":move '>+1<CR>gv-gv", "Move text up" },
 			[{ "x", "K" }] = { ":move '<-2<CR>gv-gv", "Move text down" },
+			[{ "n", "<F9>" }] = { "<cmd>lua require('yabs'):run_default_task()<cr>", "Run file" },
+      -- yabs:run_default_task()
 		},
 	},
 
@@ -49,6 +51,8 @@ local map_table = {
 		name = "leader",
 		opts = { noremap = true, silent = true },
 		maps = {
+			-- [{ "n", "e" }] = { ":NeoTreeRevealToggle<cr>", "File Explorer" },
+			-- [{ "n", "E" }] = { ":NeoTreeFloatToggle<cr>", "File Explorer (fancy)" },
 			[{ "n", "e" }] = { ":Lex 30<cr>", "File Explorer" },
 			-- [{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
@@ -76,7 +80,9 @@ local map_table = {
 			[{ "t", "j" }] = { "<C-\\><C-N><C-w>j", "Terminal window down" },
 			[{ "t", "k" }] = { "<C-\\><C-N><C-w>k", "Terminal window up" },
 			[{ "t", "l" }] = { "<C-\\><C-N><C-w>l", "Terminal window right" },
-			[{ "n", "p" }] = { ":BufferPick<CR>", "Pick buffer" },
+			-- [{ "n", "P" }] = { ":BufferPick<CR>", "Pick buffer" },
+			[{ "n", "p" }] = { "<cmd>lua require('fzf-lua').resume()<cr>", "fzf" },
+			[{ "n", "P" }] = { "<cmd>lua require('fzf-lua').resume()<cr>", "fzf" },
 			-- [{ "i", "j" }] ={ ":move '>+1<CR>gv-gv",""},
 			-- [{ "i", "k" }] ={ ":move '<-2<CR>gv-gv",""},
 		},
@@ -216,6 +222,7 @@ local map_table = {
 			[{ "n", "gn" }] = { ":tabe ~/neorg/notes/index.norg<CR>", "Open neorg notes" },
 			[{ "n", "gt" }] = { ":Neorg toc split<CR>", "Open TOC" },
 			[{ "n", "gs" }] = { ":NeorgStart<CR>", "start neorg" },
+			[{ "n", "gi" }] = { ":tabe ~/neorg/inbox.norg<CR>", "Open neorg inbox" },
 		},
 	},
 
@@ -225,30 +232,30 @@ local map_table = {
 		opts = { noremap = true, silent = true },
 		maps = {
 			[{ "n", "f" }] = {
-				"<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+				"<cmd>lua require('fzf-lua').files()<cr>",
 				"find files",
 			},
-			[{ "n", "g" }] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Live grep" },
+			[{ "n", "g" }] = { "<cmd>lua require('fzf-lua').live_grep_native()<cr>", "Live grep" },
 			[{ "n", "t" }] = { "<cmd>TodoTelescope<cr>", "Todo" },
 			[{ "n", "b" }] = {
-				"<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+				"<cmd>lua require('fzf-lua').buffers()<cr>",
 				"find buffers",
 			},
-			[{ "n", "H" }] = { "<cmd>lua require('telescope.builtin').help_tags()<cr>", "get help" },
-			[{ "n", "m" }] = { "<cmd>lua require('telescope.builtin').marks()<cr>", "find markers" },
-			[{ "n", "p" }] = { "<cmd>lua require('telescope').extensions.workspaces.workspaces()<cr>", "find projects" },
+			[{ "n", "H" }] = { "<cmd>lua require('fzf-lua').help_tags()<cr>", "get help" },
+			[{ "n", "m" }] = { "<cmd>lua require('fzf-lua').marks()<cr>", "find markers" },
+			[{ "n", "c" }] = { "<cmd>lua require('fzf-lua').changes()<cr>", "find changes" },
 			[{ "n", "w" }] = { "<cmd>lua require('telescope').extensions.workspaces.workspaces()<cr>", "find projects" },
-			[{ "n", " " }] = { "<cmd>lua require('telescope').extensions.frecency.frecency()<CR>", "find recents" },
+			[{ "n", " " }] = { "<cmd>lua require('fzf-lua').oldfiles()<CR>", "find recents" },
 			[{ "n", "/" }] = { "<cmd>lua require('telescope.builtin').search_history()<cr>", "find searches" },
 			[{ "n", "R" }] = { "<cmd>lua require('telescope.builtin').reloader()<cr>", "reload configs" },
-			[{ "n", "j" }] = { "<cmd>lua require('telescope.builtin').jumplist()<cr>", "find jumps" },
+			[{ "n", "j" }] = { "<cmd>lua require('fzf-lua').jumps()<cr>", "find jumps" },
 			[{ "n", "s" }] = { "<cmd>lua require('telescope.builtin').symbols()<cr>", "find symbols" },
 			[{ "n", "e" }] = { "<cmd>lua require('telescope').extensions.emoji.emoji()<cr>", "find emoji" },
-			[{ "n", "d" }] = { "<cmd>lua require('telescope.builtin').lsp_definitions()<cr>", "find lsp definitions" },
-			[{ "n", "r" }] = { "<cmd>lua require('telescope.builtin').lsp_references()<cr>", "find lsp references" },
+			[{ "n", "d" }] = { "lua require('fzf-lua').lsp_definitions()", "find lsp definitions" },
+			[{ "n", "r" }] = { "<cmd>lua require('fzf-lua').lsp_references()<cr>", "find lsp references" },
 			[{ "n", "h" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
 			[{ "n", "D" }] = {
-				"<cmd>lua require('telescope.builtin').lsp_type_definitions()<cr>",
+				"<cmd>lua require('fzf-lua').lsp_typedefs()<cr>",
 				"find lsp type definitions",
 			},
 			[{ "n", "t" }] = { "<cmd>lua require('telescope.builtin').treesitter()<cr>", "treesitter magic" },
@@ -293,3 +300,4 @@ for _, v in pairs(map_table) do
 		wk.register({ [v.leader("")] = { name = v.name } })
 	end
 end
+

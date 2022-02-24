@@ -187,6 +187,7 @@ require("nvim-treesitter.configs").setup({
     "html",
 		"norg",
 		"c",
+    "cpp",
 		"norg_meta",
 		"norg_table",
 		"lua",

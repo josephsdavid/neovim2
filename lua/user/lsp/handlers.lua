@@ -72,7 +72,7 @@ M.setup = function()
 
 	local config = {
 		scope = "cursor",
-		virtual_text = true,
+		virtual_text = false,
 		{
 			prefix = "»",
 			spacing = 4,
@@ -81,7 +81,7 @@ M.setup = function()
 		signs = {
 			active = signs,
 		},
-		update_in_insert = true,
+		update_in_insert = false,
 		underline = false,
 		severity_sort = true,
 		float = {

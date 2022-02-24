@@ -57,8 +57,6 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		[Keys.C("k")] = cmp.mapping.select_prev_item(),
-		[Keys.C("j")] = cmp.mapping.select_next_item(),
 		[Keys.C("b")] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
 		[Keys.C("f")] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
 		[Keys.C("Space")] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
@@ -67,29 +65,20 @@ cmp.setup({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
+		[Keys.C("c")] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
+
+		[Keys.C("<Tab>")] = cmp.mapping({
+			i = cmp.mapping.abort(),
+			c = cmp.mapping.close(),
+		}),
 		-- Accept currently selected item. If none selected, `select` first item.
 		-- Set `select` to `false` to only confirm explicitly selected items.
 		["<CR>"] = cmp.mapping.confirm({ select = true }),
 		[Keys.C(" ")] = cmp.mapping.confirm({ select = true }),
 		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif check_backspace() then
-				fallback()
-      elseif has_words_before() then
-        cmp.complete()
-			else
-				fallback()
-			end
-		end, {
-			"i",
-			"s",
-		}),
-		[Keys.C("k")] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_next_item()
 			elseif luasnip.expandable() then
@@ -119,11 +108,20 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		[Keys.C("l")] = cmp.mapping(function(fallback)
+
+		[Keys.C("j")] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.choice_active() then
-				luasnip.change_choice(1)
+        cmp.mapping.abort()
+        cmp.mapping.close()
+      end
+			if luasnip.expandable() then
+				luasnip.expand()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			elseif check_backspace() then
+				fallback()
+      elseif has_words_before() then
+        cmp.complete()
 			else
 				fallback()
 			end
@@ -131,10 +129,13 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		[Keys.C("j")] = cmp.mapping(function(fallback)
+		[Keys.C("k")] = cmp.mapping(function(fallback)
+
 			if cmp.visible() then
-				cmp.select_prev_item()
-			elseif luasnip.jumpable(-1) then
+        cmp.mapping.abort()
+        cmp.mapping.close()
+      end
+			if luasnip.jumpable(-1) then
 				luasnip.jump(-1)
 			else
 				fallback()
@@ -185,3 +186,6 @@ cmp.setup({
 		native_menu = false,
 	},
 })
+
+-- vim.api.nvim_set_keymap('i', '<C-j>', "<Plug>(TaboutMulti)", {silent = true})
+-- vim.api.nvim_set_keymap('i', '<C-k>', "<Plug>(TaboutBackMulti)", {silent = true})

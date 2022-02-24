@@ -19,6 +19,8 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
+require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
+
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
@@ -190,7 +192,6 @@ local function pair(pair_begin, pair_end, expand_func, ...)
 	})
 end
 
-require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
 -- these should be inside your snippet-table.
 ls.snippets = {
 	all = {
@@ -202,12 +203,26 @@ ls.snippets = {
 		pair('"', '"', neg, even_count),
 		pair("`", "`", neg, even_count),
 	},
-	python = require("user.snippets.python"),
+	-- python = require("user.snippets.python"),
 	lua = {
 		ls.parser.parse_snippet("lf", "-- Defined in $TM_FILE\nlocal $1 = function($2)\n\t$0\nend"),
 		ls.parser.parse_snippet("mf", "-- Defined in $TM_FILE\nlocal $1.$2 = function($3)\n\t$0\nend"),
 		s("lreq", fmt("local {} = require('{}')", { i(1, "default"), rep(1) })), -- to lreq, bind parse the list
 	},
+  norg = {
+		s("def", fmt("{} *{}* /{}/", { i(1, "-"), i(2, "to_define"), i(3,"definition") })), -- to lreq, bind parse the list
+		s("sdef", fmt("${} \n{}", { i(1, "to_define"), i(2, "definition") })), -- to lreq, bind parse the list
+		s("ldef", fmt("$$ {} \n{} \n$$", { i(1, "to_define"), i(2, "definition") })), -- to lreq, bind parse the list
+		s("code", fmt("@code {} \n{} \n@end", { i(1, "-"), i(2) })), -- to lreq, bind parse the list
+		s("math", fmt("@math  \n{} \n@end", {  i(1) })), -- to lreq, bind parse the list
+		s("table", fmt("@table  \n{} \n@end", {  i(1) })), -- to lreq, bind parse the list
+		s("data", fmt("@data  \n{} \n@end", {  i(1) })), -- to lreq, bind parse the list
+		s("link", fmt("{{{}}}[{}]", { i(1, "object"), i(2, "description") })), -- to lreq, bind parse the list
+		pair('*', '*', neg, even_count),
+		pair('/', '/', neg, even_count),
+		pair(',', ',', neg, even_count),
+		pair('^', '^', neg, even_count),
+  }
 	-- julia = require('user.snippets.julia').snippets,
 }
 ls.autosnippets = {
@@ -218,5 +233,6 @@ ls.autosnippets = {
 	},
 }
 
-ls.filetype_set("cpp", { "c" })
+-- ls.filetype_extend("cpp", { "c" })
+
 ls.filetype_extend("all", { "_" })

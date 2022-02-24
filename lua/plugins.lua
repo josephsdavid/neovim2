@@ -61,11 +61,11 @@ return packer.startup(function(use)
 	use("hrsh7th/cmp-cmdline")
 	use("hrsh7th/nvim-cmp")
 	use("saadparwaiz1/cmp_luasnip")
-	use({ "Yggdroot/hiPairs", event = "BufRead" })
+	use({ "Yggdroot/hiPairs"})
 	-- use({ "axvr/zepl.vim", cmd = { "Repl" }, opt = true })
-	use({ "tpope/vim-repeat", event = "BufRead" })
+	use({ "tpope/vim-repeat"})
 	-- use({ "tpope/vim-vinegar", event = "BufRead" })
-	use({ "tpope/vim-surround", event = "BufRead" })
+	use({ "tpope/vim-surround"})
 	-- use({
 	--    "blackCauldron7/surround.nvim",
 	--    event = "BufRead",
@@ -85,7 +85,7 @@ return packer.startup(function(use)
 	use({ "vimlab/split-term.vim", cmd = { "VTerm", "Term" }, opt = true })
 	use({
 		"lukas-reineke/indent-blankline.nvim",
-		ft = { "python", "lua", "julia" },
+		ft = { "python", "lua", "julia", "cpp" },
 		config = function()
 			require("user.indentline")
 		end,
@@ -423,19 +423,19 @@ return packer.startup(function(use)
 		requires = "nvim-lua/plenary.nvim",
 		config = function()
 			require("todo-comments").setup({
-        keywords = {
-          FIX = {
-            icon = " ", -- icon used for the sign, and in search results
-            color = "error", -- can be a hex color, or a named color (see below)
-            alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
-            -- signs = false, -- configure signs for some keywords individually
-          },
-          TODO = { icon = " ", color = "info" },
-          HACK = { icon = " ", color = "warning" },
-          WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
-          PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
-          NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
-        },
+				keywords = {
+					FIX = {
+						icon = " ", -- icon used for the sign, and in search results
+						color = "error", -- can be a hex color, or a named color (see below)
+						alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+						-- signs = false, -- configure signs for some keywords individually
+					},
+					TODO = { icon = " ", color = "info" },
+					HACK = { icon = " ", color = "warning" },
+					WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+					PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+					NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+				},
 
 				priority = 19,
 				highlight = {
@@ -460,6 +460,12 @@ return packer.startup(function(use)
 		-- 	require("user.qf")
 		-- end,
 	})
+	use({
+		"ten3roberts/qf.nvim",
+		config = function()
+			require("qf").setup({})
+		end,
+	})
 
 	-- optional
 	use({
@@ -469,32 +475,24 @@ return packer.startup(function(use)
 		end,
 	})
 	use({
-		"jbyuki/venn.nvim",
+		"ibhagwan/fzf-lua",
+		-- optional for icon support
+		requires = { "kyazdani42/nvim-web-devicons" },
+	})
+	use({ "jbyuki/venn.nvim" })
+	use({ "andreasvc/vim-256noir" })
+	use("GustavoPrietoP/doom-themes.nvim")
+	use({
+		"pianocomposer321/yabs.nvim",
+		requires = { "nvim-lua/plenary.nvim" },
+	})
+	use({
+		"ZhiyuanLck/smart-pairs",
+		event = "InsertEnter",
 		config = function()
-			-- venn.nvim: enable or disable keymappings
-			function _G.Toggle_venn()
-				local venn_enabled = vim.inspect(vim.b.venn_enabled)
-				if venn_enabled == "nil" then
-					vim.b.venn_enabled = true
-					vim.cmd([[setlocal ve=all]])
-					-- draw a line on HJKL keystokes
-					vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
-					vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", { noremap = true })
-					vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", { noremap = true })
-					vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", { noremap = true })
-					-- draw a box by pressing "f" with visual selection
-					vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
-				else
-					vim.cmd([[setlocal ve=]])
-					vim.cmd([[mapclear <buffer>]])
-					vim.b.venn_enabled = nil
-				end
-			end
-			-- toggle keymappings for venn using <leader>v
-			vim.api.nvim_set_keymap("n", "<leader>v", ":lua Toggle_venn()<CR>", { noremap = true })
+			require("pairs"):setup()
 		end,
 	})
-
 	-- use'mfussenegger/nvim-dap'
 	-- use{'mfussenegger/nvim-dap-python', requires = {"mfussenger/nvim-dap"}}
 	-- use{ "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }

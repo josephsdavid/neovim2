@@ -22,10 +22,11 @@ require("neorg").setup({
 		},
 		["core.integrations.telescope"] = {}, -- Enable the telescope module
 		["core.integrations.truezen"] = {}, -- Enable the truezen module
+		["core.norg.journal"] = {config = {workspace = "notes", strategy = "nested"}}, -- Enable the notes
 		["core.norg.completion"] = { config = { engine = "nvim-cmp" } }, -- We current support nvim-compe and nvim-cmp only
 		["core.norg.concealer"] = {
 			config = {
-				icon_preset = "varied",
+				icon_preset = "diamond",
 				markup_preset = "dimmed",
 			}, -- Allows for use of icons
 		},
@@ -35,8 +36,8 @@ require("neorg").setup({
 				default_keybinds = true, -- Generate the default keybinds
 				neorg_leader = Keys.norgleader(""), -- This is the default if unspecified
 				hook = function(keybinds)
-					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable()")
-					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link()")
+					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable")
+					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link")
 				end,
 			},
 		},
@@ -47,6 +48,7 @@ require("neorg").setup({
 					-- personal = "~/neorg/personal",
 					-- work = "~/neorg/work",
 					notes = "~/neorg/notes",
+					recipes = "~/neorg/notes/recipes",
 					example_gtd = "~/example_workspaces/gtd",
 				},
 				index = "index.norg",

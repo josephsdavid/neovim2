@@ -70,7 +70,7 @@ null_ls.setup({
     --   extra_args = { "--config", vim.fn.expand("~/.config/flake8") },
     -- }),
 		diagnostics.hadolint,
-		diagnostics.selene,
+		-- diagnostics.selene,
 		diagnostics.shellcheck,
 	},
   root_dir = lspconfig.util.root_pattern(

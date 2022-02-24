@@ -3,6 +3,7 @@ require "globals"
 require "options"
 require "plugins"
 require 'packer_compiled'
+require "colors"
 require "user.lightspeed"
 require "user.lsp"
 require "user.treesitter"
@@ -11,7 +12,7 @@ require "user.snippets"
 -- require "user.telescope"
 require "user.toggleterm"
 -- require "user.comment"
-require "user.lualine"
+require "user.statusline"
 require "user.zen"
 require "user.null-ls"
 require "user.gitsigns"
@@ -21,10 +22,11 @@ require "user.neorg"
 require "user.bufferline"
 require "user.mini"
 require "user.iron"
+require "user.fzf"
+require "user.yabs"
 -- require "user.dap"
 -- require "user.staline"
 -- require "user.indentline"
-require "colors"
 require "keybinds"
 require "user.whichkey"
 -- vim.opt.list = true
@@ -33,6 +35,7 @@ require "user.whichkey"
 -- require "treesitter"
 -- require "keybinds"
 -- require "options"
+
 
 
 
@@ -84,15 +87,6 @@ function _G.qftf(info)
 end
 
 vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
-
--- Adapt fzf's delimiter in nvim-bqf
-require('bqf').setup({
-    filter = {
-        fzf = {
-            extra_opts = {'--bind', 'ctrl-o:toggle-all', '--delimiter', '│'}
-        }
-    }
-})
 
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
@@ -175,8 +169,8 @@ autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType lua setlocal expandtab shiftwidth=2 softtabstop=2
 
 " Run currently focused python script with F9
-autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
-autocmd FileType markdown nnoremap <buffer> <F9> :exec '!md2pdf' shellescape(@%, 1)<cr>
+" autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
+" autocmd FileType markdown nnoremap <buffer> <F9> :exec '!md2pdf' shellescape(@%, 1)<cr>
 " format code with f8
 autocmd FileType yaml nnoremap <buffer> <F8> :exec '!cfn-lint' shellescape(@%, 1)<cr>
 autocmd FileType python nnoremap <buffer> <F8> :exec '!yapf -i' shellescape(@%, 1)<cr>
