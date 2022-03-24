@@ -194,7 +194,7 @@ fun! CleanExtraSpaces()
 	call setreg('/', old_query)
 endfun
 if has("autocmd")
-	autocmd BufWritePre *.txt,*.js,*.py,*.wiki,*.sh,*.coffee,*.lua :call CleanExtraSpaces()
+	autocmd BufWritePre *.txt,*.jl,*.js,*.py,*.wiki,*.sh,*.coffee,*.lua :call CleanExtraSpaces()
 endif
 
 

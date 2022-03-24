@@ -30,12 +30,12 @@ local diagnostics = {
 	always_visible = true,
 }
 
-local diff = {
-	"diff",
-	colored = false,
-	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
-	cond = hide_in_width,
-}
+-- local diff = {
+-- 	"diff",
+-- 	colored = false,
+-- 	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+-- 	cond = hide_in_width,
+-- }
 
 local mode = {
 	"mode",
@@ -98,7 +98,7 @@ local config = {
 		lualine_b = { mode },
 		lualine_c = { gps_fn },
 		-- lualine_x = { "encoding", "fileformat", "filetype", spaces,filetype,},
-		lualine_x = { diagnostics, branch, diff },
+		lualine_x = { diagnostics, branch},
 		lualine_y = { location },
 		lualine_z = { progress },
 	},

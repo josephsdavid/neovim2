@@ -64,7 +64,7 @@ return packer.startup(function(use)
 	use({ "Yggdroot/hiPairs"})
 	-- use({ "axvr/zepl.vim", cmd = { "Repl" }, opt = true })
 	use({ "tpope/vim-repeat"})
-	-- use({ "tpope/vim-vinegar", event = "BufRead" })
+	use({ "tpope/vim-vinegar"})
 	use({ "tpope/vim-surround"})
 	-- use({
 	--    "blackCauldron7/surround.nvim",
@@ -136,7 +136,13 @@ return packer.startup(function(use)
 		requires = "rktjmp/lush.nvim",
 	})
 	use("folke/tokyonight.nvim")
-	use({ "echasnovski/mini.nvim", requires = { "lewis6991/gitsigns.nvim", "kyazdani42/nvim-web-devicons" } })
+	-- use({ "echasnovski/mini.nvim", requires = { "lewis6991/gitsigns.nvim", "kyazdani42/nvim-web-devicons" } })
+  use {
+    'numToStr/Comment.nvim',
+    config = function()
+      require('Comment').setup()
+    end
+  }
 	use({
 		"startup-nvim/startup.nvim",
 		requires = { "nvim-telescope/telescope.nvim", "nvim-lua/plenary.nvim" },
@@ -245,7 +251,7 @@ return packer.startup(function(use)
 	use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
 	use("nvim-treesitter/nvim-treesitter-textobjects")
 	use("nvim-treesitter/nvim-treesitter-refactor")
-	use("lewis6991/gitsigns.nvim")
+	-- use("lewis6991/gitsigns.nvim")
 
 	use({
 		"folke/twilight.nvim",
@@ -274,7 +280,6 @@ return packer.startup(function(use)
 		--   {"n", Keys.telescopeleader("d")},
 		--   {"n", Keys.telescopeleader("r")},
 		--   {"n", Keys.telescopeleader("t")},
-		--   {"n", Keys.harpoonleader("t")},
 		-- },
 		-- ft = {"norg"}
 	})
@@ -315,19 +320,20 @@ return packer.startup(function(use)
 		"nvim-telescope/telescope-frecency.nvim",
 		requires = { "tami5/sqlite.lua" },
 	})
-	use({
-		"ThePrimeagen/harpoon",
-		requires = "nvim-lua/plenary.nvim",
-		config = function()
-			require("harpoon").setup({
-				projects = {
-					["$HOME/tasq/setpoint-rec"] = {},
-				},
-			})
-		end,
-	})
+	-- use({
+	-- 	"ThePrimeagen/harpoon",
+	-- 	requires = "nvim-lua/plenary.nvim",
+	-- 	config = function()
+	-- 		require("harpoon").setup({
+	-- 			projects = {
+	-- 				["$HOME/tasq/setpoint-rec"] = {},
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- })
+  use({"nvim-neorg/neorg-telescope", branch="feat/gtd_pickers"})
 
-	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim", "nvim-neorg/neorg-telescope" } })
+	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim",  } })
 	use("nathom/filetype.nvim")
 	use({
 		"rcarriga/nvim-notify",
@@ -486,18 +492,31 @@ return packer.startup(function(use)
 		"pianocomposer321/yabs.nvim",
 		requires = { "nvim-lua/plenary.nvim" },
 	})
-	use({
-		"ZhiyuanLck/smart-pairs",
-		event = "InsertEnter",
-		config = function()
-			require("pairs"):setup()
-		end,
-	})
-	-- use'mfussenegger/nvim-dap'
-	-- use{'mfussenegger/nvim-dap-python', requires = {"mfussenger/nvim-dap"}}
-	-- use{ "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"} }
-	-- use{ "theHamsta/nvim-dap-virtual-text", requires = {"mfussenegger/nvim-dap"} }
+  use({
+    "haringsrob/nvim_context_vt",
+    config = function ()
+      require("nvim_context_vt").setup({
+        disable_virtual_lines = true,
+        prefix = '▶️',
+      })
+    end
+  })
+-- mkdir
+  use {
+    'jghauser/mkdir.nvim',
+    config = function()
+      require('mkdir')
+    end
+  }
+  use {
+    "xiyaowong/nvim-transparent",
+    config = function ()
+      require("transparent").setup({
+        enable = true
+      })
 
+    end
+  }
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

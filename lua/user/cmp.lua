@@ -3,14 +3,13 @@ if not cmp_status_ok then
 	return
 end
 
-
 local snip_status_ok, luasnip = pcall(require, "luasnip")
 if not snip_status_ok then
 	return
 end
 local has_words_before = function()
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+	local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
 require("luasnip/loaders/from_vscode").lazy_load()
@@ -18,6 +17,82 @@ require("luasnip/loaders/from_vscode").lazy_load()
 local check_backspace = function()
 	local col = vim.fn.col(".") - 1
 	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
+end
+
+local rhs = function(rhs_str)
+	return vim.api.nvim_replace_termcodes(rhs_str, true, true, true)
+end
+local column = function()
+	local _line, col = unpack(vim.api.nvim_win_get_cursor(0))
+	return col
+end
+
+local shift_width = function()
+	if vim.o.softtabstop <= 0 then
+		return vim.fn.shiftwidth()
+	else
+		return vim.o.softtabstop
+	end
+end
+
+local smart_tab = function(opts)
+	local keys = nil
+	if vim.o.expandtab then
+		keys = "<Tab>" -- Neovim will insert spaces.
+	else
+		local col = column()
+		local line = vim.api.nvim_get_current_line()
+		local prefix = line:sub(1, col)
+		local in_leading_indent = prefix:find("^%s*$")
+		if in_leading_indent then
+			keys = "<Tab>" -- Neovim will insert a hard tab.
+		else
+			-- virtcol() returns last column occupied, so if cursor is on a
+			-- tab it will report `actual column + tabstop` instead of `actual
+			-- column`. So, get last column of previous character instead, and
+			-- add 1 to it.
+			local sw = shift_width()
+			local previous_char = prefix:sub(#prefix, #prefix)
+			local previous_column = #prefix - #previous_char + 1
+			local current_column = vim.fn.virtcol({ vim.fn.line("."), previous_column }) + 1
+			local remainder = (current_column - 1) % sw
+			local move = remainder == 0 and sw or sw - remainder
+			keys = (" "):rep(move)
+		end
+	end
+
+	vim.api.nvim_feedkeys(rhs(keys), "nt", true)
+end
+
+local smart_bs = function()
+	if vim.o.expandtab then
+		return rhs("<BS>")
+	else
+		local col = column()
+		local line = vim.api.nvim_get_current_line()
+		local prefix = line:sub(1, col)
+		local in_leading_indent = prefix:find("^%s*$")
+		if in_leading_indent then
+			return rhs("<BS>")
+		end
+		local previous_char = prefix:sub(#prefix, #prefix)
+		if previous_char ~= " " then
+			return rhs("<BS>")
+		end
+		-- Delete enough spaces to take us back to the previous tabstop.
+		--
+		-- Originally I was calculating the number of <BS> to send, but
+		-- Neovim has some special casing that causes one <BS> to delete
+		-- multiple characters even when 'expandtab' is off (eg. if you hit
+		-- <BS> after pressing <CR> on a line with trailing whitespace and
+		-- Neovim inserts whitespace to match.
+		--
+		-- So, turn 'expandtab' on temporarily and let Neovim figure out
+		-- what a single <BS> should do.
+		--
+		-- See `:h i_CTRL-\_CTRL-O`.
+		return rhs("<C-\\><C-o>:set expandtab<CR><BS><C-\\><C-o>:set noexpandtab<CR>")
+	end
 end
 
 --   פּ ﯟ   some other good icons
@@ -57,38 +132,26 @@ cmp.setup({
 		end,
 	},
 	mapping = {
-		[Keys.C("b")] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
-		[Keys.C("f")] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
-		[Keys.C("Space")] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
-		[Keys.C("y")] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
-		[Keys.C("e")] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
-		}),
-		[Keys.C("c")] = cmp.mapping({
+		["<C-p>"] = cmp.mapping.select_prev_item(),
+		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-e>"] = cmp.mapping({
 			i = cmp.mapping.abort(),
 			c = cmp.mapping.close(),
 		}),
 
-		[Keys.C("<Tab>")] = cmp.mapping({
-			i = cmp.mapping.abort(),
-			c = cmp.mapping.close(),
+		["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+		["<C-' '>"] = cmp.mapping.confirm({ select = true }),
+
+		["<CR>"] = cmp.mapping.confirm({
+			select = true,
+			behavior = cmp.ConfirmBehavior.Insert,
 		}),
-		-- Accept currently selected item. If none selected, `select` first item.
-		-- Set `select` to `false` to only confirm explicitly selected items.
-		["<CR>"] = cmp.mapping.confirm({ select = true }),
-		[Keys.C(" ")] = cmp.mapping.confirm({ select = true }),
-		["<Tab>"] = cmp.mapping(function(fallback)
-			if cmp.visible() then
-				cmp.select_next_item()
-			elseif luasnip.expandable() then
-				luasnip.expand()
-			elseif luasnip.expand_or_jumpable() then
-				luasnip.expand_or_jump()
-			elseif check_backspace() then
-				fallback()
-      elseif has_words_before() then
-        cmp.complete()
+
+		[Keys.C("f")] = cmp.mapping(function(fallback)
+			if luasnip.choice_active() then
+				require("luasnip").change_choice(1)
+			elseif cmp.visible() then
+				cmp.scroll_docs(4)
 			else
 				fallback()
 			end
@@ -96,13 +159,51 @@ cmp.setup({
 			"i",
 			"s",
 		}),
+		["<C-d>"] = cmp.mapping(function(fallback)
+			if luasnip.choice_active() then
+				require("luasnip").change_choice(-1)
+			elseif cmp.visible() then
+				cmp.scroll_docs(-4)
+			else
+				fallback()
+			end
+		end, {
+			"i",
+			"s",
+		}),
+		["<BS>"] = cmp.mapping(function(_fallback)
+			local keys = smart_bs()
+			vim.api.nvim_feedkeys(keys, "nt", true)
+		end, { "i", "s" }),
+
+		["<Tab>"] = cmp.mapping(function(core, fallback)
+			if cmp.visible() then
+				cmp.select_next_item()
+			elseif luasnip.expandable() then
+				luasnip.expand()
+			elseif luasnip.expand_or_jumpable() then
+				luasnip.expand_or_jump()
+			elseif not check_backspace() then
+				cmp.mapping.complete()(core, fallback)
+			elseif has_words_before() then
+				cmp.complete()
+			else
+				smart_tab()
+				-- vim.cmd(":>")
+			end
+		end, {
+			"i",
+			"s",
+		}),
+
 		["<S-Tab>"] = cmp.mapping(function(fallback)
 			if cmp.visible() then
 				cmp.select_prev_item()
 			elseif luasnip.jumpable(-1) then
 				luasnip.jump(-1)
 			else
-				fallback()
+				-- smart_bs()
+				vim.cmd(":<")
 			end
 		end, {
 			"i",
@@ -111,17 +212,17 @@ cmp.setup({
 
 		[Keys.C("j")] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-        cmp.mapping.abort()
-        cmp.mapping.close()
-      end
+				cmp.mapping.abort()
+				cmp.mapping.close()
+			end
 			if luasnip.expandable() then
 				luasnip.expand()
 			elseif luasnip.expand_or_jumpable() then
 				luasnip.expand_or_jump()
 			elseif check_backspace() then
 				fallback()
-      elseif has_words_before() then
-        cmp.complete()
+			elseif has_words_before() then
+				cmp.complete()
 			else
 				fallback()
 			end
@@ -129,12 +230,12 @@ cmp.setup({
 			"i",
 			"s",
 		}),
-		[Keys.C("k")] = cmp.mapping(function(fallback)
 
+		[Keys.C("k")] = cmp.mapping(function(fallback)
 			if cmp.visible() then
-        cmp.mapping.abort()
-        cmp.mapping.close()
-      end
+				cmp.mapping.abort()
+				cmp.mapping.close()
+			end
 			if luasnip.jumpable(-1) then
 				luasnip.jump(-1)
 			else
@@ -144,6 +245,7 @@ cmp.setup({
 			"i",
 			"s",
 		}),
+
 	},
 	formatting = {
 		fields = { "kind", "abbr", "menu" },

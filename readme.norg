@@ -1,0 +1,84 @@
+* My neovim config
+  This is my personal config, and i do not care to maintain it for others to use. If you install it and it works for you, great, but if it doesn't you're on your own. I will try to document it as much as possible, but again I already know how it works...
+
+ ** Installation requirements
+    - I use neovim 0.6.1, and can not promise this config works on aything else
+    - fzf and sqlite probably need to be installed.
+    - for python the following need to be installed:
+    -- yapf
+    -- pyright
+    -- isort
+    -- ptpython (for iron)
+
+ ** Structure
+    @code 
+    ├── init.lua 
+    @end
+    obviously init.lua is important. vim.cmd lives here
+    @code 
+    ├── lua
+    │   ├── colors.lua
+    │   ├── globals.lua
+    │   ├── keybinds.lua
+    │   ├── options.lua
+    │   ├── packer_compiled.lua
+    │   ├── plugins.lua
+     
+    @end
+    Everything else really lives in the lua folder.
+
+  *** colors.lua
+      Configuration for various color schemes, as well as sets the current color scheme.
+  *** globals.lua
+      Global variables. There are really 2:
+
+      $$ Keys 
+      keys are helper functions for making leaders and other keybinds. For example, 
+
+      @code lua 
+      local comma = Keys.make_leader(",") 
+      comma("q") -- yields ",q".
+      local s = keys.make_modifier("S")
+      s("c") -- yields "<S-c>"
+      @end
+
+      $$
+
+      $$ Paths 
+      paths are just stored constants which have absolute paths to important things. You probably should modify them
+      $$
+
+  *** keybinds.lua
+
+      This builds a table to conveniently make keybinds and document them with whichkey. A small example of a key table and the structure is:
+      @code lua 
+      key_table = { 
+        buf = { -- The name here is arbitrary
+          leader = Keys.bufferleader, -- this is the leading key, so everything within this table is bound to leader(key), see defintion of leader functions
+          name = "buffer", -- documentation name for whichkey. Typically one word which explains the general topic of the keybinds 
+          opts = { noremap = true, silent = false }, -- nvim options for the keybinds
+          maps = {
+            [{ "", "n" }] = { ":bnext<CR>", "next buffer" },
+            [{ "", "p" }] = { ":bprevious<CR>", "previous buffer" },
+            [{ "", "l" }] = { ":bprevious<CR>", "previous buffer" },
+            [{ "", " " }] = { ":bnext<CR>", "next buffer" },
+            [{ "", "b" }] = { ":bnext<CR>", "next buffer" },
+            [{ "", "x" }] = { ":lua MiniBufremove.wipeout()<CR>", "close buffer" },
+            [{ "", "s" }] = { ":b ", "select buffer" },
+            [{ "", "1" }] = { ":bfirst<CR>", "first buffer" },
+            [{ "", "0" }] = { ":blast<CR>", "last buffer" },
+          },
+        },
+      }
+
+      for _, v in pairs(map_table) do
+        if v.leader == nil then
+          apply_maps(v.maps, v.opts)
+        else
+          leader_map(v.leader, v.maps, v.opts)
+          wk.register({ [v.leader("")] = { name = v.name } })
+        end
+      end
+            
+      @end
+

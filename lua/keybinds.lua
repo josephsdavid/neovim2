@@ -56,7 +56,7 @@ local map_table = {
 			[{ "n", "e" }] = { ":Lex 30<cr>", "File Explorer" },
 			-- [{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
-			[{ "n", "cd" }] = { "<cmd>cd %:p:h<cr><cmd>lua Notifications.cwd()<cr>", "cd to current file" },
+			[{ "n", "cd" }] = { "<cmd>cd %:p:h<cr><cmd>pwd<cr>", "cd to current file" },
 			-- [{ "n", "l" }] = { "<cmd>ISwapWith<cr>", "Swap elements" },
 			-- [{ "n", "L" }] = { "<cmd>ISwap<cr>", "Swap elements (hard mode)" },
 		},
@@ -223,6 +223,7 @@ local map_table = {
 			[{ "n", "gt" }] = { ":Neorg toc split<CR>", "Open TOC" },
 			[{ "n", "gs" }] = { ":NeorgStart<CR>", "start neorg" },
 			[{ "n", "gi" }] = { ":tabe ~/neorg/inbox.norg<CR>", "Open neorg inbox" },
+			[{ "n", "gb" }] = { ":tabe ~/neorg/notes/beacon/inbox.norg<CR>", "Open beacon notes" },
 		},
 	},
 
@@ -236,6 +237,7 @@ local map_table = {
 				"find files",
 			},
 			[{ "n", "g" }] = { "<cmd>lua require('fzf-lua').live_grep_native()<cr>", "Live grep" },
+			[{ "n", "G" }] = { "<cmd>Telescope neorg find_project_tasks<cr>", "Find norg projects" },
 			[{ "n", "t" }] = { "<cmd>TodoTelescope<cr>", "Todo" },
 			[{ "n", "b" }] = {
 				"<cmd>lua require('fzf-lua').buffers()<cr>",
@@ -253,7 +255,7 @@ local map_table = {
 			[{ "n", "e" }] = { "<cmd>lua require('telescope').extensions.emoji.emoji()<cr>", "find emoji" },
 			[{ "n", "d" }] = { "lua require('fzf-lua').lsp_definitions()", "find lsp definitions" },
 			[{ "n", "r" }] = { "<cmd>lua require('fzf-lua').lsp_references()<cr>", "find lsp references" },
-			[{ "n", "h" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
+			-- [{ "n", "h" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
 			[{ "n", "D" }] = {
 				"<cmd>lua require('fzf-lua').lsp_typedefs()<cr>",
 				"find lsp type definitions",
@@ -262,21 +264,21 @@ local map_table = {
 		},
 	},
 
-	harpoon = { -- mappings to harpoonleader
-		leader = Keys.harpoonleader,
-		name = "harpoon",
-		opts = { noremap = true, silent = true },
-		maps = {
-			[{ "n", "f" }] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "add file" },
-			[{ "n", "a" }] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "add file" },
-			[{ "n", "m" }] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "quick menu" },
-			[{ "n", "n" }] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
-			[{ "n", " " }] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
-			[{ "n", "p" }] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
-			[{ "n", "t" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
-			[{ "n", "c" }] = { "<cmd>cd %:p:h<cr>", "cd to current file" },
-		},
-	},
+	-- harpoon = { -- mappings to harpoonleader
+	-- 	leader = Keys.harpoonleader,
+	-- 	name = "harpoon",
+	-- 	opts = { noremap = true, silent = true },
+	-- 	maps = {
+	-- 		[{ "n", "f" }] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "add file" },
+	-- 		[{ "n", "a" }] = { "<cmd>lua require('harpoon.mark').add_file()<cr>", "add file" },
+	-- 		[{ "n", "m" }] = { "<cmd>lua require('harpoon.ui').toggle_quick_menu()<cr>", "quick menu" },
+	-- 		[{ "n", "n" }] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
+	-- 		[{ "n", " " }] = { "<cmd>lua require('harpoon.ui').nav_next()<cr>", "next" },
+	-- 		[{ "n", "p" }] = { "<cmd>lua require('harpoon.ui').nav_prev()<cr>", "previous" },
+	-- 		[{ "n", "t" }] = { "<cmd>Telescope harpoon marks<cr>", "marks" },
+	-- 		[{ "n", "c" }] = { "<cmd>cd %:p:h<cr>", "cd to current file" },
+	-- 	},
+	-- },
 	qf = { -- mappings to harpoonleader
 		leader = Keys.qfleader,
 		name = "quickfix",

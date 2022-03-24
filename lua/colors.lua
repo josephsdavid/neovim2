@@ -11,7 +11,7 @@ vim.g.everforest_diagnostic_text_highlight = 1
 -- vim.g.everforest_current_word = "bold"
 vim.g.everforest_better_performance = 1
 
-vim.g.kanagawabones = { solid_line_nr = true, darken_comments = 45, darkness="stark" }
+vim.g.kanagawabones = { solid_line_nr = false, darken_comments = 45, darkness="stark" }
 vim.g.forestbones = { solid_line_nr = true, darken_comments = 45, darkness="warm" }
 vim.g.tokyonight_style = "night"
 vim.g.tokyonight_italic_functions = true

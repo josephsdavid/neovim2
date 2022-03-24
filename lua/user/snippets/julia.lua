@@ -261,106 +261,26 @@ end
 -- Snippets configuration
 -- =============================================================================
 
-M.snippets = {
-  -- Julia function documentation
-  -- -----------------------------------------------------------------------
-  s({
-    trig = 'jld',
-    dscr = 'Julia function documentation',
-    docstring = {
-      '"""',
-      '    test(a::Int, b::String; kwargs...)',
-      '',
-      '$1',
-      '',
-      '# Args',
-      '',
-      '- `a::Int`: $2',
-      '- `b::String`: $3',
-      '',
-      '# Keywords',
-      '',
-      '- `c::Int`: $4',
-      '- `d::Int`: $5',
-      '',
-      '# Returns',
-      '',
-      '$6',
-      '"""',
-      'function test(a::Int, b::String; c::Int = 1, d::Int = 2)',
-        '$0',
-      }
-    }, {
-      d(
-      1,
-      function(args, snip, old_state, initial_text)
-        return M.julia_doc_nodes(snip.env.SELECT_RAW)
-      end,
-      {},
-      ''
-      )
+-- choice nodes
+-- local c = ls.choice_node
+
+
+local rec_ls
+rec_ls = function()
+  return sn(nil, {
+    c(1, {
+      -- important!! Having the sn(...) as the first choice will cause infinite recursion.
+      t({ "" }),
+      -- The same dynamicNode as in the snippet (also note: self reference).
+      sn(nil, { t( '"' ), i(1), t({'"=>'}), i(2), t(","), d(3, rec_ls, {}) }),
     }),
+  })
+end
 
-    -- Julia function documentation (without return)
-      -- -----------------------------------------------------------------------
-      s({
-        trig = 'jldnr',
-        dscr = 'Julia function documentation (without return)',
-          docstring = {
-            '"""',
-            '    test(a::Int, b::String; kwargs...)',
-            '',
-            '$1',
-            '',
-            '# Args',
-            '',
-            '- `a::Int`: $2',
-            '- `b::String`: $3',
-            '',
-            '# Keywords',
-            '',
-            '- `c::Int`: $4',
-            '- `d::Int`: $5',
-            '"""',
-            'function test(a::Int, b::String; c::Int = 1, d::Int = 2)',
-              '$0',
-            }
-          }, {
-            d(
-            1,
-            function(args, snip, old_state, initial_text)
-              return M.julia_doc_noreturn_nodes(snip.env.SELECT_RAW)
-            end,
-            {},
-            ''
-            )
-          }),
+M.snippets = {
 
-          -- Julia function documentation (without any fields)
-            -- -----------------------------------------------------------------------
-            s({
-              trig = 'jldnf',
-              dscr = 'Julia function documentation (without any fields)',
-                docstring = {
-                  '"""',
-                  '    test(a::Int, b::String; kwargs...)',
-                  '',
-                  '$1',
-                  '"""',
-                  'function test(a::Int, b::String; c::Int = 1, d::Int = 2)',
-                    '$0',
-                  }
-                }, {
-                  d(
-                  1,
-                  function(args, snip, old_state, initial_text)
-                    return M.julia_doc_nofields_nodes(snip.env.SELECT_RAW)
-                  end,
-                  {},
-                  ''
-                  )
-                }),
-              }
+  s("dict", {t({"Dict("}), d(1, rec_ls, {}),t({")"})}) -- to lreq, bind parse the list
 
+}
 return M
 

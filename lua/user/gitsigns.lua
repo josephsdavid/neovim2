@@ -6,7 +6,7 @@ end
 
 gitsigns.setup({
 	signcolumn = false,
-	numhl = true,
+	numhl = false,
 	current_line_blame = false,
 	keymaps = {},
 })
