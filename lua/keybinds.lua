@@ -135,6 +135,7 @@ local map_table = {
 		opts = { noremap = true, silent = false },
 		maps = {
 			[{ "n", "C" }] = { ":lua require('neogen').generate({type = 'class'})<CR>", "Document class" },
+			[{ "n", "s" }] = { ":lua require('neogen').generate({type = 'struct'})<CR>", "Document class" },
 			[{ "n", "f" }] = { ":lua require('neogen').generate()<CR>", "Document function" },
 			[{ "n", " " }] = { ":lua require('neogen').generate()<CR>", "Document function" },
 			[{ "n", "d" }] = { ":lua require('duck').hatch('🐔')<CR>", "make duck" },

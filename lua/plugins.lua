@@ -105,9 +105,12 @@ return packer.startup(function(use)
 	-- })
 	use("arkav/lualine-lsp-progress")
 	use({
-		"danymat/neogen",
+		"josephsdavid/neogen",
+    branch = "dj/add-julia-support",
 		config = function()
 			require("neogen").setup({
+        snippet_engine = "luasnip",
+        enable_placeholders = false,
 				enabled = true,
 				languages = {
 					python = {
@@ -331,7 +334,7 @@ return packer.startup(function(use)
 	-- 		})
 	-- 	end,
 	-- })
-  use({"nvim-neorg/neorg-telescope", branch="feat/gtd_pickers"})
+  use({"nvim-neorg/neorg-telescope", })
 
 	use({ "nvim-neorg/neorg", requires = { "nvim-lua/plenary.nvim",  } })
 	use("nathom/filetype.nvim")
@@ -508,15 +511,15 @@ return packer.startup(function(use)
       require('mkdir')
     end
   }
-  use {
-    "xiyaowong/nvim-transparent",
-    config = function ()
-      require("transparent").setup({
-        enable = true
-      })
-
-    end
-  }
+  -- use {
+  --   "xiyaowong/nvim-transparent",
+  --   config = function ()
+  --     require("transparent").setup({
+  --       enable = true
+  --     })
+  --
+  --   end
+  -- }
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins
 	if PACKER_BOOTSTRAP then

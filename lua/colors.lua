@@ -1,7 +1,7 @@
 -- local colorscheme = "rigel"
 -- local colorscheme = "tokyonight"
 -- local colorscheme = "purify"
-local colorscheme = "forestbones"
+local colorscheme = "everforest"
 vim.g.everforest_background = "soft"
 
 vim.g.everforest_enable_italic = 1

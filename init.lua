@@ -164,6 +164,7 @@ vim.cmd [[
 
 autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType r setlocal expandtab shiftwidth=2 softtabstop=2
+autocmd FileType julia setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType rmd setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType lua setlocal expandtab shiftwidth=2 softtabstop=2

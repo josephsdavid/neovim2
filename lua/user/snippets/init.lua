@@ -208,7 +208,7 @@ local iterator = function(delim)
 end
 
 -- these should be inside your snippet-table.
-ls.snippets = {
+local snippets = {
 	all = {
 		pair("(", ")", neg, char_count_same),
 		pair("{", "}", neg, char_count_same),
@@ -269,4 +269,8 @@ ls.autosnippets = {
 
 -- ls.filetype_extend("cpp", { "c" })
 
-ls.filetype_extend("all", { "_" })
+ls.add_snippets("all", snippets.all)
+ls.add_snippets("lua", snippets.lua)
+ls.add_snippets("python", snippets.python)
+ls.add_snippets("norg", snippets.norg)
+ls.add_snippets("julia", snippets.julia)
