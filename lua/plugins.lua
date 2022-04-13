@@ -236,16 +236,16 @@ return packer.startup(function(use)
 		wants = "nvim-treesitter/nvim-treesitter",
 	})
 	use("ggandor/lightspeed.nvim")
-	use({
-		"phaazon/hop.nvim",
-		branch = "v1", -- optional but strongly recommended
-		config = function()
-			-- you can configure Hop the way you like here; see :h hop-config
-			require("hop").setup({
-				-- keys = 'etovxqpdygfblzhckisuran'
-			})
-		end,
-	})
+	-- use({
+	-- 	"phaazon/hop.nvim",
+	-- 	branch = "v1", -- optional but strongly recommended
+	-- 	config = function()
+	-- 		-- you can configure Hop the way you like here; see :h hop-config
+	-- 		require("hop").setup({
+	-- 			-- keys = 'etovxqpdygfblzhckisuran'
+	-- 		})
+	-- 	end,
+	-- })
 	use({ "folke/which-key.nvim" })
 	-- use({
 	-- 	"numToStr/Comment.nvim",
@@ -512,6 +512,14 @@ return packer.startup(function(use)
       require('mkdir')
     end
   }
+use {
+  'pwntester/octo.nvim',
+  requires = {
+    'nvim-lua/plenary.nvim',
+    'nvim-telescope/telescope.nvim',
+    'kyazdani42/nvim-web-devicons',
+  },
+}
   -- use {
   --   "xiyaowong/nvim-transparent",
   --   config = function ()

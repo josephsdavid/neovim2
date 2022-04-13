@@ -109,17 +109,17 @@ local function lsp_highlight_document(client)
 	-- Set autocommands conditional on server_capabilities
 	if client.resolved_capabilities.document_highlight then
 
-		vim.api.nvim_exec(
-			[[
-		    augroup lsp_document_highlight
-		      autocmd! * <buffer>
-		      autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
-		      autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
-		    augroup END
+		-- vim.api.nvim_exec(
+		-- 	[[
+		--     augroup lsp_document_highlight
+		--       autocmd! * <buffer>
+		--       autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+		--       autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+		--     augroup END
 
-		  ]],
-			false
-		)
+		--   ]],
+		-- 	false
+		-- )
 	end
 end
 
@@ -189,12 +189,35 @@ M.on_attach = function(client, bufnr)
 	if client.name == "tsserver" then
 		client.resolved_capabilities.document_formatting = false
 	end
+  vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
 	lsp_keymaps(bufnr)
 	lsp_highlight_document(client)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-
+capabilities.textDocument.completion.completionItem.snippetSupport = true
+capabilities.textDocument.completion.completionItem.preselectSupport = true
+capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
+capabilities.textDocument.completion.completionItem.deprecatedSupport = true
+capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
+capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
+capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
+capabilities.textDocument.completion.completionItem.resolveSupport = {
+  properties = { "documentation", "detail", "additionalTextEdits" },
+}
+capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown" }
+capabilities.textDocument.codeAction = {
+  dynamicRegistration = true,
+  codeActionLiteralSupport = {
+    codeActionKind = {
+      valueSet = (function()
+        local res = vim.tbl_values(vim.lsp.protocol.CodeActionKind)
+        table.sort(res)
+        return res
+      end)(),
+    },
+  },
+}
 local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
 if not status_ok then
 	return

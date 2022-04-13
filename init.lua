@@ -27,6 +27,7 @@ require "user.yabs"
 -- require "user.dap"
 -- require "user.staline"
 -- require "user.indentline"
+require "user.octo"
 require "keybinds"
 require "user.whichkey"
 -- vim.opt.list = true
@@ -211,5 +212,4 @@ let g:repl_config = {
             \ }
 " tnoremap <Esc> <C-\><C-n>
 runtime zepl/contrib/nvim_autoscroll_hack.vim
-
 ]]

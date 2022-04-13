@@ -126,7 +126,7 @@ require("nvim-treesitter.configs").setup({
 	ignore_install = { "haskell" },
 	highlight = {
 		enable = true, -- false will disable the whole extension
-		disable = { "c" }, -- list of language that will be disabled
+		disable = { "c", "vim" }, -- list of language that will be disabled
 		custom_captures = { -- mapping of user defined captures to highlight groups
 			-- ["foo.bar"] = "Identifier"  -- highlight own capture @foo.bar with highlight group "Identifier", see :h nvim-treesitter-query-extensions
 		},
@@ -195,7 +195,6 @@ require("nvim-treesitter.configs").setup({
 		"bash",
 		"rust",
 		"dockerfile",
-		"vim",
 		"query",
 	}, -- one of "all", "language", or a list of languages
 })

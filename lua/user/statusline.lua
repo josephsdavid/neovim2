@@ -9,7 +9,7 @@ gps.setup({
 		["class-name"] = " ", -- Classes and class-like objects
 		["function-name"] = " ", -- Functions
 		["method-name"] = " ", -- Methods (functions inside class-like objects)
-		["container-name"] = "⛶ ", -- Containers (example: lua tables)
+		["container-name"] = "💼 ", -- Containers (example: lua tables)
 		["tag-name"] = "炙", -- Tags (example: html tags)
 		["conditional-name"] = "",
 		["loop-name"] = "ﯩ",
@@ -92,6 +92,7 @@ local config = {
 		section_separators = { left = "", right = "" },
 		disabled_filetypes = { "dashboard", "NvimTree", "Outline" },
 		always_divide_middle = true,
+		globalstatus=true,
 	},
 	sections = {
 		lualine_a = { "filename" },

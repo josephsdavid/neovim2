@@ -1,0 +1,127 @@
+require"octo".setup({
+  default_remote = {"upstream", "origin"}; -- order to try remotes
+  reaction_viewer_hint_icon = "";         -- marker for user reactions
+  user_icon = " ";                        -- user icon
+  timeline_marker = "";                   -- timeline marker
+  timeline_indent = "2";                   -- timeline indentation
+  right_bubble_delimiter = "";            -- Bubble delimiter
+  left_bubble_delimiter = "";             -- Bubble delimiter
+  github_hostname = "";                    -- GitHub Enterprise host
+  snippet_context_lines = 4;               -- number or lines around commented lines
+  file_panel = {
+    size = 10,                             -- changed files panel rows
+    use_icons = true                       -- use web-devicons in file panel
+  },
+  mappings = {
+    issue = {
+      close_issue = Keys.gitleader("ic"),           -- close issue
+      reopen_issue = Keys.gitleader("io"),          -- reopen issue
+      list_issues = Keys.gitleader("il"),           -- list open issues on same repo
+      reload = "<C-r>",                    -- reload issue
+      open_in_browser = "<C-b>",           -- open issue in browser
+      copy_url = "<C-y>",                  -- copy url to system clipboard
+      add_assignee = Keys.gitleader("aa"),          -- add assignee
+      remove_assignee = Keys.gitleader("ad"),       -- remove assignee
+      create_label = Keys.gitleader("lc"),          -- create label
+      add_label = Keys.gitleader("la"),             -- add label
+      remove_label = Keys.gitleader("ld"),          -- remove label
+      goto_issue = Keys.gitleader("gi"),            -- navigate to a local repo issue
+      add_comment = Keys.gitleader("ca"),           -- add comment
+      delete_comment = Keys.gitleader("cd"),        -- delete comment
+      next_comment = "]c",                 -- go to next comment
+      prev_comment = "[c",                 -- go to previous comment
+      react_hooray = Keys.gitleader("rp"),          -- add/remove 🎉 reaction
+      react_heart = Keys.gitleader("rh"),           -- add/remove ❤️ reaction
+      react_eyes = Keys.gitleader("re"),            -- add/remove 👀 reaction
+      react_thumbs_up = Keys.gitleader("r+"),       -- add/remove 👍 reaction
+      react_thumbs_down = Keys.gitleader("r-"),     -- add/remove 👎 reaction
+      react_rocket = Keys.gitleader("rr"),          -- add/remove 🚀 reaction
+      react_laugh = Keys.gitleader("rl"),           -- add/remove 😄 reaction
+      react_confused = Keys.gitleader("r/"),        -- add/remove 😕 reaction
+    },
+    pull_request = {
+      checkout_pr = Keys.gitleader("ro"),           -- checkout PR
+      merge_pr = Keys.gitleader("rm"),              -- merge commit PR
+      squash_and_merge_pr = Keys.gitleader("rsm"),  -- squash and merge PR
+      list_commits = Keys.gitleader("rc"),          -- list PR commits
+      list_changed_files = Keys.gitleader("rf"),    -- list PR changed files
+      show_pr_diff = Keys.gitleader("rd"),          -- show PR diff
+      add_reviewer = Keys.gitleader("va"),          -- add reviewer
+      remove_reviewer = Keys.gitleader("vd"),       -- remove reviewer request
+      close_issue = Keys.gitleader("ic"),           -- close PR
+      reopen_issue = Keys.gitleader("io"),          -- reopen PR
+      list_issues = Keys.gitleader("il"),           -- list open issues on same repo
+      reload = "<C-r>",                    -- reload PR
+      open_in_browser = "<C-b>",           -- open PR in browser
+      copy_url = "<C-y>",                  -- copy url to system clipboard
+      add_assignee = Keys.gitleader("aa"),          -- add assignee
+      remove_assignee = Keys.gitleader("ad"),       -- remove assignee
+      create_label = Keys.gitleader("lc"),          -- create label
+      add_label = Keys.gitleader("la"),             -- add label
+      remove_label = Keys.gitleader("ld"),          -- remove label
+      goto_issue = Keys.gitleader("gi"),            -- navigate to a local repo issue
+      add_comment = Keys.gitleader("ca"),           -- add comment
+      delete_comment = Keys.gitleader("cd"),        -- delete comment
+      next_comment = "]c",                 -- go to next comment
+      prev_comment = "[c",                 -- go to previous comment
+      react_hooray = Keys.gitleader("rp"),          -- add/remove 🎉 reaction
+      react_heart = Keys.gitleader("rh"),           -- add/remove ❤️ reaction
+      react_eyes = Keys.gitleader("re"),            -- add/remove 👀 reaction
+      react_thumbs_up = Keys.gitleader("r+"),       -- add/remove 👍 reaction
+      react_thumbs_down = Keys.gitleader("r-"),     -- add/remove 👎 reaction
+      react_rocket = Keys.gitleader("rr"),          -- add/remove 🚀 reaction
+      react_laugh = Keys.gitleader("rl"),           -- add/remove 😄 reaction
+      react_confused = Keys.gitleader("r/"),        -- add/remove 😕 reaction
+    },
+    review_thread = {
+      goto_issue = Keys.gitleader("gi"),            -- navigate to a local repo issue
+      add_comment = Keys.gitleader("ca"),           -- add comment
+      add_suggestion = Keys.gitleader("sa"),        -- add suggestion
+      delete_comment = Keys.gitleader("cd"),        -- delete comment
+      next_comment = "]c",                 -- go to next comment
+      prev_comment = "[c",                 -- go to previous comment
+      select_next_entry = "]q",            -- move to previous changed file
+      select_prev_entry = "[q",            -- move to next changed file
+      close_review_tab = "<C-c>",          -- close review tab
+      react_hooray = Keys.gitleader("rp"),          -- add/remove 🎉 reaction
+      react_heart = Keys.gitleader("rh"),           -- add/remove ❤️ reaction
+      react_eyes = Keys.gitleader("re"),            -- add/remove 👀 reaction
+      react_thumbs_up = Keys.gitleader("r+"),       -- add/remove 👍 reaction
+      react_thumbs_down = Keys.gitleader("r-"),     -- add/remove 👎 reaction
+      react_rocket = Keys.gitleader("rr"),          -- add/remove 🚀 reaction
+      react_laugh = Keys.gitleader("rl"),           -- add/remove 😄 reaction
+      react_confused = Keys.gitleader("r/"),        -- add/remove 😕 reaction
+    },
+    submit_win = {
+      approve_review = "<C-a>",            -- approve review
+      comment_review = "<C-m>",            -- comment review
+      request_changes = "<C-r>",           -- request changes review
+      close_review_tab = "<C-c>",          -- close review tab
+    },
+    review_diff = {
+      add_review_comment = Keys.gitleader("ca"),    -- add a new review comment
+      add_review_suggestion = Keys.gitleader("sa"), -- add a new review suggestion
+      focus_files = Keys.gitleader("e"),           -- move focus to changed file panel
+      toggle_files = Keys.gitleader("b"),          -- hide/show changed files panel
+      next_thread = "]t",                  -- move to next thread
+      prev_thread = "[t",                  -- move to previous thread
+      select_next_entry = "]q",            -- move to previous changed file
+      select_prev_entry = "[q",            -- move to next changed file
+      close_review_tab = "<C-c>",          -- close review tab
+      toggle_viewed = Keys.gitleader("<space>"),   -- toggle viewer viewed state
+    },
+    file_panel = {
+      next_entry = "j",                    -- move to next changed file
+      prev_entry = "k",                    -- move to previous changed file
+      select_entry = "<cr>",               -- show selected changed file diffs
+      refresh_files = "R",                 -- refresh changed files panel
+      focus_files = Keys.gitleader("e"),           -- move focus to changed file panel
+      toggle_files = Keys.gitleader("b"),          -- hide/show changed files panel
+      select_next_entry = "]q",            -- move to previous changed file
+      select_prev_entry = "[q",            -- move to next changed file
+      close_review_tab = "<C-c>",          -- close review tab
+      toggle_viewed = Keys.gitleader("<space>"),   -- toggle viewer viewed state
+    }
+  }
+})
+

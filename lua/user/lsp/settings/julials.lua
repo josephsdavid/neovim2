@@ -45,7 +45,7 @@ return {
     cmd = cmd,
     filetypes = { 'julia' },
     root_dir = function(fname)
-      return util.root_pattern 'Project.toml'(fname) or util.find_git_ancestor(fname)
+      return util.root_pattern 'Project.toml'(fname) or util.find_git_ancestor(fname) or util.root_pattern '.envrc'(fname)
     end,
     single_file_support = true,
   },
