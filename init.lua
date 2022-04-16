@@ -1,95 +1,27 @@
-require'impatient'.enable_profile()
-require "globals"
-require "options"
+require('impatient').enable_profile()
 require "plugins"
-require 'packer_compiled'
-require "colors"
-require "user.lightspeed"
-require "user.lsp"
-require "user.treesitter"
-require "user.cmp"
-require "user.snippets"
--- require "user.telescope"
-require "user.toggleterm"
--- require "user.comment"
-require "user.statusline"
-require "user.zen"
-require "user.null-ls"
-require "user.gitsigns"
--- require "user.neogit"
--- require "user.vimscript"
-require "user.neorg"
-require "user.bufferline"
-require "user.mini"
-require "user.iron"
-require "user.fzf"
-require "user.yabs"
--- require "user.dap"
--- require "user.staline"
--- require "user.indentline"
-require "user.octo"
+require "globals"
 require "keybinds"
-require "user.whichkey"
--- vim.opt.list = true
--- require "globals"
--- require "plugins"
--- require "treesitter"
--- require "keybinds"
--- require "options"
+require "options"
+require "lsp".setup()
+require "ts"
+require "snippets"
+require "completion"
+require "term"
+require "bars"
+require "search"
+require "norg"
+require "neogen".setup()
+require "Comment".setup()
+require "gh"
+require('leap').set_default_keymaps()
 
-
-
-
--- local utils = require("user.utils")
--- local mappings = utils.-- local mappings = utils.mappingsA
-
-local fn = vim.fn
-
-function _G.qftf(info)
-    local items
-    local ret = {}
-    if info.quickfix == 1 then
-        items = fn.getqflist({id = info.id, items = 0}).items
-    else
-        items = fn.getloclist(info.winid, {id = info.id, items = 0}).items
-    end
-    local limit = 31
-    local fname_fmt1, fname_fmt2 = '%-' .. limit .. 's', '…%.' .. (limit - 1) .. 's'
-    local valid_fmt = '%s │%5d:%-3d│%s %s'
-    for i = info.start_idx, info.end_idx do
-        local e = items[i]
-        local fname = ''
-        local str
-        if e.valid == 1 then
-            if e.bufnr > 0 then
-                fname = fn.bufname(e.bufnr)
-                if fname == '' then
-                    fname = '[No Name]'
-                else
-                    fname = fname:gsub('^' .. vim.env.HOME, '~')
-                end
-                -- char in fname may occur more than 1 width, ignore this issue in order to keep performance
-                if #fname <= limit then
-                    fname = fname_fmt1:format(fname)
-                else
-                    fname = fname_fmt2:format(fname:sub(1 - limit))
-                end
-            end
-            local lnum = e.lnum > 99999 and -1 or e.lnum
-            local col = e.col > 999 and -1 or e.col
-            local qtype = e.type == '' and '' or ' ' .. e.type:sub(1, 1):upper()
-            str = valid_fmt:format(fname, lnum, col, qtype, e.text)
-        else
-            str = e.text
-        end
-        table.insert(ret, str)
-    end
-    return ret
-end
-
-vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
 
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
+vim.cmd("colorscheme forestbones")
+
+
+vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
 
 function _G.Toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
@@ -111,8 +43,6 @@ function _G.Toggle_venn()
 end
 -- toggle keymappings for venn using <leader>v
 vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true})
-
-
 vim.cmd [[
   augroup _general_settings
     autocmd!
@@ -123,13 +53,11 @@ vim.cmd [[
     autocmd InsertEnter,WinLeave * set nocursorline
     autocmd FileType qf set nobuflisted
   augroup end
-
   augroup _git
     autocmd!
     autocmd FileType gitcommit setlocal wrap
     autocmd FileType gitcommit setlocal spell
   augroup end
-
   augroup _markdown
     autocmd!
     autocmd FileType markdown setlocal wrap
@@ -139,19 +67,15 @@ vim.cmd [[
     autocmd FileType norg setlocal linebreak
     " autocmd FileType norg setlocal spell
   augroup end
-
   augroup _auto_resize
     autocmd!
     autocmd VimResized * tabdo wincmd =
   augroup end
-
   " augroup ProjectDrawer
   "     autocmd!
   "     autocmd VimEnter * if argc() == 0 | Explore! | endif
   " augroup END
-
   " autocmd BufEnter * if expand("%:p:h") !~ '*.norg' | silent! lcd %:p:h | endif
-
   let g:hiPairs_enable_matchParen = 0
   let g:hiPairs_timeout = 1
   let g:hiPairs_insert_timeout = 1
@@ -162,14 +86,12 @@ vim.cmd [[
               \                  'gui'     : 'underline,bold,italic',
               \                  'guifg'   : '#fb94ff',
               \                  'guibg'   : 'NONE' }
-
 autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType r setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType julia setlocal expandtab shiftwidth=4 softtabstop=4
 autocmd FileType rmd setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType yaml setlocal expandtab shiftwidth=2 softtabstop=2
 autocmd FileType lua setlocal expandtab shiftwidth=2 softtabstop=2
-
 " Run currently focused python script with F9
 " autocmd FileType python nnoremap <buffer> <F9> :exec '!python' shellescape(@%, 1)<cr>
 " autocmd FileType markdown nnoremap <buffer> <F9> :exec '!md2pdf' shellescape(@%, 1)<cr>
@@ -180,14 +102,9 @@ autocmd FileType rust nnoremap <buffer> <F8> :exec '!cargo fmt'<cr>
 autocmd FileType sh nnoremap <buffer> <F8> :exec '!shfmt -w' shellescape(@%, 1)<cr>
 autocmd FileType nix nnoremap <buffer> <F8> :exec '!nixfmt' shellescape(@%, 1)<cr>
 autocmd FileType lua nnoremap <buffer> <F8> :exec '!stylua' shellescape(@%, 1)<cr>
-
-
-
 filetype plugin on
 filetype indent on
 syntax enable
-
-
 fun! CleanExtraSpaces()
 	let save_cursor = getpos(".")
 	let old_query = getreg('/')
@@ -198,11 +115,8 @@ endfun
 if has("autocmd")
 	autocmd BufWritePre *.txt,*.jl,*.js,*.py,*.wiki,*.sh,*.coffee,*.lua :call CleanExtraSpaces()
 endif
-
-
 runtime zepl/contrib/python.vim  " Enable the Python contrib module.
 runtime zepl/contrib/nvim_autoscroll_hack.vim
-
 let g:repl_config = {
             \   'python': {
             \     'cmd': 'python',
