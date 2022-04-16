@@ -1,3 +1,120 @@
+local status_ok, telescope = pcall(require, "telescope")
+if not status_ok then
+	return
+end
+
+
+local actions = require("telescope.actions")
+
+telescope.setup({
+	defaults = {
+
+		prompt_prefix = " ",
+		selection_caret = " ",
+		path_display = { "smart" },
+
+		mappings = {
+			i = {
+				["<C-n>"] = actions.cycle_history_next,
+				["<C-p>"] = actions.cycle_history_prev,
+
+				["<C-j>"] = actions.move_selection_next,
+				["<C-k>"] = actions.move_selection_previous,
+
+				["<C-c>"] = actions.close,
+
+				["<Down>"] = actions.move_selection_next,
+				["<Up>"] = actions.move_selection_previous,
+
+				["<CR>"] = actions.select_default,
+				["<C-x>"] = actions.select_horizontal,
+				["<C-v>"] = actions.select_vertical,
+				["<C-t>"] = actions.select_tab,
+
+				["<C-u>"] = actions.preview_scrolling_up,
+				["<C-d>"] = actions.preview_scrolling_down,
+
+				["<PageUp>"] = actions.results_scrolling_up,
+				["<PageDown>"] = actions.results_scrolling_down,
+
+				["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+				["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+				["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+				["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+				["<C-l>"] = actions.complete_tag,
+				["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+			},
+
+			n = {
+				["<esc>"] = actions.close,
+				["<CR>"] = actions.select_default,
+				["<C-x>"] = actions.select_horizontal,
+				["<C-v>"] = actions.select_vertical,
+				["<C-t>"] = actions.select_tab,
+
+				["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+				["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+				["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+				["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+
+				["j"] = actions.move_selection_next,
+				["k"] = actions.move_selection_previous,
+				["H"] = actions.move_to_top,
+				["M"] = actions.move_to_middle,
+				["L"] = actions.move_to_bottom,
+
+				["<Down>"] = actions.move_selection_next,
+				["<Up>"] = actions.move_selection_previous,
+				["gg"] = actions.move_to_top,
+				["G"] = actions.move_to_bottom,
+
+				["<C-u>"] = actions.preview_scrolling_up,
+				["<C-d>"] = actions.preview_scrolling_down,
+
+				["<PageUp>"] = actions.results_scrolling_up,
+				["<PageDown>"] = actions.results_scrolling_down,
+
+				["?"] = actions.which_key,
+			},
+		},
+	},
+	pickers = {
+		-- Default configuration for builtin pickers goes here:
+		-- picker_name = {
+		--   picker_config_key = value,
+		--   ...
+		-- }
+		-- Now the picker_config_key will be applied every time you call this
+		-- builtin picker
+	},
+	extensions = {
+		workspaces = {
+			-- keep insert mode after selection in the picker, default is false
+			keep_insert = true,
+		},
+		frecency = {
+			show_scores = false,
+			show_unindexed = true,
+			ignore_patterns = { "*.git/*", "*/tmp/*", "*.html" },
+			disable_devicons = false,
+			workspaces = {
+				["conf"] = "/home/david/.config",
+				["nvim"] = "/home/david/.config/nvim",
+				["data"] = "/home/david/.local/share",
+				["tasq"] = "/home/david/tasq",
+				["setpoints"] = "/home/david/tasq/setpoint-rec/",
+				["rtd"] = "/home/david/tasq/realtime-deferment/",
+				["libtasq"] = "/home/david/tasq/libtasq/",
+				["notes"] = "/home/david/neorg/",
+			},
+		},
+	},
+})
+
+-- telescope.load_extension("project")
+-- telescope.load_extension("frecency")
+-- telescope.load_extension("emoji")
+-- telescope.load_extension("harpoon")
 local actions = require "fzf-lua.actions"
 require'fzf-lua'.setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
@@ -382,22 +499,22 @@ require'fzf-lua'.setup {
     file_icons        = true,
     git_icons         = true,
   },
-  lsp = {
-    prompt_postfix    = '❯ ',       -- will be appended to the LSP label
-                                    -- to override use 'prompt' instead
-    cwd_only          = false,      -- LSP/diagnostics for cwd only?
-    async_or_timeout  = 5000,       -- timeout(ms) or 'true' for async calls
-    file_icons        = true,
-    git_icons         = false,
-    lsp_icons         = true,
-    severity          = "hint",
-    icons = {
-      ["Error"]       = { icon = "", color = "red" },       -- error
-      ["Warning"]     = { icon = "", color = "yellow" },    -- warning
-      ["Information"] = { icon = "", color = "blue" },      -- info
-      ["Hint"]        = { icon = "", color = "magenta" },   -- hint
-    },
-  },
+  -- lsp = {
+  --   prompt_postfix    = '❯ ',       -- will be appended to the LSP label
+  --                                   -- to override use 'prompt' instead
+  --   cwd_only          = false,      -- LSP/diagnostics for cwd only?
+  --   async_or_timeout  = 5000,       -- timeout(ms) or 'true' for async calls
+  --   file_icons        = true,
+  --   git_icons         = false,
+  --   lsp_icons         = false,
+  --   severity          = "hint",
+  --   icons = {
+  --     ["Error"]       = { icon = "", color = "red" },       -- error
+  --     ["Warning"]     = { icon = "", color = "yellow" },    -- warning
+  --     ["Information"] = { icon = "", color = "blue" },      -- info
+  --     ["Hint"]        = { icon = "", color = "magenta" },   -- hint
+  --   },
+  -- },
   -- uncomment to disable the previewer
   -- nvim = { marks = { previewer = { _ctor = false } } },
   -- helptags = { previewer = { _ctor = false } },

@@ -12,10 +12,6 @@ local function make_modifier(leader)
 	return ret
 end
 
-Paths = {
-	snippets = "/home/david/.config/nvim/lua/user/snips",
-}
-PDB = "__import__('pdb').set_trace()"
 
 Keys = {}
 
@@ -43,15 +39,5 @@ Keys.qfleader = make_leader(Keys.leader("q"))
 Prequire = function(module) -- Stolen from danymat
 	local ok, mod = pcall(require, module)
 	return ok, mod
-end
-
-Notifications = {}
-
-Notifications.cwd = function()
-	require("notify")(vim.fn.getcwd(), "info", {
-		title = "CWD Changed!",
-		icon = "📂",
-    timeout = 1000
-	})
 end
 
