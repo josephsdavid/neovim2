@@ -19,10 +19,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
--- If you're reading this file for the first time, best skip to around line 190
--- where the actual snippet-definitions start.
 
--- Every unspecified option will be set to the default.
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
@@ -194,8 +191,23 @@ local function pair(pair_begin, pair_end, expand_func, ...)
 	})
 end
 
+local iterator = function(delim)
+	local rec_ls
+	rec_ls = function()
+		return sn(nil, {
+			c(1, {
+				-- important!! Having the sn(...) as the first choice will cause infinite recursion.
+				t({ "" }),
+				-- The same dynamicNode as in the snippet (also note: self reference).
+				sn(nil, { t({ "", delim }), i(1), d(2, rec_ls, {}) }),
+			}),
+		})
+	end
+	return rec_ls
+end
+
 -- these should be inside your snippet-table.
-ls.snippets = {
+local snippets = {
 	all = {
 		pair("(", ")", neg, char_count_same),
 		pair("{", "}", neg, char_count_same),
@@ -204,9 +216,48 @@ ls.snippets = {
 		pair("'", "'", neg, even_count),
 		pair('"', '"', neg, even_count),
 		pair("`", "`", neg, even_count),
+		s(
+			"trig",
+			c(1, {
+				t("Ugh boring, a text node"),
+				i(nil, "At least I can edit something now..."),
+				f(function(args)
+					return "Still only counts as text!!"
+				end, {}),
+			})
+		),
 	},
-}
+	-- python = require("user.snippets.python"),
+	lua = {
+		ls.parser.parse_snippet("lf", "-- Defined in $TM_FILE\nlocal $1 = function($2)\n\t$0\nend"),
+		ls.parser.parse_snippet("mf", "-- Defined in $TM_FILE\nlocal $1.$2 = function($3)\n\t$0\nend"),
+		s("lreq", fmt("local {} = require('{}')", { i(1, "default"), rep(1) })), -- to lreq, bind parse the list
+	},
+	norg = {
 
+		s("def", fmt("{} *{}* /{}/", { i(1, "-"), i(2, "to_define"), i(3, "definition") })), -- to lreq, bind parse the list
+		s("sdef", fmt("${} \n{}", { i(1, "to_define"), i(2, "definition") })), -- to lreq, bind parse the list
+		s("ldef", fmt("$$ {} \n{} \n$$", { i(1, "to_define"), i(2, "definition") })), -- to lreq, bind parse the list
+		s("code", fmt("@code {} \n{} \n@end", { i(1, "-"), i(2) })), -- to lreq, bind parse the list
+		s("math", fmt("@math  \n{} \n@end", { i(1) })), -- to lreq, bind parse the list
+		s("table", fmt("@table  \n{} \n@end", { i(1) })), -- to lreq, bind parse the list
+		s("data", fmt("@data  \n{} \n@end", { i(1) })), -- to lreq, bind parse the list
+		s("link", fmt("{{{}}}[{}]", { i(1, "object"), i(2, "description") })), -- to lreq, bind parse the list
+		-- pair("*", "*", neg, even_count),
+		pair("/", "/", neg, even_count),
+		pair(",", ",", neg, even_count),
+		pair("^", "^", neg, even_count),
+
+		s("mn", fmt("{} {}\n ", { i(1, "*"), i(2, "title") })), -- to lreq, bind parse the list
+		s("l1", d(1, iterator("- "), {})), -- to lreq, bind parse the list
+		s("l2", d(1, iterator("-- "), {})), -- to lreq, bind parse the list
+		s("l3", d(1, iterator("--- "), {})), -- to lreq, bind parse the list
+		s("i1", d(1, iterator("~ "), {})), -- to lreq, bind parse the list
+		s("i2", d(1, iterator("~~ "), {})), -- to lreq, bind parse the list
+		s("i3", d(1, iterator("~~~ "), {})), -- to lreq, bind parse the list
+	},
+	julia = require("snippets.julia").snippets,
+}
 ls.autosnippets = {
 	all = {
 		s("autotrigger", {
@@ -215,6 +266,10 @@ ls.autosnippets = {
 	},
 }
 
-ls.filetype_set("cpp", { "c" })
-require("luasnip.loaders.from_vscode").load({ paths = { Paths.snippets } }) -- Load snippets from my-snippets folder
-ls.filetype_extend("all", { "_" })
+-- ls.filetype_extend("cpp", { "c" })
+
+ls.add_snippets("all", snippets.all)
+ls.add_snippets("lua", snippets.lua)
+ls.add_snippets("python", snippets.python)
+ls.add_snippets("norg", snippets.norg)
+ls.add_snippets("julia", snippets.julia)
