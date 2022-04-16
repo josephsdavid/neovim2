@@ -1,4 +1,4 @@
-require('impatient').enable_profile()
+require("impatient").enable_profile()
 require "plugins"
 require "globals"
 require "keybinds"
