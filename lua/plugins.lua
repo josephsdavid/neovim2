@@ -1,81 +1,89 @@
-vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
+vim.cmd [[packadd packer.nvim]]
+require'packer'.init({
+  max_jobs=50
+})
 
-require "paq" {
-  "savq/paq-nvim"; -- Let Paq manage itself
-  "nvim-telescope/telescope.nvim";
-  "nvim-lua/plenary.nvim";
-  "neovim/nvim-lspconfig"; -- Mind the semi-colons
-  "folke/which-key.nvim";
-  "kyazdani42/nvim-web-devicons";
-  "rktjmp/lush.nvim";
-  "mcchrish/zenbones.nvim";
-  { "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" };
-  "L3MON4D3/LuaSnip";
-  "kdheepak/cmp-latex-symbols";
-  "hrsh7th/cmp-nvim-lsp";
-  "hrsh7th/cmp-buffer";
-  "hrsh7th/cmp-path";
-  "hrsh7th/cmp-cmdline";
-  "hrsh7th/nvim-cmp";
-  "saadparwaiz1/cmp_luasnip";
-  "Yggdroot/hiPairs";
-  "tpope/vim-repeat";
-  "tpope/vim-vinegar";
-  "tpope/vim-surround";
-  "tpope/vim-fugitive";
-  "vimlab/split-term.vim";
-  "akinsho/toggleterm.nvim";
-  "lewis6991/impatient.nvim";
-  "folke/lsp-colors.nvim";
-  "jose-elias-alvarez/null-ls.nvim";
-  "ray-x/lsp_signature.nvim";
-  "ray-x/cmp-treesitter";
-  "nvim-treesitter/playground";
-  "arkav/lualine-lsp-progress";
-  { "josephsdavid/neogen", branch = "dj/add-julia-support" };
-  "romgrk/nvim-treesitter-context";
-  "RRethy/nvim-treesitter-textsubjects";
-  "lewis6991/spellsitter.nvim";
-  'numToStr/Comment.nvim';
-  "startup-nvim/startup.nvim";
-  "direnv/direnv.vim";
-  "tamton-aquib/duck.nvim";
-  "williamboman/nvim-lsp-installer";
-  "xiyaowong/telescope-emoji.nvim";
-  "mfussenegger/nvim-ts-hint-textobject";
-  "pocco81/truezen.nvim";
-  "SmiteshP/nvim-gps";
-  "ggandor/leap.nvim";
-  "nvim-lualine/lualine.nvim";
-  "nvim-treesitter/nvim-treesitter-textobjects";
-  "nvim-treesitter/nvim-treesitter-refactor";
-  "folke/twilight.nvim",
-  "nvim-telescope/telescope-project.nvim";
-  "chentau/marks.nvim";
-  "tami5/sqlite.lua";
-  "nvim-telescope/telescope-frecency.nvim";
-  "romgrk/barbar.nvim";
-  "nvim-neorg/neorg-telescope";
-  "nvim-neorg/neorg";
-  "hkupty/iron.nvim";
-  "nvim-telescope/telescope-symbols.nvim";
-  "folke/lua-dev.nvim";
-  "rmagatti/goto-preview";
-  "andweeb/presence.nvim";
-  "rebelot/kanagawa.nvim";
-  "ThePrimeagen/refactoring.nvim";
-  "abecodes/tabout.nvim";
-  "folke/todo-comments.nvim";
-  "kevinhwang91/nvim-bqf";
-  "ten3roberts/qf.nvim";
-  'lewis6991/impatient.nvim';
-  "junegunn/fzf";
-  "ibhagwan/fzf-lua";
-  "jbyuki/venn.nvim";
-  "andreasvc/vim-256noir";
-  "GustavoPrietoP/doom-themes.nvim";
-  "pianocomposer321/yabs.nvim";
-  "haringsrob/nvim_context_vt";
-  'jghauser/mkdir.nvim';
-  'pwntester/octo.nvim';
-}
+require'packer'.startup(function(use)
+  use 'wbthomason/packer.nvim'
+  use 'lewis6991/impatient.nvim'
+  use({"nvim-telescope/telescope.nvim"})
+  use({"nvim-lua/plenary.nvim"})
+  use({"neovim/nvim-lspconfig"})
+  use({"folke/which-key.nvim"})
+  use({"kyazdani42/nvim-web-devicons"})
+  use({"rktjmp/lush.nvim"})
+  use({"mcchrish/zenbones.nvim"})
+  use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
+  use({"L3MON4D3/LuaSnip"})
+  use({"kdheepak/cmp-latex-symbols"})
+  use({"hrsh7th/cmp-nvim-lsp"})
+  use({"hrsh7th/cmp-buffer"})
+  use({"hrsh7th/cmp-path"})
+  use({"hrsh7th/cmp-cmdline"})
+  use({"hrsh7th/nvim-cmp"})
+  use({"saadparwaiz1/cmp_luasnip"})
+  use({"Yggdroot/hiPairs"})
+  use({"tpope/vim-repeat"})
+  use({"tpope/vim-vinegar"})
+  use({"tpope/vim-surround"})
+  use({"tpope/vim-fugitive"})
+  use({"vimlab/split-term.vim"})
+  use({"akinsho/toggleterm.nvim"})
+  use({"folke/lsp-colors.nvim"})
+  use({"jose-elias-alvarez/null-ls.nvim"})
+  use({"ray-x/lsp_signature.nvim"})
+  use({"ray-x/cmp-treesitter"})
+  use({"nvim-treesitter/playground"})
+  use({"arkav/lualine-lsp-progress"})
+  use({ "josephsdavid/neogen", branch = "dj/add-julia-support" })
+  use({"direnv/direnv.vim";})
+  use({"tamton-aquib/duck.nvim"})
+  use({"williamboman/nvim-lsp-installer"})
+  use({"xiyaowong/telescope-emoji.nvim"})
+  use({"mfussenegger/nvim-ts-hint-textobject"})
+  use({"pocco81/truezen.nvim"})
+  use({"SmiteshP/nvim-gps"})
+  use({"ggandor/leap.nvim"})
+  use({"nvim-lualine/lualine.nvim"})
+  use({"nvim-treesitter/nvim-treesitter-textobjects"})
+  use({"nvim-treesitter/nvim-treesitter-refactor"})
+  use({"folke/twilight.nvim"})
+  use({"nvim-telescope/telescope-project.nvim"})
+  use({"chentau/marks.nvim"})
+  use({"nvim-telescope/telescope-frecency.nvim", requires = {"tami5/sqlite.lua"}})
+  use({"romgrk/nvim-treesitter-context"})
+  use({ 'lewis6991/spellsitter.nvim', })
+  use({"romgrk/barbar.nvim"})
+  use({"nvim-neorg/neorg-telescope"})
+  use({"nvim-neorg/neorg"})
+  use({"hkupty/iron.nvim"})
+  use({"nvim-telescope/telescope-symbols.nvim"})
+  use({"folke/lua-dev.nvim"})
+  use({"rmagatti/goto-preview"})
+  use({"rebelot/kanagawa.nvim"})
+  use({"ThePrimeagen/refactoring.nvim"})
+  use({"abecodes/tabout.nvim"})
+  use({"folke/todo-comments.nvim"})
+  use({ 'numToStr/Comment.nvim'})
+  use({"kevinhwang91/nvim-bqf"})
+  use({"ten3roberts/qf.nvim"})
+  use({"junegunn/fzf"})
+  use({"ibhagwan/fzf-lua"})
+  use({"sainnhe/everforest"})
+  use({"jbyuki/venn.nvim"})
+  use({"andreasvc/vim-256noir"})
+  use({"GustavoPrietoP/doom-themes.nvim"})
+  use({"pianocomposer321/yabs.nvim"})
+  use({"haringsrob/nvim_context_vt"})
+  use({'jghauser/mkdir.nvim'})
+  use({'pwntester/octo.nvim'})
+	use({
+		"andweeb/presence.nvim",
+		config = function()
+			require("presence"):setup({
+				enable_line_number = true,
+			})
+		end,
+	})
+end
+  )

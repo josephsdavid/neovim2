@@ -1,7 +1,6 @@
-require("impatient").enable_profile()
+require('impatient').enable_profile()
 require "plugins"
 require "globals"
-require "keybinds"
 require "options"
 require "lsp".setup()
 require "ts"
@@ -14,35 +13,83 @@ require "norg"
 require "neogen".setup()
 require "Comment".setup()
 require "gh"
+require "build"
 require('leap').set_default_keymaps()
+require "keybinds"
+
+require("neogen").setup({
+  snippet_engine = "luasnip",
+  enable_placeholders = false,
+  enabled = true,
+  languages = {
+    python = {
+      template = {
+        annotation_convention = "numpydoc",
+      },
+    },
+  },
+})
+
+require("todo-comments").setup({
+  keywords = {
+    FIX = {
+      icon = " ", -- icon used for the sign, and in search results
+      color = "error", -- can be a hex color, or a named color (see below)
+      alt = { "FIXME", "BUG", "FIXIT", "ISSUE" }, -- a set of other keywords that all map to this FIX keywords
+      -- signs = false, -- configure signs for some keywords individually
+    },
+    TODO = { icon = " ", color = "info" },
+    HACK = { icon = " ", color = "warning" },
+    WARN = { icon = " ", color = "warning", alt = { "WARNING", "XXX" } },
+    PERF = { icon = " ", alt = { "OPTIM", "PERFORMANCE", "OPTIMIZE" } },
+    NOTE = { icon = " ", color = "hint", alt = { "INFO" } },
+  },
+
+  priority = 19,
+  highlight = {
+    before = "", -- "fg" or "bg" or empty
+    keyword = "wide", -- "fg", "bg", "wide" or empty. (wide is the same as bg, but will also highlight surrounding characters)
+    after = "fg", -- "fg" or "bg" or empty
+    pattern = [[.*<(KEYWORDS)\s*:]], -- pattern or table of patterns, used for highlightng (vim regex)
+    comments_only = true, -- uses treesitter to match keywords in comments only
+    max_line_len = 400, -- ignore lines longer than this
+    exclude = {}, -- list of file types to exclude highlighting
+  },
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+})
 
 
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 vim.cmd("colorscheme forestbones")
 
 
-vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
+-- vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
 
 function _G.Toggle_venn()
   local venn_enabled = vim.inspect(vim.b.venn_enabled)
   if venn_enabled == "nil" then
     vim.b.venn_enabled = true
-    vim.cmd[[setlocal ve=all]]
+    vim.cmd [[setlocal ve=all]]
     -- draw a line on HJKL keystokes
-    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", {noremap = true})
-    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", { noremap = true })
+    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", { noremap = true })
     -- draw a box by pressing "f" with visual selection
-    vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", {noremap = true})
+    vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
   else
-    vim.cmd[[setlocal ve=]]
-    vim.cmd[[mapclear <buffer>]]
+    vim.cmd [[setlocal ve=]]
+    vim.cmd [[mapclear <buffer>]]
     vim.b.venn_enabled = nil
   end
 end
+
+vim.api.nvim_set_keymap("n", "<leader>H", "", { noremap = true, callback = function() print("Hello world!") end, })
+
 -- toggle keymappings for venn using <leader>v
-vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true})
+vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true })
 vim.cmd [[
   augroup _general_settings
     autocmd!
@@ -115,15 +162,4 @@ endfun
 if has("autocmd")
 	autocmd BufWritePre *.txt,*.jl,*.js,*.py,*.wiki,*.sh,*.coffee,*.lua :call CleanExtraSpaces()
 endif
-runtime zepl/contrib/python.vim  " Enable the Python contrib module.
-runtime zepl/contrib/nvim_autoscroll_hack.vim
-let g:repl_config = {
-            \   'python': {
-            \     'cmd': 'python',
-            \     'formatter': function('zepl#contrib#python#formatter')
-            \   },
-            \   'lua': { 'cmd': 'lua' },
-            \ }
-" tnoremap <Esc> <C-\><C-n>
-runtime zepl/contrib/nvim_autoscroll_hack.vim
 ]]

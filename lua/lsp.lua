@@ -164,26 +164,38 @@ M.setup = function()
 	end
 
 	local servers = {
-		"julials",
-		"sumneko_lua"
+	julials = {
+		settings = {
+			julia = {
+				symbolCacheDownload = false,
+				lint = {
+					missingrefs = "all",
+					iter = true,
+					lazy = true,
+					modname = true,
+				},
+			},
+		},
+	},
+	sumneko_lua = {
+		cmd = {
+			"lua-language-server",
+		},
+		settings = {
+			Lua = {
+				diagnostics = {
+					globals = { "vim" },
+				},
+			},
+		},
+	},
 	}
-	for _, name in ipairs(servers) do
-		-- local cmd = { 'pyright-langserver', '--stdio' } -- needed for elixirls, omnisharp, sumneko_lua
-		if not name then
-			print("You have not defined a server name, please edit minimal_init.lua")
-		end
-		if not nvim_lsp[name].document_config.default_config.cmd then
-			print([[You have not defined a server default cmd for a server
-	      that requires it please edit minimal_init.lua]])
-		end
 
-		nvim_lsp[name].setup({
-			-- cmd = cmd,
-			on_attach = on_attach,
-			capabilities = make_capabilities()
-		})
-
-	end
+  for lsp, setup in pairs(servers) do
+    setup.on_attach = on_attach
+		setup.capabilities = make_capabilities()
+    nvim_lsp[lsp].setup(setup)
+  end
 
 end
 return M

@@ -206,6 +206,9 @@ local iterator = function(delim)
 	return rec_ls
 end
 
+
+
+
 -- these should be inside your snippet-table.
 local snippets = {
 	all = {
@@ -249,6 +252,7 @@ local snippets = {
 		pair("^", "^", neg, even_count),
 
 		s("mn", fmt("{} {}\n ", { i(1, "*"), i(2, "title") })), -- to lreq, bind parse the list
+		s("l1", d(1, iterator("- "), {})), -- to lreq, bind parse the list
 		s("l1", d(1, iterator("- "), {})), -- to lreq, bind parse the list
 		s("l2", d(1, iterator("-- "), {})), -- to lreq, bind parse the list
 		s("l3", d(1, iterator("--- "), {})), -- to lreq, bind parse the list
