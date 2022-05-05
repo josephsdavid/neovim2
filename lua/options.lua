@@ -54,7 +54,7 @@ vim.g.netrw_browse_split = 25
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 25
 vim.g.zepl_default_maps = 0
-
+vim.g.send_disable_mapping = true
 vim.g.loaded_gzip = 1
 vim.g.loaded_tar = 1
 vim.g.loaded_tarPlugin = 1
