@@ -38,7 +38,7 @@ require("neorg").setup({
 				neorg_leader = Keys.norgleader(""), -- This is the default if unspecified
 				hook = function(keybinds)
 					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable")
-					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link")
+					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link()")
 				end,
 			},
 		},
