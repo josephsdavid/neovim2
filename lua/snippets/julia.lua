@@ -23,247 +23,101 @@ local fmta  = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
--- =============================================================================
--- Auxiliary functions
--- =============================================================================
+local function header(pos)
+  local snippet = sn(pos, {
+    t("$(MMI.doc_header("),
+    i(1),
+    t({"))", "`"}),
+    d(2, function(args)
+        -- the returned snippetNode doesn't need a position; it's inserted
+        -- "inside" the dynamicNode.
+        return sn(nil, {
+          -- jump-indices are local to each snippetNode, so restart at 1.
+          i(1, args[1])
+        })
+      end,
+    {1}),
+    t("`")
 
--- Convert the table `selected_text` with the selected lines into a Julia
--- function declaration in one line.
-function M.julia_func_decl_oneline(selected_text)
-  -- Output text that contains the function declaration in one line.
-  func_decl = ""
-
-  -- First, concatenate all lines into one string.
-  for k, v in pairs(selected_text) do
-    -- Strip all multiple spaces.
-    v = string.gsub(v, '%s+', ' ')
-
-    -- Remove spaces in the beginning and in the end.
-    v = string.gsub(v, '^%s*(.-)%s*$', '%1')
-
-    if (v == '') then
-      goto continue
-    end
-
-    -- Check if we need to add a space before concatenating the string.
-    if (func_decl ~= '') then
-      last_char = string.sub(func_decl, -1)
-
-      if ((last_char ~= '(') and (last_char ~= '{')) then
-        first_char = string.sub(v, 1, 1)
-
-        if ((first_char ~= ')') and (first_char ~= '}')) then
-          func_decl = func_decl .. ' '
-        end
-      end
-    end
-
-    func_decl = func_decl .. v
-
-    ::continue::
-  end
-
-  -- Remove all spaces from the beginning.
-  func_decl = string.gsub(func_decl, '%s+', ' ')
-
-  -- If the first word is `function`, then just remove it.
-  func_decl = string.gsub(func_decl, '^function ', '')
-
-  -- If the first word is `macro`, then replace it with `@`.
-  func_decl = string.gsub(func_decl, '^macro ', '@')
-
-  return func_decl
+  })
+  return snippet
 end
 
--- Remove the keywords from the Julia function declaration, replacing by
--- `kwargs...`.
-function M.julia_func_decl_remove_kwargs(func_decl)
-  -- Check if we have keywords.
-  if (string.match(func_decl, ';')) then
-    func_decl = string.gsub(func_decl, ';(.-)%)', '; kwargs...)')
-  end
-
-  return func_decl
+local function implements(pos)
+  local snippet = sn(pos, {
+    t(" implements the $"),
+    i(1),
+    t({
+      ".",
+      "",
+      "# Training data",
+      "",
+      "In MLJ or MLJBase, bind an instance `model` to data with",
+      "\tmach = machine(model, X, y)",
+      "",
+      "Where",
+      ""
+    })
+  })
+  return snippet
 end
 
--- Create the LuaSnip nodes containing the arguments and keywords for the Julia
--- function declaration `func_decl` and the initial placeholder `init_p`. It
--- returns the nodes and the current placeholder.
-function M.julia_create_arguments_nodes(func_decl, init_p)
-  -- Nodes related to the arguments.
-  local args_nodes = {}
+local classif = t({
+  "- `X`: any table of input features (eg, a `DataFrame`) whose columns",
+  "  each have one of the following element scitypes: `Continuous`,",
+  "  `Count`, or `<:OrderedFactor`; check column scitypes with `schema(X)`",
+  "",
+  "- `y`: is the target, which can be any `AbstractVector` whose element",
+  "  scitype is `<:OrderedFactor` or `<:Multiclass`; check the scitype",
+  "  with `scitype(y)`",
+  ""
+})
 
-  -- Nodes related to the keywords.
-  local kwargs_nodes = {}
+local regress = t({
+  "- `X`: any table of input features (eg, a `DataFrame`) whose columns",
+  "  each have one of the following element scitypes: `Continuous`,",
+  "  `Count`, or `<:OrderedFactor`; check column scitypes with `schema(X)`",
+  "",
+  "- `y`: is the target, which can be any `AbstractVector` whose element",
+  "  scitype is `Continuous`; check the scitype with `scitype(y)`",
+  ""
+})
 
-  -- Get the function arguments and keywords.
-  parameters = string.match(func_decl, '%((.-)%)')
-
-  local k
-
-  -- Parse arguments.
-  args = string.match(parameters, '^([^;]*);?')
-
-  if (args ~= nil) then
-    k = 1
-    for v in string.gmatch(args, '([^,]+),?') do
-      -- Remove trailing and leading spaces.
-      v = string.gsub(v, '^%s*(.-)%s*$', '%1')
-
-      -- If we find a `=`, then we have a keyword.
-      args_nodes[k]     = t('- `' .. v .. '`: ')
-      args_nodes[k + 1] = i(init_p)
-      args_nodes[k + 2] = t({'', ''})
-      k = k + 3
-      init_p = init_p + 1
-    end
-  end
-
-  -- Parse keywords.
-  kwargs = string.gsub(parameters, '^([^;]*);?', '')
-
-  if (kwargs ~= nil) then
-    k = 1
-    for v in string.gmatch(kwargs, '([^,]+),?') do
-      -- Remove trailing and leading spaces.
-      v = string.gsub(v, '^%s*(.-)%s*$', '%1')
-
-      v = str.gsub(v, '%s*=.*', '')
-      kwargs_nodes[k]     = t('- `' .. v .. '`: ')
-      kwargs_nodes[k + 1] = i(init_p)
-      kwargs_nodes[k + 2] = t({'', ''})
-      k = k + 3
-      init_p = init_p + 1
-    end
-  end
-
-  local nodes = {}
-
-  if next(args_nodes) ~= nil then
-    table.insert(nodes, t("# Args"))
-    table.insert(nodes, t({"", ""}))
-    table.insert(nodes, t({"", ""}))
-
-    for k = 1, #args_nodes do
-      nodes[#nodes + 1] = args_nodes[k]
-    end
-  end
-
-  if next(kwargs_nodes) ~= nil then
-    if next(args_nodes) ~= nil then
-      table.insert(nodes, t({"", ""}))
-    end
-
-    table.insert(nodes, t("# Keywords"))
-    table.insert(nodes, t({"", ""}))
-    table.insert(nodes, t({"", ""}))
-
-    for k = 1, #kwargs_nodes do
-      nodes[#nodes + 1] = kwargs_nodes[k]
-    end
-  end
-
-  return nodes, init_p
+local function training_data(pos)
+  local out = c(pos, {classif, regress})
+  return out
 end
+local newline = t({"",""})
 
--- Create the LuaSnip nodes for the Julia function documentation with all
--- fields.
-function M.julia_doc_nodes(selected_text)
-  local func_decl = M.julia_func_decl_oneline(selected_text)
-  local nodes = {}
-  local p = 1
 
-  nodes[1] = t({'"""',''})
-  nodes[2] = t({'    ' .. M.julia_func_decl_remove_kwargs(func_decl), ''})
-  nodes[3] = t({'', ''})
-  nodes[4] = i(p)
-  nodes[5] = t({'', ''})
-  nodes[6] = t({'', ''})
-
-  args_nodes, p = M.julia_create_arguments_nodes(func_decl, p + 1)
-
-  for k = 1, #args_nodes do
-    nodes[#nodes + 1] = args_nodes[k]
-  end
-
-  nodes[#nodes + 1] = t({'', ''})
-  nodes[#nodes + 1] = t({'# Returns', ''})
-  nodes[#nodes + 1] = t({'', ''})
-  nodes[#nodes + 1] = i(p)
-  nodes[#nodes + 1] = t({'', ''})
-
-  nodes[#nodes + 1] = t({'"""', ''})
-
-  for k = 1, #selected_text do
-    nodes[#nodes + 1] = t(selected_text[k])
-    nodes[#nodes + 1] = t({'', ''})
-  end
-
-  local snip = sn(nil, nodes)
-  return snip
+local hyperparameters = function(delim)
+	local out
+	out = function()
+		return sn(nil, {
+			c(1, {
+				-- important!! Having the sn(...) as the first choice will cause infinite recursion.
+				t({ "" }),
+				-- The same dynamicNode as in the snippet (also note: self reference).
+				sn(nil, { t({ "", delim}), t("`"), i(1), t("`: "), i(2), d(3, out, {}) }),
+			}),
+		})
+	end
+	return out
 end
-
--- Create the LuaSnip nodes for the Julia function documentation with all
--- fields expect for the return section.
-function M.julia_doc_noreturn_nodes(selected_text)
-  local func_decl = M.julia_func_decl_oneline(selected_text)
-  local nodes = {}
-  local p = 1
-
-  nodes[1] = t({'"""',''})
-  nodes[2] = t({'    ' .. M.julia_func_decl_remove_kwargs(func_decl), ''})
-  nodes[3] = t({'', ''})
-  nodes[4] = i(p)
-  nodes[5] = t({'', ''})
-  nodes[6] = t({'', ''})
-
-  args_nodes, p = M.julia_create_arguments_nodes(func_decl, p + 1)
-
-  for k = 1, #args_nodes do
-    nodes[#nodes + 1] = args_nodes[k]
-  end
-
-  nodes[#nodes + 1] = t({'"""', ''})
-
-  for k = 1, #selected_text do
-    nodes[#nodes + 1] = t(selected_text[k])
-    nodes[#nodes + 1] = t({'', ''})
-  end
-
-  local snip = sn(nil, nodes)
-  return snip
+local operations = function(delim)
+	local out
+	out = function()
+		return sn(nil, {
+			c(1, {
+				-- important!! Having the sn(...) as the first choice will cause infinite recursion.
+				t({ "" }),
+				-- The same dynamicNode as in the snippet (also note: self reference).
+				sn(nil, { t({ "", delim}), t("`"), i(1), t("(mach, Xnew)`: "), i(2), d(3, out, {}) }),
+			}),
+		})
+	end
+	return out
 end
-
--- Create the LuaSnip nodes for the Julia function documentation without any
--- fields.
-function M.julia_doc_nofields_nodes(selected_text)
-  local func_decl = M.julia_func_decl_oneline(selected_text)
-  local nodes = {}
-  local p = 1
-
-  nodes[1] = t({'"""',''})
-  nodes[2] = t({'    ' .. M.julia_func_decl_remove_kwargs(func_decl), ''})
-  nodes[3] = t({'', ''})
-  nodes[4] = i(p)
-  nodes[5] = t({'', ''})
-  nodes[6] = t({'"""', ''})
-
-  for k = 1, #selected_text do
-    nodes[#nodes + 1] = t(selected_text[k])
-    nodes[#nodes + 1] = t({'', ''})
-  end
-
-  local snip = sn(nil, nodes)
-  return snip
-end
-
--- =============================================================================
--- Snippets configuration
--- =============================================================================
-
--- choice nodes
--- local c = ls.choice_node
-
 
 local rec_ls
 rec_ls = function()
@@ -272,15 +126,50 @@ rec_ls = function()
       -- important!! Having the sn(...) as the first choice will cause infinite recursion.
       t({ "" }),
       -- The same dynamicNode as in the snippet (also note: self reference).
-      sn(nil, { t( '"' ), i(1), t({'"=>'}), i(2), t(","), d(3, rec_ls, {}) }),
+      sn(nil, { t('"'), i(1), t({ '"=>' }), i(2), t(","), d(3, rec_ls, {}) }),
     }),
   })
 end
 
 M.snippets = {
 
-  s("dict", {t({"Dict("}), d(1, rec_ls, {}),t({")"})}) -- to lreq, bind parse the list
+  s("dict", { t({ "Dict(" }), d(1, rec_ls, {}), t({ ")" }) }),
+  s("docstring", {
+    t({'"""',""}),
+    header(1),
+    implements(2),
+    newline,
+    training_data(3),
+    newline,
+    t("# Hyper-parameters"),
+    newline,
+    d(4, hyperparameters("- "), {}),
+    newline,
+    t("# Operations"),
+    newline,
+    d(5, operations("- "), {}),
+    newline,
+    t({"# Fitted parameters", "The fields of `fitted_params(mach)` are:"}),
+    newline,
+    d(6, hyperparameters("- "), {}),
+    newline,
+    t({"# Report", "The fields of `report(mach)` are:"}),
+    newline,
+    d(7, hyperparameters("- "), {}),
+    newline,
+    t({"# Examples", "```"}),
+    newline,
+    i(8),
+    newline,
+    t({ "```" , "See also", "TODO: ADD REFERENCES"}),
+
+
+    t({"",'"""'}),
+  }),
+  -- s("hyper", {
+  --   t({"Hyper-parameters", "",""}),
+  --   iterator("- ")
+  -- })
 
 }
 return M
-
