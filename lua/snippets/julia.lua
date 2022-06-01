@@ -23,20 +23,16 @@ local fmta  = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
+local same = function (index)
+  return f(function (arg) return arg[1] end, {index})
+end
+
 local function header(pos)
   local snippet = sn(pos, {
     t("$(MMI.doc_header("),
     i(1),
     t({"))", "`"}),
-    d(2, function(args)
-        -- the returned snippetNode doesn't need a position; it's inserted
-        -- "inside" the dynamicNode.
-        return sn(nil, {
-          -- jump-indices are local to each snippetNode, so restart at 1.
-          i(1, args[1])
-        })
-      end,
-    {1}),
+    same(1),
     t("`")
 
   })
@@ -126,7 +122,7 @@ rec_ls = function()
       -- important!! Having the sn(...) as the first choice will cause infinite recursion.
       t({ "" }),
       -- The same dynamicNode as in the snippet (also note: self reference).
-      sn(nil, { t('"'), i(1), t({ '"=>' }), i(2), t(","), d(3, rec_ls, {}) }),
+      sn(nil, { t(''), i(1), t({ '=>' }), i(2), t(","), d(3, rec_ls, {}) }),
     }),
   })
 end
