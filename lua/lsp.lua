@@ -1,5 +1,8 @@
 M = {}
 
+
+require("goto-preview").setup({})
+
 function RenameWithQuickfix()
 	local position_params = vim.lsp.util.make_position_params()
 	local new_name = vim.fn.input "New Name > "
