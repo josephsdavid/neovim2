@@ -136,10 +136,10 @@ require("nvim-treesitter.configs").setup({
 		enable_autocmd = true,
 	},
 
-	indent = { enable = false, disable = { "yaml" } },
+	indent = { enable = true, disable = { "yaml" } },
 
 	incremental_selection = {
-		enable = false,
+		enable = true,
 		disable = { "cpp", "lua" },
 		keymaps = { -- Keys for incremental selection (visual Keys)
 			init_selection = "gnt", -- maps in normal mode to init the node/scope selection
@@ -233,7 +233,7 @@ require("treesitter-context").setup({
 })
 
 require("spellsitter").setup({
-	enable = { "norg", "markdown", "python" },
+	enable = { "norg", "markdown", "python", "julia", "lua"},
 })
 require("nvim-treesitter.configs").setup({
 	playground = {
