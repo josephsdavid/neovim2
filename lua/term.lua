@@ -21,7 +21,7 @@ toggleterm.setup({
   start_in_insert = false,
   insert_mappings = true,
   persist_size = true,
-  direction = "float",
+  direction = "vertical",
   close_on_exit = false,
   shell = vim.o.shell,
   float_opts = {
@@ -59,8 +59,8 @@ function _HORIZ_TOGGLE()
   horiz:toggle()
 end
 
-vim.api.nvim_set_keymap("n", Keys.A("v"), "<cmd>lua _VERT_TOGGLE()<CR>", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("n", Keys.A("t"), "<cmd>lua _HORIZ_TOGGLE()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", Keys.C("."), "<cmd>lua _VERT_TOGGLE()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", Keys.C(","), "<cmd>lua _HORIZ_TOGGLE()<CR>", { noremap = true, silent = true })
 
 
 local jltest = Terminal:new({ cmd = "julia -e 'using Pkg; Pkg.test()'", hidden = true, direction = "float", close_on_exit=false })
