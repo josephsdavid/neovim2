@@ -115,6 +115,8 @@ telescope.setup({
 -- telescope.load_extension("frecency")
 -- telescope.load_extension("emoji")
 -- telescope.load_extension("harpoon")
+telescope.load_extension('cder')
+
 local actions = require "fzf-lua.actions"
 require'fzf-lua'.setup {
   -- fzf_bin         = 'sk',            -- use skim instead of fzf?
