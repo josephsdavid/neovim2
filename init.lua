@@ -64,6 +64,43 @@ require("todo-comments").setup({
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 vim.cmd("colorscheme forestbones")
 
+function scandir(directory)
+  local i, t, popen = 0, {}, io.popen
+  local pfile = popen('ls -a "' .. directory .. '"')
+  for filename in pfile:lines() do
+    i = i + 1
+    t[i] = filename
+  end
+  pfile:close()
+  return t
+end
+
+function find_string(s, t)
+  for k, v in pairs(t) do
+    if v == s
+    then
+      return true
+    end
+  end
+  return false
+end
+
+
+function F()
+  local result = vim.api.nvim_exec([[pwd]], true)
+  local out = scandir(result)
+  local ret = ""
+  if find_string(".JuliaFormatter.toml", out)
+  then
+    ret = "success!"
+  else
+    ret = "failure!!"
+  end
+  return ret
+end
+
+vim.cmd([[ command! FormatStyle execute 'lua F()' ]])
+
 
 -- vim.o.qftf = '{info -> v:lua._G.qftf(info)}'
 
