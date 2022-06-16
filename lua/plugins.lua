@@ -10,6 +10,7 @@ require 'packer'.startup(function(use)
   use({ "nvim-lua/plenary.nvim" })
   use({ "neovim/nvim-lspconfig" })
   use({ "max397574/which-key.nvim" })
+  use({ "kdheepak/JuliaFormatter.vim"})
   use({ "kyazdani42/nvim-web-devicons" })
   use({ "rktjmp/lush.nvim" })
   use({ "mcchrish/zenbones.nvim" })
@@ -87,6 +88,7 @@ require 'packer'.startup(function(use)
   use({ "pianocomposer321/yabs.nvim" })
   use({ "haringsrob/nvim_context_vt" })
   use({ 'jghauser/mkdir.nvim' })
+  use 'zane-/cder.nvim'
   use({ 'pwntester/octo.nvim' })
   use({
     "andweeb/presence.nvim",

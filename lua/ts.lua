@@ -233,7 +233,7 @@ require("treesitter-context").setup({
 })
 
 require("spellsitter").setup({
-	enable = { "norg", "markdown", "python", "julia", "lua"},
+	enable = { "norg", "markdown", "python", "lua"},
 })
 require("nvim-treesitter.configs").setup({
 	playground = {
