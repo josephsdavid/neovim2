@@ -84,10 +84,10 @@ M.setup = function()
 	vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
 		border = "rounded",
 	})
-	vim.lsp.set_log_level("trace")
-	if vim.fn.has("nvim-0.5.1") == 1 then
-		require("vim.lsp.log").set_format_func(vim.inspect)
-	end
+	vim.lsp.set_log_level("ERROR")
+	-- if vim.fn.has("nvim-0.5.1") == 1 then
+	-- 	require("vim.lsp.log").set_format_func(vim.inspect)
+	-- end
 	local nvim_lsp = require("lspconfig")
 	local on_attach = function(client, bufnr)
 
@@ -170,6 +170,7 @@ M.setup = function()
 	julials = {
 		settings = {
 			julia = {
+        usePlotPane=false,
 				symbolCacheDownload = false,
 				lint = {
 					missingrefs = "all",
