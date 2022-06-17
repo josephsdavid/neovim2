@@ -271,3 +271,89 @@ wk.register({
 		["gO"] = { name = "definition toc" },
 	},
 })
+
+
+-- Setup Function example:
+-- These are the default options:
+require("syntax-tree-surfer").setup({
+	highlight_group = "STS_highlight",
+	disable_no_instance_found_report = false,
+	default_desired_types = {
+		"function",
+		"function_definition",
+		"struct_definition",
+	  "if_statement",
+		"else_clause",
+		"do_clause",
+		"else_statement",
+		"elseif_statement",
+		"for_statement",
+		"let_statement",
+		"while_statement",
+		"switch_statement",
+	},
+	left_hand_side = "fdsawervcxqtzb",
+	right_hand_side = "jkl;oiu.,mpy/n",
+	icon_dictionary = {
+		["if_statement"] = "𝒾",
+		["else_clause"] =  "ℯ",
+		["else_statement"] = "ℯ",
+		["elseif_statement"] = "ℯ",
+		["elseif_clause"] = "ℯ",
+		["for_statement"] = "ﭜ",
+		["while_statement"] = "ﯩ",
+		["switch_statement"] = "ﳟ",
+		["function"] = "",
+		["function_definition"] = "",
+		["variable_declaration"] = "",
+    ["let_statement"] = "ℒ",
+    ["do_statement"] = "𝒟",
+    ["struct_definition"] = "𝒮",
+	},
+})
+
+-- Syntax Tree Surfer V2 Mappings
+-- Targeted Jump with virtual_text
+local sts = require("syntax-tree-surfer")
+vim.keymap.set("n", " hv", function() -- only jump to variable_declarations
+	sts.targeted_jump({ "variable_declaration" })
+end, opts)
+vim.keymap.set("n", " hi", function() -- only jump to if_statements
+	sts.targeted_jump({ "if_statement", "else_clause", "else_statement", "elseif_statement" })
+end, opts)
+vim.keymap.set("n", " hf", function() -- only jump to for_statements
+	sts.targeted_jump({ "for_statement", "do_clause", "while_statement" })
+end, opts)
+vim.keymap.set("n", "gj", function() -- jump to all that you specify
+	sts.targeted_jump({
+		"function",
+		"function_definition",
+		"struct_definition",
+	  "if_statement",
+		"else_clause",
+		"do_clause",
+		"else_statement",
+		"elseif_statement",
+		"for_statement",
+		"let_statement",
+		"while_statement",
+		"switch_statement",
+	})
+end, opts)
+
+-------------------------------
+-- filtered_jump --
+-- "default" means that you jump to the default_desired_types or your lastest jump types
+vim.keymap.set("n", "<C-n>", function()
+	sts.filtered_jump("default", true) --> true means jump forward
+end, opts)
+vim.keymap.set("n", "<C-b>", function()
+	sts.filtered_jump("default", false) --> false means jump backwards
+end, opts)
+
+
+-------------------------------
+-- jump with limited targets --
+-- jump to sibling nodes only
+-- jump to parent or child nodes only
+
