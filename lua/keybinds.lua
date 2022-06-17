@@ -242,6 +242,10 @@ local map_table = {
 				"<cmd>lua require('fzf-lua').buffers()<cr>",
 				"find buffers",
 			},
+			[{ "n", "B" }] = {
+				"<cmd>lua require('fzf-lua').blines()<cr>",
+				"find buffers",
+			},
 			[{ "n", "H" }] = { "<cmd>lua require('fzf-lua').help_tags()<cr>", "get help" },
 			[{ "n", "i" }] = { "<cmd>Octo issue list<cr>", "Search issues" },
 			[{ "n", "p" }] = { "<cmd>Octo pr list<cr>", "Search PRs" },
