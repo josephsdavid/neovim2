@@ -142,10 +142,10 @@ vim.cmd [[
     autocmd FileType gitcommit setlocal wrap
     autocmd FileType gitcommit setlocal spell
   augroup end
-  augroup _spelling
-    autocmd!
-    autocmd FileType julia setlocal spell
-  augroup end
+  "augroup _spelling
+  "  autocmd!
+  "  autocmd FileType julia setlocal spell
+  "augroup end
   augroup _markdown
     autocmd!
     autocmd FileType markdown setlocal wrap

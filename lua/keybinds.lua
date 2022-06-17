@@ -46,21 +46,20 @@ local map_table = {
 		},
 	},
 
-	leader = { -- general mappings such as leader-w, leader then single key
+	leader = { -- general mappings such as leader-w, leader then key combination
 		leader = Keys.leader,
 		name = "leader",
 		opts = { noremap = true, silent = true },
 		maps = {
-			-- [{ "n", "e" }] = { ":NeoTreeRevealToggle<cr>", "File Explorer" },
-			-- [{ "n", "E" }] = { ":NeoTreeFloatToggle<cr>", "File Explorer (fancy)" },
 			[{ "n", "e" }] = { ":Lex 30<cr>", "File Explorer" },
 			[{ "n", "jf" }] = { ":JuliaFormatterFormat<cr>", "Format Julia file" },
 			[{ "v", "jf" }] = { ":JuliaFormatterFormat<cr>", "Format Julia file" },
-			-- [{ "n", "D" }] = { ":Dirbuf<cr>", "Dirbuf" },
+			[{ "n", "jps" }] = { ":!plot_server<cr>", "Start plot server" },
+			[{ "n", "jpr" }] = { ":!plot_server -r<cr>", "Restart plot server" },
+			[{ "n", "jpk" }] = { ":!plot_server -k<cr>", "Kill plot server" },
+			[{ "n", "jpc" }] = { ":!plot_server -c<cr>", "Clean plot server" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
 			[{ "n", "cd" }] = { "<cmd>tcd %:p:h<cr><cmd>pwd<cr>", "cd to current file" },
-			-- [{ "n", "l" }] = { "<cmd>ISwapWith<cr>", "Swap elements" },
-			-- [{ "n", "L" }] = { "<cmd>ISwap<cr>", "Swap elements (hard mode)" },
 		},
 	},
 
