@@ -170,6 +170,7 @@ M.setup = function()
 	julials = {
 		settings = {
 			julia = {
+        usePlotPane=false,
 				symbolCacheDownload = false,
         runtimeCompletions = true,
 				lint = {

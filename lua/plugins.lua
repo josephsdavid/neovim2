@@ -4,6 +4,7 @@ require 'packer'.init({
 })
 
 require 'packer'.startup(function(use)
+
   use 'wbthomason/packer.nvim'
   use 'lewis6991/impatient.nvim'
   use({ "nvim-telescope/telescope.nvim" })
