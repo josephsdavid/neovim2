@@ -59,7 +59,9 @@ local map_table = {
 			[{ "n", "jpk" }] = { ":!plot_server -k<cr>", "Kill plot server" },
 			[{ "n", "jpc" }] = { ":!plot_server -c<cr>", "Clean plot server" },
 			[{ "n", "w" }] = { ":w!<cr>", "save" },
-			[{ "n", "cd" }] = { "<cmd>tcd %:p:h<cr><cmd>pwd<cr>", "cd to current file" },
+			[{ "n", "cd" }] = { "<cmd>lcd %:p:h<cr><cmd>pwd<cr>", "cd to current file" },
+			-- [{ "n", "l" }] = { "<cmd>ISwapWith<cr>", "Swap elements" },
+			-- [{ "n", "L" }] = { "<cmd>ISwap<cr>", "Swap elements (hard mode)" },
 		},
 	},
 

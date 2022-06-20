@@ -31,7 +31,7 @@ require 'packer'.startup(function(use)
   use({ 'ThePrimeagen/git-worktree.nvim',
     config = function()
       require("git-worktree").setup({
-        change_directory_command = "tcd", -- default: "cd",
+        change_directory_command = "lcd", -- default: "cd",
         -- update_on_change = <boolean> -- default: true,
         -- update_on_change_command = <str> -- default: "e .",
         -- clearjumps_on_change = <boolean> -- default: true,
