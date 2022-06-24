@@ -130,6 +130,7 @@ end
 M.snippets = {
 
   s("dict", { t({ "Dict(" }), d(1, rec_ls, {}), t({ ")" }) }),
+  s("block_comment", fmt("###\n### {}\n###", { i(1, "SECTION")  })),
   s("docstring", {
     t({'"""',""}),
     header(1),

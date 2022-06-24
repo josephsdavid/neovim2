@@ -64,12 +64,17 @@ vim.api.nvim_set_keymap("n", Keys.C(","), "<cmd>lua _HORIZ_TOGGLE()<CR>", { nore
 
 
 local jltest = Terminal:new({ cmd = "julia -e 'using Pkg; Pkg.test()'", hidden = true, direction = "float", close_on_exit=false })
+local jlscr = Terminal:new({ cmd = "julia", hidden = true, direction = "float", close_on_exit=false })
 
 function _TEST_TOGGLE()
   jltest:toggle()
 end
+function _scr_TOGGLE()
+  jlscr:toggle()
+end
 
 vim.api.nvim_set_keymap("n", Keys.yabsleader("t"), "<cmd>lua _TEST_TOGGLE()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", Keys.yabsleader("j"), "<cmd>lua _scr_TOGGLE()<CR>", { noremap = true, silent = true })
 
 local node = Terminal:new({ cmd = "node", hidden = true })
 
