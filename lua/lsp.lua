@@ -20,8 +20,8 @@ local cfg = {
   -- will set to true when fully tested, set to false will use whichever side has more space
   -- this setting will be helpful if you do not want the PUM and floating win overlap
 
-  floating_window_off_x = 1, -- adjust float windows x position.
-  floating_window_off_y = 1, -- adjust float windows y position.
+  floating_window_off_x = 10, -- adjust float windows x position.
+  floating_window_off_y = 10, -- adjust float windows y position.
 
 
   fix_pos = false,  -- set to true, the floating window will not auto-close until finish all parameters
