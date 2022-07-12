@@ -155,5 +155,7 @@ use({
       }
     end
   }
+  use "antoinemadec/FixCursorHold.nvim"
+  use "ziontee113/syntax-tree-surfer"
 end
 )
