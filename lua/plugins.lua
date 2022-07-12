@@ -109,7 +109,6 @@ require 'packer'.startup(function(use)
       }
     end
   }
-<<<<<<< HEAD
 use "ziontee113/syntax-tree-surfer"
 use({
     'NTBBloodbath/doom-one.nvim',
@@ -143,10 +142,6 @@ use({
         })
     end,
 })
-||||||| c9f72ed
-use "ziontee113/syntax-tree-surfer"
-=======
-  use "ziontee113/syntax-tree-surfer"
   use {"chentoast/marks.nvim",
     config = function ()
       require'marks'.setup {
@@ -182,6 +177,5 @@ use "ziontee113/syntax-tree-surfer"
       }
     end
   }
->>>>>>> 15be4398c1132dfe44290373e3b87fa454cba59b
 end
 )
