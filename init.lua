@@ -61,7 +61,6 @@ require("todo-comments").setup({
 })
 
 vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-vim.cmd("colorscheme forestbones")
 
 function scandir(directory)
   local i, t, popen = 0, {}, io.popen
