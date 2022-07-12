@@ -11,7 +11,7 @@ require 'packer'.startup(function(use)
   use({ "nvim-lua/plenary.nvim" })
   use({ "neovim/nvim-lspconfig" })
   use({ "max397574/which-key.nvim" })
-  use({ "kdheepak/JuliaFormatter.vim"})
+  use({ "kdheepak/JuliaFormatter.vim" })
   use({ "kyazdani42/nvim-web-devicons" })
   use({ "rktjmp/lush.nvim" })
   use({ "mcchrish/zenbones.nvim" })
@@ -56,7 +56,6 @@ require 'packer'.startup(function(use)
   use({ "mfussenegger/nvim-ts-hint-textobject" })
   use({ "pocco81/truezen.nvim" })
   use({ "SmiteshP/nvim-gps" })
-  use({ "ggandor/leap.nvim" })
   use({ "nvim-lualine/lualine.nvim" })
   use({ "nvim-treesitter/nvim-treesitter-textobjects" })
   use({ "nvim-treesitter/nvim-treesitter-refactor" })
@@ -109,47 +108,47 @@ require 'packer'.startup(function(use)
       }
     end
   }
-use({
+  use({
     'NTBBloodbath/doom-one.nvim',
     config = function()
-        require('doom-one').setup({
-            cursor_coloring = true,
-            terminal_colors = true,
-            italic_comments = true,
-            enable_treesitter = true,
-            transparent_background = false,
-            pumblend = {
-                enable = true,
-                transparency_amount = 20,
-            },
-            plugins_integrations = {
-                neorg = true,
-                barbar = true,
-                bufferline = false,
-                gitgutter = false,
-                gitsigns = true,
-                telescope = true,
-                neogit = true,
-                nvim_tree = true,
-                dashboard = true,
-                startify = true,
-                whichkey = true,
-                indent_blankline = true,
-                vim_illuminate = true,
-                lspsaga = true,
-            },
-        })
+      require('doom-one').setup({
+        cursor_coloring = true,
+        terminal_colors = true,
+        italic_comments = true,
+        enable_treesitter = true,
+        transparent_background = false,
+        pumblend = {
+          enable = true,
+          transparency_amount = 20,
+        },
+        plugins_integrations = {
+          neorg = true,
+          barbar = true,
+          bufferline = false,
+          gitgutter = false,
+          gitsigns = true,
+          telescope = true,
+          neogit = true,
+          nvim_tree = true,
+          dashboard = true,
+          startify = true,
+          whichkey = true,
+          indent_blankline = true,
+          vim_illuminate = true,
+          lspsaga = true,
+        },
+      })
     end,
-})
-  use {"chentoast/marks.nvim",
-    config = function ()
-      require'marks'.setup {
+  })
+  use { "chentoast/marks.nvim",
+    config = function()
+      require 'marks'.setup {
         default_mappings = true,
         builtin_marks = {},
         cyclic = true,
         force_write_shada = false,
         refresh_interval = 250,
-        sign_priority = { lower=10, upper=15, builtin=0, bookmark=20 },
+        sign_priority = { lower = 10, upper = 15, builtin = 0, bookmark = 20 },
         excluded_filetypes = {},
         mappings = {}
       }
@@ -157,5 +156,6 @@ use({
   }
   use "antoinemadec/FixCursorHold.nvim"
   use "ziontee113/syntax-tree-surfer"
+  use "unblevable/quick-scope"
 end
 )

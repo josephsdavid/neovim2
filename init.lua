@@ -14,7 +14,6 @@ require "neogen".setup()
 require "Comment".setup()
 require "gh"
 require "build"
-require('leap').set_default_keymaps()
 require "keybinds"
 
 require("neogen").setup({

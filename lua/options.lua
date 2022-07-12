@@ -1,9 +1,8 @@
--- :help options
-vim.opt.foldlevel=999
+vim.opt.foldlevel = 999
 vim.opt.backup = false -- creates a backup file
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
 vim.opt.cmdheight = 2 -- more space in the neovim command line for displaying messages
-vim.opt.completeopt = { "menuone", "longest",} -- mostly just for cmp
+vim.opt.completeopt = { "menuone", "longest", } -- mostly just for cmp
 vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
 vim.opt.fileencoding = "utf-8" -- the encoding written to a file
 vim.opt.hlsearch = true -- highlight all matches on previous search patterns
@@ -63,3 +62,5 @@ vim.g.loaded_zipPlugin = 1
 vim.g.loaded_2html_plugin = 1
 vim.g.loaded_matchit = 1
 vim.g.loaded_spec = 1
+vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
+vim.g.qs_lazy_highlight = 1
