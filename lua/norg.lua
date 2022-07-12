@@ -27,7 +27,7 @@ require("neorg").setup({
 		["core.norg.completion"] = { config = { engine = "nvim-cmp" } }, -- We current support nvim-compe and nvim-cmp only
 		["core.norg.concealer"] = {
 			config = {
-				icon_preset = "diamond",
+				icon_preset = "varied",
 				markup_preset = "dimmed",
 			}, -- Allows for use of icons
 		},
