@@ -155,7 +155,6 @@ ins_left({
 lualine.setup(config)
 
 
-
 -- Set barbar's options
 vim.g.bufferline = {
 	-- Enable/disable animations

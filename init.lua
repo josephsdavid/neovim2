@@ -160,7 +160,7 @@ vim.cmd [[
   "     autocmd!
   "     autocmd VimEnter * if argc() == 0 | Explore! | endif
   " augroup END
-  " autocmd BufEnter * if expand("%:p:h") !~ '*.norg' | silent! lcd %:p:h | endif
+  " autocmd BufEnter * if expand("%:p:h") !~ '*.norg' | silent! tcd %:p:h | endif
   let g:hiPairs_enable_matchParen = 0
   let g:hiPairs_timeout = 1
   let g:hiPairs_insert_timeout = 1
