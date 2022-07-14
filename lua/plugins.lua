@@ -158,5 +158,7 @@ require 'packer'.startup(function(use)
   use "ziontee113/syntax-tree-surfer"
   use "unblevable/quick-scope"
   use "Olical/conjure"
+  use "Olical/aniseed"
+  use "gpanders/nvim-parinfer"
 end
 )

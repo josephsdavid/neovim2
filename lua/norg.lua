@@ -20,6 +20,7 @@ require("neorg").setup({
 			},
 		},
 		["core.integrations.telescope"] = {}, -- Enable the telescope module
+		["core.looking-glass"] = {}, -- Enable the looking_glass module
 		["core.integrations.truezen"] = {}, -- Enable the truezen module
 		["core.export"] = {}, -- Enable the truezen module
 		["core.export.markdown"] = {}, -- Enable the truezen module
@@ -37,8 +38,10 @@ require("neorg").setup({
 				default_keybinds = true, -- Generate the default keybinds
 				neorg_leader = Keys.norgleader(""), -- This is the default if unspecified
 				hook = function(keybinds)
-					keybinds.map("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable")
-					keybinds.map("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link()")
+					keybinds.map_event("norg", "n", Keys.telescopeleader("l"), "core.integrations.telescope.find_linkable")
+					keybinds.map_event("norg", "i", Keys.C("l"), "core.integrations.telescope.insert_link")
+                    keybinds.map_event("norg", "n", Keys.norgleader("l"), "core.looking-glass.magnify-code-block")
+					keybinds.map_event("norg", "i", Keys.C("b"), "core.looking-glass.magnify-code-block")
 				end,
 			},
 		},
