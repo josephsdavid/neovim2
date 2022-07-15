@@ -64,3 +64,5 @@ vim.g.loaded_matchit = 1
 vim.g.loaded_spec = 1
 vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
 vim.g.qs_lazy_highlight = 1
+vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck"}
+vim.g.parinfer_no_maps = true
