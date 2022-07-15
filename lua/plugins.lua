@@ -159,6 +159,19 @@ require 'packer'.startup(function(use)
   use "unblevable/quick-scope"
   use "Olical/conjure"
   use "Olical/aniseed"
+  use {
+    "X3eRo0/dired.nvim",
+    requires = "MunifTanjim/nui.nvim",
+    config = function()
+      require("dired").setup {
+        path_separator = "/",
+        show_banner = false,
+        show_hidden = true
+      }
+    end
+  }
   use "gpanders/nvim-parinfer"
+
+
 end
 )
