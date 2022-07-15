@@ -250,6 +250,8 @@ local snippets = {
 		pair("/", "/", neg, even_count),
 		pair(",", ",", neg, even_count),
 		pair("^", "^", neg, even_count),
+		pair("_", "_", neg, even_count),
+		pair("*", "*", neg, even_count),
 
 		s("mn", fmt("{} {}\n ", { i(1, "*"), i(2, "title") })), -- to lreq, bind parse the list
 		s("l1", d(1, iterator("- "), {})), -- to lreq, bind parse the list
