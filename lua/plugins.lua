@@ -171,7 +171,7 @@ require 'packer'.startup(function(use)
     end
   }
   use "gpanders/nvim-parinfer"
-
+  use "PaterJason/cmp-conjure"
 
 end
 )

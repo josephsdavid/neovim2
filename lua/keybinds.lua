@@ -51,7 +51,7 @@ local map_table = {
 		name = "leader",
 		opts = { noremap = true, silent = true },
 		maps = {
-			[{ "n", "e" }] = { ":Lex 30<cr>", "File Explorer" },
+			[{ "n", "F" }] = { ":Lex 30<cr>", "File Explorer" },
 			[{ "n", "jf" }] = { ":JuliaFormatterFormat<cr>", "Format Julia file" },
 			[{ "v", "jf" }] = { ":JuliaFormatterFormat<cr>", "Format Julia file" },
 			[{ "n", "jps" }] = { ":!plot_server<cr>", "Start plot server" },
