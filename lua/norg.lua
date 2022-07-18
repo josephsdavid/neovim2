@@ -29,7 +29,6 @@ require("neorg").setup({
 		["core.norg.concealer"] = {
 			config = {
 				icon_preset = "varied",
-				markup_preset = "dimmed",
 			}, -- Allows for use of icons
 		},
 		["core.norg.qol.toc"] = {},
