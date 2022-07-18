@@ -16,6 +16,8 @@ require "gh"
 require "build"
 require "keybinds"
 
+vim.cmd([[colorscheme paper]])
+
 require("neogen").setup({
   snippet_engine = "luasnip",
   enable_placeholders = false,
