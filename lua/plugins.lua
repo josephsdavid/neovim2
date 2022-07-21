@@ -73,7 +73,6 @@ require 'packer'.startup(function(use)
   use({ "rmagatti/goto-preview" })
   use({ "rebelot/kanagawa.nvim" })
   use({ "ThePrimeagen/refactoring.nvim" })
-  use({ "abecodes/tabout.nvim" })
   use({ "folke/todo-comments.nvim" })
   use({ 'numToStr/Comment.nvim' })
   use({ "kevinhwang91/nvim-bqf" })
@@ -108,38 +107,38 @@ require 'packer'.startup(function(use)
       }
     end
   }
-  -- use({
-  --   'NTBBloodbath/doom-one.nvim',
-  --   config = function()
-  --     require('doom-one').setup({
-  --       cursor_coloring = true,
-  --       terminal_colors = true,
-  --       italic_comments = true,
-  --       enable_treesitter = true,
-  --       transparent_background = false,
-  --       pumblend = {
-  --         enable = true,
-  --         transparency_amount = 20,
-  --       },
-  --       plugins_integrations = {
-  --         neorg = true,
-  --         barbar = true,
-  --         bufferline = false,
-  --         gitgutter = false,
-  --         gitsigns = true,
-  --         telescope = true,
-  --         neogit = true,
-  --         nvim_tree = true,
-  --         dashboard = true,
-  --         startify = true,
-  --         whichkey = true,
-  --         indent_blankline = true,
-  --         vim_illuminate = true,
-  --         lspsaga = true,
-  --       },
-  --     })
-  --   end,
-  -- })
+  use({
+    'NTBBloodbath/doom-one.nvim',
+    config = function()
+      require('doom-one').setup({
+        cursor_coloring = true,
+        terminal_colors = true,
+        italic_comments = true,
+        enable_treesitter = true,
+        transparent_background = false,
+        pumblend = {
+          enable = true,
+          transparency_amount = 20,
+        },
+        plugins_integrations = {
+          neorg = true,
+          barbar = true,
+          bufferline = false,
+          gitgutter = false,
+          gitsigns = true,
+          telescope = true,
+          neogit = true,
+          nvim_tree = true,
+          dashboard = true,
+          startify = true,
+          whichkey = true,
+          indent_blankline = true,
+          vim_illuminate = true,
+          lspsaga = true,
+        },
+      })
+    end,
+  })
   use { "chentoast/marks.nvim",
     config = function()
       require 'marks'.setup {
@@ -157,6 +156,8 @@ require 'packer'.startup(function(use)
   use "antoinemadec/FixCursorHold.nvim"
   use "ziontee113/syntax-tree-surfer"
   use "unblevable/quick-scope"
+  use 'clojure-vim/vim-jack-in'
+  use 'radenling/vim-dispatch-neovim'
   use "Olical/conjure"
   use "Olical/aniseed"
   use {
@@ -173,7 +174,9 @@ require 'packer'.startup(function(use)
   use "gpanders/nvim-parinfer"
   use "PaterJason/cmp-conjure"
   use "https://gitlab.com/yorickpeterse/vim-paper"
-  use "vim-scripts/PaperColor.vim"
+  use("shaunsingh/seoul256.nvim")
+  use("guns/vim-sexp")
+  use("tpope/vim-sexp-mappings-for-regular-people")
 
 end
 )

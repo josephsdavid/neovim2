@@ -82,6 +82,8 @@ local map_table = {
 			-- [{ "n", "P" }] = { ":BufferPick<CR>", "Pick buffer" },
 			-- [{ "n", "P" }] = { "<cmd>lua require('fzf-lua').files()<cr>", "fzf" },
 			[{ "n", "p" }] = { "<cmd>lua require('fzf-lua').oldfiles()<cr>", "oldfiles" },
+
+
 			-- [{ "i", "j" }] ={ ":move '>+1<CR>gv-gv",""},
 			-- [{ "i", "k" }] ={ ":move '<-2<CR>gv-gv",""},
 		},

@@ -16,7 +16,8 @@ require "gh"
 require "build"
 require "keybinds"
 
-vim.cmd([[colorscheme paper]])
+
+-- vim.cmd([[ colorscheme forestbones ]])
 
 require("neogen").setup({
   snippet_engine = "luasnip",

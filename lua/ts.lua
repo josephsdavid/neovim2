@@ -291,6 +291,12 @@ require("syntax-tree-surfer").setup({
     "let_statement",
     "while_statement",
     "switch_statement",
+    "list_lit",
+    "vec_lit",
+    "map_lit",
+    "set_lit",
+    "quoting_lit",
+    "regex_lit",
   },
   left_hand_side = "fdsawervcxqtzb",
   right_hand_side = "jkl;oiu.,mpy/n",
@@ -309,6 +315,12 @@ require("syntax-tree-surfer").setup({
     ["let_statement"] = "ℒ",
     ["do_statement"] = "𝒟",
     ["struct_definition"] = "𝒮",
+    ["list_lit"] = "ℒ",
+    ["vec_lit"] =  "ℒ",
+    ["map_lit"] =   "ℒ",
+    ["set_lit"] = "ℒ",
+    ["quoting_lit"] = "ℒ",
+    ["regex_lit"] = "ℒ",
   },
 })
 
@@ -338,6 +350,12 @@ vim.keymap.set("n", "gj", function() -- jump to all that you specify
     "let_statement",
     "while_statement",
     "switch_statement",
+    "list_lit",
+    "vec_lit",
+    "map_lit",
+    "set_lit",
+    "quoting_lit",
+    "regex_lit",
   })
 end, opts)
 

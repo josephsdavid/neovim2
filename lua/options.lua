@@ -46,7 +46,7 @@ vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
-vim.opt.background = "light"
+vim.opt.background = "dark"
 
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
@@ -64,5 +64,5 @@ vim.g.loaded_matchit = 1
 vim.g.loaded_spec = 1
 vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
 vim.g.qs_lazy_highlight = 1
-vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck"}
+vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck", "julia"}
 vim.g.parinfer_no_maps = true
