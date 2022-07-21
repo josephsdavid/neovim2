@@ -65,4 +65,6 @@ vim.g.loaded_spec = 1
 vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
 vim.g.qs_lazy_highlight = 1
 vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck", "julia"}
-vim.g.parinfer_no_maps = true
+vim.g.parinfer_no_maps = false
+-- TODO: Make this diff for julia than the ; languages
+vim.g.parinfer_comment_chars = { "#" }

@@ -184,8 +184,7 @@ cmp.setup({
 			elseif has_words_before() then
 				cmp.complete()
 			else
-                fallback()
-				-- vim.cmd(":>")
+                smart_tab()
 			end
 		end, {
 			"i",
@@ -196,8 +195,7 @@ cmp.setup({
 			if cmp.visible() then
 				cmp.select_prev_item()
 			else
-				-- smart_bs()
-                fallback()
+				smart_bs()
 			end
 		end, {
 			"i",
@@ -285,5 +283,3 @@ cmp.setup({
 	},
 })
 
-vim.api.nvim_set_keymap('i', '<C-j>', "<Plug>(TaboutMulti)", {silent = true})
-vim.api.nvim_set_keymap('i', '<C-k>', "<Plug>(TaboutBackMulti)", {silent = true})
