@@ -123,6 +123,9 @@ local textob = {
 }
 
 require("nvim-treesitter.configs").setup({
+  matchup = {
+    enable = true,              -- mandatory, false will disable the whole extension
+  },
   ignore_install = { "haskell" },
   highlight = {
     enable = true, -- false will disable the whole extension

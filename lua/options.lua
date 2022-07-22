@@ -68,3 +68,5 @@ vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel
 vim.g.parinfer_no_maps = false
 -- TODO: Make this diff for julia than the ; languages
 vim.g.parinfer_comment_chars = { "#" }
+-- vim.g.sexp_filetypes = "clojure,scheme,lisp,timl,julia"
+vim.g.matchup_matchparen_enabled = 0
