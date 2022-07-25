@@ -70,3 +70,6 @@ vim.g.parinfer_no_maps = false
 vim.g.parinfer_comment_chars = { "#" }
 -- vim.g.sexp_filetypes = "clojure,scheme,lisp,timl,julia"
 vim.g.matchup_matchparen_enabled = 0
+
+vim.g.JuliaFormatter_use_sysimage=1
+vim.g.JuliaFormatter_sysimage_path=vim.fn.getenv("HOME") .. "/.julia/environments/nvim-lspconfig/juliaformatter.so"

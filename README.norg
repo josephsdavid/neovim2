@@ -1,0 +1,9 @@
+* Julia LSP prerequrisites
+
+  We want to precompile lsp, formatter, and revise
+
+  @code sh 
+    julia --project=@nvim-lspconfig -e 'import Pkg; Pkg.add("PackageCompiler"); Pkg.add("LanguageServer"); Pkg.add("Revise"); Pkg.add("JuliaFormatter");using PackageCompiler; create_sysimage(:LanguageServer, sysimage_path=dirname(Pkg.Types.Context().env.project_file) * "/languageserver.so");create_sysimage(:JuliaFormatter, sysimage_path=dirname(Pkg.Types.Context().env.project_file) * "/juliaformatter.so");create_sysimage(:Revise, sysimage_path=dirname(Pkg.Types.Context().env.project_file) * "/revise.so");'
+  @end
+```
+
