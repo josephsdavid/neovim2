@@ -1,3 +1,5 @@
 notes to myself on other machines 
 
+
+julia --project=@nvim-lspconfig -e 'import Pkg; Pkg.add("PackageCompiler"); Pkg.add("LanguageServer"); using PackageCompiler; create_sysimage(:LanguageServer, sysimage_path=dirname(Pkg.Types.Context().env.project_file) * "/languageserver.so")' this gets you a later version of languageserver
 julia --project=@nvim-lspconfig -e 'import Pkg; Pkg.add("JuliaFormatter")'

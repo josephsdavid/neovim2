@@ -37,8 +37,4 @@ Keys.harpoonleader = make_leader(Keys.leader("m"))
 Keys.qfleader = make_leader(Keys.leader("q"))
 Keys.yabsleader = make_leader(Keys.leader("c"))
 
-Prequire = function(module) -- Stolen from danymat
-	local ok, mod = pcall(require, module)
-	return ok, mod
-end
 
