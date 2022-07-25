@@ -75,7 +75,6 @@ require 'packer'.startup(function(use)
   use({ "nvim-neorg/neorg" })
   use({ "nvim-telescope/telescope-symbols.nvim" })
   use({ "mtikekar/nvim-send-to-term" })
-  use({ "folke/lua-dev.nvim" })
   use({ "rmagatti/goto-preview" })
   use({ "rebelot/kanagawa.nvim" })
   use({ "ThePrimeagen/refactoring.nvim" })
@@ -210,7 +209,7 @@ require 'packer'.startup(function(use)
       }
     end,
     wants = { 'nvim-treesitter' }, -- or require if not used so far
-    after = { 'completion-nvim' } -- if a completion plugin is using tabs load it before
+    after = { "nvim-cmp"} -- if a completion plugin is using tabs load it before
   }
 
 end
