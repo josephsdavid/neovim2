@@ -28,4 +28,23 @@ M.Ctrl = M.genheldkey("c")
 M.Alt = M.genheldkey("a")
 M.Shift = M.genheldkey("s")
 
+M.plugmapping = M.genleader("<Plug>")
+
+
+local mode_map = {normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x"}
+
+M.process_binds = function(binds)
+
+    for _, v in pairs(binds) do
+        for kk, vv in pairs(v) do
+            for mode, def in pairs(vv) do
+                local modestr = mode_map[mode]
+                for lhs, rhs in pairs(def) do
+                    km.setmap(lhs, rhs[1], rhs[2], {mode = modestr})
+                end
+            end
+        end
+    end
+end
+
 return M
