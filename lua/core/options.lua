@@ -4,6 +4,7 @@ function M.setkey(k)
     local function out(kk, v)
         vim[k][kk] = v
     end
+
     return out
 end
 
@@ -17,7 +18,7 @@ vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
 
 M.setopt("background", "dark")
-M.setopt("laststatus",3)
+M.setopt("laststatus", 3)
 M.setopt("foldlevel", 999)
 M.setopt("backup", false) -- creates a backup file)
 M.setopt("clipboard", "unnamedplus") -- allows neovim to access the system clipboard)
@@ -75,5 +76,18 @@ M.setglobal("loaded_2html_plugin", 1)
 M.setglobal("mapleader", " ")
 M.setglobal("maplocalleader", ",")
 M.setglobal("lasttab", 1)
+M.setglobal("loaded_matchit", 1)
+M.setglobal("loaded_spec", 1)
+M.setglobal("qs_highlight_on_keys", { 'f', 'F', 't', 'T' })
+M.setglobal("matchup_matchparen_enabled", 0)
+M.setglobal("qs_lazy_highlight", 1)
+M.setglobal("hiPairs_enable_matchParen", 0)
+M.setglobal("hiPairs_timeout", 1)
+M.setglobal("hiPairs_insert_timeout", 1)
+M.setglobal("hiPairs_hl_matchPair",
+    { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
+        gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' })
+M.setglobal("send_disable_mapping", 1)
+
 vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 return M

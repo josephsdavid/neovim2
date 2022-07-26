@@ -73,6 +73,7 @@ use {
     use({ 'numToStr/Comment.nvim' })
     use({ "haringsrob/nvim_context_vt" })
     use({ 'jghauser/mkdir.nvim' })
+    use"direnv/direnv.vim"
     use 'zane-/cder.nvim'
     use({ 'pwntester/octo.nvim' })
     use {
@@ -161,6 +162,7 @@ use {
   -- 'nvim-treesitter/nvim-treesitter',
   'lewis6991/spellsitter.nvim',
 }
+use "mtikekar/nvim-send-to-term"
 -- Lua
 use {
     'abecodes/tabout.nvim',
