@@ -1,11 +1,11 @@
 M = {}
 local nvim_lsp = require("lspconfig")
+local saga = require 'lspsaga'
+local action = saga.codeaction
+local km = require("core.keymap")
 
 M.setup = function()
-
-    local saga = require 'lspsaga'
-    local action = saga.codeaction
-    local km = require("core.keymap")
+    vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
     require("goto-preview").setup({})
     -- set up lspsaga
     saga.init_lsp_saga({
@@ -57,13 +57,12 @@ M.setup = function()
         },
     })
 
-    local binds = km.init_binds()
-    binds.lsp = binds.default
+    Bindings.config.lsp = km.init_binds().default
     local g = km.genleader("g")
 
     local function _bind(key, mode)
         local out = function(k, v)
-            binds[key][mode][k] = v
+            Bindings.config[key][mode][k] = v
         end
         return out
     end
@@ -95,7 +94,6 @@ M.setup = function()
     for k, v in pairs(ntable) do
         lspbind(k, v)
     end
-    km.process_binds(binds)
 
     local on_attach = function(client, bufnr)
 
@@ -220,3 +218,4 @@ M.setup = function()
 
 end
 return M
+

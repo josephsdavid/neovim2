@@ -1,4 +1,4 @@
 require("core.options")
 require("core.plugins")
-local lang = require("core.lang")
-lang.setup()
+require("core.keymap")
+require("core.completion")

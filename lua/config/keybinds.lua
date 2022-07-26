@@ -18,7 +18,7 @@ local bufl = leader_suffix("b")
 local repl = leader_suffix("g")
 local tabl = leader_suffix("t")
 
-local binds = {
+M.config = {
     general = {
         normal = {
             [{ " " }] = { "<Nop>", "" },
@@ -76,12 +76,12 @@ local binds = {
 }
 
 for k, value in pairs({ left = "h", down = "j", up = "k", right = "l" }) do
-    binds.general.normal[km.Ctrl(value)]     = { km.Ctrl("w") .. value, "Window" .. k }
-    binds.general.terminal[km.Ctrl(value)]   = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
-    binds.general.terminal[km.Alt(value)] = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
+    M.config.general.normal[km.Ctrl(value)]     = { km.Ctrl("w") .. value, "Window" .. k }
+    M.config.general.terminal[km.Ctrl(value)]   = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
+    M.config.general.terminal[km.Alt(value)] = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
 end
 
-binds.buffer = {
+M.config.buffer = {
     normal = {
         [{ bufl("n") }] = { ":bnext<CR>", "next buffer" },
         [{ bufl("p") }] = { ":bprevious<CR>", "previous buffer" },
@@ -96,7 +96,7 @@ binds.buffer = {
 }
 
 
-binds.tab = {
+M.config.tab = {
     normal = {
         [{ tabl("n") }] = { ":tabnext<CR>", "next tab" },
         [{ tabl("N") }] = { ":tabnew<CR>", "new tab" },
@@ -108,14 +108,18 @@ binds.tab = {
     }
 }
 
-binds.repl = {}
-binds.repl.normal = {
+M.config.repl = {}
+M.config.repl.normal = {
     [{ repl("g") }] = { km.plugmapping("SendLine"), "Send to repl (line)" },
     [{ repl(" ") }] = { km.plugmapping("SendLine"), "Send to repl (line)" },
     [{ repl("") }] = { km.plugmapping("Send"), "Send to repl" },
 }
-binds.repl.visual = {
+M.config.repl.visual = {
       [{ repl("") }] = {km.plugmapping( "Send"), "Send to repl" },
 }
 
-km.process_binds(binds)
+M.setup = function ()
+    km.process_binds(M.config)
+end
+return M
+
