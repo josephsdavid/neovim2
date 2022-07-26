@@ -1,3 +1,4 @@
+vim.opt.background = "dark"
 vim.opt.foldlevel = 999
 vim.opt.backup = false -- creates a backup file
 vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
@@ -39,34 +40,20 @@ vim.opt.sidescrolloff = 8
 vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
 vim.opt.autoread = true
 vim.opt.so = 7
-
 vim.opt.shortmess:append("c")
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
-vim.opt.background = "dark"
-
 vim.g.netrw_banner = 0
 vim.g.netrw_liststyle = 3
 vim.g.netrw_browse_split = 25
 vim.g.netrw_altv = 1
 vim.g.netrw_winsize = 25
-vim.g.zepl_default_maps = 0
-vim.g.send_disable_mapping = true
 vim.g.loaded_gzip = 1
 vim.g.loaded_tar = 1
 vim.g.loaded_tarPlugin = 1
 vim.g.loaded_zipPlugin = 1
 vim.g.loaded_2html_plugin = 1
-vim.g.loaded_matchit = 1
-vim.g.loaded_spec = 1
-vim.g.qs_highlight_on_keys = { 'f', 'F', 't', 'T' }
-vim.g.qs_lazy_highlight = 1
-vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck", "julia"}
-vim.g.parinfer_no_maps = false
--- TODO: Make this diff for julia than the ; languages
-vim.g.parinfer_comment_chars = { "#" }
--- vim.g.sexp_filetypes = "clojure,scheme,lisp,timl,julia"
-vim.g.matchup_matchparen_enabled = 0
+
