@@ -1,59 +1,73 @@
-vim.opt.background = "dark"
-vim.opt.foldlevel = 999
-vim.opt.backup = false -- creates a backup file
-vim.opt.clipboard = "unnamedplus" -- allows neovim to access the system clipboard
-vim.opt.cmdheight = 2 -- more space in the neovim command line for displaying messages
-vim.opt.completeopt = { "menuone", "longest", } -- mostly just for cmp
-vim.opt.conceallevel = 0 -- so that `` is visible in markdown files
-vim.opt.fileencoding = "utf-8" -- the encoding written to a file
-vim.opt.hlsearch = true -- highlight all matches on previous search patterns
-vim.opt.incsearch = true
-vim.opt.magic = true
-vim.opt.ignorecase = true -- ignore case in search patterns
-vim.opt.mouse = "a" -- allow the mouse to be used in neovim
-vim.opt.pumheight = 10 -- pop up menu height
-vim.opt.showmode = false -- we don't need to see things like -- INSERT -- anymore
-vim.opt.showtabline = 2 -- always show tabs
-vim.opt.smartcase = true -- smart case
-vim.opt.smartindent = true -- make indenting smarter again
-vim.opt.splitbelow = true -- force all horizontal splits to go below current window
-vim.opt.splitright = true -- force all vertical splits to go to the right of current window
-vim.opt.swapfile = true -- creates a swapfile
-vim.opt.termguicolors = true -- set term gui colors (most terminals support this)
-vim.opt.timeoutlen = 1000 -- time to wait for a mapped sequence to complete (in milliseconds)
-vim.opt.undofile = true -- enable persistent undo
-vim.opt.lazyredraw = true
-vim.opt.updatetime = 250 -- faster completion (4000ms default)
-vim.opt.writebackup = false -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
-vim.opt.expandtab = true -- convert tabs to spaces
-vim.opt.shiftwidth = 4 -- the number of spaces inserted for each indentation
-vim.opt.tabstop = 4 -- insert 2 spaces for a tab
-vim.opt.cursorline = true -- highlight the current line
-vim.opt.number = true -- set numbered lines
-vim.opt.relativenumber = true -- set relative numbered lines
-vim.opt.numberwidth = 4 -- set number column width to 2 {default 4}
-vim.opt.signcolumn = "yes" -- always show the sign column, otherwise it would shift the text each time
-vim.opt.wrap = false -- display lines as one long line
-vim.opt.hidden = true
-vim.opt.scrolloff = 8 -- is one of my fav
-vim.opt.sidescrolloff = 8
-vim.opt.guifont = "monospace:h17" -- the font used in graphical neovim applications
-vim.opt.autoread = true
-vim.opt.so = 7
-vim.opt.shortmess:append("c")
+M = {}
+
+function M.setkey(k)
+    local function out(kk, v)
+        vim[k][kk] = v
+    end
+end
+
+M.setopt = setkey("opt")
+M.setglobal = setkey("g")
+M.setbuffer = setkey("b")
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
-vim.g.netrw_banner = 0
-vim.g.netrw_liststyle = 3
-vim.g.netrw_browse_split = 25
-vim.g.netrw_altv = 1
-vim.g.netrw_winsize = 25
-vim.g.loaded_gzip = 1
-vim.g.loaded_tar = 1
-vim.g.loaded_tarPlugin = 1
-vim.g.loaded_zipPlugin = 1
-vim.g.loaded_2html_plugin = 1
 
+M.setopt("background", "dark")
+M.setopt("foldlevel", 999)
+M.setopt("backup", false) -- creates a backup file)
+M.setopt("clipboard", "unnamedplus") -- allows neovim to access the system clipboard)
+M.setopt("cmdheight", 2)
+M.setopt("completeopt", { "menuone", "longest", })
+M.setopt("conceallevel", 0)
+M.setopt("fileencoding", "utf8")
+M.setopt("hlsearch", true)
+M.setopt("incsearch", true)
+M.setopt("magic", true)
+M.setopt("ignorecase", true)
+M.setopt("mouse", "a")
+M.setopt("pumheight", 10)
+M.setopt("showmode", false)
+M.setopt("showtabline", 2)
+M.setopt("smartcase", true)
+M.setopt("smartindent", true)
+M.setopt("splitbelow", true)
+M.setopt("splitright", true)
+M.setopt("swapfile", true)
+M.setopt("termguicolors", true)
+M.setopt("timeoutlen", 1000)
+M.setopt("undofile", true)
+M.setopt("lazyredraw", true)
+M.setopt("updatetime", 250)
+M.setopt("writebackup", false)
+M.setopt("expandtab", true)
+M.setopt("shiftwidth", 4)
+M.setopt("tabstop", 4)
+M.setopt("cursorline", true)
+M.setopt("number", true)
+M.setopt("relativenumber", true)
+M.setopt("numberwidth", 4)
+M.setopt("signcolumn", "yes")
+M.setopt("wrap", false)
+M.setopt("hidden", true)
+M.setopt("scrolloff", 8)
+M.setopt("sidescrolloff", 8)
+M.setopt("guifont", "monospace:h17")
+M.setopt("autoread", true)
+M.setopt("so", 7)
+vim.opt.shortmess:append("c")
+
+
+M.setglobal("netrw_banner", 0)
+M.setglobal("netrw_liststyle", 3)
+M.setglobal("netrw_browse_split", 25)
+M.setglobal("netrw_altv", 1)
+M.setglobal("netrw_winsize", 25)
+M.setglobal("loaded_gzip", 1)
+M.setglobal("loaded_tar", 1)
+M.setglobal("loaded_tarPlugin", 1)
+M.setglobal("loaded_zipPlugin", 1)
+M.setglobal("loaded_2html_plugin", 1)
+return M
