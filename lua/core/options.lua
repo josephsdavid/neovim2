@@ -6,9 +6,9 @@ function M.setkey(k)
     end
 end
 
-M.setopt = setkey("opt")
-M.setglobal = setkey("g")
-M.setbuffer = setkey("b")
+M.setopt = M.setkey("opt")
+M.setglobal = M.setkey("g")
+M.setbuffer = M.setkey("b")
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
