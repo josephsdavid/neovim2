@@ -1,6 +1,6 @@
 M = {}
 
-local wk = require("whichkey")
+local wk = require("which-key")
 
 M.setmap = function(key, value, descr, opts)
     wk.register({ [key] = { value, descr } }, opts)
@@ -41,14 +41,11 @@ M.init_binds = function ()
 end
 
 M.process_binds = function(binds)
-
     for _, v in pairs(binds) do
-        for kk, vv in pairs(v) do
-            for mode, def in pairs(vv) do
-                local modestr = mode_map[mode]
-                for lhs, rhs in pairs(def) do
-                    M.setmap(lhs, rhs[1], rhs[2], {mode = modestr})
-                end
+        for mode, def in pairs(v) do
+            local modestr = mode_map[mode]
+            for lhs, rhs in pairs(def) do
+                wk.register({lhs = rhs}, {mode = modestr})
             end
         end
     end

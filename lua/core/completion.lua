@@ -149,7 +149,7 @@ cmp.setup({
 			behavior = cmp.ConfirmBehavior.Insert,
 		}),
 
-		[km.C("f")] = cmp.mapping(function(fallback)
+		[km.Ctrl("f")] = cmp.mapping(function(fallback)
 			if luasnip.choice_active() then
 				require("luasnip").change_choice(1)
 			elseif cmp.visible() then

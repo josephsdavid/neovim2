@@ -4,6 +4,7 @@ function M.setkey(k)
     local function out(kk, v)
         vim[k][kk] = v
     end
+    return out
 end
 
 M.setopt = M.setkey("opt")
@@ -16,6 +17,7 @@ vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
 
 M.setopt("background", "dark")
+M.setopt("laststatus",3)
 M.setopt("foldlevel", 999)
 M.setopt("backup", false) -- creates a backup file)
 M.setopt("clipboard", "unnamedplus") -- allows neovim to access the system clipboard)
@@ -70,4 +72,8 @@ M.setglobal("loaded_tar", 1)
 M.setglobal("loaded_tarPlugin", 1)
 M.setglobal("loaded_zipPlugin", 1)
 M.setglobal("loaded_2html_plugin", 1)
+M.setglobal("mapleader", " ")
+M.setglobal("maplocalleader", ",")
+M.setglobal("lasttab", 1)
+vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 return M

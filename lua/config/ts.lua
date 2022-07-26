@@ -173,7 +173,7 @@ M.ts_context.patterns = {
 
 
 M.setup = function()
-    require "nvim-treesitter.configs".setup(M.ts_config)
+    require "nvim-treesitter.configs".setup({M.ts_config})
     require "treesitter-context".setup(M.ts_context)
     require("spellsitter").setup({
         enable = { "norg", "markdown", "python", "lua" },

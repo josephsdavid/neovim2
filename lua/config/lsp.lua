@@ -5,6 +5,50 @@ local action = saga.codeaction
 local km = require("core.keymap")
 
 M.setup = function()
+
+    local signs = {
+        { name = "DiagnosticSignError", text = "" },
+        { name = "DiagnosticSignWarn", text = "" },
+        { name = "DiagnosticSignHint", text = "" },
+        { name = "DiagnosticSignInfo", text = "" },
+    }
+
+    for _, sign in ipairs(signs) do
+        vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+    end
+
+    local config = {
+        virtual_text = false,
+        {
+            prefix = "»",
+            spacing = 4,
+        },
+        -- show signs
+        signs = {
+            active = signs,
+        },
+        update_in_insert = true,
+        underline = false,
+        severity_sort = true,
+        float = {
+            focusable = false,
+            style = "minimal",
+            border = "rounded",
+            source = "always",
+            header = "",
+            prefix = "",
+        },
+    }
+
+    vim.diagnostic.config(config)
+
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+        border = "rounded",
+    })
+
+    vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+        border = "rounded",
+    })
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
     require("goto-preview").setup({})
     -- set up lspsaga
@@ -21,7 +65,7 @@ M.setup = function()
             enable = true,
             sign = true,
             sign_priority = 20,
-            virtual_text = true,
+            virtual_text = false,
         },
         finder_icons = {
             def = '  ',
@@ -57,7 +101,7 @@ M.setup = function()
         },
     })
 
-    Bindings.config.lsp = km.init_binds().default
+    Bindings.config.lsp = { normal = {}, visual = {} }
     local g = km.genleader("g")
 
     local function _bind(key, mode)
@@ -71,22 +115,20 @@ M.setup = function()
     local lspvbind = _bind("lsp", "visual")
 
     local ntable = {
-        {
-            [{ g("r") }] = { ":Lspsaga lsp_finder<CR>", "goto references" },
-            [{ g("d") }] = { "mD<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition" },
-            [{ g("D") }] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
-            [{ g("d") }] = { "mD<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition" },
-            [{ g("a") }] = { ":Lspsaga code_action<CR>", "code_action" },
-            [{ g("s") }] = { ":Lspsaga signature_help<CR>", "signature" },
-            [{ g("l") }] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
-            [{ "K" }] = { ":Lspsaga hover_doc<CR>", "docs" },
-            [{ km.Ctrl("f") }] = { function() action.smart_scroll_with_saga(1) end, "docs scroll up" },
-            [{ km.Ctrl("b") }] = { function() action.smart_scroll_with_saga(-1) end, "docs scroll down" },
-            [{ km.leader("rn") }] = { ":Lspsaga rename<CR>", "rename" },
-            [{ "]d" }] = { ":Lspsaga diagnostic_jump_next<CR>", "next diagnostic" },
-            [{ "[d" }] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
-            [{ g("o") }] = { ":LSOutlineToggle<CR>", "Outline" },
-        }
+        [g("r")] = { ":Lspsaga lsp_finder<CR>", "goto references" },
+        [g("d")] = { "mD<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition" },
+        [g("D")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
+        [g("d")] = { "mD<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition" },
+        [g("a")] = { ":Lspsaga code_action<CR>", "code_action" },
+        [g("s")] = { ":Lspsaga signature_help<CR>", "signature" },
+        [g("l")] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
+        ["K"] = { ":Lspsaga hover_doc<CR>", "docs" },
+        [km.Ctrl("f")] = { function() action.smart_scroll_with_saga(1) end, "docs scroll up" },
+        [km.Ctrl("b")] = { function() action.smart_scroll_with_saga(-1) end, "docs scroll down" },
+        [km.leader("rn")] = { ":Lspsaga rename<CR>", "rename" },
+        ["]d"] = { ":Lspsaga diagnostic_jump_next<CR>", "next diagnostic" },
+        ["[d"] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
+        [g("o")] = { ":LSOutlineToggle<CR>", "Outline" },
     }
 
     lspvbind(g("a"), { ":<C-U>Lspsaga code_action", "code_action" })
@@ -218,4 +260,3 @@ M.setup = function()
 
 end
 return M
-
