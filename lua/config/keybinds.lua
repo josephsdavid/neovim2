@@ -17,14 +17,14 @@ local scope = leader_suffix("f")
 local bufl = leader_suffix("b")
 local repl = leader_suffix("g")
 local tabl = leader_suffix("t")
-local ctrl = km.Ctrl
 
 local binds = {
     general = {
         normal = {
             [{ " " }] = { "<Nop>", "" },
+            [{ "H" }] = { ":DocsViewToggle<CR>", "docs view" },
             [{ "0" }] = { "^", "start of line" },
-            [{ "_" }] = { ctrl("^"), "last buffer" },
+            [{ "_" }] = { km.Ctrl("^"), "last buffer" },
             [{ "cl" }] = { "s", "delete and insert" },
             [{ km.leader("F") }] = { ":Lex 30<CR>", "Netrw" },
             [{ km.leader("w") }] = { ":w!<CR>", "save" },
@@ -70,14 +70,14 @@ local binds = {
             [scope("d")] = { "<cmd>Telescope lsp_definitions<cr>", "find lsp definitions" },
             [scope("D")] = { "<cmd>Telescope lsp_type_definitions<cr>", "find lsp type definitions" },
             [scope("r")] = { "<cmd>Telescope lsp_references<cr>", "find lsp references" },
-            [ctrl("p")] = { "<cmd>Telescope oldfiles<cr>", "find oldfiles" }
+            [km.Ctrl("p")] = { "<cmd>Telescope oldfiles<cr>", "find oldfiles" }
         },
     }
 }
 
 for k, value in pairs({ left = "h", down = "j", up = "k", right = "l" }) do
-    binds.general.normal[ctrl(value)]     = { ctrl("w") .. value, "Window" .. k }
-    binds.general.terminal[ctrl(value)]   = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
+    binds.general.normal[km.Ctrl(value)]     = { km.Ctrl("w") .. value, "Window" .. k }
+    binds.general.terminal[km.Ctrl(value)]   = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
     binds.general.terminal[km.Alt(value)] = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
 end
 
