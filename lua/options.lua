@@ -67,9 +67,8 @@ vim.g.qs_lazy_highlight = 1
 vim.g.parinfer_filetypes = {"clojure", "scheme", "lisp", "racket", "hy", "fennel", "janet", "carp", "wast", "yuck", "julia"}
 vim.g.parinfer_no_maps = false
 -- TODO: Make this diff for julia than the ; languages
-vim.g.parinfer_comment_chars = { "#" }
+vim.g.parinfer_comment_chars = { }
 -- vim.g.sexp_filetypes = "clojure,scheme,lisp,timl,julia"
 vim.g.matchup_matchparen_enabled = 0
+vim.g.JuliaFormatter_always_launch_server=1
 
-vim.g.JuliaFormatter_use_sysimage=1
-vim.g.JuliaFormatter_sysimage_path=vim.fn.getenv("HOME") .. "/.julia/environments/nvim-lspconfig/juliaformatter.so"
