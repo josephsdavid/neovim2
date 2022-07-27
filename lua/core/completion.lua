@@ -8,7 +8,6 @@ if not ok then
     return
 end
 
-
 local ok, lspkind = pcall(require, "lspkind")
 if not ok then
     return

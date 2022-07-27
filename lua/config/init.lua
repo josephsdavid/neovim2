@@ -6,6 +6,7 @@ lsp.setup()
 Bindings.setup(Bindings.config)
 
 require "config.autocmds"
+require "config.snippets"
 
 
 
