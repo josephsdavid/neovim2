@@ -39,12 +39,12 @@ M.config = {
             ["<"] = { "<gv", "Move text left" },
             [">"] = { ">gv", "Move text right" },
             ["p"] = { '"_dP', "paste in place" },
-            ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
-            ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
+            ["K"] = { ":move '>+1<CR>gv-gv", "Move text up" },
+            ["J"] = { ":move '>-2<CR>gv-gv", "Move text down" },
         },
         xmode = {
-            ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
-            ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
+            ["K"] = { ":move '>+1<CR>gv-gv", "Move text up" },
+            ["J"] = { ":move '>-2<CR>gv-gv", "Move text down" },
         }
 
     },

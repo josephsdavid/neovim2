@@ -8,13 +8,32 @@ function M.setkey(k)
     return out
 end
 
+vim.cmd("set whichwrap+=<,>,[,],h,l")
+vim.cmd([[set iskeyword+=-]])
+vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+
 M.setopt = M.setkey("opt")
 M.setglobal = M.setkey("g")
 M.setbuffer = M.setkey("b")
 
-vim.cmd("set whichwrap+=<,>,[,],h,l")
-vim.cmd([[set iskeyword+=-]])
-vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+M.setters = {opt = M.setopt, global = M.setglobal, buffer = M.setbuffer}
+
+M.config = {
+}
+
+M.setup = function ()
+    for key, value in pairs(M.config) do
+        setter=M.setter[key]
+    end
+            
+        end
+    end
+
+
+        
+    end
+end
+
 
 
 M.setopt("background", "dark")
