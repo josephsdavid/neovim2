@@ -72,7 +72,19 @@ return packer.startup(function(use)
     use({ "jose-elias-alvarez/null-ls.nvim" })
     use({ "glepnir/lspsaga.nvim" })
     use({ "rmagatti/goto-preview" })
-    use({ "folke/todo-comments.nvim" })
+    -- Lua
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
+
     use({
         'numToStr/Comment.nvim',
         config = function()
@@ -226,6 +238,7 @@ return packer.startup(function(use)
     --     config = function() require("nvim-autopairs").setup {} end
     -- }
     use 'kdheepak/JuliaFormatter.vim'
+    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
