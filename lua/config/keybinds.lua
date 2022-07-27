@@ -39,13 +39,18 @@ M.config = {
             ["<"] = { "<gv", "Move text left" },
             [">"] = { ">gv", "Move text right" },
             ["p"] = { '"_dP', "paste in place" },
-            ["K"] = { ":move '>+1<CR>gv-gv", "Move text up" },
-            ["J"] = { ":move '>-2<CR>gv-gv", "Move text down" },
+            ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
+            ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
         },
         xmode = {
-            ["K"] = { ":move '>+1<CR>gv-gv", "Move text up" },
-            ["J"] = { ":move '>-2<CR>gv-gv", "Move text down" },
+            ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
+            ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
+        },
+        insert = {
+            [km.Ctrl("j")] = { "<Plug>(TaboutMulti)", "" },
+            [km.Ctrl("k")] = { "<Plug>(TaboutBackMulti)", "" }
         }
+
 
     },
     telescope = {

@@ -18,23 +18,6 @@ M.setbuffer = M.setkey("b")
 
 M.setters = {opt = M.setopt, global = M.setglobal, buffer = M.setbuffer}
 
-M.config = {
-}
-
-M.setup = function ()
-    for key, value in pairs(M.config) do
-        setter=M.setter[key]
-    end
-            
-        end
-    end
-
-
-        
-    end
-end
-
-
 
 M.setopt("background", "dark")
 M.setopt("laststatus", 3)
@@ -42,7 +25,7 @@ M.setopt("foldlevel", 999)
 M.setopt("backup", false) -- creates a backup file)
 M.setopt("clipboard", "unnamedplus") -- allows neovim to access the system clipboard)
 M.setopt("cmdheight", 2)
-M.setopt("completeopt", { "menuone", "longest", })
+M.setopt("completeopt", { "menu", "noselect", "menuone", "longest", })
 M.setopt("conceallevel", 0)
 M.setopt("fileencoding", "utf8")
 M.setopt("hlsearch", true)
