@@ -88,11 +88,5 @@ telescope.setup({
 			-- keep insert mode after selection in the picker, default is false
 			keep_insert = true,
 		},
-		frecency = {
-			show_scores = false,
-			show_unindexed = true,
-			ignore_patterns = { "*.git/*", "*/tmp/*", "*.html" },
-			disable_devicons = false,
-		},
 	},
 })

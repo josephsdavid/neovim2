@@ -221,17 +221,11 @@ return packer.startup(function(use)
             require "fidget".setup()
         end
     }
-    use {
-        "nvim-telescope/telescope-frecency.nvim",
-        config = function()
-            require "telescope".load_extension("frecency")
-        end,
-        requires = { "tami5/sqlite.lua" }
-    }
-    use {
-        "windwp/nvim-autopairs",
-        config = function() require("nvim-autopairs").setup {} end
-    }
+    -- use {
+    --     "windwp/nvim-autopairs",
+    --     config = function() require("nvim-autopairs").setup {} end
+    -- }
+    use 'kdheepak/JuliaFormatter.vim'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

@@ -209,13 +209,13 @@ end
 
 local snippets = {
 	all = {
-		-- pair("(", ")", neg, char_count_same),
-		-- pair("{", "}", neg, char_count_same),
-		-- pair("[", "]", neg, char_count_same),
+		pair("(", ")", neg, char_count_same),
+		pair("{", "}", neg, char_count_same),
+		pair("[", "]", neg, char_count_same),
 		pair("<", ">", neg, char_count_same),
-		-- pair("'", "'", neg, even_count),
-		-- pair('"', '"', neg, even_count),
-		-- pair("`", "`", neg, even_count),
+		pair("'", "'", neg, even_count),
+		pair('"', '"', neg, even_count),
+		pair("`", "`", neg, even_count),
 		s(
 			"trig",
 			c(1, {

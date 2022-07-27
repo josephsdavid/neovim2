@@ -72,7 +72,7 @@ M.config = {
             [scope("D")] = { "<cmd>Telescope lsp_type_definitions<cr>", "find lsp type definitions" },
             [scope("r")] = { "<cmd>Telescope lsp_references<cr>", "find lsp references" },
             [km.Ctrl("p")] = { "<cmd>Telescope oldfiles<cr>", "find oldfiles" },
-            [scope(" ")] = { "<cmd>Telescope frecency<cr>", "find frecency" }
+            -- [scope(" ")] = { "<cmd>Telescope frecency<cr>", "find frecency" }
         },
     }
 }

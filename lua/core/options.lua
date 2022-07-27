@@ -11,6 +11,7 @@ end
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+vim.cmd([[filetype plugin on]]) -- TODO: this doesn't seem to work
 
 M.setopt = M.setkey("opt")
 M.setglobal = M.setkey("g")
@@ -92,6 +93,7 @@ M.setglobal("hiPairs_hl_matchPair",
 M.setglobal("send_disable_mapping", 1)
 
 M.setglobal("conjure#mapping#doc_word", "<LocalLeader>K")
+M.setglobal("JuliaFormatter_always_launch_server", 1)
 
 vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 return M
