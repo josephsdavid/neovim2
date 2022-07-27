@@ -1,6 +1,3 @@
--- Snippets for Julia language
--- ============================================================================
-
 local M = {}
 
 local ls    = require("luasnip")
@@ -85,7 +82,6 @@ local function training_data(pos)
 end
 local newline = t({"",""})
 
-
 local hyperparameters = function(delim)
 	local out
 	out = function()
@@ -159,14 +155,8 @@ M.snippets = {
     i(8),
     newline,
     t({ "```" , "See also", "TODO: ADD REFERENCES"}),
-
-
     t({"",'"""'}),
   }),
-  -- s("hyper", {
-  --   t({"Hyper-parameters", "",""}),
-  --   iterator("- ")
-  -- })
 
 }
 return M

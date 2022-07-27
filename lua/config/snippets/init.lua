@@ -19,7 +19,6 @@ local fmta = require("luasnip.extras.fmt").fmta
 local types = require("luasnip.util.types")
 local conds = require("luasnip.extras.expand_conditions")
 
-
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
@@ -206,19 +205,17 @@ local iterator = function(delim)
 	return rec_ls
 end
 
-
-
-
 -- these should be inside your snippet-table.
+
 local snippets = {
 	all = {
-		pair("(", ")", neg, char_count_same),
-		pair("{", "}", neg, char_count_same),
-		pair("[", "]", neg, char_count_same),
+		-- pair("(", ")", neg, char_count_same),
+		-- pair("{", "}", neg, char_count_same),
+		-- pair("[", "]", neg, char_count_same),
 		pair("<", ">", neg, char_count_same),
-		pair("'", "'", neg, even_count),
-		pair('"', '"', neg, even_count),
-		pair("`", "`", neg, even_count),
+		-- pair("'", "'", neg, even_count),
+		-- pair('"', '"', neg, even_count),
+		-- pair("`", "`", neg, even_count),
 		s(
 			"trig",
 			c(1, {

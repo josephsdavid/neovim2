@@ -7,6 +7,8 @@ Bindings.setup(Bindings.config)
 
 require "config.autocmds"
 require "config.snippets"
+require "config.telescope"
+require "config.git"
 
 
 

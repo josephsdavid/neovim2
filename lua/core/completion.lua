@@ -13,8 +13,6 @@ if not ok then
     return
 end
 
-
-
 lspkind.init()
 
 local with_control = function(t)
@@ -53,6 +51,11 @@ local mapping = with_control({
         "s",
     }),
     e = cmp.mapping.abort(),
+    o = cmp.mapping(
+        cmp.mapping.confirm {
+            behavior = cmp.ConfirmBehavior.Insert,
+            select = true
+        }, { "i", "c" }),
     y = cmp.mapping(
         cmp.mapping.confirm {
             behavior = cmp.ConfirmBehavior.Insert,
@@ -107,7 +110,7 @@ local sources = {
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "neorg" },
-    { name = "treesitter", keyword_length = 5, max_item_count = 10 },
+    { name = "treesitter", keyword_length = 3, max_item_count = 10 },
     { name = "conjure" },
     { name = "buffer", keyword_length = 5, max_item_count = 10 },
     { name = "latex_symbols" },
@@ -196,3 +199,10 @@ cmp.setup.cmdline(":", {
         },
     }),
 })
+
+-- If you want insert `(` after select function or method item
+local cmp_autopairs = require('nvim-autopairs.completion.cmp')
+cmp.event:on(
+  'confirm_done',
+  cmp_autopairs.on_confirm_done()
+)

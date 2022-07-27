@@ -75,7 +75,7 @@ return packer.startup(function(use)
     use({ "folke/todo-comments.nvim" })
     use({
         'numToStr/Comment.nvim',
-        config =  function ()
+        config = function()
             require("Comment").setup()
         end
     })
@@ -202,6 +202,36 @@ return packer.startup(function(use)
     }
     use 'tjdevries/complextras.nvim'
     use 'onsails/lspkind.nvim'
+    use {
+        'chipsenkbeil/distant.nvim',
+        config = function()
+            require('distant').setup {
+                -- Applies Chip's personal settings to every machine you connect to
+                --
+                -- 1. Ensures that distant servers terminate with no connections
+                -- 2. Provides navigation bindings for remote directories
+                -- 3. Provides keybinding to jump into a remote file's parent directory
+                ['*'] = require('distant.settings').chip_default()
+            }
+        end
+    }
+
+    use { 'j-hui/fidget.nvim',
+        config = function()
+            require "fidget".setup()
+        end
+    }
+    use {
+        "nvim-telescope/telescope-frecency.nvim",
+        config = function()
+            require "telescope".load_extension("frecency")
+        end,
+        requires = { "tami5/sqlite.lua" }
+    }
+    use {
+        "windwp/nvim-autopairs",
+        config = function() require("nvim-autopairs").setup {} end
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
