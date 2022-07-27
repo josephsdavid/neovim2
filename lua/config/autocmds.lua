@@ -19,6 +19,7 @@ vim.api.nvim_create_autocmd(
     { pattern = { "*.txt", "*.md", "*.tex", "*.norg" }, command = "setlocal linebreak" }
 )
 
+-- the lua way is stupid
 vim.cmd [[
   augroup _general_settings
     autocmd!

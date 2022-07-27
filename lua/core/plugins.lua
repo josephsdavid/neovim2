@@ -73,7 +73,12 @@ return packer.startup(function(use)
     use({ "glepnir/lspsaga.nvim" })
     use({ "rmagatti/goto-preview" })
     use({ "folke/todo-comments.nvim" })
-    use({ 'numToStr/Comment.nvim' })
+    use({
+        'numToStr/Comment.nvim',
+        config =  function ()
+            require("Comment").setup()
+        end
+    })
     use({ "haringsrob/nvim_context_vt" })
     use({ 'jghauser/mkdir.nvim' })
     use "direnv/direnv.vim"
