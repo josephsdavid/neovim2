@@ -82,7 +82,7 @@ use {
         cmd = { "DocsViewToggle" },
         config = function()
             require("docs-view").setup {
-                position = "right",
+                position = "bottom",
                 width = 60,
             }
         end
@@ -163,6 +163,7 @@ use {
   'lewis6991/spellsitter.nvim',
 }
 use "mtikekar/nvim-send-to-term"
+use "nvim-telescope/telescope-symbols.nvim"
 -- Lua
 use {
     'abecodes/tabout.nvim',

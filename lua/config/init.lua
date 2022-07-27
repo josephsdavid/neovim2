@@ -5,3 +5,5 @@ local lsp = require "config.lsp"
 ts.setup()
 lsp.setup()
 Bindings.setup(Bindings.config)
+
+

@@ -89,5 +89,7 @@ M.setglobal("hiPairs_hl_matchPair",
         gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' })
 M.setglobal("send_disable_mapping", 1)
 
+M.setglobal("conjure#mapping#doc_word", "<LocalLeader>K")
+
 vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 return M

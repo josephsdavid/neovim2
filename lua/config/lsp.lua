@@ -73,7 +73,7 @@ M.setup = function()
             link = '  ',
         },
         finder_action_keys = {
-            open = "o",
+            open = {"o", "<cr>"},
             vsplit = "s",
             split = "i",
             tabe = "t",
@@ -115,10 +115,10 @@ M.setup = function()
     local lspvbind = _bind("lsp", "visual")
 
     local ntable = {
-        [g("r")] = { ":Lspsaga lsp_finder<CR>", "goto references" },
-        [g("d")] = { "mD<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition" },
+        [g("f")] = { ":Lspsaga lsp_finder<CR>", "finder" },
+        [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
         [g("D")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
-        [g("d")] = { "mD<cmd>lua vim.lsp.buf.definition()<CR>", "goto definition" },
+        [g("d")] = { "mD<cmd>Telescope lsp_definitions<CR>", "goto definition" },
         [g("a")] = { ":Lspsaga code_action<CR>", "code_action" },
         [g("s")] = { ":Lspsaga signature_help<CR>", "signature" },
         [g("l")] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
