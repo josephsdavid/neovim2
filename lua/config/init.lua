@@ -5,4 +5,7 @@ local lsp = require "config.lsp"
 lsp.setup()
 Bindings.setup(Bindings.config)
 
+require "config.autocmds"
+
+
 
