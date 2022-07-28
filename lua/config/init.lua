@@ -11,6 +11,4 @@ require "config.autocmds"
 require "config.snippets"
 require "config.telescope"
 require "config.git"
-
-
-
+require "config.norg"
