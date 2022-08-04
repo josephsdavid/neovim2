@@ -3,7 +3,6 @@ local nvim_lsp = require("lspconfig")
 local saga = require 'lspsaga'
 local action = saga.codeaction
 local km = require("core.keymap")
-require("nvim-lsp-installer").setup {}
 
 M.setup = function()
 

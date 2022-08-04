@@ -214,7 +214,6 @@ return packer.startup(function(use)
     use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
-    use("williamboman/nvim-lsp-installer")
     use({ "mcchrish/zenbones.nvim" })
 
 
