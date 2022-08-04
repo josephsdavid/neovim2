@@ -119,7 +119,7 @@ M.setup = function()
         [g("f")] = { ":Lspsaga lsp_finder<CR>", "finder" },
         [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
         [g("D")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
-        [g("d")] = { "mD<cmd>Telescope lsp_definitions<CR>", "goto definition" },
+        [g("d")] = { "<cmd>Telescope lsp_definitions<CR>", "goto definition" },
         [g("a")] = { ":Lspsaga code_action<CR>", "code_action" },
         [g("s")] = { ":Lspsaga signature_help<CR>", "signature" },
         [g("l")] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
@@ -130,6 +130,7 @@ M.setup = function()
         ["]d"] = { ":Lspsaga diagnostic_jump_next<CR>", "next diagnostic" },
         ["[d"] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
         [g("o")] = { ":LSOutlineToggle<CR>", "Outline" },
+        [g("p")] = { ":Lspsaga preview_definition<CR>", "Saga preview definition" },
     }
 
     lspvbind(g("a"), { ":<C-U>Lspsaga code_action", "code_action" })
