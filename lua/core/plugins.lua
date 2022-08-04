@@ -215,17 +215,38 @@ return packer.startup(function(use)
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
     use({ "mcchrish/zenbones.nvim" })
-    use({"tiagovla/scope.nvim",
-        config = function ()
+    use({ "tiagovla/scope.nvim",
+        config = function()
             require("scope").setup()
         end
     })
     -- using packer.nvim
-    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
-    config = function ()
-        require"bufferline".setup()
-    end}
-
+    use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
+        config = function()
+            require('bufferline').setup {
+                options = {
+                    indicator_icon = '▎',
+                    buffer_close_icon = '',
+                    modified_icon = '●',
+                    close_icon = '',
+                    left_trunc_marker = '',
+                    right_trunc_marker = '',
+                    max_name_length = 18,
+                    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+                    tab_size = 18,
+                    diagnostics = "nvim_lsp",
+                    diagnostics_update_in_insert = false,
+                    -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
+                    diagnostics_indicator = function(count, _, _, _)
+                        return "(" .. count .. ")"
+                    end,
+                    -- NOTE: this will be called a lot so don't do any heavy processing here
+                    color_icons = true, -- whether or not to add the filetype icon highlights
+                    separator_style = "thin" --[[ | "thick" | "slant" | { 'any', 'any' } ]] ,
+                }
+            }
+        end }
+    use { "ellisonleao/gruvbox.nvim" }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
