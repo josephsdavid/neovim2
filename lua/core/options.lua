@@ -20,8 +20,9 @@ M.setbuffer = M.setkey("b")
 M.setters = {opt = M.setopt, global = M.setglobal, buffer = M.setbuffer}
 
 local ctime = os.date ("*t")
-if ctime.hour <= 19 then
+if ctime.hour <= 19 and ctime.hour > 8 then
     M.setopt("background", "light")
+    vim.cmd([[colorscheme zenbones]])
 else
     M.setopt("background", "dark")
     require('doom-one').setup({
