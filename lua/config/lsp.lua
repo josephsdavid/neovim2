@@ -3,6 +3,7 @@ local nvim_lsp = require("lspconfig")
 local saga = require 'lspsaga'
 local action = saga.codeaction
 local km = require("core.keymap")
+require("nvim-lsp-installer").setup {}
 
 M.setup = function()
 
@@ -73,7 +74,7 @@ M.setup = function()
             link = '  ',
         },
         finder_action_keys = {
-            open = {"o", "<cr>"},
+            open = { "o", "<cr>" },
             vsplit = "s",
             split = "i",
             tabe = "t",
@@ -147,6 +148,7 @@ M.setup = function()
             vim.api.nvim_buf_set_option(bufnr, ...)
         end
 
+
         buf_set_option("omnifunc", "v:lua.vim.lsp.omnifunc")
     end
 
@@ -184,7 +186,7 @@ M.setup = function()
     local servers = {
         julials = {
 
-            cmd = {"julials" },
+            cmd = { "juliacli", "server" },
             settings = {
                 julia = {
                     usePlotPane = false,

@@ -242,6 +242,8 @@ return packer.startup(function(use)
     use({ "pocco81/truezen.nvim" })
     use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
+    use("khzaw/vim-conceal")
+    use("williamboman/nvim-lsp-installer")
 
 
     -- Automatically set up your configuration after cloning packer.nvim

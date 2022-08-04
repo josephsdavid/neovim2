@@ -22,3 +22,10 @@ km.setmap(km.localleader("v"), ":lua JLVERT()<CR>", "Julia repl (vert)",
     { mode = "n", noremap = true, silent = false })
 km.setmap(km.localleader("h"), ":lua JLHORIZ()<CR>", "Julia repl (horiz)",
     { mode = "n", noremap = true, silent = false })
+
+vim.cmd([[
+    set conceallevel=2
+    " hi Conceal NONE
+    hi link Arrow Normal
+
+    ]])
