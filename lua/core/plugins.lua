@@ -215,6 +215,16 @@ return packer.startup(function(use)
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
     use({ "mcchrish/zenbones.nvim" })
+    use({"tiagovla/scope.nvim",
+        config = function ()
+            require("scope").setup()
+        end
+    })
+    -- using packer.nvim
+    use {'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
+    config = function ()
+        require"bufferline".setup()
+    end}
 
 
     -- Automatically set up your configuration after cloning packer.nvim
