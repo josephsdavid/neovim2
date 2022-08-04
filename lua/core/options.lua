@@ -20,7 +20,7 @@ M.setbuffer = M.setkey("b")
 M.setters = {opt = M.setopt, global = M.setglobal, buffer = M.setbuffer}
 
 
-M.setopt("background", "dark")
+M.setopt("background", "light")
 M.setopt("laststatus", 3)
 M.setopt("foldlevel", 999)
 M.setopt("backup", false) -- creates a backup file)
@@ -94,6 +94,7 @@ M.setglobal("send_disable_mapping", 1)
 
 M.setglobal("conjure#mapping#doc_word", "<LocalLeader>K")
 M.setglobal("JuliaFormatter_always_launch_server", 1)
+
 
 vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 return M

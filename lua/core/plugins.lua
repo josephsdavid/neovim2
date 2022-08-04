@@ -108,38 +108,38 @@ return packer.startup(function(use)
         end
     }
 
-    use({
-        'NTBBloodbath/doom-one.nvim',
-        config = function()
-            require('doom-one').setup({
-                cursor_coloring = true,
-                terminal_colors = true,
-                italic_comments = true,
-                enable_treesitter = true,
-                transparent_background = false,
-                pumblend = {
-                    enable = true,
-                    transparency_amount = 20,
-                },
-                plugins_integrations = {
-                    neorg = true,
-                    barbar = true,
-                    bufferline = false,
-                    gitgutter = false,
-                    gitsigns = true,
-                    telescope = true,
-                    neogit = true,
-                    nvim_tree = true,
-                    dashboard = true,
-                    startify = true,
-                    whichkey = true,
-                    indent_blankline = true,
-                    vim_illuminate = true,
-                    lspsaga = true,
-                },
-            })
-        end,
-    })
+    -- use({
+    --     'NTBBloodbath/doom-one.nvim',
+    --     config = function()
+    --         require('doom-one').setup({
+    --             cursor_coloring = true,
+    --             terminal_colors = true,
+    --             italic_comments = true,
+    --             enable_treesitter = true,
+    --             transparent_background = false,
+    --             pumblend = {
+    --                 enable = true,
+    --                 transparency_amount = 20,
+    --             },
+    --             plugins_integrations = {
+    --                 neorg = true,
+    --                 barbar = true,
+    --                 bufferline = false,
+    --                 gitgutter = false,
+    --                 gitsigns = true,
+    --                 telescope = true,
+    --                 neogit = true,
+    --                 nvim_tree = true,
+    --                 dashboard = true,
+    --                 startify = true,
+    --                 whichkey = true,
+    --                 indent_blankline = true,
+    --                 vim_illuminate = true,
+    --                 lspsaga = true,
+    --             },
+    --         })
+    --     end,
+    -- })
 
     use { "chentoast/marks.nvim",
         config = function()
@@ -242,6 +242,7 @@ return packer.startup(function(use)
     use({ "pocco81/truezen.nvim" })
     use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
+    use({ "mcchrish/zenbones.nvim" })
 
 
     -- Automatically set up your configuration after cloning packer.nvim
