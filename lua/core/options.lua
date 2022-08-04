@@ -19,8 +19,13 @@ M.setbuffer = M.setkey("b")
 
 M.setters = {opt = M.setopt, global = M.setglobal, buffer = M.setbuffer}
 
+local ctime = os.date ("*t")
+if ctime.hour <= 19 then
+    M.setopt("background", "light")
+else
+    M.setopt("background", "dark")
 
-M.setopt("background", "light")
+end
 M.setopt("laststatus", 3)
 M.setopt("foldlevel", 999)
 M.setopt("backup", false) -- creates a backup file)
