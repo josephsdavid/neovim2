@@ -5,6 +5,34 @@ vim.api.nvim_create_autocmd("FileType", {
     command = "startinsert | 1",
 })
 
+-- vim.cmd[[
+-- augroup OpenTermOnEnter
+-- autocmd!
+-- autocmd VimEnter * if argc() == 0 | terminal | endif
+-- augroup END
+-- ]]
+--
+-- local function check_if_no_args()
+--     vim.inspect(vim.cmd[[argc()]])
+-- end
+--
+
+-- local function first_start()
+--     local nargs = vim.api.nvim_eval([[argc()]])
+--     if nargs == 0 then
+--         return "terminal"
+--     end
+--     return ""
+-- end
+--
+--
+--
+--
+-- vim.api.nvim_create_autocmd("VimEnter", {
+--     pattern = "*",
+--     command = first_start()
+-- })
+
 -- local augroup = function(name, commands)
 --     local id = vim.api.nvim_create_augroup(name, { clear = true })
 --     for _, autocmd in ipairs(commands) do
@@ -48,7 +76,7 @@ local function make_conjure_command()
     vim.g["conjure#client#julia#stdio#command"] = "julia --banner=no --color=no --project=" .. root
 end
 
-vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = "*.jl",
     callback = make_conjure_command,
 })

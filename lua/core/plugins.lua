@@ -210,7 +210,7 @@ return packer.startup(function(use)
     -- }
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use({ "pocco81/truezen.nvim" })
+    -- use({ "pocco81/truezen.nvim" })
     use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
@@ -246,8 +246,7 @@ return packer.startup(function(use)
                 }
             }
         end }
-    use { "ellisonleao/gruvbox.nvim" }
-    use {"PaideiaDilemma/penumbra.nvim"}
+    use { "PaideiaDilemma/penumbra.nvim" }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
