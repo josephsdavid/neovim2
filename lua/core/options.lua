@@ -1,5 +1,11 @@
 M = {}
 
+
+local penumbra = require("penumbra")
+
+
+
+
 function M.setkey(k)
     local function out(kk, v)
         vim[k][kk] = v
@@ -17,41 +23,73 @@ M.setopt = M.setkey("opt")
 M.setglobal = M.setkey("g")
 M.setbuffer = M.setkey("b")
 
-M.setters = {opt = M.setopt, global = M.setglobal, buffer = M.setbuffer}
+M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
 
-local ctime = os.date ("*t")
+local ctime = os.date("*t")
 if ctime.hour <= 21 and ctime.hour >= 8 then
     M.setopt("background", "light")
     vim.cmd([[colorscheme zenbones]])
 else
     M.setopt("background", "dark")
-    require('doom-one').setup({
-        cursor_coloring = true,
-        terminal_colors = true,
-        italic_comments = true,
-        enable_treesitter = true,
-        transparent_background = false,
-        pumblend = {
-            enable = true,
-            transparency_amount = 20,
+
+    penumbra.setup {
+        -- Main options --
+        style = 'more_contrast_dark',
+        toggle_style_key = nil,
+        toggle_style_list = M.styles_list,
+        transparent = false, -- don't set background
+        term_colors = true, -- if true enable the terminal
+        ending_tildes = false, -- show the end-of-buffer tildes
+        cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
+
+        -- Changing Formats --
+        code_style = {
+            comments = 'italic',
+            keywords = 'none',
+            functions = 'none',
+            strings = 'none',
+            variables = 'none'
         },
-        plugins_integrations = {
-            neorg = true,
-            barbar = true,
-            bufferline = false,
-            gitgutter = false,
-            gitsigns = true,
-            telescope = true,
-            neogit = true,
-            nvim_tree = true,
-            dashboard = true,
-            startify = true,
-            whichkey = true,
-            indent_blankline = true,
-            vim_illuminate = true,
-            lspsaga = true,
+
+        -- Custom Highlights --
+        colors = {}, -- Override default colors
+        highlights = {}, -- Override highlight groups
+
+        -- Plugins Related --
+        diagnostics = {
+            darker = true, -- darker colors for diagnostic
+            undercurl = true, -- use undercurl for diagnostics
+            background = true, -- use background color for virtual text
         },
-    })
+    }
+    penumbra.colorscheme()
+    -- require('doom-one').setup({
+    --     cursor_coloring = true,
+    --     terminal_colors = true,
+    --     italic_comments = true,
+    --     enable_treesitter = true,
+    --     transparent_background = false,
+    --     pumblend = {
+    --         enable = true,
+    --         transparency_amount = 20,
+    --     },
+    --     plugins_integrations = {
+    --         neorg = true,
+    --         barbar = true,
+    --         bufferline = false,
+    --         gitgutter = false,
+    --         gitsigns = true,
+    --         telescope = true,
+    --         neogit = true,
+    --         nvim_tree = true,
+    --         dashboard = true,
+    --         startify = true,
+    --         whichkey = true,
+    --         indent_blankline = true,
+    --         vim_illuminate = true,
+    --         lspsaga = true,
+    --     },
+    -- })
 
 end
 M.setopt("laststatus", 3)
