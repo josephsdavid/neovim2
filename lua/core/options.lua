@@ -22,41 +22,13 @@ local ctime = os.date("*t")
 if ctime.hour <= 21 and ctime.hour >= 8 then
     M.setopt("background", "light")
     vim.cmd([[colorscheme doom-one]])
-    vim.cmd[[hi function gui=bold]]
     vim.cmd[[hi macro gui=bold]]
 else
     M.setopt("background", "dark")
 
     vim.cmd[[colorscheme doom-one]]
-    vim.cmd[[hi function gui=bold]]
+    -- vim.cmd[[hi function gui=bold]]
     vim.cmd[[hi macro gui=bold]]
-    -- require('doom-one').setup({
-    --     cursor_coloring = true,
-    --     terminal_colors = true,
-    --     italic_comments = true,
-    --     enable_treesitter = true,
-    --     transparent_background = false,
-    --     pumblend = {
-    --         enable = true,
-    --         transparency_amount = 20,
-    --     },
-    --     plugins_integrations = {
-    --         neorg = true,
-    --         barbar = true,
-    --         bufferline = false,
-    --         gitgutter = false,
-    --         gitsigns = true,
-    --         telescope = true,
-    --         neogit = true,
-    --         nvim_tree = true,
-    --         dashboard = true,
-    --         startify = true,
-    --         whichkey = true,
-    --         indent_blankline = true,
-    --         vim_illuminate = true,
-    --         lspsaga = true,
-    --     },
-    -- })
 
 end
 M.setopt("laststatus", 3)

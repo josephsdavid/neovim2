@@ -13,6 +13,7 @@ local scope = leader_suffix("f")
 local bufl = leader_suffix("b")
 local repl = leader_suffix("g")
 local tabl = leader_suffix("t")
+local g = km.genleader("g")
 
 M.config = {
     general = {
@@ -31,6 +32,7 @@ M.config = {
             [km.Alt("Down")] = { ":resize -2<CR>", "Decrease window size horizontal" },
             [km.Alt(",")] = { ":bprevious<CR>", "Previous buffer" },
             [km.Alt(".")] = { ":bnext<CR>", "next buffer" },
+            [g("G")] = {":Git<CR>", "Git"},
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
