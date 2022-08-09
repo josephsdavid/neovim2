@@ -236,6 +236,8 @@ return packer.startup(function(use)
                 }
             }
         end }
+use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
