@@ -32,7 +32,7 @@ M.config = {
             [km.Alt("Down")] = { ":resize -2<CR>", "Decrease window size horizontal" },
             [km.Alt(",")] = { ":bprevious<CR>", "Previous buffer" },
             [km.Alt(".")] = { ":bnext<CR>", "next buffer" },
-            [g("G")] = {":Neogit<CR>", "Git"},
+            [g("G")] = {":Neogit cwd=%:h<CR>", "Git"},
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
