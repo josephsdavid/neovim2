@@ -18,15 +18,18 @@ M.setglobal = M.setkey("g")
 M.setbuffer = M.setkey("b")
 
 M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
-
 local ctime = os.date("*t")
 if ctime.hour <= 21 and ctime.hour >= 8 then
     M.setopt("background", "light")
     vim.cmd([[colorscheme doom-one]])
+    vim.cmd[[hi function gui=bold]]
+    vim.cmd[[hi macro gui=bold]]
 else
     M.setopt("background", "dark")
 
     vim.cmd[[colorscheme doom-one]]
+    vim.cmd[[hi function gui=bold]]
+    vim.cmd[[hi macro gui=bold]]
     -- require('doom-one').setup({
     --     cursor_coloring = true,
     --     terminal_colors = true,
