@@ -109,7 +109,7 @@ return packer.startup(function(use)
     }
 
     use({
-        'NTBBloodbath/doom-one.nvim',
+        'NTBBloodbath/doom-one.nvim', branch = "rewrite"
     })
 
     use { "chentoast/marks.nvim",
@@ -246,7 +246,6 @@ return packer.startup(function(use)
                 }
             }
         end }
-    use { "PaideiaDilemma/penumbra.nvim" }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

@@ -1,11 +1,5 @@
 M = {}
 
-
-local penumbra = require("penumbra")
-
-
-
-
 function M.setkey(k)
     local function out(kk, v)
         vim[k][kk] = v
@@ -28,41 +22,11 @@ M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
 local ctime = os.date("*t")
 if ctime.hour <= 21 and ctime.hour >= 8 then
     M.setopt("background", "light")
-    vim.cmd([[colorscheme zenbones]])
+    vim.cmd([[colorscheme doom-one]])
 else
     M.setopt("background", "dark")
 
-    penumbra.setup {
-        -- Main options --
-        style = 'more_contrast_dark',
-        toggle_style_key = nil,
-        toggle_style_list = M.styles_list,
-        transparent = false, -- don't set background
-        term_colors = true, -- if true enable the terminal
-        ending_tildes = false, -- show the end-of-buffer tildes
-        cmp_itemkind_reverse = false, -- reverse item kind highlights in cmp menu
-
-        -- Changing Formats --
-        code_style = {
-            comments = 'italic',
-            keywords = 'none',
-            functions = 'none',
-            strings = 'none',
-            variables = 'none'
-        },
-
-        -- Custom Highlights --
-        colors = {}, -- Override default colors
-        highlights = {}, -- Override highlight groups
-
-        -- Plugins Related --
-        diagnostics = {
-            darker = true, -- darker colors for diagnostic
-            undercurl = true, -- use undercurl for diagnostics
-            background = true, -- use background color for virtual text
-        },
-    }
-    penumbra.colorscheme()
+    vim.cmd[[colorscheme doom-one]]
     -- require('doom-one').setup({
     --     cursor_coloring = true,
     --     terminal_colors = true,

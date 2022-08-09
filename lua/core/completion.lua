@@ -110,9 +110,9 @@ local sources = {
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "neorg" },
-    { name = "treesitter", keyword_length = 2, max_item_count = 10 },
+    { name = "treesitter", max_item_count = 10 },
     { name = "conjure" },
-    { name = "buffer", keyword_length = 5, max_item_count = 10 },
+    { name = "buffer",  max_item_count = 10 },
     { name = "latex_symbols" },
 }
 
