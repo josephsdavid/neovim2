@@ -1,8 +1,10 @@
 require("impatient")
-require "core"
+require"core"
 require "config"
 
-local highlight = vim.api.nvim_set_hl
+
+
+-- local highlight = vim.api.nvim_set_hl
 
 -- TODO: here is a todo thing
 -- NOTE: here is a note

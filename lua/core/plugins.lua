@@ -99,7 +99,7 @@ return packer.startup(function(use)
     }
 
     use({
-        'NTBBloodbath/doom-one.nvim', branch = "rewrite",
+        'NTBBloodbath/doom-one.nvim',
         setup = function()
             -- Add color to cursor
             vim.g.doom_one_cursor_coloring = false
@@ -280,6 +280,13 @@ return packer.startup(function(use)
             }
         end
     }
+    use({
+        "quarto-dev/quarto-vim",
+        requires = {
+            { "vim-pandoc/vim-pandoc-syntax" },
+        },
+        ft = { "quarto" },
+    })
 
 
     -- Automatically set up your configuration after cloning packer.nvim
