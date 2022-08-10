@@ -102,7 +102,7 @@ return packer.startup(function(use)
         'NTBBloodbath/doom-one.nvim',
         setup = function()
             -- Add color to cursor
-            vim.g.doom_one_cursor_coloring = false
+            vim.g.doom_one_cursor_coloring = true
             -- Set :terminal colors
             vim.g.doom_one_terminal_colors = true
             -- Enable italic comments
