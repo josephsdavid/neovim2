@@ -64,7 +64,6 @@ return packer.startup(function(use)
     use({ "Yggdroot/hiPairs" })
     use({ "tpope/vim-repeat" })
     use({ "tpope/vim-vinegar" })
-    use({ "tpope/vim-surround" })
     use({ "tpope/vim-fugitive" })
     use({ "vimlab/split-term.vim" })
     use({ "akinsho/toggleterm.nvim" })
@@ -286,6 +285,45 @@ return packer.startup(function(use)
             { "vim-pandoc/vim-pandoc-syntax" },
         },
         ft = { "quarto" },
+    })
+    use {
+        "zbirenbaum/neodim",
+        event = "LspAttach",
+        config = function()
+            require("neodim").setup({
+                alpha = 0.75,
+                blend_color = "#000000",
+                update_in_insert = {
+                    enable = true,
+                    delay = 100,
+                },
+                hide = {
+                    virtual_text = true,
+                    signs = true,
+                    underline = true,
+                }
+            })
+        end
+    }
+    use({
+        "kylechui/nvim-surround",
+        config = function()
+            require("nvim-surround").setup({
+                keymaps = {
+                    insert = "<C-h>s",
+                    insert_line = "<C-h>S",
+                    normal = "ys",
+                    normal_cur = "yss",
+                    normal_line = "yS",
+                    normal_cur_line = "ySS",
+                    visual = "S",
+                    visual_line = "gS",
+                    delete = "ds",
+                    change = "cs",
+                },
+                -- Configuration here, or leave empty to use defaults
+            })
+        end
     })
 
 
