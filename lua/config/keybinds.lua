@@ -1,5 +1,5 @@
 local km = require("core.keymap")
-local op = require("core.options")
+-- local op = require("core.options")
 local wk = require("which-key")
 
 M = {}
@@ -17,7 +17,9 @@ local g = km.genleader("g")
 
 local tcd = function()
     local root = require('lspconfig').util.root_pattern('Project.toml')(vim.api.nvim_buf_get_name(0))
-    if root == nil then root = " %:p:h" end
+    if root == nil then
+        root = " %:p:h"
+    end
     vim.cmd("tcd " .. root)
     vim.cmd("pwd")
 end
