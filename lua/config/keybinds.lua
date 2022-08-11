@@ -16,7 +16,7 @@ local tabl = leader_suffix("t")
 local g = km.genleader("g")
 
 local tcd = function()
-    local root = require('lspconfig').util.root_pattern('Project.toml')(vim.api.nvim_buf_get_name(0))
+    local root = require('lspconfig').util.root_pattern('Project.toml', '.git')(vim.api.nvim_buf_get_name(0))
     if root == nil then
         root = " %:p:h"
     end
