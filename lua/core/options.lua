@@ -106,5 +106,4 @@ M.setglobal("JuliaFormatter_always_launch_server", 1)
 -- M.setglobaldelete_replaced_bufferdelete_replaced_buffer("unception_open_buffer_in_new_tab", true)
 
 
-vim.cmd([[au TabLeave * let g:lasttab = tabpagenr()]])
 return M

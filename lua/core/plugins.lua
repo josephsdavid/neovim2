@@ -286,25 +286,6 @@ return packer.startup(function(use)
         },
         ft = { "quarto" },
     })
-    use {
-        "zbirenbaum/neodim",
-        event = "LspAttach",
-        config = function()
-            require("neodim").setup({
-                alpha = 0.75,
-                blend_color = "#000000",
-                update_in_insert = {
-                    enable = true,
-                    delay = 100,
-                },
-                hide = {
-                    virtual_text = true,
-                    signs = true,
-                    underline = true,
-                }
-            })
-        end
-    }
     use({
         "kylechui/nvim-surround",
         config = function()
@@ -325,6 +306,43 @@ return packer.startup(function(use)
             })
         end
     })
+
+    use({
+        "ggandor/leap.nvim",
+        config = function()
+            local leap = require('leap')
+            vim.cmd([[autocmd ColorScheme * lua require('leap').init_highlight(true)]])
+            leap.setup {
+                max_aot_targets = nil,
+                highlight_unlabeled = false,
+                case_sensitive = false,
+                -- Groups of characters that should match each other.
+                -- Obvious candidates are braces & quotes ('([{', ')]}', '`"\'').
+                character_classes = {
+                    ' \t\r\n',
+                    ')]}>',
+                    '([{<',
+                    { '"', "'", '`' },
+                },
+                -- Leaving the appropriate list empty effectively disables "smart" mode,
+                -- and forces auto-jump to be on or off.
+                -- safe_labels = { . . . },
+                -- labels = { . . . },
+                -- These keys are captured directly by the plugin at runtime.
+                -- (For `prev_match`, I suggest <s-enter> if possible in the terminal/GUI.)
+                special_keys = {
+                    repeat_search = '<enter>',
+                    next_match    = '<space>',
+                    prev_match    = '<C-space>',
+                    next_group    = '<tab>',
+                    prev_group    = '<S-tab>',
+                },
+            }
+            leap.set_default_keymaps()
+        end
+    })
+
+
 
 
     -- Automatically set up your configuration after cloning packer.nvim

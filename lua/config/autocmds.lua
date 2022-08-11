@@ -1,72 +1,14 @@
 vim.api.nvim_create_augroup("bufcheck", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = "bufcheck",
-    pattern = { "gitcommit", "gitrebase", "NeogitCommitMessage"},
+    pattern = { "gitcommit", "gitrebase", "NeogitCommitMessage" },
     command = "startinsert | 1",
 })
 
--- vim.cmd[[
--- augroup OpenTermOnEnter
--- autocmd!
--- autocmd VimEnter * if argc() == 0 | terminal | endif
--- augroup END
--- ]]
---
--- local function check_if_no_args()
---     vim.inspect(vim.cmd[[argc()]])
--- end
---
-
--- local function first_start()
---     local nargs = vim.api.nvim_eval([[argc()]])
---     if nargs == 0 then
---         return "terminal"
---     end
---     return ""
--- end
---
---
---
---
--- vim.api.nvim_create_autocmd("VimEnter", {
---     pattern = "*",
---     command = first_start()
--- })
-
--- local augroup = function(name, commands)
---     local id = vim.api.nvim_create_augroup(name, { clear = true })
---     for _, autocmd in ipairs(commands) do
---         local is_callback = type(autocmd.command) == "function"
---         vim.api.nvim_create_autocmd(autocmd.event, {
---             group = name,
---             pattern = autocmd.pattern,
---             desc = autocmd.description,
---             callback = is_callback and autocmd.command or nil,
---             command = not is_callback and autocmd.command or nil,
---             once = autocmd.once,
---             nested = autocmd.nested,
---             buffer = autocmd.buffer,
---         })
---     end
---     return id
--- end
---
--- function _G.make_conjure_command()
---     local root = require('lspconfig').util.root_pattern('Project.toml')(vim.api.nvim_buf_get_name(0))
---     if root == nil then
---         root = "."
---     end
---     return "julia --banner=no --color=no --project=" .. root
--- end
---
--- augroup("Julia_Conjure", {
---     event = "FileType",
---     pattern = "*",
---     command = function()
---         vim.g["conjure#client#julia#stdio#command"] = make_conjure_command()
---     end
---
--- })
+vim.api.nvim_create_autocmd("TabLeave", {
+    pattern = { "*" },
+    command = "let g:lasttab = tabpagenr()",
+})
 
 local function make_conjure_command()
     local root = require('lspconfig').util.root_pattern('Project.toml')(vim.api.nvim_buf_get_name(0))

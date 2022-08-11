@@ -15,6 +15,13 @@ local repl = leader_suffix("g")
 local tabl = leader_suffix("t")
 local g = km.genleader("g")
 
+local tcd = function()
+    local root = require('lspconfig').util.root_pattern('Project.toml')(vim.api.nvim_buf_get_name(0))
+    if root == nil then root = " %:p:h" end
+    vim.cmd("tcd " .. root)
+    vim.cmd("pwd")
+end
+
 M.config = {
     general = {
         normal = {
@@ -25,7 +32,8 @@ M.config = {
             ["cl"] = { "s", "delete and insert" },
             [km.leader("F")] = { ":Lex 30<CR>", "Netrw" },
             [km.leader("w")] = { ":w!<CR>", "save" },
-            [km.leader("cd")] = { "<cmd>tcd %:p:h<cr><cmd>pwd<cr>", "cd to current file" },
+            [km.leader("cc")] = { "<cmd>tcd %:p:h<cr><cmd>pwd<cr>", "cd to current file" },
+            [km.leader("cd")] = { tcd, "cd to current project or file" },
             [km.Alt("Up")] = { ":resize +2<CR>", "Increase window size horizontal" },
             [km.Alt("Left")] = { ":vertical resize -2<CR>", "Decrease window size vertical" },
             [km.Alt("Right")] = { ":vertical resize +2<CR>", "Increase window size vertical" },
@@ -48,6 +56,8 @@ M.config = {
             ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
             ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
         },
+        -- omni = {
+        -- },
         insert = {
             [km.Ctrl("j")] = { "<Plug>(TaboutMulti)", "" },
             [km.Ctrl("k")] = { "<Plug>(TaboutBackMulti)", "" }
@@ -123,8 +133,9 @@ M.config.repl.normal = {
 M.config.repl.visual = {
     [repl("")] = { km.plugmapping("Send"), "Send to repl" },
 }
+M.config.leap = {}
 
-local mode_map = { normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x" }
+local mode_map = { normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x", omni = "o" }
 
 M.setup = function(config)
     for _, v in pairs(config) do
