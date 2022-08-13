@@ -306,6 +306,13 @@ return packer.startup(function(use)
             })
         end
     })
+    use { 'ibhagwan/fzf-lua',
+        -- optional for icon support
+        requires = { 'kyazdani42/nvim-web-devicons' },
+        config = function()
+            vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
+        end
+    }
 
     use({
         "ggandor/leap.nvim",
@@ -341,6 +348,8 @@ return packer.startup(function(use)
             leap.set_default_keymaps()
         end
     })
+--- packer
+    use "natecraddock/telescope-zf-native.nvim"
 
 
 
