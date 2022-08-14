@@ -350,6 +350,7 @@ return packer.startup({ function(use)
     })
 --- packer
     use "natecraddock/telescope-zf-native.nvim"
+    use "haya14busa/vim-asterisk"
 
 
 

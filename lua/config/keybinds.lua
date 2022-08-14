@@ -21,6 +21,7 @@ local tabl = leader_suffix("t")
 local g = km.genleader("g")
 
 
+
 local tcd = function()
     local root = require('lspconfig').util.root_pattern('Project.toml', '.git')(vim.api.nvim_buf_get_name(0))
     if root == nil then
@@ -142,6 +143,29 @@ M.config.repl.visual = {
     [repl("")] = { km.plugmapping("Send"), "Send to repl" },
 }
 M.config.leap = {}
+
+local addmap = function (key, t, mode)
+    local ret = function (lhs, rhs)
+        t[key][mode][lhs] = rhs
+    end
+    return ret
+end
+
+
+local nmap = addmap("general", M.config, "normal")
+local vmap = addmap("general", M.config, "visual")
+local asterisk = {"*", "#"}
+for _, star in ipairs(asterisk) do
+    nmap(star, {km.plugmapping("(asterisk-z".. star ..")"), ""})
+    nmap(g(star), {km.plugmapping("(asterisk-gz".. star ..")"), ""})
+    vmap(g(star), {km.plugmapping("(asterisk-gz".. star ..")"), ""})
+end
+
+
+
+
+
+
 
 local mode_map = { normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x", omni = "o" }
 
