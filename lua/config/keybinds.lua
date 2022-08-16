@@ -76,6 +76,7 @@ M.config = {
     },
     telescope = {
         normal = {
+            [scope("F")] = { "<cmd>FzfLua files<cr>", "find files" },
             [scope("f")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
             [scope("g")] = { "<cmd>FzfLua live_grep_native<cr>", "live grep" },
             [scope("o")] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "find oldfiles" },

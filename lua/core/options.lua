@@ -22,12 +22,16 @@ M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
 local ctime = os.date("*t")
 if ctime.hour <= 21 and ctime.hour >= 8 then
     M.setopt("background", "light")
+    vim.cmd [[colorscheme doom-one]]
     vim.cmd[[hi macro gui=bold]]
 else
     M.setopt("background", "dark")
 
     -- vim.cmd[[hi function gui=bold]]
+    vim.cmd [[colorscheme doom-one]]
     vim.cmd[[hi macro gui=bold]]
+
+
 
 end
 M.setopt("laststatus", 3)
