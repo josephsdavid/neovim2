@@ -348,12 +348,10 @@ return packer.startup({ function(use)
             leap.set_default_keymaps()
         end
     })
---- packer
+    --- packer
     use "natecraddock/telescope-zf-native.nvim"
     use "haya14busa/vim-asterisk"
-    use {'decaycs/decay.nvim', as = 'decay'}
-
-
+    use "tversteeg/registers.nvim"
 
 
     -- Automatically set up your configuration after cloning packer.nvim
