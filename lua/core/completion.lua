@@ -3,6 +3,7 @@ local cmp_status_ok, cmp = pcall(require, "cmp")
 if not cmp_status_ok then
     return
 end
+
 local ok, luasnip = pcall(require, "luasnip")
 if not ok then
     return
@@ -110,9 +111,9 @@ local sources = {
     { name = "nvim_lsp" },
     { name = "path" },
     { name = "neorg" },
-    { name = "treesitter", max_item_count = 10 },
+    { name = "treesitter",  },
     { name = "conjure" },
-    { name = "buffer",  max_item_count = 10 },
+    { name = "buffer",   },
     { name = "latex_symbols" },
 }
 
