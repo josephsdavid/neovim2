@@ -235,7 +235,7 @@ return packer.startup({ function(use)
     -- }
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    -- use({ "pocco81/truezen.nvim" })
+    use({ "pocco81/truezen.nvim" })
     use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
@@ -306,6 +306,7 @@ return packer.startup({ function(use)
             })
         end
     })
+
     use { 'ibhagwan/fzf-lua',
         -- optional for icon support
         requires = { 'kyazdani42/nvim-web-devicons' },
