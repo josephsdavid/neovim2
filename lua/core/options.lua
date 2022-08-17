@@ -23,13 +23,13 @@ local ctime = os.date("*t")
 if ctime.hour < 21 and ctime.hour >= 8 then
     M.setopt("background", "light")
     vim.cmd [[colorscheme doom-one]]
-    vim.cmd[[hi macro gui=bold]]
+    vim.cmd [[hi macro gui=bold]]
 else
     M.setopt("background", "dark")
 
     -- vim.cmd[[hi function gui=bold]]
     vim.cmd [[colorscheme doom-one]]
-    vim.cmd[[hi macro gui=bold]]
+    vim.cmd [[hi macro gui=bold]]
 
 
 
@@ -109,6 +109,11 @@ M.setglobal("conjure#mapping#doc_word", "<LocalLeader>K")
 M.setglobal("JuliaFormatter_always_launch_server", 1)
 -- M.setglobaldelete_replaced_bufferdelete_replaced_buffer("unception_open_buffer_in_new_tab", true)
 M.setglobal("asterisk#keeppos", 1)
+M.setglobal("parinfer_filetypes", {
+    "clojure", "scheme", "lisp", "racket",
+    "hy", "fennel", "janet", "carp",
+    "wast", "yuck", "jl", "julia"
+})
 
 
 return M

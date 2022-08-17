@@ -1,6 +1,10 @@
 local telescope = require("telescope")
 local actions = require("telescope.actions")
+local pickers = require("telescope.pickers")
+local finders = require "telescope.finders"
+local conf = require("telescope.config").values
 
+-- our picker function: colors
 
 telescope.setup({
     defaults = {
