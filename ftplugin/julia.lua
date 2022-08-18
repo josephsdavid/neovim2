@@ -8,9 +8,6 @@ km.setmap(km.localleader("f"), ":JuliaFormatterFormat<CR>", "Julia formatter for
 km.setmap(km.localleader("f"), ":JuliaFormatterFormat<CR>", "Julia formatter format",
     { mode = "v", noremap = true, silent = false })
 
-opt.setbuffer("parinfer_comment_chars", { "#" })
-vim.cmd("ParinferOff")
-
 _G.JLTEST = g({hidden = true, close_on_exit= false, direction = "float", cmd = "julia -e 'using Pkg; Pkg.test()'"})
 _G.JLFLOAT = g({hidden = true, close_on_exit= false, direction = "float", cmd = "julia"})
 _G.JLVERT = g({hidden = true, close_on_exit= false, direction = "vertical", cmd = "julia", size = vim.o.columns * 0.4})
@@ -31,5 +28,9 @@ vim.cmd([[
     ]])
 
 
+-- NOTE: parinfer is supporting julia in core.options, but we turn it off by default because sometimes its annoying
+-- and then we just have a mapping to toggle it
+opt.setbuffer("parinfer_comment_chars", { "#" }) -- in other lispy languages ; is comment, in julia ; is crucial to using the lang
+vim.cmd("ParinferOff")
 km.setmap(km.localleader("p"), ":ParinferToggle<cr>", "toggle parinfer",
     { mode = "n", noremap = true, silent = true })

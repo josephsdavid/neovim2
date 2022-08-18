@@ -53,6 +53,12 @@ M.config = {
             [Ctrl(".")] = { ":bp<CR>", "Previous buffer" },
             [Ctrl(",")] = { ":bn<CR>", "next buffer" },
             [g("G")] = {":Neogit<CR>", "Git"},
+            [Ctrl("h")] = { ":lua require('harpoon.mark').add_file()<CR>", "harpoon mark" },
+            [leader("hm")] = { ":lua require('harpoon.mark').add_file()<CR>", "harpoon mark" },
+            [leader("h ")] = { ":lua require('harpoon.ui').nav_next()<CR>", "harpoon mark next" },
+            [leader("hn")] = { ":lua require('harpoon.ui').nav_next()<CR>", "harpoon mark next" },
+            [leader("hp")] = { ":lua require('harpoon.ui').nav_prev()<CR>", "harpoon mark prev" },
+            [leader("hl")] = { ":lua require('harpoon.ui').nav_prev()<CR>", "harpoon mark prev" },
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
@@ -80,6 +86,7 @@ M.config = {
     telescope = {
         normal = {
             [scope(" ")] = { "<cmd>FzfLua files<cr>", "find files" },
+            [scope("h")] = { "<cmd>Telescope harpoon marks<cr>", "harpoon" },
             [scope("f")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
             [scope("g")] = { "<cmd>FzfLua live_grep_native<cr>", "live grep" },
             [scope("o")] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "find oldfiles" },
@@ -88,7 +95,7 @@ M.config = {
             [scope("t")] = { "<cmd>TodoTelescope theme=ivy<cr>", "find todos" },
             ["z="] = { "<cmd>Telescope spell_suggest theme=ivy<cr>", "spell suggest" },
             -- [scope("T")] = { "<cmd>TodoTelescope<cr>", "find tabs" },
-            [scope("i")] = { "<cmd>Octo issue list", "Search issues" },
+            [scope("i")] = { "<cmd>Octo issue list<cr>", "Search issues" },
             [scope("p")] = { "<cmd>Octo pr list<cr>", "Search prs" },
             [scope("m")] = { "<cmd>Telescope marks theme=ivy<cr>", "find marks" },
             [scope("j")] = { "<cmd>Telescope jumplist theme=ivy<cr>", "find jumps" },

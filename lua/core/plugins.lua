@@ -353,6 +353,7 @@ return packer.startup({ function(use)
     use "natecraddock/telescope-zf-native.nvim"
     use "haya14busa/vim-asterisk"
     use "tversteeg/registers.nvim"
+    use "ThePrimeagen/harpoon"
 
 
     -- Automatically set up your configuration after cloning packer.nvim
