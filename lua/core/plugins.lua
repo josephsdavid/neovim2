@@ -326,7 +326,7 @@ return packer.startup({ function(use)
                 case_sensitive = false,
                 -- Groups of characters that should match each other.
                 -- Obvious candidates are braces & quotes ('([{', ')]}', '`"\'').
-                character_classes = {
+                equivalnece_classes = {
                     ' \t\r\n',
                     ')]}>',
                     '([{<',

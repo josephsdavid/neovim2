@@ -1,9 +1,14 @@
 M = {}
 
-local wk = require("which-key")
+-- local wk = require("which-key")
 
-M.setmap = function(key, value, descr, opts)
-    wk.register({ [key] = { value, descr } }, opts)
+-- M.setmap = function(key, value, descr, opts)
+--     wk.register({ [key] = { value, descr } }, opts)
+-- end
+
+M.setmap = function (mode, key, value, descr, opts)
+    opts["descr"] = descr
+    vim.keymap.set(mode, key, value, opts)
 end
 
 M.genleader = function(leader)
@@ -45,7 +50,8 @@ M.process_binds = function(binds)
         for mode, def in pairs(v) do
             local modestr = mode_map[mode]
             for lhs, rhs in pairs(def) do
-                wk.register({lhs = rhs}, {mode = modestr})
+                M.setmap(modestr, lhs, rhs[1], rhs[2], {noremap=true, silent=true})
+                -- wk.register({lhs = rhs}, {mode = modestr})
             end
         end
     end
