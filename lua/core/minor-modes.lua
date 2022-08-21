@@ -1,0 +1,71 @@
+local km = require("core.keymap")
+
+
+
+-- local define_minor_mode = require('minor-mode').define_minor_mode
+--
+-- M = {}
+--
+-- M.makemode = function(name, doc, keymaps)
+--     define_minor_mode(name, doc, { command = name, keymap = keymaps })
+-- end
+--
+-- M.modes = {
+--     LispMode = {
+--         [[
+--       Minor modes for lisps to navigate sexps. Replaces some normal movement
+--       keybindings.
+--       ]] ,
+--         {
+--             {
+--                 'n',
+--                 'j',
+--                 function()
+--                     vim.fn.search('(')
+--                 end,
+--                 { silent = true }
+--             },
+--
+--             {
+--                 'n',
+--                 'k',
+--                 function()
+--                     vim.fn.search('(', 'b')
+--                 end,
+--                 { silent = true }
+--             },
+--         }
+--
+--     }
+--
+-- }
+--
+-- for mode, spec in pairs(M.modes) do
+--     M.makemode(mode, spec[1], spec[2])
+-- end
+
+-- define_minor_mode('lisp', [[
+--   Minor modes for lisps to navigate sexps. Replaces some normal movement
+--   keybindings.
+--   ]], {
+--     command = 'LispMode',
+--     keymap = {
+--         {
+--             'n',
+--             'j',
+--             function()
+--                 vim.fn.search('(')
+--             end,
+--             { silent = true }
+--         },
+--
+--         {
+--             'n',
+--             'k',
+--             function()
+--                 vim.fn.search('(', 'b')
+--             end,
+--             { silent = true }
+--         },
+--     }
+-- })

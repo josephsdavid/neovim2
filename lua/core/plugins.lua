@@ -357,6 +357,7 @@ return packer.startup({ function(use)
 	use 'Iron-E/nvim-libmodal'
     use "Iron-E/nvim-bufmode"
     use "Iron-E/nvim-tabmode"
+    use { 'Dkendal/nvim-minor-mode' }
 
 
     -- Automatically set up your configuration after cloning packer.nvim

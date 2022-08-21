@@ -118,6 +118,7 @@ end
 
 M.config.buffer = {
     normal = {
+        [leader("B")] = {":BufmodeEnter<CR>", "buffermode"},
         [bufl("n")] = { ":bnext<CR>", "next buffer" },
         [bufl("p")] = { ":bprevious<CR>", "previous buffer" },
         [bufl("l")] = { ":bprevious<CR>", "previous buffer" },
@@ -134,6 +135,7 @@ M.config.buffer = {
 
 M.config.tab = {
     normal = {
+        [leader("T")] = {":TabmodeEnter<CR>", "tabmode"},
         [tabl("n")] = { ":tabnext<CR>", "next tab" },
         [tabl("N")] = { ":tabnew<CR>", "new tab" },
         [tabl("o")] = { ":tabonly<CR>", "close all tabs but current" },
