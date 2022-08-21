@@ -354,6 +354,9 @@ return packer.startup({ function(use)
     use "haya14busa/vim-asterisk"
     use "tversteeg/registers.nvim"
     use "ThePrimeagen/harpoon"
+	use 'Iron-E/nvim-libmodal'
+    use "Iron-E/nvim-bufmode"
+    use "Iron-E/nvim-tabmode"
 
 
     -- Automatically set up your configuration after cloning packer.nvim
