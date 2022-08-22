@@ -1,6 +1,6 @@
 local km = require("core.keymap")
 -- local op = require("core.options")
-local wk = require("which-key")
+-- local wk = require("which-key")
 
 M = {}
 
@@ -186,7 +186,11 @@ M.setup = function(config)
     for _, v in pairs(config) do
         for mode, def in pairs(v) do
             local modestr = mode_map[mode]
-            wk.register(def, { mode = modestr })
+            for lhs, rhs in pairs(def) do
+                vim.keymap.set(modestr, lhs, rhs[1], {noremap=true, silent=true, desc=rhs[2]})
+            end
+
+            -- wk.register(def, { mode = modestr })
         end
     end
 end

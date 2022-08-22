@@ -1,7 +1,8 @@
 require("impatient")
-function partial(f, arg)
+function partial(f, ...)
+    local args = ...
     return function(...)
-        return f(arg, ...)
+        return f(args, ...)
     end
 end
 

@@ -5,13 +5,27 @@ local function mapping_getter(mode)
     mappings = filter(function(x) return x.buffer == 0 end, mappings)
     local ret = {}
     for _, v in ipairs(mappings) do
-        mappings[mode.rhs] = v
+        ret[v.lhs] = v
     end
     return ret
 end
 
 --- mapget.n() = get current normal mode mappings
 local mapget = map(function(mode) return { mode = partial(mapping_getter,mode) } end, { "n", "v", "i", "t" })
+{
+    buffer = 0,
+    desc = " docs scroll down",
+    expr = 0,
+    lhs = "<C-B>",
+    lnum = 0,
+    mode = "n",
+    noremap = 1,
+    nowait = 0,
+    rhs = '<Cmd>lua require("which-key").execute(1)<CR>',
+    script = 0,
+    sid = -8,
+    silent = 1
+  }
 
 function toggledmapping(mode, key, value, descr, opts)
     local oldmap = mapget[mode]()[key]
