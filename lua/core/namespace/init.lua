@@ -1,64 +1,80 @@
 M = {}
-M.helpers = require("core.namespace.helpers")
 
-M.spec = function(...)
-    local out = ...
+local function partial(f, ...)
+    local args = ...
     return function(...)
-        for _, value in pairs(out) do
-            value(...)
-        end
+        return f(args, ...)
     end
 end
 
-M.trait = function(get, set, ...)
-    local getargs = ...
-    local old = get(getargs)
-    local using_old = true
-    return function(...)
-        local args = ...
-        return function()
-            if using_old then
-                set(args)
-                old = get(getargs)
-                using_old = false
-            else
-                set(old)
-                using_old = true
-            end
-        end
+M.Mode = {}
+M.Mode.__index = M.Mode
+
+function M.Mode:new(name, traits, cmd, keybind, desc, on_enter, on_exit)
+    -- fail fast
+    if keybind == nil and cmd == nil then
+        error("Must set either a keybind or a command!", 1)
+    end
+  return setmetatable({
+        name=name,
+        traits=traits,
+        cmd=cmd or nil,
+        keybind=keybind or nil,
+        desc=desc or nil,
+        on_enter=on_enter or nil,
+        on_exit=on_exit or nil,
+        active = false
+    }, self)
+end
+
+function M.new_mode(name, traits, cmd, keybind, desc, on_enter, on_exit)
+    return M.Mode:new(name, traits, cmd, keybind, desc, on_enter, on_exit)
+end
+
+function M.Mode:toggle()
+    for _, trait in pairs(self.traits) do
+        trait.toggle()
+    end
+    self.active = not(self.active)
+end
+
+
+local trait = {}
+trait.__index = trait
+function trait:new(spec, enable, disable)
+  return setmetatable({
+        spec = spec,
+        enable = enable,
+        disable = disable,
+        active = false
+    }, self)
+end
+
+
+function trait:toggle()
+    if self.active then
+        self.disable(self.spec)
+    else
+        self.enable(self.spec)
+    end
+    self.active = not(self.active)
+end
+
+function M.keybind_trait(spec)
+    return trait:new(spec, partial(vim.keymap.set, unpack(spec)), partial(vim.keymap.del,spec.mode, spec.lhs))
+end
+
+function M.export(mode)
+    -- redundancy
+    if mode.cmd == nil and mode.keybind == nil then
+        error("cannot export a minor mode without a command or keybind", 1)
+    end
+    if not(mode.cmd == nil) then
+        vim.api.nvim_create_user_command(mode.cmd, mode.toggle, {})
+    end
+    if not(mode.keybind == nil) then
+        vim.keymap.set("n", mode.keybind, mode.toggle, {noremap=true, silent=false})
     end
 end
-
-
-M.namespace = function(name, traits, command, binding, description, active, on_enter, on_exit)
-    return {
-        name = name,
-        spec = M.spec(traits),
-        command = command or nil,
-        binding = binding or nil,
-        description = description or nil,
-        active = active or false,
-        on_enter = on_enter or nil,
-        on_exit = on_exit or nil
-    }
-end
-
-M.toggle_namespace = function(ns)
-    ns.active = not (ns.active)
-    ns.spec()
-    return ns
-end
-
-
-M.export_namespace = function(ns)
-    local toggle = partial(M.toggle_namespace, ns)
-    if ns.command ~= nil then
-        vim.api.nvim_create_user_command(ns.command, toggle, {})
-    end
-    if ns.binding ~= nil then
-        vim.keymap.set("n", ns.binding, toggle, { noremap = true, silent = false, descr = ns.description })
-    end
-end
-
 
 return M
