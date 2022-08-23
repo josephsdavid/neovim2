@@ -44,3 +44,4 @@ end
 
 require"core"
 require "config"
+require "user"
