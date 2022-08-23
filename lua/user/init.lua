@@ -1,5 +1,7 @@
 local km = require("core.keymap")
 
+-- TODO: break this into forwards and backwards
+
 local findclosest = function(items, backwards)
     -- NOTE: BROKEN
     backwards = false or backwards
@@ -11,7 +13,7 @@ local findclosest = function(items, backwards)
         if not(backwards) then
             npos = vim.fn.searchpos(p, "n")
         else
-            npos = vim.fn.searchpos(p, "n", "b")
+            npos = vim.fn.searchpos(p, "nb")
         end
         local dx, dy = npos[1] - cpos[1], npos[2] - cpos[2]
         if backwards then
