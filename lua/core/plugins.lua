@@ -239,8 +239,12 @@ return packer.startup({ function(use)
     use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
+    -- here is hunk
     use({ "mcchrish/zenbones.nvim" })
+    -- hunk 2
+    -- hunk 3
     use({ "tiagovla/scope.nvim",
+        -- hunk
         config = function()
             require("scope").setup()
         end
@@ -372,6 +376,12 @@ return packer.startup({ function(use)
         'nvim-telescope/telescope.nvim',
       },
     }
+use {
+"jpalardy/vim-slime",
+        config = function ()
+            vim.g.slime_target = "tmux"
+        end
+}
 
 
     -- Automatically set up your configuration after cloning packer.nvim

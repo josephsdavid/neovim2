@@ -10,7 +10,7 @@ vim.keymap.set( "v",km.localleader("f"), ":JuliaFormatterFormat<CR>",
     {desc =  "Julia formatter format",  noremap = true, silent = false })
 
 _G.JLTEST = g({hidden = true, close_on_exit= false, direction = "float", cmd = "julia -e 'using Pkg; Pkg.test()'"})
-_G.JLFLOAT = g({hidden = true, close_on_exit= false, direction = "float", cmd = "julia"})
+_G.JLFLOAT = g({hidden = true, close_on_exit= false, direction = "float"})
 _G.JLVERT = g({hidden = true, close_on_exit= false, direction = "vertical", cmd = "julia", size = vim.o.columns * 0.4})
 _G.JLHORIZ = g({hidden = true, close_on_exit= false, direction = "horizontal", cmd = "julia", size = 15})
 
