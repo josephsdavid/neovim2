@@ -175,11 +175,6 @@ for _, star in ipairs(asterisk) do
 end
 
 
-
-
-
-
-
 local mode_map = { normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x", omni = "o" }
 
 M.setup = function(config)
@@ -194,4 +189,6 @@ M.setup = function(config)
         end
     end
 end
+
+
 return M

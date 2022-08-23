@@ -65,7 +65,7 @@ local move = {
 }
 
 local lsp_interop = {
-    enable = true,
+    enable = false,
     border = "none",
     peek_definition_code = {
         [peekl("f")] = "@function.inner",
