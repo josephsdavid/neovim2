@@ -358,6 +358,16 @@ return packer.startup({ function(use)
     use "Iron-E/nvim-bufmode"
     use "Iron-E/nvim-tabmode"
     use { 'Dkendal/nvim-minor-mode' }
+    use {
+      'rlch/github-notifications.nvim',
+      config = function ()
+        require"github-notifications"
+      end,
+      requires = {
+        'nvim-lua/plenary.nvim',
+        'nvim-telescope/telescope.nvim',
+      },
+    }
 
 
     -- Automatically set up your configuration after cloning packer.nvim
