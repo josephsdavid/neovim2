@@ -85,7 +85,8 @@ M.config = {
     },
     telescope = {
         normal = {
-            [scope(" ")] = { "<cmd>FzfLua files<cr>", "find files" },
+            [scope(" ")] = { "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>", "swiper" },
+            [scope("F")] = { "<cmd>FzfLua files<cr>", "find files" },
             [scope("n")] = { "<cmd>Telescope ghn<cr>", "find notifications" },
             [scope("h")] = { "<cmd>Telescope harpoon marks<cr>", "harpoon" },
             [scope("f")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
@@ -188,8 +189,6 @@ M.setup = function(config)
             for lhs, rhs in pairs(def) do
                 vim.keymap.set(modestr, lhs, rhs[1], {noremap=true, silent=true, desc=rhs[2]})
             end
-
-            -- wk.register(def, { mode = modestr })
         end
     end
 end
