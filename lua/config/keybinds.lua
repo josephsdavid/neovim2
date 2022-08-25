@@ -86,14 +86,14 @@ M.config = {
     telescope = {
         normal = {
             [scope(" ")] = { "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>", "swiper" },
-            [scope("F")] = { "<cmd>FzfLua files<cr>", "find files" },
+            [scope("f")] = { "<cmd>FzfLua files<cr>", "find files" },
             [scope("n")] = { "<cmd>Telescope ghn<cr>", "find notifications" },
             [scope("h")] = { "<cmd>Telescope harpoon marks<cr>", "harpoon" },
-            [scope("f")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
+            [scope("F")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
             [scope("r")] = { "<cmd>FzfLua resume<cr>", "resume" },
             [scope("R")] = { "<cmd>Telescope resume<cr>", "resume" },
-            [scope("g")] = { "<cmd>FzfLua live_grep_native<cr>", "live grep" },
-            [scope("G")] = { "<cmd>Telescope live_grep theme=ivy<cr>", "live grep" },
+            [scope("G")] = { "<cmd>FzfLua live_grep_native<cr>", "live grep" },
+            [scope("g")] = { "<cmd>Telescope live_grep theme=ivy<cr>", "live grep" },
             [scope("o")] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "find oldfiles" },
             [scope("b")] = { "<cmd>BufferLinePick<cr>", "find buffers" },
             [scope("B")] = { "<cmd>Telescope buffers theme=ivy<cr>", "find buffers" },
@@ -108,7 +108,7 @@ M.config = {
             [scope("r")] = { "<cmd>Telescope reloader theme=ivy<cr>", "reload" },
             [scope("d")] = { "<cmd>Telescope lsp_definitions theme=ivy<cr>", "find lsp definitions" },
             [scope("D")] = { "<cmd>Telescope lsp_type_definitions theme=ivy<cr>", "find lsp type definitions" },
-            [scope("r")] = { "<cmd>Telescope lsp_references theme=ivy<cr>", "find lsp references" },
+            -- [scope("r")] = { "<cmd>Telescope lsp_references theme=ivy<cr>", "find lsp references" },
             [Ctrl("p")] = { "<cmd>Telescope oldfiles theme=ivy<cr>", "find oldfiles" },
             -- [scope(" ")] = { "<cmd>Telescope frecency<cr>", "find frecency" }
         },
