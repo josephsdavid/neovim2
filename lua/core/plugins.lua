@@ -255,8 +255,8 @@ return packer.startup({ function(use)
             require('bufferline').setup {
                 options = {
                     indicator = {
-                        icon =  '▎',
-                        style="icon"
+                        icon = '▎',
+                        style = "icon"
                     },
                     -- indicator_icon = '▎',
                     buffer_close_icon = '',
@@ -362,27 +362,26 @@ return packer.startup({ function(use)
     use "haya14busa/vim-asterisk"
     use "tversteeg/registers.nvim"
     use "ThePrimeagen/harpoon"
-	use 'Iron-E/nvim-libmodal'
+    use 'Iron-E/nvim-libmodal'
     use "Iron-E/nvim-bufmode"
     use "Iron-E/nvim-tabmode"
     use { 'Dkendal/nvim-minor-mode' }
     use {
-      'rlch/github-notifications.nvim',
-      config = function ()
-        require"github-notifications"
-      end,
-      requires = {
-        'nvim-lua/plenary.nvim',
-        'nvim-telescope/telescope.nvim',
-      },
+        'rlch/github-notifications.nvim',
+        config = function()
+            require "github-notifications"
+        end,
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+        },
     }
-use {
-"jpalardy/vim-slime",
-        config = function ()
+    use {
+        "jpalardy/vim-slime",
+        config = function()
             vim.g.slime_target = "tmux"
         end
-}
-
+    }
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
