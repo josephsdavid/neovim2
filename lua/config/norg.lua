@@ -22,7 +22,6 @@ require("neorg").setup({
         },
         ["core.integrations.telescope"] = {}, -- Enable the telescope module
         ["core.looking-glass"] = {}, -- Enable the looking_glass module
-        ["core.integrations.truezen"] = {}, -- Enable the truezen module
         ["core.export"] = {}, -- Enable the truezen module
         ["core.export.markdown"] = {}, -- Enable the truezen module
         ["core.norg.journal"] = { config = { workspace = "notes", strategy = "nested" } }, -- Enable the notes
