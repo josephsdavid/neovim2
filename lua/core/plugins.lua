@@ -382,6 +382,7 @@ return packer.startup({ function(use)
             vim.g.slime_target = "tmux"
         end
     }
+    use 'anuvyklack/hydra.nvim'
 
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins

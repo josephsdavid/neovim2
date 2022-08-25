@@ -86,10 +86,10 @@ M.config = {
     telescope = {
         normal = {
             [scope(" ")] = { "<cmd>Telescope current_buffer_fuzzy_find theme=ivy<cr>", "swiper" },
-            [scope("f")] = { "<cmd>FzfLua files<cr>", "find files" },
+            [scope("F")] = { "<cmd>FzfLua files<cr>", "find files" },
             [scope("n")] = { "<cmd>Telescope ghn<cr>", "find notifications" },
             [scope("h")] = { "<cmd>Telescope harpoon marks<cr>", "harpoon" },
-            [scope("F")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
+            [scope("f")] = { "<cmd>Telescope find_files theme=ivy<cr>", "find files" },
             [scope("r")] = { "<cmd>FzfLua resume<cr>", "resume" },
             [scope("R")] = { "<cmd>Telescope resume<cr>", "resume" },
             [scope("G")] = { "<cmd>FzfLua live_grep_native<cr>", "live grep" },
