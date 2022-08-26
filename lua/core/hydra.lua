@@ -1,57 +1,46 @@
 local km = require("core.keymap")
 local hydra = require("hydra")
 
-hydra({
-    name = "Parenth-mode",
-    config = { color = "pink" },
-    mode = "n",
-    body = km.localleader("p"),
-    heads = {
-        { "j", function() vim.fn.search("[({[]") end, { nowait = true, desc = "next (" } },
-        { "k", function() vim.fn.search("[({[]", "b") end, { nowait = true, desc = "previous (" } },
-        { "dj", "d]%", { nowait = true, desc = "next (" } },
-        { "dJ", "d%", { nowait = true, desc = "next (" } },
-        { "cj", "ct)", { nowait = true, desc = "next (" } },
-        { "cJ", "c%", { nowait = true, desc = "next (" } },
-        { km.localleader("p"), nil, { exit = true } }
-    }
-})
-
-local function colorcycler(reverse)
-    local colors = vim.fn.getcompletion("", "color")
-    local ccol = vim.g.colors_name
-    local len = #colors
-    local i = 1
-    for index, value in ipairs(colors) do
-        if value == ccol then
-            i = index
-        end
-    end
-    return function()
-        if reverse then
-            i = i - 1
-        else
-            i = i + 1
-        end
-        if i > len then
-            i = 1
-        elseif i < 1 then
-            i = len
-        end
-        local out = colors[i]
-        vim.cmd('colorscheme ' .. out)
-        print("using colorcheme: " .. out)
-    end
+local execute_keys = function(feedkeys)
+    local keys = vim.api.nvim_replace_termcodes(feedkeys, true, false, true)
+    vim.api.nvim_feedkeys(keys, "x", false)
 end
 
 
-hydra({
-    name = "Color Cycler",
-    config = { color = "amaranth", hint = {type = "statusline"}, },
+local pmode = {
+    name = "Parenth-mode",
+    config = { color = "pink", invoke_on_body = true },
     mode = "n",
-    body = km.localleader("C"),
+    body = km.localleader("p"),
     heads = {
-        { "j", colorcycler(false), { desc = "next colorscheme" } },
-        { "k", colorcycler(true), { desc = "previous colorscheme" } },
-    }
-})
+        {
+            "j",
+            function()
+                vim.fn.search("[({[]")
+            end,
+            { nowait = true, desc = "next (" },
+        },
+        {
+            "k",
+            function()
+                vim.fn.search("[({[]", "b")
+            end,
+            { nowait = true, desc = "previous (" },
+        },
+    },
+}
+
+
+for surround, motion in pairs({ i = "j", a = "k" }) do
+    for doc, key in pairs({ delete = "d", change = "c", delete_surround = "ds" }) do
+        local motiondoc
+        if motion == "j" then motiondoc = "in" else motiondoc = "around" end
+        pmode['heads'][#pmode.heads + 1] = {
+            table.concat({ key, motion }),
+            table.concat({ key, surround, "%" }),
+            { nowait = true, desc = table.concat({ doc, motiondoc }, " ") }
+        }
+    end
+end
+
+hydra(pmode)
