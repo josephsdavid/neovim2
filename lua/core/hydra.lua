@@ -4,16 +4,17 @@ local hydra = require("hydra")
 local ex = function(feedkeys)
     return function()
         local keys = vim.api.nvim_replace_termcodes(feedkeys, true, false, true)
-        vim.api.nvim_feedkeys(keys, "x", false)
+        vim.api.nvim_feedkeys(keys, "m", false)
     end
 end
 
 local config = {}
+local exit = { nil, { exit = true, desc = "EXIT"} }
 
 config.parenth_mode = {
     color = "pink",
     body = km.localleader("p"),
-    [km.localleader("p")] = { nil, { exit = true } },
+    [km.localleader("p")] = exit,
     j = { function() vim.fn.search("[({[]") end, { nowait = true, desc = "next" } },
     k = { function() vim.fn.search("[({[]", "b") end, { nowait = true, desc = "next" } },
 }
