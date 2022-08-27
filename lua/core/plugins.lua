@@ -383,6 +383,20 @@ return packer.startup({ function(use)
         end
     }
     use 'anuvyklack/hydra.nvim'
+    use"stevearc/overseer.nvim"
+    use "nvim-neotest/neotest"
+    -- BROKEN: dev comments
+    -- use({
+    --   "ram02z/dev-comments.nvim",
+    --   requires = {
+    --     "nvim-treesitter/nvim-treesitter",
+    --     "nvim-lua/plenary.nvim",
+    --   },
+    --   config = function()
+    --       require("dev_comments").setup({
+    --     })
+    --   end
+    -- })
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

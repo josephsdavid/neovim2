@@ -13,3 +13,4 @@ require "config.telescope"
 require "config.git"
 require "config.norg"
 -- require "config.namespaces"
+

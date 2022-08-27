@@ -27,8 +27,8 @@ M.genheldkey = function(leader)
     return ret
 end
 
-M.leader = M.genleader("<Leader>")
-M.localleader = M.genleader("<LocalLeader>")
+M.leader = M.genleader("<leader>")
+M.localleader = M.genleader("<localleader>")
 M.Ctrl = M.genheldkey("c")
 M.Alt = M.genheldkey("a")
 M.Shift = M.genheldkey("s")
