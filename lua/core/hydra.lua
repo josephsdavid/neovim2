@@ -64,8 +64,10 @@ config.parenth_mode = {
     ["F"] = { mx("ysi%f"), { nowait = true , desc = "iF"} },
 }
 
-config.parenth_quickmode = config.parenth_mode
-config.parenth_quickmode.color = "red"
+-- TODO:
+-- config.parenth_quickmode = config.parenth_mode
+-- config.parenth_quickmode[#config.parenth_quickmode+1] = {["<ESC>"] = exit}
+-- config.parenth_quickmode.color = "red"
 
 
 for surround, motion in pairs({ i = "j", a = "k" }) do
