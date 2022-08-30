@@ -114,6 +114,6 @@ M.setglobal("parinfer_filetypes", {
     "hy", "fennel", "janet", "carp",
     "wast", "yuck", "jl", "julia"
 })
-
+M.setglobal("parinfer_no_maps", true)
 
 return M

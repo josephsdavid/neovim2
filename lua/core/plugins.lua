@@ -236,7 +236,7 @@ return packer.startup({ function(use)
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg" })
+    use({ "nvim-neorg/neorg", tag="0.0.12" })
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
     -- here is hunk
@@ -385,6 +385,8 @@ return packer.startup({ function(use)
     use 'anuvyklack/hydra.nvim'
     use"stevearc/overseer.nvim"
     use "nvim-neotest/neotest"
+      use 'ishan9299/modus-theme-vim'
+    use "samjwill/nvim-unception"
     -- BROKEN: dev comments
     -- use({
     --   "ram02z/dev-comments.nvim",

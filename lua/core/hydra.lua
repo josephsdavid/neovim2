@@ -1,9 +1,11 @@
 local km = require("core.keymap")
 local hydra = require("hydra")
 
-if unpack == nil then
-    local unpack = table.unpack
+if table.unpack == nil then
+    table.unpack = unpack
 end
+
+
 
 local mx = function(feedkeys)
     return function()
@@ -50,10 +52,13 @@ end
 config.parenth_mode = {
     color = "pink",
     body = km.leader("p"),
+    mode = {"n", "v", "x", "o"},
     -- TODO: add in maybe treesitter node surfing and we are good to make this a thing
     [km.leader("p")] = exit,
     j = { function() vim.fn.search("[({[]") end, { nowait = true, desc = "next" } },
     k = { function() vim.fn.search("[({[]", "b") end, { nowait = true, desc = "next" } },
+    J = { function() vim.fn.search("[)}\\]]") end, { nowait = true, desc = "next" } },
+    K = { function() vim.fn.search("[)}\\]]", "b") end, { nowait = true, desc = "next" } },
     [")"] = { mx("ysi%)"), { nowait = true , desc = "i)"} },
     ["("] = { mx("ysa%)"), { nowait = true , desc = "a("} },
     ["]"] = { mx("ysi%]"), { nowait = true , desc = "i]"} },
@@ -102,6 +107,9 @@ local mapping = {
     on_exit = function (t, rhs)
         t.config.on_exit = rhs
     end,
+    mode = function (t, rhs)
+        t.config.mode = rhs
+    end
 }
 
 
@@ -117,9 +125,9 @@ for name, spec in pairs(config) do
     heads = {}
     }
     for lhs, rhs in pairs(spec) do
-        action = mapping[lhs]
+        local action = mapping[lhs]
         if action == nil then
-            new_hydra.heads[#new_hydra.heads + 1] = { lhs, unpack(rhs) }
+            new_hydra.heads[#new_hydra.heads + 1] = { lhs, table.unpack(rhs) }
         else
             action(new_hydra, rhs)
         end
