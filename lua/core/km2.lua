@@ -1,0 +1,58 @@
+KM = {}
+
+KM.genleader = function(leader, f)
+    if f == nil then
+        local function ret(s)
+            return table.concat({ leader, s })
+        end
+        return ret
+    else
+        local function ret(s)
+            return table.concat(f({ leader, s }))
+        end
+        return ret
+    end
+end
+
+local special = function (t)
+    return {"<", t[1], "-", t[2], ">"}
+end
+
+KM.leader = KM.genleader("<Leader>")
+KM.localleader = KM.genleader("<LocalLeader>")
+KM.ctrl = KM.genleader("c", special)
+KM.alt = KM.genleader("a", special)
+KM.shift = KM.genleader("s", special)
+
+function KM.extendleader(f, k)
+    return KM.genleader(f(k))
+end
+
+function KM.extendlocalleader(k)
+    return KM.genleader(KM.localleader(k))
+end
+
+function KM.keymap(mode, lhs, rhs, opts, descr)
+    if descr ~= nil then
+        opts.descr = descr
+    end
+    vim.keymap.set(mode, key, value, opts)
+end
+
+function KM.make_mapping_group(f)
+    return function (mode, lhs, rhs, opts, descr)
+        KM.keymap(mode, lhs, f(rhs), opts, descr)
+    end
+end
+
+function KM.rhs_surrounder(lhs, rhs)
+    return function (s)
+        return table.concat({lhs, s, rhs})
+    end
+end
+
+KM.cmd = KM.rhs_surrounder("<cmd>", "<cr>")
+KM.luacmd = KM.rhs_surrounder("<cmd>lua ", "<cr>")
+
+return KM
+
