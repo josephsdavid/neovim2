@@ -1,21 +1,24 @@
 KM = {}
 
+
 KM.genleader = function(leader, f)
     if f == nil then
         local function ret(s)
             return table.concat({ leader, s })
         end
+
         return ret
     else
         local function ret(s)
             return table.concat(f({ leader, s }))
         end
+
         return ret
     end
 end
 
-local special = function (t)
-    return {"<", t[1], "-", t[2], ">"}
+local special = function(t)
+    return { "<", t[1], "-", t[2], ">" }
 end
 
 KM.leader = KM.genleader("<Leader>")
@@ -36,23 +39,36 @@ function KM.keymap(mode, lhs, rhs, opts, descr)
     if descr ~= nil then
         opts.descr = descr
     end
-    vim.keymap.set(mode, key, value, opts)
-end
-
-function KM.make_mapping_group(f)
-    return function (mode, lhs, rhs, opts, descr)
-        KM.keymap(mode, lhs, f(rhs), opts, descr)
-    end
+    vim.keymap.set(mode, lhs, rhs, opts)
 end
 
 function KM.rhs_surrounder(lhs, rhs)
-    return function (s)
-        return table.concat({lhs, s, rhs})
+    return function(s)
+        return table.concat({ lhs, s, rhs })
     end
 end
 
 KM.cmd = KM.rhs_surrounder("<cmd>", "<cr>")
 KM.luacmd = KM.rhs_surrounder("<cmd>lua ", "<cr>")
 
-return KM
+function KM.keybind_plan(t, f)
+    if f == nil then
+        return t
+    else
+        local out = {}
+        for index, config in pairs(t) do
+            out[index] = f(config, index)
+        end
+        return out
+    end
+end
 
+function KM.setup(plan, f)
+    if f == nil then
+        for _, value in pairs(plan) do
+            KM.keymap(table.unpack(value))
+        end
+    end
+end
+
+return KM
