@@ -1,4 +1,5 @@
 local km = require("core.keymap")
+local km2 = require("core.km2")
 -- local op = require("core.options")
 -- local wk = require("which-key")
 
@@ -6,19 +7,19 @@ M = {}
 
 
 
-local leader = km.leader
-local Alt = km.Alt
-local Ctrl = km.Ctrl
+local leader = km2.leader
+local Alt = km2.alt
+local Ctrl = km2.ctrl
 
-local function leader_suffix(k)
-    return km.genleader(leader(k))
-end
 
-local scope = leader_suffix("f")
-local bufl = leader_suffix("b")
-local repl = leader_suffix("g")
-local tabl = leader_suffix("t")
-local g = km.genleader("g")
+local scope = km2.extendleader(leader, "f")
+local bufl = km2.extendleader(leader, "b")
+local repl = km2.extendleader(leader, "g")
+local tabl = km2.extendleader(leader, "t")
+local g = km2.genleader("g")
+-- local bufl = leader_suffix("b")
+-- local repl = leader_suffix("g")
+-- local tabl = leader_suffix("t")
 
 
 

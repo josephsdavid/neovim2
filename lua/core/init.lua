@@ -1,4 +1,7 @@
-
+-- compat stuff
+if table.unpack == nil then
+    table.unpack = unpack
+end
 require("core.options")
 require("core.plugins")
 require("core.keymap")
