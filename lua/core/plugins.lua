@@ -236,7 +236,7 @@ return packer.startup({ function(use)
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg" })
+    use({ "nvim-neorg/neorg", tag="0.0.12"})
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
     -- here is hunk
