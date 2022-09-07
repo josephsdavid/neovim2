@@ -19,6 +19,14 @@ local scope = km2.extendleader(leader, "f")
 local bufl = km2.extendleader(leader, "b")
 local repl = km2.extendleader(leader, "g")
 local tabl = km2.extendleader(leader, "t")
+local ch = km2.genleader(Ctrl("h"))
+local cj = km2.genleader(Ctrl("j"))
+local chc_ = function (s)
+    return ch(Ctrl(s))
+end
+local cjc_ = function (s)
+    return cj(Ctrl(s))
+end
 local g = km2.genleader("g")
 -- local bufl = leader_suffix("b")
 -- local repl = leader_suffix("g")
@@ -58,12 +66,11 @@ M.config = {
             [Ctrl(",")] = { cmd("bn"), "next buffer" },
             [g("G")] = { cmd("Neogit"), "Git" },
             -- TODO: USE HARPOON
-            [Ctrl("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
-            [leader("hm")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
-            [leader("h ")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon mark next" },
-            [leader("hn")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon mark next" },
-            [leader("hp")] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon mark prev" },
-            [leader("hl")] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon mark prev" },
+            [chc_("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
+            [chc_("n")] = { luacmd("require('harpoon.mark').nav_next()"), "harpoon next" },
+            [chc_("p")] = { luacmd("require('harpoon.mark').nav_prev()"), "harpoon prev" },
+            [chc_("m")] = { luacmd("require('harpoon.cmd-ui').toggle_quick_menu()"), "harpoon command menu" },
+            [chc_("f")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
@@ -194,7 +201,7 @@ end
 
 -- center everything
 for _, jumps in ipairs({
-    "'", "`", "G", "/", "?", "n", "N", "%", "(", ")", "[[", "]]", "{", "}", ":s", ":tag", "L", "M", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o")
+    "'", "`", "G",  "n", "N", "%", "(", ")", "[[", "]]", "{", "}", "L", "M", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
 }) do
     nmap(jumps, { _zz(jumps), "" })
     vmap(jumps, { _zz(jumps), "" })
