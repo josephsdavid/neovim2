@@ -113,7 +113,6 @@ M.setup = function()
 
     local lspbind = _bind("lsp", "normal")
     local lspvbind = _bind("lsp", "visual")
-    local lspibind = _bind("lsp", "insert")
 
     local ntable = {
         [g("f")] = { ":Lspsaga lsp_finder<CR>", "finder" },
@@ -122,7 +121,6 @@ M.setup = function()
         [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
         [g("p")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
         [g("a")] = { ":Lspsaga code_action<CR>", "code_action" },
-        [g("s")] = { ":Lspsaga signature_help<CR>", "signature" },
         [g("l")] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
         ["K"] = { ":Lspsaga hover_doc<CR>", "docs" },
         [km.Ctrl("f")] = { function() action.smart_scroll_with_saga(1) end, "docs scroll up" },
@@ -134,7 +132,6 @@ M.setup = function()
     }
 
     lspvbind(g("a"), { ":<C-U>Lspsaga code_action", "code_action" })
-    lspibind(Ctrl("s"), {}
 
     for k, v in pairs(ntable) do
         lspbind(k, v)
