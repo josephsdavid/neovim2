@@ -406,7 +406,7 @@ return packer.startup({ function(use)
     use 'ishan9299/modus-theme-vim'
     use "simrat39/rust-tools.nvim"
     use "tpope/vim-abolish"
-    if host_is_not("ubuntu") then
+    if host_is_not("djosephs") then
         use({
             "NTBBloodbath/daylight.nvim",
             config = function()
