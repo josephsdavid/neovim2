@@ -117,8 +117,9 @@ M.setup = function()
     local ntable = {
         [g("f")] = { ":Lspsaga lsp_finder<CR>", "finder" },
         [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
-        [g("D")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
+        [g("D")] = { ":Lspsaga preview_definition<CR>", "Saga preview definition" },
         [g("d")] = { "<cmd>Telescope lsp_definitions<CR>", "goto definition" },
+        [g("p")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
         [g("a")] = { ":Lspsaga code_action<CR>", "code_action" },
         [g("s")] = { ":Lspsaga signature_help<CR>", "signature" },
         [g("l")] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
@@ -128,8 +129,7 @@ M.setup = function()
         [km.leader("rn")] = { ":Lspsaga rename<CR>", "rename" },
         ["]d"] = { ":Lspsaga diagnostic_jump_next<CR>", "next diagnostic" },
         ["[d"] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
-        [g("o")] = { ":LSOutlineToggle<CR>", "Outline" },
-        [g("p")] = { ":Lspsaga preview_definition<CR>", "Saga preview definition" },
+        [g("o")] = { ":LSoutlineToggle<CR>", "Outline" },
     }
 
     lspvbind(g("a"), { ":<C-U>Lspsaga code_action", "code_action" })
@@ -216,6 +216,18 @@ M.setup = function()
                 },
             },
         },
+        rust_analyzer = {
+            cmd = {
+                "rust-analyzer"
+            },
+            settings = {
+                ["rust-analyzer"] = {
+                    checkOnSave = {
+                      command = "clippy"
+                    },
+                }
+            }
+        }
     }
 
     for lsp, setup in pairs(servers) do
@@ -223,6 +235,7 @@ M.setup = function()
         setup.capabilities = make_capabilities()
         nvim_lsp[lsp].setup(setup)
     end
+
 
 end
 return M

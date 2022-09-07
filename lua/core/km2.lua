@@ -51,15 +51,9 @@ end
 KM.cmd = KM.rhs_surrounder("<cmd>", "<cr>")
 KM.luacmd = KM.rhs_surrounder("<cmd>lua ", "<cr>")
 
-function KM.keybind_plan(t, f)
-    if f == nil then
-        return t
-    else
-        local out = {}
-        for index, config in pairs(t) do
-            out[index] = f(config, index)
-        end
-        return out
+function plan_binds(plan, t)
+    if t == nil then
+        return plan or {}
     end
 end
 
@@ -68,6 +62,8 @@ function KM.setup(plan, f)
         for _, value in pairs(plan) do
             KM.keymap(table.unpack(value))
         end
+    else
+        KM.setup(f(plan))
     end
 end
 

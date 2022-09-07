@@ -1,5 +1,22 @@
 local fn = vim.fn
 
+local function getHostname()
+    local f = io.popen("/bin/hostname")
+    local hostname = f:read("*a") or ""
+    f:close()
+    hostname = string.gsub(hostname, "\n$", "")
+    return hostname
+end
+
+local function host_is_not(s)
+    local hostname = string.lower(getHostname())
+    if string.find(hostname, s) then
+        return false
+    else
+        return true
+    end
+end
+
 local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
     PACKER_BOOTSTRAP = fn.system {
@@ -61,6 +78,7 @@ return packer.startup({ function(use)
     use({ "hrsh7th/cmp-cmdline" })
     use({ "hrsh7th/nvim-cmp" })
     use({ "saadparwaiz1/cmp_luasnip" })
+
     use({ "Yggdroot/hiPairs" })
     use({ "tpope/vim-repeat" })
     use({ "tpope/vim-vinegar" })
@@ -236,7 +254,7 @@ return packer.startup({ function(use)
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg", tag="0.0.12" })
+    use({ "nvim-neorg/neorg", tag = "0.0.12" })
     use({ "nvim-neorg/neorg-telescope" })
     use("khzaw/vim-conceal")
     -- here is hunk
@@ -383,10 +401,29 @@ return packer.startup({ function(use)
         end
     }
     use 'anuvyklack/hydra.nvim'
-    use"stevearc/overseer.nvim"
+    use "stevearc/overseer.nvim"
     use "nvim-neotest/neotest"
-      use 'ishan9299/modus-theme-vim'
-    use "samjwill/nvim-unception"
+    use 'ishan9299/modus-theme-vim'
+    use "simrat39/rust-tools.nvim"
+    use "tpope/vim-abolish"
+    if host_is_not("ubuntu") then
+        use({
+            "NTBBloodbath/daylight.nvim",
+            config = function()
+                require("daylight").setup({
+                    day = {
+                        name = vim.g.colors_name,
+                        time = 8, -- 8 am
+                    },
+                    night = {
+                        name = vim.g.colors_name,
+                        time = 20, -- 7 pm, changes to dark theme on 07:01
+                    },
+                    interval = 60000, -- Time in milliseconds, 1 minute
+                })
+            end,
+        })
+    end
     -- BROKEN: dev comments
     -- use({
     --   "ram02z/dev-comments.nvim",

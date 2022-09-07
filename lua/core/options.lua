@@ -19,21 +19,18 @@ M.setbuffer = M.setkey("b")
 
 M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
 
-local ctime = os.date("*t")
-if ctime.hour < 20 and ctime.hour >= 8 then
-    M.setopt("background", "light")
+-- local ctime = os.date("*t")
+-- if ctime.hour < 20 and ctime.hour >= 8 then
+--     M.setopt("background", "light")
+--     vim.cmd [[colorscheme doom-one]]
+--     vim.cmd [[hi macro gui=bold]]
+-- else
+--     M.setopt("background", "dark")
+--
+--     -- vim.cmd[[hi function gui=bold]]
     vim.cmd [[colorscheme doom-one]]
     vim.cmd [[hi macro gui=bold]]
-else
-    M.setopt("background", "dark")
-
-    -- vim.cmd[[hi function gui=bold]]
-    vim.cmd [[colorscheme doom-one]]
-    vim.cmd [[hi macro gui=bold]]
-
-
-
-end
+-- end
 M.setopt("laststatus", 3)
 M.setopt("foldlevel", 999)
 M.setopt("backup", false) -- creates a backup file)
@@ -58,7 +55,7 @@ M.setopt("swapfile", true)
 M.setopt("termguicolors", true)
 M.setopt("timeoutlen", 1000)
 M.setopt("undofile", true)
-M.setopt("lazyredraw", true)
+M.setopt("lazyredraw")
 M.setopt("updatetime", 250)
 M.setopt("writebackup", false)
 M.setopt("expandtab", true)
@@ -71,11 +68,12 @@ M.setopt("numberwidth", 4)
 M.setopt("signcolumn", "yes")
 M.setopt("wrap", false)
 M.setopt("hidden", true)
-M.setopt("scrolloff", 8)
+M.setopt("scrolloff", 12)
+-- M.setopt("scrolloff", 999)
 M.setopt("sidescrolloff", 8)
 M.setopt("guifont", "monospace:h17")
 M.setopt("autoread", true)
-M.setopt("so", 7)
+-- M.setopt("so", 7)
 vim.opt.shortmess:append("c")
 
 
