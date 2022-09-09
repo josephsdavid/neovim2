@@ -81,7 +81,6 @@ return packer.startup({ function(use)
 
     use({ "Yggdroot/hiPairs" })
     use({ "tpope/vim-repeat" })
-    use({ "tpope/vim-vinegar" })
     use({ "tpope/vim-fugitive" })
     use({ "vimlab/split-term.vim" })
     use({ "akinsho/toggleterm.nvim" })
@@ -406,6 +405,7 @@ return packer.startup({ function(use)
     use 'ishan9299/modus-theme-vim'
     use "simrat39/rust-tools.nvim"
     use "tpope/vim-abolish"
+    use("bfredl/nvim-luadev")
     if host_is_not("djosephs") then
         use({
             "NTBBloodbath/daylight.nvim",
