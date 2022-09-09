@@ -1,10 +1,7 @@
 local km = require("core.keymap")
 local km2 = require("core.km2")
--- local op = require("core.options")
--- local wk = require("which-key")
 
 M = {}
-
 
 
 local leader = km2.leader
@@ -14,28 +11,22 @@ local Ctrl = km2.ctrl
 local cmd = km2.cmd
 local luacmd = km2.luacmd
 
-
 local scope = km2.extendleader(leader, "f")
 local bufl = km2.extendleader(leader, "b")
 local repl = km2.extendleader(leader, "g")
 local tabl = km2.extendleader(leader, "t")
-local ch = km2.genleader(Ctrl("h"))
-local cj = km2.genleader(Ctrl("j"))
-local chc_ = function (s)
-    return ch(Ctrl(s))
+local cx = km2.genleader(Ctrl("x"))
+-- local cj = km2.genleader(Ctrl("j"))
+local cxc_ = function (s)
+    return cx(Ctrl(s))
 end
-local cjc_ = function (s)
-    return cj(Ctrl(s))
-end
+-- local cjc_ = function (s)
+--     return cj(Ctrl(s))
+-- end
 local g = km2.genleader("g")
 -- local bufl = leader_suffix("b")
 -- local repl = leader_suffix("g")
 -- local tabl = leader_suffix("t")
-
-
-
-
-
 
 local tcd = function()
     local root = require('lspconfig').util.root_pattern('Project.toml', '.git')(vim.api.nvim_buf_get_name(0))
@@ -65,12 +56,19 @@ M.config = {
             [Ctrl(".")] = { cmd("bp"), "Previous buffer" },
             [Ctrl(",")] = { cmd("bn"), "next buffer" },
             [g("G")] = { cmd("Neogit"), "Git" },
-            -- TODO: USE HARPOON
-            [chc_("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
-            [chc_("n")] = { luacmd("require('harpoon.mark').nav_next()"), "harpoon next" },
-            [chc_("p")] = { luacmd("require('harpoon.mark').nav_prev()"), "harpoon prev" },
-            [chc_("m")] = { luacmd("require('harpoon.cmd-ui').toggle_quick_menu()"), "harpoon command menu" },
-            [chc_("f")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
+            [cxc_("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
+            [cx("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
+            [cx("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
+            ["<Up>"] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
+            ["<Down>"] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
+            [cxc_("n")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
+            [cx("n")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
+            [cxc_("p")] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
+            [cx("p")] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
+            [cxc_("m")] = { luacmd("require('harpoon.cmd-ui').toggle_quick_menu()"), "harpoon command menu" },
+            [cx("m")] = { luacmd("require('harpoon.cmd-ui').toggle_quick_menu()"), "harpoon command menu" },
+            [cxc_("f")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
+            [cx("f")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
@@ -112,9 +110,10 @@ M.config = {
             [scope("t")] = { cmd("TodoTelescope theme=ivy"), "find todos" },
             ["z="] = { cmd("Telescope spell_suggest theme=ivy"), "spell suggest" },
             -- [scope("T")] = { cmd("TodoTelescope"), "find tabs" },
-            [scope("i")] = { cmd("Octo issue list"), "Search issues" },
-            [scope("p")] = { cmd("Octo pr list"), "Search prs" },
-            [scope("m")] = { cmd("Telescope marks theme=ivy"), "find marks" },
+            [scope("i")] = { cmd("Octo issue list"), "Searcx issues" },
+            [scope("p")] = { cmd("Octo pr list"), "Searcx prs" },
+            [scope("M")] = { cmd("Telescope marks theme=ivy"), "find marks" },
+            [scope("m")] = { cmd("Telescope harpoon marks theme=ivy"), "find harpoon marks" },
             [scope("j")] = { cmd("Telescope jumplist theme=ivy"), "find jumps" },
             [scope("e")] = { cmd("Telescope symbols theme=ivy"), "find symbols" },
             [scope("r")] = { cmd("Telescope reloader theme=ivy"), "reload" },
@@ -128,9 +127,9 @@ M.config = {
 }
 
 for k, value in pairs({ left = "h", down = "j", up = "k", right = "l" }) do
-    M.config.general.normal[Ctrl(value)]   = { Ctrl("w") .. value, "Window" .. k }
-    M.config.general.terminal[Ctrl(value)] = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
-    M.config.general.terminal[Alt(value)]  = { "<C-\\><C-N><C-w>" .. value, "Window" .. k }
+    M.config.general.normal[Ctrl(value)]   = { Ctrl("w") .. value, "Window " .. k }
+    M.config.general.terminal[Ctrl(value)] = { "<C-\\><C-N><C-w>" .. value, "Window " .. k }
+    M.config.general.terminal[Alt(value)]  = { "<C-\\><C-N><C-w>" .. value, "Window " .. k }
 end
 
 M.config.buffer = {
@@ -144,6 +143,7 @@ M.config.buffer = {
         [bufl("x")] = { cmd("BufferLinePickClose"), "close buffer" },
         [bufl("s")] = { cmd("Telescope buffers"), "select buffer" },
         [bufl("S")] = { cmd("BufferLinePick"), "select buffer" },
+        [bufl("f")] = { cmd("BufferLinePick"), "select buffer" },
         [bufl("1")] = { cmd("bfirst"), "first buffer" },
         [bufl("0")] = { cmd("blast"), "last buffer" },
     }
@@ -175,12 +175,10 @@ M.config.repl.visual = {
 M.config.leap = {}
 
 local addmap = function(key, t, mode)
-    local ret = function(lhs, rhs)
+    return function(lhs, rhs)
         t[key][mode][lhs] = rhs
     end
-    return ret
 end
-
 
 local nmap = addmap("general", M.config, "normal")
 local vmap = addmap("general", M.config, "visual")
@@ -201,11 +199,16 @@ end
 
 -- center everything
 for _, jumps in ipairs({
-    "'", "`", "G",  "n", "N", "%", "(", ")", "[[", "]]", "{", "}", "L", "M", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
+    "G",  "n", "N", "%", "(", ")", "[[", "]]", "{", "}", "L", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
 }) do
     nmap(jumps, { _zz(jumps), "" })
     vmap(jumps, { _zz(jumps), "" })
 end
+
+for loc in ipairs({1,2,3,4,5,6,7,8,9}) do
+    nmap(g(loc), {luacmd("require('harpoon.ui').nav_file("..loc..")")})
+end
+
 
 
 local mode_map = { normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x", omni = "o" }
