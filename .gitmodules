@@ -1,0 +1,3 @@
+[submodule "lua/user/lua/user/neorg-apis"]
+	path = lua/user/lua/user/neorg-apis
+	url = git@github.com:josephsdavid/neorg-apis.git
