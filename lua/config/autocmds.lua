@@ -15,7 +15,7 @@ local function make_conjure_command()
     if root == nil then
         root = "."
     end
-    vim.g["conjure#client#julia#stdio#command"] = "julia --banner=no --color=no --project=" .. root
+    vim.g["conjure#client#julia#stdio#command"] = "julia --banner=no --color=no --startup-file=yes --history-file=no --project=" .. root
 end
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {

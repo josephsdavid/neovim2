@@ -51,6 +51,9 @@ end
 KM.cmd = KM.rhs_surrounder("<cmd>", "<cr>")
 KM.luacmd = KM.rhs_surrounder("<cmd>lua ", "<cr>")
 
+KM.plugmapping = KM.genleader("<Plug>")
+
+
 function plan_binds(plan, t)
     if t == nil then
         return plan or {}
