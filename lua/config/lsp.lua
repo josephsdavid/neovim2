@@ -57,7 +57,6 @@ M.setup = function()
         saga_winblend = 10,
         move_in_saga = { prev = km.Ctrl(","), next = km.Ctrl(".") },
         diagnostic_header = { " ", " ", " ", "ﴞ " },
-        show_diagnostic_source = true,
         max_preview_lines = 10,
         code_action_icon = "ﯦ",
         code_action_num_shortcut = true,
@@ -86,7 +85,6 @@ M.setup = function()
             exec = "<CR>",
         },
         rename_action_quit = "<C-c>",
-        definition_preview_icon = "  ",
         show_outline = {
             win_position = 'right',
             -- set the special filetype in there which in left like nvimtree neotree defx
