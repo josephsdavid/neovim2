@@ -49,12 +49,21 @@ local function blend_colors(top, bottom, alpha)
 end
 --- Tabline setup
 local setup = require("tabline_framework").setup
+local get_mark = function (id)
+        local idx = require("harpoon.mark").get_index_of(id)
+        local s
+        if idx then
+            s = idx
+        else
+            s = ""
+        end
+    return s
+end
 local function render(f)
 	f.make_bufs(function(info)
 		local icon, icon_color = f.icon(info.filename) or "", f.icon_color(info.filename) or get_color("fg1")
 		local color_fg = info.current and icon_color
 		local color_bg = blend_colors(icon_color, get_color("bg1"), info.current and 0.38 or 0.2)
-        local idx = require("harpoon.mark").get_index_of(info.buf)
 
 		f.add({
 			" " .. icon .. " ",
@@ -72,7 +81,7 @@ local function render(f)
 			fg = info.modified and color_fg or (info.current and get_color("red") or color_fg),
 		})
 		f.add({
-			string.format("%s ",  idx and idx or ""),
+			string.format("%s ",  get_mark(info.buf_name)),
 			bg = color_bg,
 			fg = color_fg ,
 		})

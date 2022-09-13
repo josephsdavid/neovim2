@@ -393,12 +393,12 @@ return packer.startup({ function(use)
             'nvim-telescope/telescope.nvim',
         },
     }
-    use {
-        "jpalardy/vim-slime",
-        config = function()
-            vim.g.slime_target = "tmux"
-        end
-    }
+    -- use {
+    --     "jpalardy/vim-slime",
+    --     config = function()
+    --         vim.g.slime_target = "tmux"
+    --     end
+    -- }
     use 'anuvyklack/hydra.nvim'
     use "stevearc/overseer.nvim"
     use "nvim-neotest/neotest"
