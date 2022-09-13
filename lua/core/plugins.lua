@@ -267,35 +267,35 @@ return packer.startup({ function(use)
         end
     })
     -- using packer.nvim
-    use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
-        config = function()
-            require('bufferline').setup {
-                options = {
-                    indicator = {
-                        icon = '▎',
-                        style = "icon"
-                    },
-                    -- indicator_icon = '▎',
-                    buffer_close_icon = '',
-                    modified_icon = '●',
-                    close_icon = '',
-                    left_trunc_marker = '',
-                    right_trunc_marker = '',
-                    max_name_length = 18,
-                    max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-                    tab_size = 18,
-                    diagnostics = "nvim_lsp",
-                    diagnostics_update_in_insert = false,
-                    -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-                    diagnostics_indicator = function(count, _, _, _)
-                        return "(" .. count .. ")"
-                    end,
-                    -- NOTE: this will be called a lot so don't do any heavy processing here
-                    color_icons = true, -- whether or not to add the filetype icon highlights
-                    separator_style = "thin" --[[ | "thick" | "slant" | { 'any', 'any' } ]] ,
-                }
-            }
-        end }
+    -- use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
+    --     config = function()
+    --         require('bufferline').setup {
+    --             options = {
+    --                 indicator = {
+    --                     icon = '▎',
+    --                     style = "icon"
+    --                 },
+    --                 -- indicator_icon = '▎',
+    --                 buffer_close_icon = '',
+    --                 modified_icon = '●',
+    --                 close_icon = '',
+    --                 left_trunc_marker = '',
+    --                 right_trunc_marker = '',
+    --                 max_name_length = 18,
+    --                 max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
+    --                 tab_size = 18,
+    --                 diagnostics = "nvim_lsp",
+    --                 diagnostics_update_in_insert = false,
+    --                 -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
+    --                 diagnostics_indicator = function(count, _, _, _)
+    --                     return "(" .. count .. ")"
+    --                 end,
+    --                 -- NOTE: this will be called a lot so don't do any heavy processing here
+    --                 color_icons = true, -- whether or not to add the filetype icon highlights
+    --                 separator_style = "thin" --[[ | "thick" | "slant" | { 'any', 'any' } ]] ,
+    --             }
+    --         }
+    --     end }
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
         config = function()
             require('neogit').setup {
@@ -424,7 +424,7 @@ return packer.startup({ function(use)
             end,
         })
     end
-    -- BROKEN: dev comments
+use { "rafcamlet/tabline-framework.nvim",  requires = "kyazdani42/nvim-web-devicons" }    -- BROKEN: dev comments
     -- use({
     --   "ram02z/dev-comments.nvim",
     --   requires = {

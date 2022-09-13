@@ -182,7 +182,7 @@ M.setup = function()
     local servers = {
         julials = {
 
-            cmd = { "juliacli", "server" },
+            cmd = { "juliacli", "server", "--download" },
             settings = {
                 julia = {
                     usePlotPane = false,
