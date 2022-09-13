@@ -65,3 +65,19 @@ if has("autocmd")
 	autocmd BufWritePre *.txt,*.jl,*.js,*.py,*.wiki,*.sh,*.coffee,*.lua :call CleanExtraSpaces()
 endif
 ]]
+
+-- TODO: some vim sensei stuff
+
+-- https://hub.netzgemeinde.eu/channel/vim_sensei?mid=b64.aHR0cHM6Ly9odWIuaG90ZWxkYWFuLm5sL2l0ZW0vZGU2MjI1MDgtZjc1Ni00MGUzLWI1MTgtYjE1YTkwYTg2MWJiugroup
+
+-- augroup VimSensei
+--     autocmd!
+--     " Log to analyze user behaviour
+--     autocmd VimEnter * call ch_logfile($HOME . "/.vim/log-" . getpid())
+--     autocmd InsertEnter * call ch_log("::Entering Insert Mode::")
+--     autocmd InsertLeave * call ch_log("::Leaving Insert Mode::")
+--     autocmd CmdwinEnter * call ch_log("::Entering command-line window::")
+--     autocmd CmdwinLeave * call ch_log("::Leaving command-line window::")
+--     autocmd CmdlineEnter * call ch_log("::Entering command-line mode::")
+--     autocmd CmdlineLeave * call ch_log("::Leaving command-line mode::")
+-- augroup END
