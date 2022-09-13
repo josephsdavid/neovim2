@@ -17,7 +17,7 @@ local repl = km2.extendleader(leader, "g")
 local tabl = km2.extendleader(leader, "t")
 local cx = km2.genleader(Ctrl("x"))
 -- local cj = km2.genleader(Ctrl("j"))
-local cxc_ = function (s)
+local cxc_ = function(s)
     return cx(Ctrl(s))
 end
 -- local cjc_ = function (s)
@@ -202,14 +202,14 @@ end
 
 -- center everything
 for _, jumps in ipairs({
-    "G",  "n", "N", "%", "(", ")", "[[", "]]", "{", "}", "L", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
+    "G", "n", "N", "%", "(", ")", "[[", "]]", "{", "}", "L", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
 }) do
     nmap(jumps, { _zz(jumps), "" })
     vmap(jumps, { _zz(jumps), "" })
 end
 
-for loc in ipairs({1,2,3,4,5,6,7,8,9}) do
-    nmap(g(loc), {luacmd("require('harpoon.ui').nav_file("..loc..")")})
+for loc in ipairs({ 1, 2, 3, 4, 5, 6, 7, 8, 9 }) do
+    nmap(g(loc), { luacmd("require('harpoon.ui').nav_file(" .. loc .. ")") })
 end
 
 
