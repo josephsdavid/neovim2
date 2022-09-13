@@ -143,10 +143,10 @@ M.config.buffer = {
         [bufl("l")] = { cmd("bprevious"), "previous buffer" },
         [bufl(" ")] = { cmd("bnext"), "next buffer" },
         [bufl("b")] = { cmd("bnext"), "next buffer" },
-        [bufl("x")] = { cmd("BufferLinePickClose"), "close buffer" },
-        [bufl("s")] = { cmd("Telescope buffers"), "select buffer" },
+        [bufl("x")] = { cmd("bdelete"), "close buffer" },
+        [bufl("s")] = { cmd("Telescope buffers theme=ivy"), "select buffer" },
         [bufl("S")] = { cmd("BufferLinePick"), "select buffer" },
-        [bufl("f")] = { cmd("BufferLinePick"), "select buffer" },
+        [bufl("f")] = { cmd("Telescope buffers theme=ivy"), "select buffer" },
         [bufl("1")] = { cmd("bfirst"), "first buffer" },
         [bufl("0")] = { cmd("blast"), "last buffer" },
     }
