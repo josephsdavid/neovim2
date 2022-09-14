@@ -71,21 +71,6 @@ local get_mark = function(info)
     return s
 end
 
--- local function format_filename(info, buflist)
---     info = {buf_name = vim.api.nvim_buf_get_name(0)}
---     local path = info.buf_name
---     local home = os.getenv("HOME")
---     print(path:gsub(home, "~"))
---     local rename_table = {}
---     for index, line_index in ipairs(buflist) do
---         if not(info.buf == line_index) then
---             -- TODO: Shortest substring with collapsed filepaths
---             return nil
---         end
---     end
---
--- end
-name = vim.api.nvim_buf_get_name(0)
 local function format_filename(info)
     local name = info.buf_name
     if not (info.filename) then
