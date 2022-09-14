@@ -1,3 +1,5 @@
+local e = require("core.events")
+
 vim.api.nvim_create_augroup("bufcheck", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = "bufcheck",
@@ -20,6 +22,12 @@ end
 
 vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
     pattern = "*.jl",
+    callback = make_conjure_command,
+})
+
+
+vim.api.nvim_create_autocmd({ "DirChanged", "BufWinEnter" }, {
+    pattern = "*",
     callback = make_conjure_command,
 })
 

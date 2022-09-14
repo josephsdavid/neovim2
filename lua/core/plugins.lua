@@ -316,8 +316,8 @@ return packer.startup({ function(use)
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
-                    insert = "<C-h>s",
-                    insert_line = "<C-h>S",
+                    insert = "<C-h><C-h>",
+                    insert_line = "<C-h><C-H>",
                     normal = "ys",
                     normal_cur = "yss",
                     normal_line = "yS",
@@ -424,7 +424,8 @@ return packer.startup({ function(use)
             end,
         })
     end
-use { "rafcamlet/tabline-framework.nvim",  requires = "kyazdani42/nvim-web-devicons" }    -- BROKEN: dev comments
+    use { "rafcamlet/tabline-framework.nvim", requires = "kyazdani42/nvim-web-devicons" } -- BROKEN: dev comments
+    use "sindrets/diffview.nvim"
     -- use({
     --   "ram02z/dev-comments.nvim",
     --   requires = {
@@ -442,5 +443,5 @@ use { "rafcamlet/tabline-framework.nvim",  requires = "kyazdani42/nvim-web-devic
         require("packer").sync()
     end
 end,
-config = { max_jobs = 25 } }
+    config = { max_jobs = 25 } }
 )

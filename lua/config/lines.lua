@@ -51,32 +51,63 @@ end
 local setup = require("tabline_framework").setup
 
 local get_mark = function(info)
-    if info.before_current or info.after_current then
-        return "_"
-    end
-    local idx = require("harpoon.mark").get_index_of(info.buf_name)
+    -- if info.before_current or info.after_current then
+    --     return "_"
+    -- end
+    -- local idx = require("harpoon.mark").get_index_of(info.buf_name)
+    local idx = nil
     local s
     if idx then
         s = idx
     else
-        s = ""
+        if info.before_current or info.after_current then
+            -- s="_"
+            s=""
+        else
+            s = ""
+        end
     end
     return s
 end
 
-local function format_filename(info, buflist)
-    info = {buf_name = vim.api.nvim_buf_get_name(0)}
-    local path = info.buf_name
-    local home = os.getenv("HOME")
-    print(path:gsub(home, "~"))
-    local rename_table = {}
-    for index, line_index in ipairs(buflist) do
-        if not(info.buf == line_index) then
-            -- TODO: Shortest substring with collapsed filepaths
-            return nil
-        end
+-- local function format_filename(info, buflist)
+--     info = {buf_name = vim.api.nvim_buf_get_name(0)}
+--     local path = info.buf_name
+--     local home = os.getenv("HOME")
+--     print(path:gsub(home, "~"))
+--     local rename_table = {}
+--     for index, line_index in ipairs(buflist) do
+--         if not(info.buf == line_index) then
+--             -- TODO: Shortest substring with collapsed filepaths
+--             return nil
+--         end
+--     end
+--
+-- end
+name = vim.api.nvim_buf_get_name(0)
+local function format_filename(info)
+    local name = info.buf_name
+    if not (info.filename) then
+        return "Empty"
     end
+    local formatted_name = vim.fn.fnamemodify(name, ":~:.")
+    if string.match(formatted_name,"term:") then
+        return "term"
+    end
+    local t = {}
+    for token in string.gmatch(formatted_name, "[^/]+") do
+        t[#t + 1] = token
+    end
+    local out = ""
+    for index, value in ipairs(t) do
+        if index == #t then
+            out = out .. value
+        else
+            out = out .. string.sub(value, 1, 1) .. "/"
+        end
 
+    end
+    return out
 end
 
 local function render(f)
@@ -91,7 +122,7 @@ local function render(f)
             fg = color_fg,
         })
         f.add({
-            string.format("%s ", info.filename and info.filename or "Empty"),
+            string.format("%s ", format_filename(info)),
             bg = color_bg,
             fg = info.current and get_color("fg1") or color_fg,
         })
