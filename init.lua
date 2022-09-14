@@ -1,8 +1,15 @@
 require("impatient")
+E = require("core.events")
+
+if table.unpack == nil then
+    table.unpack = unpack
+end
+
+
 function partial(f, ...)
     local args = ...
     return function(...)
-        return f(args, ...)
+        return f(table.unpack(args), ...)
     end
 end
 

@@ -50,22 +50,23 @@ end
 --- Tabline setup
 local setup = require("tabline_framework").setup
 
+local marks_cache = {}
+local first_run = true
+
 local get_mark = function(info)
     -- if info.before_current or info.after_current then
     --     return "_"
     -- end
-    -- local idx = require("harpoon.mark").get_index_of(info.buf_name)
-    local idx = nil
+    if E.Take("harpoonchanged") or first_run then
+        marks_cache[info.buf_name] = require("harpoon.mark").get_index_of(info.buf_name)
+        first_run = false
+    end
+    local idx = marks_cache[info.buf_name]
     local s
     if idx then
         s = idx
     else
-        if info.before_current or info.after_current then
-            -- s="_"
-            s=""
-        else
-            s = ""
-        end
+        s = ""
     end
     return s
 end
@@ -91,7 +92,7 @@ local function format_filename(info)
         return "Empty"
     end
     local formatted_name = vim.fn.fnamemodify(name, ":~:.")
-    if string.match(formatted_name,"term:") then
+    if string.match(formatted_name, "term:") then
         return "term"
     end
     local t = {}

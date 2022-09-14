@@ -1,18 +1,28 @@
 local subscriptions = {}
-local function notify(subscription, f, ...)
-    local ret = f(...)
-    subscriptions[subscription] = ret
+local function notify(message, f, ...)
+    if type(f) == "function" then
+        local ret = f(...)
+        subscriptions[message] = ret
+        return ret
+    end
+    subscriptions[message] = f
+end
+
+local function take(message)
+    local ret = subscriptions[message]
+    subscriptions[message] = nil
     return ret
 end
 
-local function take(subscription)
-    local ret = subscriptions[subscription]
-    subscriptions[subscription] = nil
-    return ret
+local function notifier(message, f)
+    return function(...)
+        notify(message, f, ...)
+    end
 end
 
 return {
     Subscriptions = subscriptions,
     Notify = notify,
-    Take = take
+    Take = take,
+    Notifier = notifier
 }

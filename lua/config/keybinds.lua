@@ -1,5 +1,11 @@
 local km = require("core.keymap")
 local km2 = require("core.km2")
+local hm = require("harpoon.mark")
+
+function harpoon_mark_magic()
+    hm.add_file()
+    E.Notify("harpoonchanged", true)
+end
 
 M = {}
 
@@ -56,10 +62,10 @@ M.config = {
             [Ctrl(".")] = { cmd("bp"), "Previous buffer" },
             [Ctrl(",")] = { cmd("bn"), "next buffer" },
             [g("G")] = { cmd("Neogit"), "Git" },
-            [cxc_("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
-            [cx("h")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
-            [cx("x")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
-            [cxc_("x")] = { luacmd("require('harpoon.mark').add_file()"), "harpoon mark" },
+            [cxc_("h")] = { harpoon_mark_magic, "harpoon mark" },
+            [cx("h")] = { harpoon_mark_magic, "harpoon mark" },
+            [cx("x")] = { harpoon_mark_magic, "harpoon mark" },
+            [cxc_("x")] = { harpoon_mark_magic, "harpoon mark" },
             ["<Right>"] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
             ["<Left>"] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
             [cxc_("n")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
