@@ -1,4 +1,13 @@
 vim.api.nvim_create_autocmd({ "DirChanged"}, {
+    pattern = "tabpage",
+    callback = E.Notifier("harpoonchanged", true),
+})
+vim.api.nvim_create_autocmd({ "DirChanged"}, {
+    pattern = "global",
+    callback = E.Notifier("harpoonchanged", true),
+})
+
+vim.api.nvim_create_autocmd({ "TabEnter"}, {
     pattern = "*",
     callback = E.Notifier("harpoonchanged", true),
 })

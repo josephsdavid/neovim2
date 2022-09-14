@@ -58,6 +58,7 @@ local get_mark = function(info)
     --     return "_"
     -- end
     if E.Take("harpoonchanged") or first_run then
+        marks = require"harpoon".get_mark_config()
         marks_cache[info.buf_name] = require("harpoon.mark").get_index_of(info.buf_name)
         first_run = false
     end

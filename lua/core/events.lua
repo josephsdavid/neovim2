@@ -6,6 +6,7 @@ local function notify(message, f, ...)
         return ret
     end
     subscriptions[message] = f
+    return f
 end
 
 local function take(message)
