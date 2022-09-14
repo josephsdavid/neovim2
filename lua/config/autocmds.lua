@@ -5,10 +5,10 @@ local harpoondir_changed = function ()
 end
 
 
-vim.api.nvim_create_autocmd({ "DirChanged"}, {
-    pattern = "*",
-    callback = make_conjure_command,
-})
+-- vim.api.nvim_create_autocmd({ "DirChanged"}, {
+--     pattern = "*",
+--     callback = make_conjure_command,
+-- })
 
 vim.api.nvim_create_augroup("bufcheck", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
