@@ -1,5 +1,15 @@
 local e = require("core.events")
 
+local harpoondir_changed = function ()
+    -- maybe check if the cache or the harpoon table has changed
+end
+
+
+vim.api.nvim_create_autocmd({ "DirChanged"}, {
+    pattern = "*",
+    callback = make_conjure_command,
+})
+
 vim.api.nvim_create_augroup("bufcheck", { clear = true })
 vim.api.nvim_create_autocmd("FileType", {
     group = "bufcheck",
@@ -26,10 +36,6 @@ vim.api.nvim_create_autocmd({ "BufEnter", "BufWinEnter" }, {
 })
 
 
-vim.api.nvim_create_autocmd({ "DirChanged", "BufWinEnter" }, {
-    pattern = "*",
-    callback = make_conjure_command,
-})
 
 
 vim.api.nvim_create_autocmd(
