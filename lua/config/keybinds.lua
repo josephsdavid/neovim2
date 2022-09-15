@@ -52,6 +52,7 @@ M.config = {
         normal = {
             -- [" "] = { "<Nop>", "" },
             [g("h")] = { cmd("DocsViewToggle"), "docs view" },
+            [Ctrl("c")] = { cmd("noh"), "clear highlight search" },
             ["0"] = { "^", "start of line" },
             ["_"] = { Ctrl("^"), "last buffer" },
             ["cl"] = { "s", "delete and insert" },
@@ -90,12 +91,13 @@ M.config = {
             ["<"] = { "<gv", "Move text left" },
             [">"] = { ">gv", "Move text right" },
             ["p"] = { '"_dP', "paste in place" },
-            ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
-            ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
+            ["K"] = { ":move '>-2<CR>gv-gv", "Move text up (broken)" },
+            ["J"] = { ":move '>+1<CR>gv-gv", "Move text down" },
         },
         xmode = {
-            ["K"] = { ":move '>-2<CR>gv-gv", "Move text down" },
-            ["J"] = { ":move '>+1<CR>gv-gv", "Move text up" },
+            ["p"] = { '"_dP', "paste in place" },
+            ["K"] = { ":move '>-2<CR>gv-gv", "Move text up (broken)" },
+            ["J"] = { ":move '>+1<CR>gv-gv", "Move text down" },
         },
         -- omni = {
         -- },
@@ -134,6 +136,8 @@ M.config = {
             [scope("D")] = { cmd("Telescope lsp_type_definitions theme=ivy"), "find lsp type definitions" },
             -- [scope("r")] = { cmd("Telescope lsp_references theme=ivy"), "find lsp references" },
             [Ctrl("p")] = { cmd("Telescope oldfiles theme=ivy"), "find oldfiles" },
+            [Ctrl("f")] = { cmd("Telescope live_grep theme=ivy"), "find oldfiles" },
+            [Ctrl("s")] = { cmd("Telescope find_files theme=ivy"), "find oldfiles" },
             -- [scope(" ")] = { cmd("Telescope frecency"), "find frecency" }
         },
     }
@@ -199,7 +203,12 @@ local asterisk = { "*", "#" }
 for _, star in ipairs(asterisk) do
     nmap(star, { km.plugmapping("(asterisk-z" .. star .. ")"), "" })
     nmap(g(star), { km.plugmapping("(asterisk-gz" .. star .. ")"), "" })
+    vmap(star, { km.plugmapping("(asterisk-z" .. star .. ")"), "" })
     vmap(g(star), { km.plugmapping("(asterisk-gz" .. star .. ")"), "" })
+    nmap("z" .. star, { km.plugmapping("(asterisk-" .. star .. ")"), "" })
+    nmap(g("z" .. star), { km.plugmapping("(asterisk-g" .. star .. ")"), "" })
+    vmap("z" .. star, { km.plugmapping("(asterisk-" .. star .. ")"), "" })
+    vmap(g("z" .. star), { km.plugmapping("(asterisk-g" .. star .. ")"), "" })
 end
 
 local function _zz(s)
