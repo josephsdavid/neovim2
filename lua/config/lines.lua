@@ -57,12 +57,15 @@ local get_mark = function(info)
     -- if info.before_current or info.after_current then
     --     return "_"
     -- end
-    if E.Take("harpoonchanged") or first_run then
-        marks = require"harpoon".get_mark_config()
-        marks_cache[info.buf_name] = require("harpoon.mark").get_index_of(info.buf_name)
+    if E.take("harpoon") or first_run then
+        local marks = require"harpoon".get_mark_config().marks
+        marks_cache = {} -- invalidate the cache
+        for i, mark in ipairs(marks) do
+            marks_cache[mark.filename] = i
+        end
         first_run = false
     end
-    local idx = marks_cache[info.buf_name]
+    local idx = marks_cache[vim.fn.fnamemodify(info.buf_name, ":~:.")]
     local s
     if idx then
         s = idx

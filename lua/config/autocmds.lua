@@ -1,15 +1,20 @@
 vim.api.nvim_create_autocmd({ "DirChanged"}, {
     pattern = "tabpage",
-    callback = E.Notifier("harpoonchanged", true),
+    callback = E.notifier("harpoon", true),
 })
 vim.api.nvim_create_autocmd({ "DirChanged"}, {
     pattern = "global",
-    callback = E.Notifier("harpoonchanged", true),
+    callback = E.notifier("harpoon", true),
+})
+
+vim.api.nvim_create_autocmd({ "BufWritePost"}, {
+    pattern = "*",
+    callback = E.notifier("harpoon", true),
 })
 
 vim.api.nvim_create_autocmd({ "TabEnter"}, {
     pattern = "*",
-    callback = E.Notifier("harpoonchanged", true),
+    callback = E.notifier("harpoon", true),
 })
 
 vim.api.nvim_create_augroup("bufcheck", { clear = true })

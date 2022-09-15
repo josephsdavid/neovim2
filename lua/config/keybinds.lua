@@ -2,10 +2,14 @@ local km = require("core.keymap")
 local km2 = require("core.km2")
 local hm = require("harpoon.mark")
 
-function harpoon_mark_magic()
-    hm.add_file()
-    E.Notify("harpoonchanged", true)
+local function harpoon_notify(f)
+    return function ()
+        f()
+        E.notify("harpoon", true)
+    end
 end
+
+
 
 M = {}
 
@@ -34,7 +38,7 @@ local g = km2.genleader("g")
 -- local repl = leader_suffix("g")
 -- local tabl = leader_suffix("t")
 
-local tcd = function()
+local clever_tcd = function()
     local root = require('lspconfig').util.root_pattern('Project.toml', '.git')(vim.api.nvim_buf_get_name(0))
     if root == nil then
         root = " %:p:h"
@@ -54,7 +58,7 @@ M.config = {
             [leader("F")] = { cmd("Lex 30"), "Netrw" },
             [leader("w")] = { cmd("w!"), "save" },
             [leader("cc")] = { cmd("tcd %:p:h<cr><cmd>pwd"), "cd to current file" },
-            [leader("cd")] = { tcd, "cd to current project or file" },
+            [leader("cd")] = { harpoon_notify(clever_tcd), "cd to current project or file" },
             [Alt("Up")] = { cmd("resize +2"), "Increase window size horizontal" },
             [Alt("Left")] = { cmd("vertical resize -2"), "Decrease window size vertical" },
             [Alt("Right")] = { cmd("vertical resize +2"), "Increase window size vertical" },
@@ -62,22 +66,22 @@ M.config = {
             [Ctrl(".")] = { cmd("bp"), "Previous buffer" },
             [Ctrl(",")] = { cmd("bn"), "next buffer" },
             [g("G")] = { cmd("Neogit"), "Git" },
-            [cxc_("h")] = { harpoon_mark_magic, "harpoon mark" },
-            [cx("h")] = { harpoon_mark_magic, "harpoon mark" },
-            [cx("x")] = { harpoon_mark_magic, "harpoon mark" },
-            [cxc_("x")] = { harpoon_mark_magic, "harpoon mark" },
-            ["<Right>"] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
-            ["<Left>"] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
-            [cxc_("n")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
-            [cx("n")] = { luacmd("require('harpoon.ui').nav_next()"), "harpoon next" },
-            [cxc_("p")] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
-            [cx("p")] = { luacmd("require('harpoon.ui').nav_prev()"), "harpoon prev" },
-            [cxc_("m")] = { luacmd("require('harpoon.cmd-ui').toggle_quick_menu()"), "harpoon command menu" },
-            [cx("m")] = { luacmd("require('harpoon.cmd-ui').toggle_quick_menu()"), "harpoon command menu" },
-            [cxc_("f")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
-            [cx("f")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
-            [cxc_("o")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
-            [cx("o")] = { luacmd("require('harpoon.ui').toggle_quick_menu()"), "harpoon menu" },
+            [cxc_("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
+            [cx("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
+            [cx("x")] = { harpoon_notify(hm.add_file), "harpoon mark" },
+            [cxc_("x")] = { harpoon_notify(hm.add_file), "harpoon mark" },
+            ["<Right>"] = { harpoon_notify(require('harpoon.ui').nav_next), "harpoon next" },
+            ["<Left>"] = { harpoon_notify(require('harpoon.ui').nav_prev), "harpoon prev" },
+            [cxc_("n")] = { harpoon_notify(require('harpoon.ui').nav_next), "harpoon next" },
+            [cx("n")] = { harpoon_notify(require('harpoon.ui').nav_next), "harpoon next" },
+            [cxc_("p")] = { harpoon_notify(require('harpoon.ui').nav_prev), "harpoon prev" },
+            [cx("p")] = { harpoon_notify(require('harpoon.ui').nav_prev), "harpoon prev" },
+            [cxc_("m")] = { harpoon_notify(require('harpoon.cmd-ui').toggle_quick_menu), "harpoon command menu" },
+            [cx("m")] = { harpoon_notify(require('harpoon.cmd-ui').toggle_quick_menu), "harpoon command menu" },
+            [cxc_("f")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
+            [cx("f")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
+            [cxc_("o")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
+            [cx("o")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
