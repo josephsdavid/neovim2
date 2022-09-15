@@ -401,7 +401,7 @@ local terminal_name = {
 --- Statuslines
 --
 -- Default
-local default = { space, vi_mode, space, file_info, diagnostics, align, git, space, ruler, space }
+local default = {  vi_mode, space, file_info, diagnostics, align, git, space, ruler, space }
 default.hl = function(self)
 	return { bg = "bg1", fg = "fg1" }
 end
