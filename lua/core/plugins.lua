@@ -64,7 +64,6 @@ return packer.startup({ function(use)
         end
     }
     use({ "kyazdani42/nvim-web-devicons" })
-    use({ "rktjmp/lush.nvim" })
     use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
     use({ "nvim-treesitter/playground" })
     use({ "nvim-treesitter/nvim-treesitter-textobjects" })
@@ -100,7 +99,6 @@ return packer.startup({ function(use)
     use({ "haringsrob/nvim_context_vt" })
     use({ 'jghauser/mkdir.nvim' })
     use "direnv/direnv.vim"
-    use 'zane-/cder.nvim'
     use({ 'pwntester/octo.nvim' })
     use {
         "amrbashir/nvim-docs-view",
@@ -173,7 +171,6 @@ return packer.startup({ function(use)
     use "unblevable/quick-scope"
     use 'radenling/vim-dispatch-neovim'
     use "Olical/conjure"
-    use "Olical/aniseed"
     use {
         "X3eRo0/dired.nvim",
         requires = "MunifTanjim/nui.nvim",
@@ -227,20 +224,6 @@ return packer.startup({ function(use)
     }
     use 'tjdevries/complextras.nvim'
     use 'onsails/lspkind.nvim'
-    use {
-        'chipsenkbeil/distant.nvim',
-        config = function()
-            require('distant').setup {
-                -- Applies Chip's personal settings to every machine you connect to
-                --
-                -- 1. Ensures that distant servers terminate with no connections
-                -- 2. Provides navigation bindings for remote directories
-                -- 3. Provides keybinding to jump into a remote file's parent directory
-                ['*'] = require('distant.settings').chip_default()
-            }
-        end
-    }
-
     use { 'j-hui/fidget.nvim',
         config = function()
             require "fidget".setup()
@@ -255,9 +238,7 @@ return packer.startup({ function(use)
     use({ "pocco81/truezen.nvim" })
     use({ "nvim-neorg/neorg", tag = "0.0.12" })
     use({ "nvim-neorg/neorg-telescope" })
-    use("khzaw/vim-conceal")
     -- here is hunk
-    use({ "mcchrish/zenbones.nvim" })
     -- hunk 2
     -- hunk 3
     use({ "tiagovla/scope.nvim",
@@ -379,10 +360,6 @@ return packer.startup({ function(use)
     use "haya14busa/vim-asterisk"
     use "tversteeg/registers.nvim"
     use "ThePrimeagen/harpoon"
-    use 'Iron-E/nvim-libmodal'
-    use "Iron-E/nvim-bufmode"
-    use "Iron-E/nvim-tabmode"
-    use { 'Dkendal/nvim-minor-mode' }
     use {
         'rlch/github-notifications.nvim',
         config = function()
@@ -400,9 +377,6 @@ return packer.startup({ function(use)
     --     end
     -- }
     use 'anuvyklack/hydra.nvim'
-    use "stevearc/overseer.nvim"
-    use "nvim-neotest/neotest"
-    use 'ishan9299/modus-theme-vim'
     use "simrat39/rust-tools.nvim"
     use "tpope/vim-abolish"
     use("bfredl/nvim-luadev")
@@ -432,10 +406,14 @@ return packer.startup({ function(use)
             require('gitsigns').setup {
                 signs                        = {
                     add          = { hl = 'GitSignsAdd', text = '│', numhl = 'GitSignsAddNr', linehl = 'GitSignsAddLn' },
-                    change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
-                    delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-                    topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr', linehl = 'GitSignsDeleteLn' },
-                    changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr', linehl = 'GitSignsChangeLn' },
+                    change       = { hl = 'GitSignsChange', text = '│', numhl = 'GitSignsChangeNr',
+                        linehl = 'GitSignsChangeLn' },
+                    delete       = { hl = 'GitSignsDelete', text = '_', numhl = 'GitSignsDeleteNr',
+                        linehl = 'GitSignsDeleteLn' },
+                    topdelete    = { hl = 'GitSignsDelete', text = '‾', numhl = 'GitSignsDeleteNr',
+                        linehl = 'GitSignsDeleteLn' },
+                    changedelete = { hl = 'GitSignsChange', text = '~', numhl = 'GitSignsChangeNr',
+                        linehl = 'GitSignsChangeLn' },
                 },
                 signcolumn                   = false, -- Toggle with `:Gitsigns toggle_signs`
                 numhl                        = false, -- Toggle with `:Gitsigns toggle_numhl`
@@ -466,10 +444,15 @@ return packer.startup({ function(use)
                     row = 0,
                     col = 1
                 },
-                yadm = {
+                yadm                         = {
                     enable = false
                 },
             }
+        end
+    }
+    use { 'gen740/SmoothCursor.nvim',
+        config = function()
+            require('smoothcursor').setup()
         end
     }
 
@@ -490,5 +473,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-config = { max_jobs = 25 } }
+    config = { max_jobs = 25 } }
 )

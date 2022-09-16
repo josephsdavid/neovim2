@@ -151,7 +151,6 @@ end
 
 M.config.buffer = {
     normal = {
-        [leader("B")] = { cmd("BufmodeEnter"), "buffermode" },
         [bufl("n")] = { cmd("bnext"), "next buffer" },
         [bufl("p")] = { cmd("bprevious"), "previous buffer" },
         [bufl("l")] = { cmd("bprevious"), "previous buffer" },
@@ -169,7 +168,6 @@ M.config.buffer = {
 
 M.config.tab = {
     normal = {
-        [leader("T")] = { cmd("TabmodeEnter"), "tabmode" },
         [tabl("n")] = { cmd("tabnext"), "next tab" },
         [tabl("N")] = { cmd("tabnew"), "new tab" },
         [tabl("o")] = { cmd("tabonly"), "close all tabs but current" },
