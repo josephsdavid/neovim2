@@ -450,11 +450,6 @@ return packer.startup({ function(use)
             }
         end
     }
-    use { 'gen740/SmoothCursor.nvim',
-        config = function()
-            require('smoothcursor').setup()
-        end
-    }
 
     -- use({
     --   "ram02z/dev-comments.nvim",
