@@ -65,8 +65,8 @@ config.parenth_mode = {
     ["["] = { mx("ysa%]"), { nowait = true , desc = "a["} },
     ["}"] = { mx("ysi%}"), { nowait = true , desc = "i}"} },
     ["{"] = { mx("ysa%{"), { nowait = true , desc = "a{"} },
-    ["f"] = { mx("ysa%f"), { nowait = true , desc = "af"} },
     ["F"] = { mx("ysi%f"), { nowait = true , desc = "iF"} },
+    ["f"] = { mx("ys"), { nowait = true , desc = "add surroundings"} },
 }
 
 -- TODO:

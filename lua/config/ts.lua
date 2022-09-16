@@ -3,8 +3,6 @@ local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local swapl = km.genleader(km.leader("s"))
 local peekl = km.genleader(km.localleader("p"))
 
-
-
 local select = {
     enable = true,
 

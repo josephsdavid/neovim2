@@ -3,6 +3,9 @@ local nvim_lsp = require("lspconfig")
 local saga = require 'lspsaga'
 local action = saga.codeaction
 local km = require("core.keymap")
+local km2 = require("core.km2")
+
+-- TODO: remove sage completely, make diagnostics not ugly
 
 M.setup = function()
 
@@ -16,8 +19,13 @@ M.setup = function()
     for _, sign in ipairs(signs) do
         vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
     end
-
+    local severity = vim.diagnostic.severity
     local config = {
+        underline = {
+            severity = {
+                min = severity.INFO,
+            },
+        },
         virtual_text = false,
         {
             prefix = "»",
@@ -28,7 +36,7 @@ M.setup = function()
             active = signs,
         },
         update_in_insert = true,
-        underline = false,
+
         severity_sort = true,
         float = {
             focusable = false,
@@ -118,18 +126,17 @@ M.setup = function()
         [g("p")] = { ":Lspsaga preview_definition<CR>", "Saga preview definition" },
         [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
         [g("D")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
-        [g("a")] = { ":Lspsaga code_action<CR>", "code_action" },
-        [g("l")] = { ":Lspsaga show_line_diagnostics<CR>", "diagnostics" },
+        [g("l")] = { km2.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
         ["K"] = { ":Lspsaga hover_doc<CR>", "docs" },
         -- [km.Ctrl("f")] = { function() action.smart_scroll_with_saga(1) end, "docs scroll up" },
         -- [km.Ctrl("b")] = { function() action.smart_scroll_with_saga(-1) end, "docs scroll down" },
         [km.leader("rn")] = { ":Lspsaga rename<CR>", "rename" },
-        ["]d"] = { ":Lspsaga diagnostic_jump_next<CR>", "next diagnostic" },
-        ["[d"] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
+        ["]d"] = { km2.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
+        ["[d"] = { km2.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
+        -- ["[d"] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
         [g("o")] = { ":LSoutlineToggle<CR>", "Outline" },
     }
 
-    lspvbind(g("a"), { ":<C-U>Lspsaga code_action", "code_action" })
 
     for k, v in pairs(ntable) do
         lspbind(k, v)
