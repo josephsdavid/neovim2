@@ -1,9 +1,53 @@
 M = {}
 local nvim_lsp = require("lspconfig")
-local saga = require 'lspsaga'
-local action = saga.codeaction
+require("goto-preview").setup({})
 local km = require("core.keymap")
 local km2 = require("core.km2")
+
+local function rename()
+    local curr_name = vim.fn.expand("<cword>")
+    local value = vim.fn.input("New name: ", curr_name)
+    local lsp_params = vim.lsp.util.make_position_params()
+
+    if not value or #value == 0 or curr_name == value then return end
+
+    -- request lsp rename
+    lsp_params.newName = value
+    vim.lsp.buf_request(0, "textDocument/rename", lsp_params, function(_, res, ctx, _)
+      if not res then return end
+
+      -- apply renames
+      local client = vim.lsp.get_client_by_id(ctx.client_id)
+      vim.lsp.util.apply_workspace_edit(res, client.offset_encoding)
+
+      -- print renames
+      local changed_files_count = 0
+      local changed_instances_count = 0
+
+      if (res.documentChanges) then
+        for _, changed_file in pairs(res.documentChanges) do
+          changed_files_count = changed_files_count + 1
+          changed_instances_count = changed_instances_count + #changed_file.edits
+        end
+      elseif (res.changes) then
+        for _, changed_file in pairs(res.changes) do
+          changed_instances_count = changed_instances_count + #changed_file
+          changed_files_count = changed_files_count + 1
+        end
+      end
+
+      -- compose the right print message
+      print(string.format("renamed %s instance%s in %s file%s. %s",
+        changed_instances_count,
+        changed_instances_count == 1 and '' or 's',
+        changed_files_count,
+        changed_files_count == 1 and '' or 's',
+        changed_files_count > 1 and "To save them run ':wa'" or ''
+      ))
+    end)
+end
+
+
 
 -- TODO: remove sage completely, make diagnostics not ugly
 
@@ -58,54 +102,6 @@ M.setup = function()
         border = "rounded",
     })
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
-    require("goto-preview").setup({})
-    -- set up lspsaga
-    saga.init_lsp_saga({
-        border_style = "rounded",
-        saga_winblend = 10,
-        move_in_saga = { prev = km.Ctrl(","), next = km.Ctrl(".") },
-        diagnostic_header = { " ", " ", " ", "ﴞ " },
-        max_preview_lines = 10,
-        code_action_icon = "ﯦ",
-        code_action_num_shortcut = true,
-        code_action_lightbulb = {
-            enable = false,
-            sign = true,
-            sign_priority = 20,
-            virtual_text = false,
-        },
-        finder_icons = {
-            def = '  ',
-            ref = '諭 ',
-            link = '  ',
-        },
-        finder_action_keys = {
-            open = { "o", "<cr>" },
-            vsplit = "s",
-            split = "i",
-            tabe = "t",
-            quit = "q",
-            scroll_down = "<C-f>",
-            scroll_up = "<C-b>",
-        },
-        code_action_keys = {
-            quit = "q",
-            exec = "<CR>",
-        },
-        rename_action_quit = "<C-c>",
-        show_outline = {
-            win_position = 'right',
-            -- set the special filetype in there which in left like nvimtree neotree defx
-            left_with = '',
-            win_width = 30,
-            auto_enter = true,
-            auto_preview = true,
-            virt_text = '┃',
-            jump_key = 'o',
-            -- auto refresh when change buffer
-            auto_refresh = true,
-        },
-    })
 
     Bindings.config.lsp = { normal = {}, visual = {} }
     local g = km.genleader("g")
@@ -117,24 +113,21 @@ M.setup = function()
         return out
     end
 
+
     local lspbind = _bind("lsp", "normal")
     local lspvbind = _bind("lsp", "visual")
+    local lspibind = _bind("lsp", "insert")
 
     local ntable = {
-        [g("f")] = { ":Lspsaga lsp_finder<CR>", "finder" },
         [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
-        [g("p")] = { ":Lspsaga preview_definition<CR>", "Saga preview definition" },
         [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
-        [g("D")] = { "<cmd>lua require('goto-preview').goto_preview_definition()<cr>", "goto definition, popup" },
+        [g("D")] = { km2.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
         [g("l")] = { km2.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
-        ["K"] = { ":Lspsaga hover_doc<CR>", "docs" },
-        -- [km.Ctrl("f")] = { function() action.smart_scroll_with_saga(1) end, "docs scroll up" },
-        -- [km.Ctrl("b")] = { function() action.smart_scroll_with_saga(-1) end, "docs scroll down" },
-        [km.leader("rn")] = { ":Lspsaga rename<CR>", "rename" },
+        ["K"] = { km2.luacmd("vim.lsp.buf.hover()"), "docs" },
+        [km.Ctrl("K")] = { km2.luacmd("vim.lsp.buf.signature_help()"), "docs" },
+        [km.leader("rn")] = { rename, "rename" },
         ["]d"] = { km2.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
         ["[d"] = { km2.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
-        -- ["[d"] = { ":Lspsaga diagnostic_jump_prev<CR>", "prev diagnostic" },
-        [g("o")] = { ":LSoutlineToggle<CR>", "Outline" },
     }
 
 

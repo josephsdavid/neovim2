@@ -85,7 +85,6 @@ return packer.startup({ function(use)
     use({ "akinsho/toggleterm.nvim" })
     use({ "folke/lsp-colors.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "glepnir/lspsaga.nvim" })
     use({ "rmagatti/goto-preview" })
     -- Lua
     use "stsewd/tree-sitter-comment"
@@ -143,7 +142,7 @@ return packer.startup({ function(use)
             vim.g.doom_one_plugin_whichkey = true
             vim.g.doom_one_plugin_indent_blankline = true
             vim.g.doom_one_plugin_vim_illuminate = true
-            vim.g.doom_one_plugin_lspsaga = true
+            vim.g.doom_one_plugin_lspsaga = false
         end,
         -- config = function()
         --     vim.cmd [[colorscheme doom-one]]

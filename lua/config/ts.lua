@@ -1,7 +1,9 @@
 local km = require("core.keymap")
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local swapl = km.genleader(km.leader("s"))
-local peekl = km.genleader(km.localleader("p"))
+
+local g = km.genleader("g")
+local peekl = km.genleader(g("p"))
 
 local select = {
     enable = true,
@@ -13,10 +15,10 @@ local select = {
         -- You can use the capture groups defined in textobjects.scm
         ["af"] = "@function.outer",
         ["if"] = "@function.inner",
-        ["ac"] = "@class.outer",
-        ["ic"] = "@class.inner",
-        ["ae"] = "@block.outer",
-        ["ie"] = "@block.inner",
+        ["aC"] = "@class.outer",
+        ["iC"] = "@class.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
         ["al"] = "@loop.outer",
         ["il"] = "@loop.inner",
         ["iS"] = "@statement.inner",
@@ -24,8 +26,8 @@ local select = {
         ["ad"] = "@comment.outer",
         ["am"] = "@call.outer",
         ["im"] = "@call.inner",
-        ["iC"] = "@conditional.inner",
-        ["aC"] = "@conditional.outer",
+        ["ic"] = "@conditional.inner",
+        ["ac"] = "@conditional.outer",
     },
 }
 
@@ -63,7 +65,7 @@ local move = {
 }
 
 local lsp_interop = {
-    enable = false,
+    enable = true,
     border = "none",
     peek_definition_code = {
         [peekl("f")] = "@function.inner",
