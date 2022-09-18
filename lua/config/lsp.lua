@@ -6,7 +6,7 @@ local km2 = require("core.km2")
 
 local function rename()
     local curr_name = vim.fn.expand("<cword>")
-    local value = vim.fn.input("New name: ", curr_name)
+    local value = vim.fn.input("Old name: " .. curr_name.. ", new name: ")
     local lsp_params = vim.lsp.util.make_position_params()
 
     if not value or #value == 0 or curr_name == value then return end
@@ -49,12 +49,11 @@ end
 
 
 
--- TODO: remove sage completely, make diagnostics not ugly
 
 M.setup = function()
 
     local signs = {
-        { name = "DiagnosticSignError", text = "" },
+        { name = "DiagnosticSignError", text = "😱" },
         { name = "DiagnosticSignWarn", text = "" },
         { name = "DiagnosticSignHint", text = "" },
         { name = "DiagnosticSignInfo", text = "" },
