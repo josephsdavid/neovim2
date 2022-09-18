@@ -120,7 +120,7 @@ require("nvim-treesitter.configs").setup({
     indent = { enable = true, disable = { "yaml" } },
 
     incremental_selection = {
-        enable = true,
+        enable = false,
         disable = { "cpp", "lua" },
         keymaps = { -- Keys for incremental selection (visual Keys)
             init_selection = "gnt", -- maps in normal mode to init the node/scope selection
@@ -148,8 +148,8 @@ require("nvim-treesitter.configs").setup({
                 goto_definition = km.localleader("d"),
                 list_definitions = km.localleader("D"),
                 list_definitions_toc = "gO",
-                goto_next_usage = km.Alt("'"),
-                goto_previous_usage = km.Alt(";"),
+                goto_next_usage = km.alt("'"),
+                goto_previous_usage = km.alt(";"),
             },
         },
     },
@@ -158,7 +158,7 @@ require("nvim-treesitter.configs").setup({
         prev_selection = ",", -- (Optional) keymap to select the previous selection
         keymaps = {
             ["."] = "textsubjects-smart",
-            [km.Ctrl(";")] = "textsubjects-container-outer",
+            [km.ctrl(";")] = "textsubjects-container-outer",
         },
     },
     textobjects = textob,
@@ -170,8 +170,8 @@ require("nvim-treesitter.configs").setup({
         "norg",
         "c",
         "cpp",
-        "norg_meta",
-        "norg_table",
+        -- "norg_meta",
+        -- "norg_table",
         "lua",
         "yaml",
         "bash",

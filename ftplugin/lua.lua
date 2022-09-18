@@ -1,4 +1,4 @@
-local km = require "core.km2"
+local km = require "core.keymap"
 local g = require"config.terminal".genterm
 local opt = require"core.options"
 

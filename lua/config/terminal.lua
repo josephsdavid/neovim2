@@ -32,8 +32,8 @@ M.toggle_vertical = M.genterm({direction = "vertical", hidden=true})
 M.setup = function()
     vim.cmd([[autocmd! TermOpen term://* lua require"config.terminal".set_terminal_keymaps()]])
     Bindings.config.terminal = {normal = {}}
-    Bindings.config.terminal.normal[km.Ctrl(",")] = {[[:lua require"config.toggleterm".toggle_horizontal()]], ""}
-    Bindings.config.terminal.normal[km.Ctrl(".")] = {[[:lua require"config.toggleterm".toggle_vertical()]], ""}
+    Bindings.config.terminal.normal[km.ctrl(",")] = {[[:lua require"config.toggleterm".toggle_horizontal()]], ""}
+    Bindings.config.terminal.normal[km.ctrl(".")] = {[[:lua require"config.toggleterm".toggle_vertical()]], ""}
     toggleterm.setup({
         size = function(term)
             if term.direction == "horizontal" then
@@ -42,7 +42,7 @@ M.setup = function()
                 return vim.o.columns * 0.4
             end
         end,
-        open_mapping = km.Ctrl("\\"),
+        open_mapping = km.ctrl("\\"),
         hide_numbers = true,
         shade_filetypes = {},
         shade_terminals = false,

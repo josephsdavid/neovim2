@@ -1,60 +1,73 @@
-M = {}
-
--- local wk = require("which-key")
-
--- M.setmap = function(key, value, descr, opts)
---     wk.register({ [key] = { value, descr } }, opts)
--- end
-
-M.setmap = function (mode, key, value, descr, opts)
-    opts["descr"] = descr
-    vim.keymap.set(mode, key, value, opts)
-end
-
-M.genleader = function(leader)
-    local function ret(s)
-        return table.concat({ leader, s })
-    end
-
-    return ret
-end
-
-M.genheldkey = function(leader)
-    local function ret(s)
-        return table.concat({ "<", leader, "-", s, ">" })
-    end
-
-    return ret
-end
-
-M.leader = M.genleader("<leader>")
-M.localleader = M.genleader("<localleader>")
-M.Ctrl = M.genheldkey("c")
-M.Alt = M.genheldkey("a")
-M.Shift = M.genheldkey("s")
-M.plugmapping = M.genleader("<Plug>")
+KM = {}
 
 
-local mode_map = {normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x"}
-
-M.init_binds = function ()
-    local ret =  { default = {} }
-    for k, _ in pairs(mode_map) do
-        ret.default[k] = {}
-    end
-    return ret
-end
-
-M.process_binds = function(binds)
-    for _, v in pairs(binds) do
-        for mode, def in pairs(v) do
-            local modestr = mode_map[mode]
-            for lhs, rhs in pairs(def) do
-                M.setmap(modestr, lhs, rhs[1], rhs[2], {noremap=true, silent=true})
-                -- wk.register({lhs = rhs}, {mode = modestr})
-            end
+KM.genleader = function(leader, f)
+    if f == nil then
+        local function ret(s)
+            return table.concat({ leader, s })
         end
+
+        return ret
+    else
+        local function ret(s)
+            return table.concat(f({ leader, s }))
+        end
+
+        return ret
     end
 end
 
-return M
+local special = function(t)
+    return { "<", t[1], "-", t[2], ">" }
+end
+
+KM.leader = KM.genleader("<Leader>")
+KM.localleader = KM.genleader("<LocalLeader>")
+KM.ctrl = KM.genleader("c", special)
+KM.alt = KM.genleader("a", special)
+KM.shift = KM.genleader("s", special)
+
+function KM.extendleader(f, k)
+    return KM.genleader(f(k))
+end
+
+function KM.extendlocalleader(k)
+    return KM.genleader(KM.localleader(k))
+end
+
+function KM.keymap(mode, lhs, rhs, opts, desc)
+    if desc ~= nil then
+        opts.desc = desc
+    end
+    vim.keymap.set(mode, lhs, rhs, opts)
+end
+
+function KM.rhs_surrounder(lhs, rhs)
+    return function(s)
+        return table.concat({ lhs, s, rhs })
+    end
+end
+
+KM.cmd = KM.rhs_surrounder("<cmd>", "<cr>")
+KM.luacmd = KM.rhs_surrounder("<cmd>lua ", "<cr>")
+
+KM.plugmapping = KM.genleader("<Plug>")
+
+
+function plan_binds(plan, t)
+    if t == nil then
+        return plan or {}
+    end
+end
+
+function KM.setup(plan, f)
+    if f == nil then
+        for _, value in pairs(plan) do
+            KM.keymap(table.unpack(value))
+        end
+    else
+        KM.setup(f(plan))
+    end
+end
+
+return KM

@@ -1,5 +1,4 @@
 local km = require("core.keymap")
-local km2 = require("core.km2")
 local hm = require("harpoon.mark")
 
 local function harpoon_notify(f)
@@ -14,26 +13,26 @@ end
 M = {}
 
 
-local leader = km2.leader
-local Alt = km2.alt
-local Ctrl = km2.ctrl
+local leader = km.leader
+local Alt = km.alt
+local Ctrl = km.ctrl
 -- TODO: Merge these two things
-local cmd = km2.cmd
-local luacmd = km2.luacmd
+local cmd = km.cmd
+local luacmd = km.luacmd
 
-local scope = km2.extendleader(leader, "f")
-local bufl = km2.extendleader(leader, "b")
-local repl = km2.extendleader(leader, "g")
-local tabl = km2.extendleader(leader, "t")
-local cx = km2.genleader(Ctrl("x"))
--- local cj = km2.genleader(Ctrl("j"))
+local scope = km.extendleader(leader, "f")
+local bufl = km.extendleader(leader, "b")
+local repl = km.extendleader(leader, "g")
+local tabl = km.extendleader(leader, "t")
+local cx = km.genleader(Ctrl("x"))
+-- local cj = keymap.genleader(Ctrl("j"))
 local cxc_ = function(s)
     return cx(Ctrl(s))
 end
 -- local cjc_ = function (s)
 --     return cj(Ctrl(s))
 -- end
-local g = km2.genleader("g")
+local g = km.genleader("g")
 -- local bufl = leader_suffix("b")
 -- local repl = leader_suffix("g")
 -- local tabl = leader_suffix("t")
@@ -238,7 +237,7 @@ M.setup = function(config)
         for mode, def in pairs(v) do
             local modestr = mode_map[mode]
             for lhs, rhs in pairs(def) do
-                vim.keymap.set(modestr, lhs, rhs[1], { noremap = true, silent = true, desc = rhs[2] })
+                km.keymap(modestr, lhs, rhs[1], {noremap = true, silent = true}, rhs[2])
             end
         end
     end

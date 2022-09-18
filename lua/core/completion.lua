@@ -19,7 +19,7 @@ lspkind.init()
 local with_control = function(t)
     local ret = {}
     for k, v in pairs(t) do
-        ret[km.Ctrl(k)] = v
+        ret[km.ctrl(k)] = v
     end
     return ret
 end

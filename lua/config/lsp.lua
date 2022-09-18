@@ -1,8 +1,8 @@
 M = {}
 local nvim_lsp = require("lspconfig")
 require("goto-preview").setup({})
+-- local km = require("core.keymap")
 local km = require("core.keymap")
-local km2 = require("core.km2")
 
 local function rename()
     local curr_name = vim.fn.expand("<cword>")
@@ -120,13 +120,13 @@ M.setup = function()
     local ntable = {
         [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
         [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
-        [g("D")] = { km2.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
-        [g("l")] = { km2.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
-        ["K"] = { km2.luacmd("vim.lsp.buf.hover()"), "docs" },
-        [km.Ctrl("K")] = { km2.luacmd("vim.lsp.buf.signature_help()"), "docs" },
+        [g("D")] = { km.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
+        [g("l")] = { km.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
+        ["K"] = { km.luacmd("vim.lsp.buf.hover()"), "docs" },
+        [km.ctrl("K")] = { km.luacmd("vim.lsp.buf.signature_help()"), "docs" },
         [km.leader("rn")] = { rename, "rename" },
-        ["]d"] = { km2.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
-        ["[d"] = { km2.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
+        ["]d"] = { km.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
+        ["[d"] = { km.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
     }
 
 
