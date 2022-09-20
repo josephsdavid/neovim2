@@ -65,7 +65,7 @@ local get_mark = function(info)
         end
         first_run = false
     end
-    local idx = marks_cache[vim.fn.fnamemodify(info.buf_name, ":~:.")]
+    local idx = marks_cache[vim.fn.fnamemodify(info.buf_name, ":.")]
     local s
     if idx then
         s = idx
