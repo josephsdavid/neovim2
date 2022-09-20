@@ -223,7 +223,8 @@ M.setup = function()
                     },
                 }
             }
-        }
+        },
+        pyright = {}
     }
 
     for lsp, setup in pairs(servers) do
