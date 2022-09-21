@@ -120,7 +120,7 @@ for name, spec in pairs(config) do
     local new_hydra = { name = name, config = {
         invoke_on_body = true,
         timeout = false,
-        hint = false
+        hint = {type = "cmdline"}
     },
     heads = {}
     }
