@@ -1,4 +1,4 @@
-require("impatient")
+require("impatient").enable_profile()
 E = require("core.events")
 
 if table.unpack == nil then

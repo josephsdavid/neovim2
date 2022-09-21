@@ -296,8 +296,7 @@ return packer.startup({ function(use)
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
-                    insert = "<C-h><C-h>",
-                    insert_line = "<C-h><C-H>",
+                    insert_line = "<C-s>",
                     normal = "ys",
                     normal_cur = "yss",
                     normal_line = "yS",
@@ -375,7 +374,6 @@ return packer.startup({ function(use)
     --         vim.g.slime_target = "tmux"
     --     end
     -- }
-    use 'anuvyklack/hydra.nvim'
     use "simrat39/rust-tools.nvim"
     use "tpope/vim-abolish"
     use("bfredl/nvim-luadev")
