@@ -121,6 +121,7 @@ M.setup = function()
         [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
         [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
         [g("D")] = { km.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
+        [g("q")] = { km.luacmd("require('goto-preview').close_all_win()"), "close popups" },
         [g("l")] = { km.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
         ["K"] = { km.luacmd("vim.lsp.buf.hover()"), "docs" },
         [km.ctrl("K")] = { km.luacmd("vim.lsp.buf.signature_help()"), "docs" },

@@ -109,11 +109,11 @@ M.config = {
     },
     telescope = {
         normal = {
-            [scope(" ")] = { cmd("Telescope current_buffer_fuzzy_find theme=ivy"), "swiper" },
+            [scope(" ")] = { cmd("Telescope current_buffer_fuzzy_find theme=ivy previewer=false"), "current buffer find" },
             [scope("F")] = { cmd("FzfLua files"), "find files" },
             [scope("n")] = { cmd("Telescope ghn"), "find notifications" },
             [scope("h")] = { cmd("Telescope harpoon marks"), "harpoon" },
-            [scope("f")] = { cmd("Telescope find_files theme=ivy"), "find files" },
+            [scope("f")] = { cmd("Telescope fd theme=ivy"), "find files" },
             [scope("R")] = { cmd("FzfLua resume"), "resume" },
             [scope("r")] = { cmd("Telescope resume"), "resume" },
             [scope("G")] = { cmd("FzfLua live_grep_native"), "live grep" },
@@ -124,8 +124,8 @@ M.config = {
             [scope("t")] = { cmd("TodoTelescope theme=ivy"), "find todos" },
             ["z="] = { cmd("Telescope spell_suggest theme=ivy"), "spell suggest" },
             -- [scope("T")] = { cmd("TodoTelescope"), "find tabs" },
-            [scope("i")] = { cmd("Octo issue list"), "Searcx issues" },
-            [scope("p")] = { cmd("Octo pr list"), "Searcx prs" },
+            [scope("i")] = { cmd("Octo issue list"), "Search issues" },
+            [scope("p")] = { cmd("Octo pr list"), "Search prs" },
             [scope("M")] = { cmd("Telescope marks theme=ivy"), "find marks" },
             [scope("m")] = { cmd("Telescope harpoon marks theme=ivy"), "find harpoon marks" },
             [scope("j")] = { cmd("Telescope jumplist theme=ivy"), "find jumps" },
@@ -135,8 +135,8 @@ M.config = {
             [scope("D")] = { cmd("Telescope lsp_type_definitions theme=ivy"), "find lsp type definitions" },
             -- [scope("r")] = { cmd("Telescope lsp_references theme=ivy"), "find lsp references" },
             [Ctrl("p")] = { cmd("Telescope oldfiles theme=ivy"), "find oldfiles" },
-            [Ctrl("f")] = { cmd("Telescope live_grep theme=ivy"), "find oldfiles" },
-            [Ctrl("s")] = { cmd("Telescope find_files theme=ivy"), "find oldfiles" },
+            [Ctrl("f")] = { cmd("Telescope live_grep theme=ivy"), "live_grep" },
+            [Ctrl("s")] = { cmd("Telescope fd theme=ivy previewer=false"), "find oldfiles" },
             -- [scope(" ")] = { cmd("Telescope frecency"), "find frecency" }
         },
     }
