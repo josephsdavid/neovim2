@@ -82,6 +82,7 @@ M.config = {
             [cx("f")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
             [cxc_("o")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
             [cx("o")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
+
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
@@ -98,8 +99,8 @@ M.config = {
             ["K"] = { ":move '>-2<CR>gv-gv", "Move text up (broken)" },
             ["J"] = { ":move '>+1<CR>gv-gv", "Move text down" },
         },
-        -- omni = {
-        -- },
+        omni = {
+        },
         insert = {
             [Ctrl("j")] = { "<Plug>(TaboutMulti)", "" },
             [Ctrl("k")] = { "<Plug>(TaboutBackMulti)", "" }
@@ -109,11 +110,11 @@ M.config = {
     },
     telescope = {
         normal = {
-            [scope(" ")] = { cmd("Telescope current_buffer_fuzzy_find theme=ivy"), "swiper" },
+            [scope(" ")] = { cmd("Telescope current_buffer_fuzzy_find theme=ivy previewer=false"), "current buffer find" },
             [scope("F")] = { cmd("FzfLua files"), "find files" },
             [scope("n")] = { cmd("Telescope ghn"), "find notifications" },
             [scope("h")] = { cmd("Telescope harpoon marks"), "harpoon" },
-            [scope("f")] = { cmd("Telescope find_files theme=ivy"), "find files" },
+            [scope("f")] = { cmd("Telescope fd theme=ivy"), "find files" },
             [scope("R")] = { cmd("FzfLua resume"), "resume" },
             [scope("r")] = { cmd("Telescope resume"), "resume" },
             [scope("G")] = { cmd("FzfLua live_grep_native"), "live grep" },
@@ -124,8 +125,8 @@ M.config = {
             [scope("t")] = { cmd("TodoTelescope theme=ivy"), "find todos" },
             ["z="] = { cmd("Telescope spell_suggest theme=ivy"), "spell suggest" },
             -- [scope("T")] = { cmd("TodoTelescope"), "find tabs" },
-            [scope("i")] = { cmd("Octo issue list"), "Searcx issues" },
-            [scope("p")] = { cmd("Octo pr list"), "Searcx prs" },
+            [scope("i")] = { cmd("Octo issue list"), "Search issues" },
+            [scope("p")] = { cmd("Octo pr list"), "Search prs" },
             [scope("M")] = { cmd("Telescope marks theme=ivy"), "find marks" },
             [scope("m")] = { cmd("Telescope harpoon marks theme=ivy"), "find harpoon marks" },
             [scope("j")] = { cmd("Telescope jumplist theme=ivy"), "find jumps" },
@@ -135,8 +136,8 @@ M.config = {
             [scope("D")] = { cmd("Telescope lsp_type_definitions theme=ivy"), "find lsp type definitions" },
             -- [scope("r")] = { cmd("Telescope lsp_references theme=ivy"), "find lsp references" },
             [Ctrl("p")] = { cmd("Telescope oldfiles theme=ivy"), "find oldfiles" },
-            [Ctrl("f")] = { cmd("Telescope live_grep theme=ivy"), "find oldfiles" },
-            [Ctrl("s")] = { cmd("Telescope find_files theme=ivy"), "find oldfiles" },
+            [Ctrl("f")] = { cmd("Telescope live_grep theme=ivy"), "live_grep" },
+            -- [Ctrl("s")] = { cmd("Telescope fd theme=ivy previewer=false"), "find oldfiles" },
             -- [scope(" ")] = { cmd("Telescope frecency"), "find frecency" }
         },
     }
@@ -186,7 +187,6 @@ M.config.repl.normal = {
 M.config.repl.visual = {
     [repl("")] = { km.plugmapping("Send"), "Send to repl" },
 }
-M.config.leap = {}
 
 local addmap = function(key, t, mode)
     return function(lhs, rhs)
@@ -196,6 +196,7 @@ end
 
 local nmap = addmap("general", M.config, "normal")
 local vmap = addmap("general", M.config, "visual")
+local xmap = addmap("general", M.config, "xmode")
 local asterisk = { "*", "#" }
 for _, star in ipairs(asterisk) do
     nmap(star, { km.plugmapping("(asterisk-z" .. star .. ")"), "" })

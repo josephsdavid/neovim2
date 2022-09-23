@@ -98,7 +98,9 @@ return packer.startup({ function(use)
     use({ "haringsrob/nvim_context_vt" })
     use({ 'jghauser/mkdir.nvim' })
     use "direnv/direnv.vim"
-    use({ 'pwntester/octo.nvim' })
+    use({ 'pwntester/octo.nvim', config = function()
+        require("config.git")
+    end })
     use {
         "amrbashir/nvim-docs-view",
         opt = true,
@@ -296,8 +298,7 @@ return packer.startup({ function(use)
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
-                    insert = "<C-h><C-h>",
-                    insert_line = "<C-h><C-H>",
+                    insert_line = "<C-s>",
                     normal = "ys",
                     normal_cur = "yss",
                     normal_line = "yS",
@@ -321,37 +322,51 @@ return packer.startup({ function(use)
     }
 
     use({
-        "ggandor/leap.nvim",
+        "ggandor/lightspeed.nvim",
         config = function()
-            local leap = require('leap')
-            vim.cmd([[autocmd ColorScheme * lua require('leap').init_highlight(true)]])
-            leap.setup {
-                max_aot_targets = nil,
-                highlight_unlabeled = false,
-                case_sensitive = false,
-                -- Groups of characters that should match each other.
-                -- Obvious candidates are braces & quotes ('([{', ')]}', '`"\'').
-                equivalence_classes = {
-                    ' \t\r\n',
-                    ')]}>',
-                    '([{<',
-                    { '"', "'", '`' },
-                },
+            require("lightspeed").setup({
+                ignore_case = false,
+                exit_after_idle_msecs = { unlabeled = 1000, labeled = nil },
+
+                --- s/x ---
+                jump_to_unique_chars = { safety_timeout = 400 },
+                match_only_the_start_of_same_char_seqs = true,
+                force_beacons_into_match_width = true,
+                -- Display characters in a custom way in the highlighted matches.
+                substitute_chars = { ["\r"] = "¬" },
                 -- Leaving the appropriate list empty effectively disables "smart" mode,
                 -- and forces auto-jump to be on or off.
-                -- safe_labels = { . . . },
-                -- labels = { . . . },
                 -- These keys are captured directly by the plugin at runtime.
-                -- (For `prev_match`, I suggest <s-enter> if possible in the terminal/GUI.)
                 special_keys = {
-                    repeat_search = '<enter>',
-                    next_match    = '<space>',
-                    prev_match    = '<C-space>',
-                    next_group    = '<tab>',
-                    prev_group    = '<S-tab>',
+                    next_match_group = "<TAB>",
+                    prev_match_group = "<S-Tab>",
                 },
+                --- f/t ---
+                limit_ft_matches = 20,
+                repeat_ft_with_target_char = true,
+            })
+            local default_keymaps = {
+                { "n", "gs", "<Plug>Lightspeed_omni_s" },
+                { "n", "<c-s>", "<Plug>Lightspeed_omni_gs" },
+                { "x", "gs", "<Plug>Lightspeed_omni_s" },
+                { "x", "<c-s>", "<Plug>Lightspeed_omni_gs" },
+                { "o", "gs", "<Plug>Lightspeed_omni_s" },
+                { "o", "<c-s>", "<Plug>Lightspeed_omni_gs" },
             }
-            leap.set_default_keymaps()
+            for _, m in ipairs(default_keymaps) do
+                vim.keymap.set(m[1], m[2], m[3], { noremap = true, silent = true })
+            end
+            vim.cmd [[
+                let g:lightspeed_last_motion = ''
+                augroup lightspeed_last_motion
+                autocmd!
+                    autocmd User LightspeedSxEnter let g:lightspeed_last_motion = 'sx'
+                    autocmd User LightspeedFtEnter let g:lightspeed_last_motion = 'ft'
+                augroup end
+                map <expr> ; g:lightspeed_last_motion == 'sx' ? "<Plug>Lightspeed_;_sx" : "<Plug>Lightspeed_;_ft"
+                map <expr> ,, g:lightspeed_last_motion == 'sx' ? "<Plug>Lightspeed_,_sx" : "<Plug>Lightspeed_,_ft"
+
+            ]]
         end
     })
     --- packer
@@ -375,7 +390,6 @@ return packer.startup({ function(use)
     --         vim.g.slime_target = "tmux"
     --     end
     -- }
-    use 'anuvyklack/hydra.nvim'
     use "simrat39/rust-tools.nvim"
     use "tpope/vim-abolish"
     use("bfredl/nvim-luadev")
@@ -447,6 +461,13 @@ return packer.startup({ function(use)
                     enable = false
                 },
             }
+        end
+    }
+    use {
+        'tamton-aquib/duck.nvim',
+        config = function()
+            vim.api.nvim_set_keymap('n', '<leader>dd', ':lua require("duck").hatch()<CR>', { noremap = true })
+            vim.api.nvim_set_keymap('n', '<leader>dk', ':lua require("duck").cook()<CR>', { noremap = true })
         end
     }
 

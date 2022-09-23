@@ -4,6 +4,7 @@ require("goto-preview").setup({})
 -- local km = require("core.keymap")
 local km = require("core.keymap")
 
+
 local function rename()
     local curr_name = vim.fn.expand("<cword>")
     local value = vim.fn.input("Old name: " .. curr_name.. ", new name: ")
@@ -102,7 +103,7 @@ M.setup = function()
     })
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.formatting()' ]])
 
-    Bindings.config.lsp = { normal = {}, visual = {} }
+    Bindings.config.lsp = { normal = {}, visual = {}, insert = {} }
     local g = km.genleader("g")
 
     local function _bind(key, mode)
@@ -114,16 +115,16 @@ M.setup = function()
 
 
     local lspbind = _bind("lsp", "normal")
-    local lspvbind = _bind("lsp", "visual")
-    local lspibind = _bind("lsp", "insert")
+    -- local lspvbind = _bind("lsp", "visual")
+    -- local lspibind = _bind("lsp", "insert")
 
     local ntable = {
         [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
         [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
         [g("D")] = { km.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
+        [g("q")] = { km.luacmd("require('goto-preview').close_all_win()"), "close popups" },
         [g("l")] = { km.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
         ["K"] = { km.luacmd("vim.lsp.buf.hover()"), "docs" },
-        [km.ctrl("K")] = { km.luacmd("vim.lsp.buf.signature_help()"), "docs" },
         [km.leader("rn")] = { rename, "rename" },
         ["]d"] = { km.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
         ["[d"] = { km.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
@@ -133,6 +134,9 @@ M.setup = function()
     for k, v in pairs(ntable) do
         lspbind(k, v)
     end
+
+    -- lspibind(km.ctrl("h"), { km.luacmd("vim.lsp.buf.signature_help()"), "docs" })
+
 
     local on_attach = function(client, bufnr)
 

@@ -7,6 +7,5 @@ require("core.plugins")
 require("core.keymap")
 -- require("core.namespace")
 require("core.completion")
-require("core.hydra")
 require("core.events")
 
