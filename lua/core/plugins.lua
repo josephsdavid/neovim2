@@ -470,6 +470,7 @@ return packer.startup({ function(use)
             vim.api.nvim_set_keymap('n', '<leader>dk', ':lua require("duck").cook()<CR>', { noremap = true })
         end
     }
+    use "jbyuki/venn.nvim"
 
     -- use({
     --   "ram02z/dev-comments.nvim",
