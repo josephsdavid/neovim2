@@ -82,6 +82,7 @@ M.config = {
             [cx("f")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
             [cxc_("o")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
             [cx("o")] = { harpoon_notify(require('harpoon.ui').toggle_quick_menu), "harpoon menu" },
+
         },
         terminal = {
             ["<Esc>"] = { "<C-\\><C-n>", "Terminal escape" },
@@ -98,8 +99,8 @@ M.config = {
             ["K"] = { ":move '>-2<CR>gv-gv", "Move text up (broken)" },
             ["J"] = { ":move '>+1<CR>gv-gv", "Move text down" },
         },
-        -- omni = {
-        -- },
+        omni = {
+        },
         insert = {
             [Ctrl("j")] = { "<Plug>(TaboutMulti)", "" },
             [Ctrl("k")] = { "<Plug>(TaboutBackMulti)", "" }
@@ -136,7 +137,7 @@ M.config = {
             -- [scope("r")] = { cmd("Telescope lsp_references theme=ivy"), "find lsp references" },
             [Ctrl("p")] = { cmd("Telescope oldfiles theme=ivy"), "find oldfiles" },
             [Ctrl("f")] = { cmd("Telescope live_grep theme=ivy"), "live_grep" },
-            [Ctrl("s")] = { cmd("Telescope fd theme=ivy previewer=false"), "find oldfiles" },
+            -- [Ctrl("s")] = { cmd("Telescope fd theme=ivy previewer=false"), "find oldfiles" },
             -- [scope(" ")] = { cmd("Telescope frecency"), "find frecency" }
         },
     }
@@ -186,7 +187,6 @@ M.config.repl.normal = {
 M.config.repl.visual = {
     [repl("")] = { km.plugmapping("Send"), "Send to repl" },
 }
-M.config.leap = {}
 
 local addmap = function(key, t, mode)
     return function(lhs, rhs)
@@ -196,6 +196,7 @@ end
 
 local nmap = addmap("general", M.config, "normal")
 local vmap = addmap("general", M.config, "visual")
+local xmap = addmap("general", M.config, "xmode")
 local asterisk = { "*", "#" }
 for _, star in ipairs(asterisk) do
     nmap(star, { km.plugmapping("(asterisk-z" .. star .. ")"), "" })
