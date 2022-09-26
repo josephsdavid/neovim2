@@ -109,10 +109,11 @@ local sources = {
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
+    {name = "rg"--[[ , keyword_length=3 ]]},
     { name = "path" },
     { name = "neorg" },
     { name = "treesitter",  },
-    { name = "conjure" },
+    -- { name = "conjure" },
     { name = "buffer",   },
     { name = "latex_symbols" },
 }
@@ -158,8 +159,9 @@ local formatting = {
             path = "[path]",
             neorg = "[norg]",
             treesitter = "[ts]",
-            conjure = "[conj]",
+            -- conjure = "[conj]",
             buffer = "[buf]",
+            rg = "[rg]",
             latex_symbols = "[tex]" },
     }
 }

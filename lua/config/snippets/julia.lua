@@ -40,15 +40,23 @@ rec_ls = function()
 end
 
 
-local function do_choice(fname)
+local function do_choice(fun)
     return c(
         1, {
-        fmt(fname .. "({}, {})\n{}", { i(1, "function"), i(2, "iterable"), i(3) }),
-        fmt(fname .. "({}) do {}\n\t{}\nend\n{}", { i(1, "iterable"), i(2, "item"), i(3, "body"), i(4) })
+        fmt(fun .. "({}, {})\n{}", { i(1, "function"), i(2, "iterable"), i(3) }),
+        fmt(fun .. "({}) do {}\n\t{}\nend\n{}", { i(1, "iterable"), i(2, "item"), i(3, "body"), i(4) })
 
-    }
-    )
+    })
+end
 
+
+local function backtick()
+    return c(
+        1, {
+        fmt("\"{}\"", { i(1, "name")}),
+        fmt("\"`{}`\"", { i(1, "name")}),
+
+    })
 end
 
 M.snippets = {
@@ -59,6 +67,13 @@ M.snippets = {
     s("map", { do_choice("map") }),
     s("filter", { do_choice("filter") }),
     s("reduce", { do_choice("reduce") }),
-    s("tern", fmt("{} ? {} : {}", {i(1, "cond"), i(2, "if_true"), i(3, "if_false")}))
+    s("tern", fmt("{} ? {} : {}", {i(1, "cond"), i(2, "if_true"), i(3, "if_false")})),
+    s("testset", fmt( "@testset {} begin\n\t{}\nend",
+        {
+            backtick(),
+        i(2, "")
+        }
+    )
+    )
 }
 return M

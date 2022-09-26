@@ -31,7 +31,7 @@ vim.cmd([[
 
 -- NOTE: parinfer is supporting julia in core.options, but we turn it off by default because sometimes its annoying
 -- and then we just have a mapping to toggle it
-opt.setbuffer("parinfer_comment_chars", { "#" }) -- in other lispy languages ; is comment, in julia ; is crucial to using the lang
-vim.cmd("ParinferOff")
-vim.keymap.set( "n",km.localleader("P"), ":ParinferToggle<cr>",
-    {desc =  "toggle parinfer",  noremap = true, silent = true })
+-- opt.setbuffer("parinfer_comment_chars", { "#" }) -- in other lispy languages ; is comment, in julia ; is crucial to using the lang
+-- vim.cmd("ParinferOff")
+-- vim.keymap.set( "n",km.localleader("P"), ":ParinferToggle<cr>",
+--     {desc =  "toggle parinfer",  noremap = true, silent = true })

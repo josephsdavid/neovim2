@@ -103,14 +103,15 @@ M.setglobal("hiPairs_hl_matchPair",
         gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' })
 M.setglobal("send_disable_mapping", 1)
 
-M.setglobal("conjure#mapping#doc_word", "<LocalLeader>K")
-M.setglobal("JuliaFormatter_always_launch_server", 1)
+-- M.setglobal("conjure#mapping#doc_word", "<LocalLeader>K")
+-- M.setglobal("JuliaFormatter_always_launch_server", 1)
+-- M.setglobal("conjure#filetype", {"clojure", "fennel", "janet", "racket", "scheme"})
 -- M.setglobaldelete_replaced_bufferdelete_replaced_buffer("unception_open_buffer_in_new_tab", true)
 M.setglobal("asterisk#keeppos", 1)
 M.setglobal("parinfer_filetypes", {
     "clojure", "scheme", "lisp", "racket",
     "hy", "fennel", "janet", "carp",
-    "wast", "yuck", "jl", "julia"
+    "wast", "yuck"
 })
 M.setglobal("parinfer_no_maps", true)
 

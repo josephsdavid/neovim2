@@ -77,6 +77,7 @@ return packer.startup({ function(use)
     use({ "hrsh7th/cmp-cmdline" })
     use({ "hrsh7th/nvim-cmp" })
     use({ "saadparwaiz1/cmp_luasnip" })
+    use "lukas-reineke/cmp-rg"
 
     use({ "Yggdroot/hiPairs" })
     use({ "tpope/vim-repeat" })
@@ -171,7 +172,7 @@ return packer.startup({ function(use)
     use "antoinemadec/FixCursorHold.nvim"
     use "unblevable/quick-scope"
     use 'radenling/vim-dispatch-neovim'
-    use "Olical/conjure"
+    -- use "Olical/conjure"
     use {
         "X3eRo0/dired.nvim",
         requires = "MunifTanjim/nui.nvim",
@@ -184,7 +185,7 @@ return packer.startup({ function(use)
         end
     }
     use "gpanders/nvim-parinfer"
-    use "PaterJason/cmp-conjure"
+    -- use "PaterJason/cmp-conjure"
     use("guns/vim-sexp")
     use("tpope/vim-sexp-mappings-for-regular-people")
     use("andymass/vim-matchup")
@@ -237,7 +238,7 @@ return packer.startup({ function(use)
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg", tag = "0.0.12" })
+    use({ "nvim-neorg/neorg", tag = "0.0.12"})
     use({ "nvim-neorg/neorg-telescope" })
     -- here is hunk
     -- hunk 2
@@ -470,23 +471,11 @@ return packer.startup({ function(use)
             vim.api.nvim_set_keymap('n', '<leader>dk', ':lua require("duck").cook()<CR>', { noremap = true })
         end
     }
-
-    -- use({
-    --   "ram02z/dev-comments.nvim",
-    --   requires = {
-    --     "nvim-treesitter/nvim-treesitter",
-    --     "nvim-lua/plenary.nvim",
-    --   },
-    --   config = function()
-    --       require("dev_comments").setup({
-    --     })
-    --   end
-    -- })
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
         require("packer").sync()
     end
 end,
-    config = { max_jobs = 25 } }
+config = { max_jobs = 25 } }
 )
