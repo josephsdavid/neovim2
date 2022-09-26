@@ -117,7 +117,7 @@ require("nvim-treesitter.configs").setup({
         enable_autocmd = true,
     },
 
-    indent = { enable = true, disable = { "yaml" } },
+    indent = { enable = true, disable = { "yaml", "julia" } },
 
     incremental_selection = {
         enable = false,
