@@ -79,7 +79,7 @@ M.setup = function()
         signs = {
             active = signs,
         },
-        update_in_insert = true,
+        update_in_insert = false,
 
         severity_sort = true,
         float = {
@@ -189,9 +189,9 @@ M.setup = function()
             settings = {
                 julia = {
                     usePlotPane = false,
-                    symbolCacheDownload = false,
+                    symbolCacheDownload = true,
                     runtimeCompletions = true,
-                    singleFileSupport = false,
+                    singleFileSupport = true,
                     useRevise = true,
                     lint = {
                         NumThreads = 11,

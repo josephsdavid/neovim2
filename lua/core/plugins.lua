@@ -81,7 +81,7 @@ return packer.startup({ function(use)
 
     use({ "Yggdroot/hiPairs" })
     use({ "tpope/vim-repeat" })
-    use({ "tpope/vim-fugitive" })
+    use({ "tpope/vim-fugitive", cmd = { "Git" } })
     use({ "vimlab/split-term.vim" })
     use({ "akinsho/toggleterm.nvim" })
     use({ "folke/lsp-colors.nvim" })
@@ -186,8 +186,6 @@ return packer.startup({ function(use)
     }
     use "gpanders/nvim-parinfer"
     -- use "PaterJason/cmp-conjure"
-    use("guns/vim-sexp")
-    use("tpope/vim-sexp-mappings-for-regular-people")
     use("andymass/vim-matchup")
     use {
         -- Optional but recommended
@@ -493,8 +491,22 @@ return packer.startup({ function(use)
                     vim.b.venn_enabled = nil
                 end
             end
+
             -- toggle keymappings for venn using <leader>v
             vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true })
+        end
+    }
+    use { "dstein64/vim-startuptime" }
+    use { "ja-ford/delaytrain.nvim",
+        config = function()
+            require('delaytrain').setup {
+                delay_ms = 1000, -- How long repeated usage of a key should be prevented
+                grace_period = 1, -- How many repeated keypresses are allowed
+                keys = { -- Which keys (in which modes) should be delayed
+                    ['nv'] = { 'h', 'j', 'k', 'l' },
+                    ['nvi'] = { '<Left>', '<Down>', '<Up>', '<Right>' },
+                },
+            }
         end
     }
     -- Automatically set up your configuration after cloning packer.nvim
