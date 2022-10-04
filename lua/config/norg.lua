@@ -40,7 +40,7 @@ require("neorg").setup({
                     keybinds.map_event("norg", "n", km.leader("fl"), "core.integrations.telescope.find_linkable")
                     keybinds.map_event("norg", "i", km.ctrl("l"), "core.integrations.telescope.insert_link")
                     keybinds.map_event("norg", "n", km.localleader("m"), "core.looking-glass.magnify-code-block")
-                    keybinds.map_event("norg", "i", km.ctrl("m"), "core.looking-glass.magnify-code-block")
+                    -- keybinds.map_event("norg", "i", km.ctrl("m"), "core.looking-glass.magnify-code-block")
                 end,
             },
         },

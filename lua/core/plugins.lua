@@ -236,7 +236,7 @@ return packer.startup({ function(use)
     use 'kdheepak/JuliaFormatter.vim'
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg", tag = "0.0.12" })
+    use({ "nvim-neorg/neorg" })
     use({ "nvim-neorg/neorg-telescope" })
     -- here is hunk
     -- hunk 2
@@ -497,18 +497,24 @@ return packer.startup({ function(use)
         end
     }
     use { "dstein64/vim-startuptime" }
-    use { "ja-ford/delaytrain.nvim",
-        config = function()
-            require('delaytrain').setup {
-                delay_ms = 1000, -- How long repeated usage of a key should be prevented
-                grace_period = 1, -- How many repeated keypresses are allowed
-                keys = { -- Which keys (in which modes) should be delayed
-                    ['nv'] = { 'h', 'j', 'k', 'l' },
-                    ['nvi'] = { '<Left>', '<Down>', '<Up>', '<Right>' },
+    use({
+        "aserowy/tmux.nvim",
+        config = function() require("tmux").setup({
+                copy_sync = { enable = false },
+                navigation = {
+                    -- cycles to opposite pane while navigating into the border
+                    cycle_navigation = true,
+
+                    -- enables default keybindings (C-hjkl) for normal mode
+                    enable_default_keybindings = false,
+
+                    -- prevents unzoom tmux when navigating beyond vim border
+                    persist_zoom = false,
                 },
             }
+            )
         end
-    }
+    })
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then

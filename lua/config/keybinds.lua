@@ -59,10 +59,10 @@ M.config = {
             [leader("w")] = { cmd("w!"), "save" },
             [leader("cc")] = { cmd("tcd %:p:h<cr><cmd>pwd"), "cd to current file" },
             [leader("cd")] = { harpoon_notify(clever_tcd), "cd to current project or file" },
-            [Alt("Up")] = { cmd("resize +2"), "Increase window size horizontal" },
-            [Alt("Left")] = { cmd("vertical resize -2"), "Decrease window size vertical" },
-            [Alt("Right")] = { cmd("vertical resize +2"), "Increase window size vertical" },
-            [Alt("Down")] = { cmd("resize -2"), "Decrease window size horizontal" },
+            [Alt("Up")] = { luacmd("require('tmux').resize_top()"), "Increase window size horizontal" },
+            [Alt("Left")] = { luacmd("require('tmux').resize_left()"), "Decrease window size vertical" },
+            [Alt("Right")] = { luacmd("require('tmux').resize_right()"), "Increase window size vertical" },
+            [Alt("Down")] = { luacmd("require('tmux').resize_bottom()"), "Decrease window size horizontal" },
             [Ctrl(".")] = { cmd("bp"), "Previous buffer" },
             [Ctrl(",")] = { cmd("bn"), "next buffer" },
             [g("G")] = { cmd("Neogit"), "Git" },
@@ -143,8 +143,8 @@ M.config = {
     }
 }
 
-for k, value in pairs({ left = "h", down = "j", up = "k", right = "l" }) do
-    M.config.general.normal[Ctrl(value)]   = { Ctrl("w") .. value, "Window " .. k }
+for k, value in pairs({ left = "h", bottom = "j", top = "k", right = "l" }) do
+    M.config.general.normal[Ctrl(value)]   = { luacmd("require('tmux').move_"..k.."()"), "Window " .. k }
     M.config.general.terminal[Ctrl(value)] = { "<C-\\><C-N><C-w>" .. value, "Window " .. k }
     M.config.general.terminal[Alt(value)]  = { "<C-\\><C-N><C-w>" .. value, "Window " .. k }
 end
