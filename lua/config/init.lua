@@ -10,7 +10,7 @@ Bindings.setup(Bindings.config)
 require "config.autocmds"
 require "config.snippets"
 require "config.telescope"
-require "config.norg"
+-- require "config.norg" - called in plugins.lua
 require "config.lines"
 -- require "config.namespaces"
 
