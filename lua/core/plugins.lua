@@ -70,7 +70,7 @@ return packer.startup({ function(use)
     use({ "nvim-treesitter/nvim-treesitter-refactor" })
     use 'nvim-treesitter/nvim-treesitter-context'
     use({ "L3MON4D3/LuaSnip" })
-    use({ "kdheepak/cmp-latex-symbols" })
+    use({ "kdheepak/cmp-latex-symbols", ft = {"julia", "norg"} })
     use({ "hrsh7th/cmp-nvim-lsp" })
     use({ "hrsh7th/cmp-buffer" })
     use({ "hrsh7th/cmp-path" })
@@ -249,37 +249,8 @@ return packer.startup({ function(use)
             require("scope").setup()
         end
     })
-    -- using packer.nvim
-    -- use { 'akinsho/bufferline.nvim', tag = "v2.*", requires = 'kyazdani42/nvim-web-devicons',
-    --     config = function()
-    --         require('bufferline').setup {
-    --             options = {
-    --                 indicator = {
-    --                     icon = '▎',
-    --                     style = "icon"
-    --                 },
-    --                 -- indicator_icon = '▎',
-    --                 buffer_close_icon = '',
-    --                 modified_icon = '●',
-    --                 close_icon = '',
-    --                 left_trunc_marker = '',
-    --                 right_trunc_marker = '',
-    --                 max_name_length = 18,
-    --                 max_prefix_length = 15, -- prefix used when a buffer is de-duplicated
-    --                 tab_size = 18,
-    --                 diagnostics = "nvim_lsp",
-    --                 diagnostics_update_in_insert = false,
-    --                 -- The diagnostics indicator can be set to nil to keep the buffer name highlight but delete the highlighting
-    --                 diagnostics_indicator = function(count, _, _, _)
-    --                     return "(" .. count .. ")"
-    --                 end,
-    --                 -- NOTE: this will be called a lot so don't do any heavy processing here
-    --                 color_icons = true, -- whether or not to add the filetype icon highlights
-    --                 separator_style = "thin" --[[ | "thick" | "slant" | { 'any', 'any' } ]] ,
-    --             }
-    --         }
-    --     end }
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
+        cmd = "Neogit",
         config = function()
             require('neogit').setup {
                 disable_commit_confirmation = true,
@@ -385,13 +356,6 @@ return packer.startup({ function(use)
             'nvim-telescope/telescope.nvim',
         },
     }
-    -- use {
-    --     "jpalardy/vim-slime",
-    --     config = function()
-    --         vim.g.slime_target = "tmux"
-    --     end
-    -- }
-    use "simrat39/rust-tools.nvim"
     use "tpope/vim-abolish"
     use("bfredl/nvim-luadev")
     if host_is_not("djosephs") then
