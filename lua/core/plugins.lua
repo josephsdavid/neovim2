@@ -86,7 +86,10 @@ return packer.startup({ function(use)
     use({ "akinsho/toggleterm.nvim" })
     use({ "folke/lsp-colors.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "rmagatti/goto-preview" })
+    use({ "rmagatti/goto-preview", event="LspAttach",
+    config = function ()
+        require("goto-preview").setup({})
+        end})
     -- Lua
     use "stsewd/tree-sitter-comment"
 

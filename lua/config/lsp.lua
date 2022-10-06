@@ -1,6 +1,5 @@
 M = {}
 local nvim_lsp = require("lspconfig")
-require("goto-preview").setup({})
 -- local km = require("core.keymap")
 local km = require("core.keymap")
 
