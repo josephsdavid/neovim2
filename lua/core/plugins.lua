@@ -79,8 +79,8 @@ return packer.startup({ function(use)
     use({ "saadparwaiz1/cmp_luasnip" })
     use "lukas-reineke/cmp-rg"
 
-    use({ "Yggdroot/hiPairs", event="ColorScheme" })
-    use({ "tpope/vim-repeat", event="ColorScheme" })
+    use({ "Yggdroot/hiPairs",  })
+    use({ "tpope/vim-repeat",  })
     use({ "tpope/vim-fugitive", cmd = { "Git" } })
     use({ "vimlab/split-term.vim", cmd = {"Term", "VTerm"} })
     use({ "akinsho/toggleterm.nvim" })
@@ -158,7 +158,6 @@ return packer.startup({ function(use)
     })
 
     use { "chentoast/marks.nvim",
-        event="ColorScheme",
         config = function()
             require 'marks'.setup {
                 default_mappings = true,
@@ -190,7 +189,7 @@ return packer.startup({ function(use)
     }
     use "gpanders/nvim-parinfer"
     -- use "PaterJason/cmp-conjure"
-    use({"andymass/vim-matchup", event="ColorScheme"})
+    use({"andymass/vim-matchup", })
     use {
         -- Optional but recommended
         -- 'nvim-treesitter/nvim-treesitter',
@@ -349,7 +348,7 @@ return packer.startup({ function(use)
     })
     --- packer
     use "natecraddock/telescope-zf-native.nvim"
-    use {"haya14busa/vim-asterisk", event="ColorScheme"}
+    use {"haya14busa/vim-asterisk", }
     use "ThePrimeagen/harpoon"
     use {
         'rlch/github-notifications.nvim',
@@ -361,7 +360,7 @@ return packer.startup({ function(use)
             'nvim-telescope/telescope.nvim',
         },
     }
-    use {"tpope/vim-abolish", event="ColorScheme"}
+    use {"tpope/vim-abolish", }
     use({"bfredl/nvim-luadev", cmd="Luadev"})
     if host_is_not("djosephs") then
         use({
