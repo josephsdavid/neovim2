@@ -245,4 +245,7 @@ M.setup = function(config)
 end
 
 
+vim.cmd([[ command! NeorgStart execute 'tabe ~/neorg/index.norg' ]])
+
+
 return M

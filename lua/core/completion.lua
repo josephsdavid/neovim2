@@ -109,7 +109,7 @@ local sources = {
     { name = "nvim_lua" },
     { name = "luasnip" },
     { name = "nvim_lsp" },
-    {name = "rg"--[[ , keyword_length=3 ]]},
+    {name = "rg", keyword_length=3 },
     { name = "path" },
     { name = "neorg" },
     { name = "treesitter",  },
