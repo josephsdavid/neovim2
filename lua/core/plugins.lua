@@ -174,7 +174,7 @@ return packer.startup({ function(use)
 
     use "antoinemadec/FixCursorHold.nvim"
     use "unblevable/quick-scope"
-    use 'radenling/vim-dispatch-neovim'
+    -- use 'radenling/vim-dispatch-neovim'
     -- use "Olical/conjure"
     use {
         "X3eRo0/dired.nvim",
@@ -247,7 +247,6 @@ return packer.startup({ function(use)
     -- hunk 2
     -- hunk 3
     use({ "tiagovla/scope.nvim",
-        event = {"TabNew"},
         -- hunk
         config = function()
             require("scope").setup()
@@ -271,7 +270,6 @@ return packer.startup({ function(use)
     })
     use({
         "kylechui/nvim-surround",
-        event = "ColorScheme",
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
@@ -360,7 +358,6 @@ return packer.startup({ function(use)
             'nvim-telescope/telescope.nvim',
         },
     }
-    use {"tpope/vim-abolish", }
     use({"bfredl/nvim-luadev", cmd="Luadev"})
     if host_is_not("djosephs") then
         use({
@@ -436,6 +433,18 @@ return packer.startup({ function(use)
             )
         end
     })
+    -- use({
+    --   "folke/noice.nvim",
+    --   event = "VimEnter",
+    --   config = function()
+    --     require("noice").setup()
+    --   end,
+    --   requires = {
+    --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+    --     "MunifTanjim/nui.nvim",
+    --     "rcarriga/nvim-notify",
+    --     }
+    -- })
     -- Automatically set up your configuration after cloning packer.nvim
     -- Put this at the end after all plugins
     if PACKER_BOOTSTRAP then
