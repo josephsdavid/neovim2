@@ -70,7 +70,7 @@ return packer.startup({ function(use)
     use({ "nvim-treesitter/nvim-treesitter-refactor" })
     use 'nvim-treesitter/nvim-treesitter-context'
     use({ "L3MON4D3/LuaSnip" })
-    use({ "kdheepak/cmp-latex-symbols", ft = {"julia", "norg"} })
+    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg" } })
     use({ "hrsh7th/cmp-nvim-lsp" })
     use({ "hrsh7th/cmp-buffer" })
     use({ "hrsh7th/cmp-path" })
@@ -79,17 +79,17 @@ return packer.startup({ function(use)
     use({ "saadparwaiz1/cmp_luasnip" })
     use "lukas-reineke/cmp-rg"
 
-    use({ "Yggdroot/hiPairs",  })
-    use({ "tpope/vim-repeat",  })
+    use({ "Yggdroot/hiPairs", })
+    use({ "tpope/vim-repeat", })
     use({ "tpope/vim-fugitive", cmd = { "Git" } })
-    use({ "vimlab/split-term.vim", cmd = {"Term", "VTerm"} })
+    use({ "vimlab/split-term.vim", cmd = { "Term", "VTerm" } })
     use({ "akinsho/toggleterm.nvim" })
     use({ "folke/lsp-colors.nvim" })
     use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "rmagatti/goto-preview", event="LspAttach",
-    config = function ()
-        require("goto-preview").setup({})
-        end})
+    use({ "rmagatti/goto-preview", event = "LspAttach",
+        config = function()
+            require("goto-preview").setup({})
+        end })
     -- Lua
     use "stsewd/tree-sitter-comment"
 
@@ -189,7 +189,6 @@ return packer.startup({ function(use)
     }
     use "gpanders/nvim-parinfer"
     -- use "PaterJason/cmp-conjure"
-    use({"andymass/vim-matchup", })
     use {
         -- Optional but recommended
         -- 'nvim-treesitter/nvim-treesitter',
@@ -236,10 +235,10 @@ return packer.startup({ function(use)
     --     "windwp/nvim-autopairs",
     --     config = function() require("nvim-autopairs").setup {} end
     -- }
-    use {'kdheepak/JuliaFormatter.vim', ft="julia"}
+    use { 'kdheepak/JuliaFormatter.vim', ft = "julia" }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg", ft="norg", config = function ()
+    use({ "nvim-neorg/neorg", ft = "norg", config = function()
         require("config.norg")
     end })
     use({ "nvim-neorg/neorg-telescope" })
@@ -297,56 +296,14 @@ return packer.startup({ function(use)
     }
 
     use({
-        "ggandor/lightspeed.nvim",
+        "ggandor/leap.nvim",
         config = function()
-            require("lightspeed").setup({
-                ignore_case = false,
-                exit_after_idle_msecs = { unlabeled = 1000, labeled = nil },
-
-                --- s/x ---
-                jump_to_unique_chars = { safety_timeout = 400 },
-                match_only_the_start_of_same_char_seqs = true,
-                force_beacons_into_match_width = true,
-                -- Display characters in a custom way in the highlighted matches.
-                substitute_chars = { ["\r"] = "¬" },
-                -- Leaving the appropriate list empty effectively disables "smart" mode,
-                -- and forces auto-jump to be on or off.
-                -- These keys are captured directly by the plugin at runtime.
-                special_keys = {
-                    next_match_group = "<TAB>",
-                    prev_match_group = "<S-Tab>",
-                },
-                --- f/t ---
-                limit_ft_matches = 20,
-                repeat_ft_with_target_char = true,
-            })
-            local default_keymaps = {
-                { "n", "gs", "<Plug>Lightspeed_omni_s" },
-                { "n", "<c-s>", "<Plug>Lightspeed_omni_gs" },
-                { "x", "gs", "<Plug>Lightspeed_omni_s" },
-                { "x", "<c-s>", "<Plug>Lightspeed_omni_gs" },
-                { "o", "gs", "<Plug>Lightspeed_omni_s" },
-                { "o", "<c-s>", "<Plug>Lightspeed_omni_gs" },
-            }
-            for _, m in ipairs(default_keymaps) do
-                vim.keymap.set(m[1], m[2], m[3], { noremap = true, silent = true })
-            end
-            vim.cmd [[
-                let g:lightspeed_last_motion = ''
-                augroup lightspeed_last_motion
-                autocmd!
-                    autocmd User LightspeedSxEnter let g:lightspeed_last_motion = 'sx'
-                    autocmd User LightspeedFtEnter let g:lightspeed_last_motion = 'ft'
-                augroup end
-                map <expr> ; g:lightspeed_last_motion == 'sx' ? "<Plug>Lightspeed_;_sx" : "<Plug>Lightspeed_;_ft"
-                map <expr> ,, g:lightspeed_last_motion == 'sx' ? "<Plug>Lightspeed_,_sx" : "<Plug>Lightspeed_,_ft"
-
-            ]]
+            require"config.leap".setup()
         end
     })
     --- packer
     use "natecraddock/telescope-zf-native.nvim"
-    use {"haya14busa/vim-asterisk", }
+    use { "haya14busa/vim-asterisk", }
     use "ThePrimeagen/harpoon"
     use {
         'rlch/github-notifications.nvim',
@@ -358,11 +315,12 @@ return packer.startup({ function(use)
             'nvim-telescope/telescope.nvim',
         },
     }
-    use({"bfredl/nvim-luadev", cmd="Luadev"})
+    use({ "bfredl/nvim-luadev", cmd = "Luadev" })
     if host_is_not("djosephs") then
         use({
             "NTBBloodbath/daylight.nvim",
             config = function()
+                vim.cmd([[colorscheme doom-one]])
                 require("daylight").setup({
                     day = {
                         name = vim.g.colors_name,
@@ -370,7 +328,7 @@ return packer.startup({ function(use)
                     },
                     night = {
                         name = vim.g.colors_name,
-                        time = 20, -- 7 pm, changes to dark theme on 07:01
+                        time = 19, -- 7 pm, changes to dark theme on 07:01
                     },
                     interval = 60000, -- Time in milliseconds, 1 minute
                 })
@@ -433,11 +391,18 @@ return packer.startup({ function(use)
             )
         end
     })
+    use ({
+        'andymass/vim-matchup',
+    })
     -- use({
     --   "folke/noice.nvim",
     --   event = "VimEnter",
     --   config = function()
-    --     require("noice").setup()
+    --     require("noice").setup(
+    --             {
+    --                 notify = {enabled = false}
+    --             }
+    --         )
     --   end,
     --   requires = {
     --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
@@ -451,5 +416,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-    config = { max_jobs = 25 } }
+config = { max_jobs = 25 } }
 )

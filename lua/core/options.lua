@@ -85,7 +85,6 @@ M.setglobal("lasttab", 1)
 M.setglobal("loaded_matchit", 1)
 M.setglobal("loaded_spec", 1)
 M.setglobal("qs_highlight_on_keys", { 'f', 'F', 't', 'T' })
-M.setglobal("matchup_matchparen_enabled", 0)
 M.setglobal("qs_lazy_highlight", 1)
 M.setglobal("hiPairs_enable_matchParen", 0)
 M.setglobal("hiPairs_timeout", 1)
@@ -106,5 +105,7 @@ M.setglobal("parinfer_filetypes", {
     "wast", "yuck"
 })
 M.setglobal("parinfer_no_maps", true)
+
+vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
 
 return M
