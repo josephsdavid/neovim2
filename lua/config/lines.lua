@@ -80,7 +80,7 @@ local function format_filename(info)
     if not (info.filename) then
         return "Empty"
     end
-    local formatted_name = vim.fn.fnamemodify(name, ":~:.")
+    local formatted_name = vim.fn.fnamemodify(name, "~:.")
     if string.match(formatted_name, "term:") then
         return "term"
     end
@@ -94,10 +94,25 @@ local function format_filename(info)
         else
             out = out .. string.sub(value, 1, 1) .. "/"
         end
-
     end
     return out
 end
+
+-- -- Defined in TM_FILE
+-- local seen = {}
+-- local function _pick_buffer()
+--     local letters = {"a","s","d","f","j","k","l",";","q","w","p","o","z","x","c","v","b","n","m"}
+-- end
+--
+-- local function pick_buffer(info)
+--     seen = {}
+--     if E.take("bufferpick") then
+--
+--     end
+-- end
+
+-- https://github.com/akinsho/bufferline.nvim/blob/0606ceeea77e85428ba06e21c9121e635992ccc7/lua/bufferline/pick.lua
+local letters = "fewqrilpoBIPUASDF"
 
 local function render(f)
     f.make_bufs(function(info)

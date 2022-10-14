@@ -179,8 +179,12 @@ M.setup = function()
 
     local servers = {
         julials = {
+            root_dir = function(fname)
+                local util = require("lspconfig.util")
+                return util.root_pattern("Project.toml")(fname) or util.find_git_ancestor(fname) or util.path.dirname(fname)
+            end,
 
-            cmd = { "juliacli", "server", "--download" },
+            cmd = { "juliacli", "server" },
             settings = {
                 julia = {
                     usePlotPane = false,
@@ -194,6 +198,7 @@ M.setup = function()
                         iter = true,
                         lazy = true,
                         modname = true,
+                        pirates=true
                     },
                 },
             },

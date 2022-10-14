@@ -28,5 +28,6 @@ return { setup = function()
         },
     }
     leap.set_default_keymaps()
+
 end
 }
