@@ -145,7 +145,7 @@ vim.api.nvim_create_user_command("AutoTest", function()
   vim.api.nvim_buf_clear_namespace(bufnr, ns_id, 1, vim.fn.line('$'))
 
   -- this is how you get nvim to run something in the background
-  vim.fn.jobstart({ "juliacli", "pkg", "test" }, {
+  vim.fn.jobstart({ "juliacli", "test" }, {
     stdout_buffered = true,
     on_stdout = function(_, data)
       if data then

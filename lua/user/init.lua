@@ -1,3 +1,4 @@
+require("user.jltest")
 local cache = {}
 
 local function split(s, delimiter)

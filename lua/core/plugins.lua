@@ -238,7 +238,7 @@ return packer.startup({ function(use)
     use { 'kdheepak/JuliaFormatter.vim', ft = "julia" }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg", ft = "norg", config = function()
+    use({ "nvim-neorg/neorg", config = function()
         require("config.norg")
     end })
     use({ "nvim-neorg/neorg-telescope" })
@@ -298,7 +298,7 @@ return packer.startup({ function(use)
     use({
         "ggandor/leap.nvim",
         config = function()
-            require"config.leap".setup()
+            require "config.leap".setup()
         end
     })
     --- packer
@@ -391,9 +391,12 @@ return packer.startup({ function(use)
             )
         end
     })
-    use ({
+    use({
         'andymass/vim-matchup',
     })
+    use({ "erhickey/sig-window-nvim", config = function()
+        require('sig-window-nvim').setup({})
+    end })
     -- use({
     --   "folke/noice.nvim",
     --   event = "VimEnter",
@@ -416,5 +419,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-config = { max_jobs = 25 } }
+    config = { max_jobs = 25 } }
 )
