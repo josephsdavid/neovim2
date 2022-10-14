@@ -80,7 +80,7 @@ local function format_filename(info)
     if not (info.filename) then
         return "Empty"
     end
-    local formatted_name = vim.fn.fnamemodify(name, "~:.")
+    local formatted_name = vim.fn.fnamemodify(name, ":~:.")
     if string.match(formatted_name, "term:") then
         return "term"
     end
