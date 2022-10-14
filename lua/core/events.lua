@@ -16,9 +16,14 @@ local function notifier(key, message)
     end
 end
 
+local function inspect()
+    vim.pretty_print(subscriptions)
+end
+
 return {
     subscriptions = subscriptions,
     notify = notify,
     take = take,
-    notifier = notifier
+    notifier = notifier,
+    inspect = inspect
 }
