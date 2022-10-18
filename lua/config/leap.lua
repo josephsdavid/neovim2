@@ -1,33 +1,26 @@
 return { setup = function()
     local leap = require "leap"
-    vim.cmd([[autocmd ColorScheme * lua require('leap').init_highlight(true)]])
     leap.setup {
-        max_aot_targets = nil,
-        highlight_unlabeled = true,
-        case_sensitive = true,
-        -- Groups of characters that should match each other.
-        -- Obvious candidates are braces & quotes ('([{', ')]}', '`"\'').
-        equivalence_classes = {
-            ' \t\r\n',
-            ')]}>',
-            '([{<',
-            { '"', "'", '`' },
-        },
-        -- Leaving the appropriate list empty effectively disables "smart" mode,
-        -- and forces auto-jump to be on or off.
-        -- safe_labels = { . . . },
-        -- labels = { . . . },
-        -- These keys are captured directly by the plugin at runtime.
-        -- (For `prev_match`, I suggest <s-enter> if possible in the terminal/GUI.)
+        max_phase_one_targets = nil,
+        highlight_unlabeled_phase_one_targets = false,
+        max_highlighted_traversal_targets = 10,
+        case_sensitive = false,
+        -- Sets of characters that should match each other.
+        -- Obvious candidates are braces and quotes ('([{', ')]}', '`"\'').
+        equivalence_classes = { ' \t\r\n', },
+        substitute_chars = {},
         special_keys = {
             repeat_search = '<enter>',
-            next_match    = '<space>',
-            prev_match    = '<C-space>',
-            next_group    = '<tab>',
-            prev_group    = '<S-tab>',
-        },
+            next_phase_one_target = '<enter>',
+            next_target = { '<enter>', ';' },
+            prev_target = { '<tab>', ',' },
+            next_group = '<S-tab>',
+            prev_group = '<tab>',
+            multi_accept = '<enter>',
+            multi_revert = '<backspace>', },
     }
     leap.set_default_keymaps()
+    vim.cmd([[autocmd ColorScheme * lua require('leap').init_highlight(true)]])
 
 end
 }

@@ -394,6 +394,7 @@ return packer.startup({ function(use)
     use ({
         'andymass/vim-matchup',
     })
+use {'kevinhwang91/nvim-bqf'}
     -- use({
     --   "folke/noice.nvim",
     --   event = "VimEnter",
