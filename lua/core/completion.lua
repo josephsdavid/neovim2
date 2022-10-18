@@ -175,15 +175,15 @@ cmp.setup {
     experimental = { native_menu = false, ghost_text = true }
 }
 
-cmp.setup.cmdline("/", {
-    completion = {
-        autocomplete = false,
-    },
-    sources = cmp.config.sources({
-        { name = "nvim_lsp_document_symbol" },
-    }, {
-    }),
-})
+-- cmp.setup.cmdline("/", {
+--     -- completion = {
+--     --     autocomplete = false,
+--     -- },
+--     sources = cmp.config.sources({
+--         { name = "rg" },
+--         { name = "nvim_lsp_document_symbol" },
+--     }, {}),
+-- })
 
 cmp.setup.cmdline(":", {
     completion = {
