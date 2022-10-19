@@ -225,7 +225,7 @@ require 'treesitter-context'.setup {
     mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
 }
 require("spellsitter").setup({
-    enable = { "norg", "markdown", "python", "lua" },
+    enable = { "norg", "markdown", "python", "lua", "julia" },
 })
 
 parser_configs.norg = {
