@@ -102,7 +102,7 @@ M.setglobal("asterisk#keeppos", 1)
 M.setglobal("parinfer_filetypes", {
     "clojure", "scheme", "lisp", "racket",
     "hy", "fennel", "janet", "carp",
-    "wast", "yuck"
+    "wast", "yuck", "query"
 })
 M.setglobal("parinfer_no_maps", true)
 

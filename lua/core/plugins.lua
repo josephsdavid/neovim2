@@ -70,7 +70,7 @@ return packer.startup({ function(use)
     use({ "nvim-treesitter/nvim-treesitter-refactor" })
     use 'nvim-treesitter/nvim-treesitter-context'
     use({ "L3MON4D3/LuaSnip" })
-    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg" } })
+    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query"} })
     use({ "hrsh7th/cmp-nvim-lsp" })
     use({ "hrsh7th/cmp-buffer" })
     use({ "hrsh7th/cmp-path" })
