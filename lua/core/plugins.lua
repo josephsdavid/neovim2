@@ -394,9 +394,9 @@ return packer.startup({ function(use)
     use({
         'andymass/vim-matchup',
     })
-    use({ "erhickey/sig-window-nvim", config = function()
-        require('sig-window-nvim').setup({})
-    end })
+    -- use({ "erhickey/sig-window-nvim", config = function()
+    --     require('sig-window-nvim').setup({})
+    -- end })
     -- use({
     --   "folke/noice.nvim",
     --   event = "VimEnter",
