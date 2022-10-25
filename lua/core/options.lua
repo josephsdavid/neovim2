@@ -107,5 +107,5 @@ M.setglobal("parinfer_filetypes", {
 M.setglobal("parinfer_no_maps", true)
 
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
-
+vim.api.nvim_set_hl(0,"Spell", {undercurl=true})
 return M

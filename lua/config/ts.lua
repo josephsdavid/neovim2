@@ -224,9 +224,6 @@ require 'treesitter-context'.setup {
     zindex = 20, -- The Z-index of the context window
     mode = 'cursor', -- Line used to calculate context. Choices: 'cursor', 'topline'
 }
-require("spellsitter").setup({
-    enable = { "norg", "markdown", "python", "lua", "julia" },
-})
 
 parser_configs.norg = {
     install_info = {
@@ -252,5 +249,5 @@ parser_configs.norg_table = {
     },
 }
 require("spellsitter").setup({
-    enable = { "norg", "markdown", "python", "lua" },
+    enable = { "norg", "markdown", "python", "lua", "julia" },
 })
