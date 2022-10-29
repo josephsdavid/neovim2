@@ -1,4 +1,5 @@
 require("user.jltest")
+require("user.modes.parenthesis")
 local cache = {}
 
 local function split(s, delimiter)

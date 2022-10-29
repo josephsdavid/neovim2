@@ -1,4 +1,3 @@
-local km = require("core.keymap")
 local hm = require("harpoon.mark")
 
 local function harpoon_notify(f)
@@ -70,8 +69,6 @@ M.config = {
             [cx("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
             [cx("x")] = { harpoon_notify(hm.add_file), "harpoon mark" },
             [cxc_("x")] = { harpoon_notify(hm.add_file), "harpoon mark" },
-            ["<Right>"] = { harpoon_notify(require('harpoon.ui').nav_next), "harpoon next" },
-            ["<Left>"] = { harpoon_notify(require('harpoon.ui').nav_prev), "harpoon prev" },
             [cxc_("n")] = { harpoon_notify(require('harpoon.ui').nav_next), "harpoon next" },
             [cx("n")] = { harpoon_notify(require('harpoon.ui').nav_next), "harpoon next" },
             [cxc_("p")] = { harpoon_notify(require('harpoon.ui').nav_prev), "harpoon prev" },

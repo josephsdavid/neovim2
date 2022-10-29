@@ -70,7 +70,7 @@ return packer.startup({ function(use)
     use({ "nvim-treesitter/nvim-treesitter-refactor" })
     use 'nvim-treesitter/nvim-treesitter-context'
     use({ "L3MON4D3/LuaSnip" })
-    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query"} })
+    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query" } })
     use({ "hrsh7th/cmp-nvim-lsp" })
     use({ "hrsh7th/cmp-buffer" })
     use({ "hrsh7th/cmp-path" })
@@ -394,6 +394,38 @@ return packer.startup({ function(use)
     use({
         'andymass/vim-matchup',
     })
+    use 'anuvyklack/hydra.nvim'
+
+    use {
+        'TheBlob42/houdini.nvim',
+        config = function()
+            require("houdini").setup({
+                mappings = { "jk", "AA", "II" },
+                escape_sequences = {
+                    t = false,
+                    i = function(first, second)
+                        local seq = first .. second
+
+                        if vim.opt.filetype:get() == "terminal" then
+                            return "" -- disabled
+                        end
+
+                        if seq == "AA" then
+                            -- jump to the end of the line in insert mode
+                            return "<BS><BS><End>"
+                        end
+                        if seq == "II" then
+                            -- jump to the beginning of the line in insert mode
+                            return "<BS><BS><Home>"
+                        end
+                        return "<BS><BS><ESC>"
+                    end,
+                    R = "<BS><BS><ESC>",
+                    c = "<BS><BS><C-c>",
+                },
+            })
+        end
+    }
     -- use({ "erhickey/sig-window-nvim", config = function()
     --     require('sig-window-nvim').setup({})
     -- end })
@@ -419,5 +451,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-    config = { max_jobs = 25 } }
+config = { max_jobs = 25 } }
 )
