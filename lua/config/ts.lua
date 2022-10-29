@@ -199,11 +199,13 @@ require 'treesitter-context'.setup {
             'class',
             'function',
             'method',
-            -- 'for', -- These won't appear in the context
-            -- 'while',
-            -- 'if',
-            -- 'switch',
-            -- 'case',
+            'for_statement', -- These won't appear in the context
+            'while_statement',
+            'if_statement',
+            'switch',
+            'case',
+            'do_block',
+            "compound_expression"
         },
         -- Example for a specific filetype.
         -- If a pattern is missing, *open a PR* so everyone can benefit.
@@ -248,6 +250,3 @@ parser_configs.norg_table = {
         branch = "main",
     },
 }
-require("spellsitter").setup({
-    enable = { "norg", "markdown", "python", "lua", "julia" },
-})

@@ -1,4 +1,4 @@
 ; extends
-(("->" @macro) (#set! conceal "→"))
+(("->" @keyword) (#set! conceal "→"))
 (("=>" @macro) (#set! conceal "⇒"))
 

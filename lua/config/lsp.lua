@@ -3,7 +3,6 @@ local nvim_lsp = require("lspconfig")
 -- local km = require("core.keymap")
 local km = require("core.keymap")
 
-
 local function rename()
     local curr_name = vim.fn.expand("<cword>")
     local value = vim.fn.input("Old name: " .. curr_name .. ", new name: ")
@@ -61,11 +60,7 @@ M.setup = function()
     end
     local severity = vim.diagnostic.severity
     local config = {
-        underline = {
-            severity = {
-                min = severity.INFO,
-            },
-        },
+        underline = false,
         virtual_text = false,
         {
             prefix = "»",

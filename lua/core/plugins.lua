@@ -70,7 +70,7 @@ return packer.startup({ function(use)
     use({ "nvim-treesitter/nvim-treesitter-refactor" })
     use 'nvim-treesitter/nvim-treesitter-context'
     use({ "L3MON4D3/LuaSnip" })
-    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query"} })
+    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query" } })
     use({ "hrsh7th/cmp-nvim-lsp" })
     use({ "hrsh7th/cmp-buffer" })
     use({ "hrsh7th/cmp-path" })
@@ -156,7 +156,7 @@ return packer.startup({ function(use)
 
 
     })
-
+    -- Or with configuration
     use { "chentoast/marks.nvim",
         config = function()
             require 'marks'.setup {
@@ -189,11 +189,6 @@ return packer.startup({ function(use)
     }
     use "gpanders/nvim-parinfer"
     -- use "PaterJason/cmp-conjure"
-    use {
-        -- Optional but recommended
-        -- 'nvim-treesitter/nvim-treesitter',
-        'lewis6991/spellsitter.nvim',
-    }
     use "mtikekar/nvim-send-to-term"
     use "nvim-telescope/telescope-symbols.nvim"
     -- Lua
@@ -238,7 +233,7 @@ return packer.startup({ function(use)
     use { 'kdheepak/JuliaFormatter.vim', ft = "julia" }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
     use({ "pocco81/truezen.nvim" })
-    use({ "nvim-neorg/neorg", config = function()
+    use({ "nvim-neorg/neorg", ft = "norg", cmd = "NeorgStart", config = function()
         require("config.norg")
     end })
     use({ "nvim-neorg/neorg-telescope" })
@@ -252,7 +247,6 @@ return packer.startup({ function(use)
         end
     })
     use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
-        cmd = "Neogit",
         config = function()
             require('neogit').setup {
                 disable_commit_confirmation = true,
@@ -394,9 +388,18 @@ return packer.startup({ function(use)
     use({
         'andymass/vim-matchup',
     })
-    use({ "erhickey/sig-window-nvim", config = function()
-        require('sig-window-nvim').setup({})
-    end })
+    -- Lua
+    use {
+        "folke/todo-comments.nvim",
+        requires = "nvim-lua/plenary.nvim",
+        config = function()
+            require("todo-comments").setup {
+                -- your configuration comes here
+                -- or leave it empty to use the default settings
+                -- refer to the configuration section below
+            }
+        end
+    }
     -- use({
     --   "folke/noice.nvim",
     --   event = "VimEnter",
