@@ -1,5 +1,6 @@
 require("impatient").enable_profile()
 E = require("core.events")
+km = require("core.keymap")
 
 if table.unpack == nil then
     table.unpack = unpack

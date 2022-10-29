@@ -1,4 +1,3 @@
-local km = require("core.keymap")
 local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
 local swapl = km.genleader(km.leader("s"))
 

@@ -388,7 +388,6 @@ return packer.startup({ function(use)
     use({
         'andymass/vim-matchup',
     })
-    -- Lua
     use {
         "folke/todo-comments.nvim",
         requires = "nvim-lua/plenary.nvim",
@@ -398,6 +397,38 @@ return packer.startup({ function(use)
                 -- or leave it empty to use the default settings
                 -- refer to the configuration section below
             }
+        end
+    }
+    use 'anuvyklack/hydra.nvim'
+
+    use {
+        'TheBlob42/houdini.nvim',
+        config = function()
+            require("houdini").setup({
+                mappings = { "jk", "AA", "II" },
+                escape_sequences = {
+                    t = false,
+                    i = function(first, second)
+                        local seq = first .. second
+
+                        if vim.opt.filetype:get() == "terminal" then
+                            return "" -- disabled
+                        end
+
+                        if seq == "AA" then
+                            -- jump to the end of the line in insert mode
+                            return "<BS><BS><End>"
+                        end
+                        if seq == "II" then
+                            -- jump to the beginning of the line in insert mode
+                            return "<BS><BS><Home>"
+                        end
+                        return "<BS><BS><ESC>"
+                    end,
+                    R = "<BS><BS><ESC>",
+                    c = "<BS><BS><C-c>",
+                },
+            })
         end
     }
     -- use({
@@ -422,5 +453,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-    config = { max_jobs = 25 } }
+config = { max_jobs = 25 } }
 )

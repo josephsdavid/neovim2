@@ -1,4 +1,3 @@
-local km = require("core.keymap")
 require("neorg").setup({
     -- Tell Neorg what modules to load
     load = {

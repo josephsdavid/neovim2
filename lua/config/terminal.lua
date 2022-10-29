@@ -1,4 +1,3 @@
-local km = require("core.keymap")
 local toggleterm = require "toggleterm"
 M = {}
 

@@ -1,7 +1,5 @@
 M = {}
 local nvim_lsp = require("lspconfig")
--- local km = require("core.keymap")
-local km = require("core.keymap")
 
 local function rename()
     local curr_name = vim.fn.expand("<cword>")
@@ -206,7 +204,7 @@ M.setup = function()
             settings = {
                 Lua = {
                     diagnostics = {
-                        globals = { "vim" },
+                        globals = { "vim", "km" },
                     },
                 },
             },
