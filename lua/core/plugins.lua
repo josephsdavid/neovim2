@@ -431,6 +431,28 @@ return packer.startup({ function(use)
             })
         end
     }
+    use({
+        "ggandor/leap-spooky.nvim",
+        config = function()
+            require('leap-spooky').setup {
+                affixes = {
+                    -- These will generate mappings for all native text objects, like:
+                    -- ir{obj}, ar{obj}, iR{obj}, aR{obj}, etc.
+                    -- Special "remote" line objects will also be added, by repeating the
+                    -- affixes. E.g. `yrr<leap>` will yank a line in the current window.
+                    window       = 'r',
+                    cross_window = 'R',
+                },
+                -- If this option is set to true, the yanked text will automatically be pasted
+                -- at the cursor position if the unnamed register is in use.
+                yank_paste = false,
+                -- Call-specific overrides for the Leap motion itself.
+                -- E.g.: opts = { equivalence_classes = {} }
+                opts = nil,
+            }
+        end
+    })
+
     -- use({
     --   "folke/noice.nvim",
     --   event = "VimEnter",
@@ -453,5 +475,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-config = { max_jobs = 25 } }
+    config = { max_jobs = 25 } }
 )
