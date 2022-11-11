@@ -221,7 +221,8 @@ M.setup = function()
                 }
             }
         },
-        pyright = {}
+        pyright = {},
+        zls = {}
     }
 
     for lsp, setup in pairs(servers) do

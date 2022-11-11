@@ -331,7 +331,12 @@ return packer.startup({ function(use)
     end
     use { "rafcamlet/tabline-framework.nvim", requires = "kyazdani42/nvim-web-devicons" } -- BROKEN: dev comments
     use "sindrets/diffview.nvim"
-    use "rebelot/heirline.nvim"
+    -- use {
+    --     "b0o/incline.nvim",
+    --     config = function ()
+    --         require('incline').setup()
+    --     end
+    -- }
     use {
         'tamton-aquib/duck.nvim',
         config = function()
