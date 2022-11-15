@@ -119,42 +119,10 @@ return packer.startup({ function(use)
 
     use({
         'NTBBloodbath/doom-one.nvim',
-        setup = function()
-            -- Add color to cursor
-            vim.g.doom_one_cursor_coloring = true
-            -- Set :terminal colors
-            vim.g.doom_one_terminal_colors = true
-            -- Enable italic comments
-            vim.g.doom_one_italic_comments = true
-            -- Enable TS support
-            vim.g.doom_one_enable_treesitter = true
-            -- Color whole diagnostic text or only underline
-            vim.g.doom_one_diagnostics_text_color = false
-            -- Enable transparent background
-            vim.g.doom_one_transparent_background = false
-
-            -- Pumblend transparency
-            vim.g.doom_one_pumblend_enable = false
-            vim.g.doom_one_pumblend_transparency = 20
-
-            -- Plugins integration
-            vim.g.doom_one_plugin_neorg = true
-            vim.g.doom_one_plugin_bufferline = true
-            vim.g.doom_one_plugin_telescope = true
-            vim.g.doom_one_plugin_neogit = true
-            vim.g.doom_one_plugin_nvim_tree = true
-            vim.g.doom_one_plugin_dashboard = true
-            vim.g.doom_one_plugin_startify = true
-            vim.g.doom_one_plugin_whichkey = true
-            vim.g.doom_one_plugin_indent_blankline = true
-            vim.g.doom_one_plugin_vim_illuminate = true
-            vim.g.doom_one_plugin_lspsaga = false
-        end,
-        -- config = function()
-        --     vim.cmd [[colorscheme doom-one]]
-        -- end
-
-
+	commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
+         config = function()
+             vim.cmd [[colorscheme doom-one]]
+         end
     })
     -- Or with configuration
     use { "chentoast/marks.nvim",
@@ -236,6 +204,9 @@ return packer.startup({ function(use)
     use({ "nvim-neorg/neorg", ft = "norg", cmd = "NeorgStart", config = function()
         require("config.norg")
     end })
+    -- use({ "~/projects/neorg", ft = "norg", cmd = "NeorgStart", config = function()
+    --     require("config.norg")
+    -- end })
     use({ "nvim-neorg/neorg-telescope" })
     -- here is hunk
     -- hunk 2
@@ -440,6 +411,7 @@ return packer.startup({ function(use)
         "ggandor/leap-spooky.nvim",
         config = function() require('leap-spooky').setup { } end
     })
+    use "ziglang/zig.vim"
 
     -- use({
     --   "folke/noice.nvim",

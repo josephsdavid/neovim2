@@ -1,4 +1,4 @@
-require("impatient").enable_profile()
+-- require("impatient").enable_profile()
 E = require("core.events")
 km = require("core.keymap")
 

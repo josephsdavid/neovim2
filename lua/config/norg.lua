@@ -17,6 +17,7 @@ require("neorg").setup({
         ["core.presenter"] = {
             config = {
                 zen_mode = "truezen",
+                depth = "1"
             },
         },
         ["core.integrations.telescope"] = {}, -- Enable the telescope module
