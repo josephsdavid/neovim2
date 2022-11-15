@@ -1,4 +1,5 @@
-; extends
-(("->" @keyword) (#set! conceal "→"))
-(("=>" @macro) (#set! conceal "⇒"))
+; use wezterm 
+; ; extends
+; (("->" @keyword) (#set! conceal "→"))
+; (("=>" @macro) (#set! conceal "⇒"))
 
