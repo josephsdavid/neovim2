@@ -280,7 +280,7 @@ function _G._LINE()
         [[%{luaeval("_MODE()")}]],
         [[%< %{luaeval("_file_or_lsp_status()")} %m%r%=]],
         -- [[%{luaeval("_diagnostic_status()")}]],
-        [[%{luaeval("_diagnostic_status()")} %p%]],
+        [[%{luaeval("_diagnostic_status()")} %l,%c %p%%]],
     }
     return table.concat(parts, '')
 end
