@@ -167,138 +167,124 @@ vim.api.nvim_create_autocmd("ColorScheme", {
     end,
 })
 --
--- local api = vim.api
+local api = vim.api
+
+local function format_uri(uri)
+    if vim.startswith(uri, 'jdt://') then
+        local package = uri:match('contents/[%a%d._-]+/([%a%d._-]+)') or ''
+        local class = uri:match('contents/[%a%d._-]+/[%a%d._-]+/([%a%d$]+).class') or ''
+        return string.format('%s::%s', package, class)
+    else
+        return vim.fn.fnamemodify(vim.uri_to_fname(uri), ':~:.')
+    end
+end
+
+function _G._file_or_lsp_status()
+    -- Neovim keeps the messages sent from the language server in a buffer and
+    -- get_progress_messages polls the messages
+    if vim.api.nvim_buf_get_name(api.nvim_get_current_buf()) == "" then
+        return ""
+    end
+    local messages = vim.lsp.util.get_progress_messages()
+    local mode = api.nvim_get_mode().mode
+
+    -- If neovim isn't in normal mode, or if there are no messages from the
+    -- language server display the file name
+    -- I'll show format_uri later on
+    if mode ~= 'n' or vim.tbl_isempty(messages) then
+        return format_uri(vim.uri_from_bufnr(api.nvim_get_current_buf()))
+    end
+
+    local percentage
+    local result = {}
+    -- Messages can have a `title`, `message` and `percentage` property
+    -- The logic here renders all messages into a stringle string
+    for _, msg in pairs(messages) do
+        if msg.message then
+            table.insert(result, msg.title .. ': ' .. msg.message)
+        else
+            table.insert(result, msg.title)
+        end
+        if msg.percentage then
+            percentage = math.max(percentage or 0, msg.percentage)
+        end
+    end
+    if percentage then
+        return string.format('%03d: %s', percentage, table.concat(result, ', '))
+    else
+        return table.concat(result, ', ')
+    end
+end
+
 --
--- local function format_uri(uri)
---     if vim.startswith(uri, 'jdt://') then
---         local package = uri:match('contents/[%a%d._-]+/([%a%d._-]+)') or ''
---         local class = uri:match('contents/[%a%d._-]+/[%a%d._-]+/([%a%d$]+).class') or ''
---         return string.format('%s::%s', package, class)
---     else
---         return vim.fn.fnamemodify(vim.uri_to_fname(uri), ':~:.')
---     end
--- end
+function _G._diagnostic_status()
+    -- count the number of diagnostics with severity warning
+    local num_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
+    -- If there are any errors only show the error count, don't include the number of warnings
+    if num_errors > 0 then
+        return '  ' .. num_errors .. ' '
+    end
+    -- Otherwise show amount of warnings, or nothing if there aren't any.
+    local num_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
+    if num_warnings > 0 then
+        return '  ' .. num_warnings .. ' '
+    end
+    return ''
+end
 --
--- function _G._file_or_lsp_status()
---     -- Neovim keeps the messages sent from the language server in a buffer and
---     -- get_progress_messages polls the messages
---     if vim.api.nvim_buf_get_name(api.nvim_get_current_buf()) == "" then
---         return ""
---     end
---     local messages = vim.lsp.util.get_progress_messages()
---     local mode = api.nvim_get_mode().mode
+local mode_names = { -- change the strings if you like it vvvvverbose!
+    n = "Normal",
+    no = "Normal",
+    nov = "Normal",
+    noV = "Normal",
+    ["no\22"] = "Normal",
+    niI = "Normal",
+    niR = "Normal",
+    niV = "Normal",
+    nt = "Normal",
+    v = "Visual",
+    vs = "Visual",
+    V = "Visual",
+    Vs = "Visual",
+    ["\22"] = "Visual",
+    ["\22s"] = "Visual",
+    s = "Select",
+    S = "Select",
+    ["\19"] = "Select",
+    i = "Insert",
+    ic = "Insert",
+    ix = "Insert",
+    R = "Replace",
+    Rc = "Replace",
+    Rx = "Replace",
+    Rv = "Replace",
+    Rvc = "Replace",
+    Rvx = "Replace",
+    c = "Command",
+    cv = "Ex",
+    r = "...",
+    rm = "M",
+    ["r?"] = "?",
+    ["!"] = "!",
+    t = "T",
+}
 --
---     -- If neovim isn't in normal mode, or if there are no messages from the
---     -- language server display the file name
---     -- I'll show format_uri later on
---     if mode ~= 'n' or vim.tbl_isempty(messages) then
---         return format_uri(vim.uri_from_bufnr(api.nvim_get_current_buf()))
---     end
+function _G._MODE()
+    local mode = api.nvim_get_mode().mode
+    return "[" .. mode_names[mode] .. "] "
+
+end
 --
---     local percentage
---     local result = {}
---     -- Messages can have a `title`, `message` and `percentage` property
---     -- The logic here renders all messages into a stringle string
---     for _, msg in pairs(messages) do
---         if msg.message then
---             table.insert(result, msg.title .. ': ' .. msg.message)
---         else
---             table.insert(result, msg.title)
---         end
---         if msg.percentage then
---             percentage = math.max(percentage or 0, msg.percentage)
---         end
---     end
---     if percentage then
---         return string.format('%03d: %s', percentage, table.concat(result, ', '))
---     else
---         return table.concat(result, ', ')
---     end
--- end
+function _G._LINE()
+    local parts = {
+        [[%{luaeval("_MODE()")}]],
+        [[%< %{luaeval("_file_or_lsp_status()")} %m%r%=]],
+        -- [[%{luaeval("_diagnostic_status()")}]],
+        [[%{luaeval("_diagnostic_status()")} %p%]],
+    }
+    return table.concat(parts, '')
+end
 --
--- local function diagnostic_status()
---     -- count the number of diagnostics with severity warning
---     local num_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
---     -- If there are any errors only show the error count, don't include the number of warnings
---     if num_errors > 0 then
---         return ' 💀 ' .. num_errors .. ' '
---     end
---     -- Otherwise show amount of warnings, or nothing if there aren't any.
---     local num_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
---     if num_warnings > 0 then
---         return ' 💩' .. num_warnings .. ' '
---     end
---     return ''
--- end
---
--- function _G._diagnostic_status()
---     -- count the number of diagnostics with severity warning
---     local num_errors = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.ERROR })
---     -- If there are any errors only show the error count, don't include the number of warnings
---     if num_errors > 0 then
---         return '  ' .. num_errors .. ' '
---     end
---     -- Otherwise show amount of warnings, or nothing if there aren't any.
---     local num_warnings = #vim.diagnostic.get(0, { severity = vim.diagnostic.severity.WARN })
---     if num_warnings > 0 then
---         return '  ' .. num_warnings .. ' '
---     end
---     return ''
--- end
---
--- local mode_names = { -- change the strings if you like it vvvvverbose!
---     n = "Normal",
---     no = "Normal",
---     nov = "Normal",
---     noV = "Normal",
---     ["no\22"] = "Normal",
---     niI = "Normal",
---     niR = "Normal",
---     niV = "Normal",
---     nt = "Normal",
---     v = "Visual",
---     vs = "Visual",
---     V = "Visual",
---     Vs = "Visual",
---     ["\22"] = "Visual",
---     ["\22s"] = "Visual",
---     s = "Select",
---     S = "Select",
---     ["\19"] = "Select",
---     i = "Insert",
---     ic = "Insert",
---     ix = "Insert",
---     R = "Replace",
---     Rc = "Replace",
---     Rx = "Replace",
---     Rv = "Replace",
---     Rvc = "Replace",
---     Rvx = "Replace",
---     c = "Command",
---     cv = "Ex",
---     r = "...",
---     rm = "M",
---     ["r?"] = "?",
---     ["!"] = "!",
---     t = "T",
--- }
---
--- function _G._MODE()
---     local mode = api.nvim_get_mode().mode
---     return "[" .. mode_names[mode] .. "] "
---
--- end
---
--- function _G._LINE()
---     local parts = {
---         [[%{luaeval("_MODE()")}]],
---         [[%< %{luaeval("_file_or_lsp_status()")} %m%r%=]],
---         [[%{luaeval("_diagnostic_status()")}]],
---         [[%{luaeval("_diagnostic_status()")} %p%]],
---     }
---     return table.concat(parts, '')
--- end
---
--- vim.cmd [[
---     set statusline=%!v:lua._LINE()
--- ]]
+vim.cmd [[
+    set statusline=%!v:lua._LINE()
+]]
