@@ -200,7 +200,22 @@ return packer.startup({ function(use)
     -- }
     use { 'kdheepak/JuliaFormatter.vim', ft = "julia" }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use({ "pocco81/truezen.nvim" })
+    use({ "pocco81/true-zen.nvim",
+        config = function()
+            require("true-zen").setup({
+                modes = {
+                    ataraxis = {
+                        padding = {
+                            left = 24,
+                            right = 24,
+                            top = 12,
+                            bottom = 12
+                        }
+                    }
+                }
+            })
+        end
+    })
     use({ "nvim-neorg/neorg", ft = "norg", cmd = "NeorgStart", config = function()
         require("config.norg")
     end })
