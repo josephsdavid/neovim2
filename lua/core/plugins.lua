@@ -119,10 +119,10 @@ return packer.startup({ function(use)
 
     use({
         'NTBBloodbath/doom-one.nvim',
-	commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
-         config = function()
-             vim.cmd [[colorscheme doom-one]]
-         end
+        commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
+        config = function()
+            vim.cmd [[colorscheme doom-one]]
+        end
     })
     -- Or with configuration
     use { "chentoast/marks.nvim",
@@ -232,6 +232,20 @@ return packer.startup({ function(use)
         },
         ft = { "quarto" },
     })
+    use { 'quarto-dev/quarto-nvim',
+        requires = { 'neovim/nvim-lspconfig' },
+        config = function()
+            local quarto = require 'quarto'
+            vim.keymap.set('n', '<leader>qp', quarto.quartoPreview, { silent = true, noremap = true })
+            quarto.setup {
+                diagnostics = {
+                    enabled = true, -- enable diagnostics for embedded languages
+                    languages = { 'python', 'julia' }
+                }
+            }
+        end
+
+    }
     use({
         "kylechui/nvim-surround",
         config = function()
@@ -409,7 +423,7 @@ return packer.startup({ function(use)
     }
     use({
         "ggandor/leap-spooky.nvim",
-        config = function() require('leap-spooky').setup { } end
+        config = function() require('leap-spooky').setup {} end
     })
     use "ziglang/zig.vim"
 
@@ -435,5 +449,5 @@ return packer.startup({ function(use)
         require("packer").sync()
     end
 end,
-    config = { max_jobs = 25 } }
+config = { max_jobs = 25 } }
 )
