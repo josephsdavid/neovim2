@@ -119,10 +119,10 @@ return packer.startup({ function(use)
 
     use({
         'NTBBloodbath/doom-one.nvim',
-	commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
-         config = function()
-             vim.cmd [[colorscheme doom-one]]
-         end
+        commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
+        config = function()
+            vim.cmd [[colorscheme doom-one]]
+        end
     })
     -- Or with configuration
     use { "chentoast/marks.nvim",
@@ -200,7 +200,22 @@ return packer.startup({ function(use)
     -- }
     use { 'kdheepak/JuliaFormatter.vim', ft = "julia" }
     use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use({ "pocco81/truezen.nvim" })
+    use({ "pocco81/true-zen.nvim",
+        config = function()
+            require("true-zen").setup({
+                modes = {
+                    ataraxis = {
+                        padding = {
+                            left = 24,
+                            right = 24,
+                            top = 12,
+                            bottom = 12
+                        }
+                    }
+                }
+            })
+        end
+    })
     use({ "nvim-neorg/neorg", ft = "norg", cmd = "NeorgStart", config = function()
         require("config.norg")
     end })
@@ -409,7 +424,7 @@ return packer.startup({ function(use)
     }
     use({
         "ggandor/leap-spooky.nvim",
-        config = function() require('leap-spooky').setup { } end
+        config = function() require('leap-spooky').setup {} end
     })
     use "ziglang/zig.vim"
 
