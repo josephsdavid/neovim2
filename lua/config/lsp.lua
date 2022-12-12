@@ -1,5 +1,42 @@
 M = {}
 local nvim_lsp = require("lspconfig")
+local null_ls = require("null-ls")
+local helpers = require("null-ls.helpers")
+local builtins = null_ls.builtins
+local generator = null_ls.generator
+
+local jet_julia = {
+    method = null_ls.methods.DIAGNOSTICS,
+    filetypes = { "julia" },
+    generator = null_ls.generator({
+        command = { "jet" },
+        to_stdin = true,
+        from_stderr = true,
+        -- timeout = timeout,
+        format = "line",
+        check_exit_code = function(code)
+            return code <= 1
+        end,
+        args = { "$FILENAME" },
+        on_output = helpers.diagnostics.from_patterns({
+            {
+                -- TODO: FIXME
+                pattern = [[(%d+):([EIW]):(.*)]],
+                groups = { "row", "severity", "message" },
+                overrides = {
+                    severities = {
+                        E = helpers.diagnostics.severities["error"],
+                        W = helpers.diagnostics.severities["warning"],
+                        I = helpers.diagnostics.severities["information"],
+                    },
+                },
+            },
+        }),
+    }),
+}
+
+-- null_ls.register(jet_julia)
+
 
 local function rename()
     local curr_name = vim.fn.expand("<cword>")
@@ -191,7 +228,7 @@ M.setup = function()
                         iter = true,
                         lazy = true,
                         modname = true,
-                        pirates=true
+                        pirates = true
                     },
                 },
             },

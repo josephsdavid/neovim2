@@ -1,3 +1,4 @@
+; extends
 ((tag ((name) @text.note))
  (#any-of? @text.note "TODO"))
 

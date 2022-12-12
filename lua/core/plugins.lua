@@ -81,7 +81,11 @@ return packer.startup({ function(use)
 
     use({ "Yggdroot/hiPairs", })
     use({ "tpope/vim-repeat", })
-    use({ "tpope/vim-fugitive", cmd = { "Git" } })
+    use({ "tpope/vim-fugitive", cmd = { "Git" }, config = function()
+        vim.cmd [[hi clear DiffText]]
+        vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
+
+    end })
     use({ "vimlab/split-term.vim", cmd = { "Term", "VTerm" } })
     use({ "akinsho/toggleterm.nvim" })
     use({ "folke/lsp-colors.nvim" })
@@ -119,9 +123,37 @@ return packer.startup({ function(use)
 
     use({
         'NTBBloodbath/doom-one.nvim',
-        commit = "60eb78255472bd9a2ca483ce70757cfda57cc706",
         config = function()
+            vim.g.doom_one_cursor_coloring = true
+            -- Set :terminal colors
+            vim.g.doom_one_terminal_colors = true
+            -- Enable italic comments
+            vim.g.doom_one_italic_comments = true
+            -- Enable TS support
+            vim.g.doom_one_enable_treesitter = true
+            -- Color whole diagnostic text or only underline
+            vim.g.doom_one_diagnostics_text_color = false
+            -- Enable transparent background
+            vim.g.doom_one_transparent_background = false
+
+            -- Pumblend transparency
+            vim.g.doom_one_pumblend_enable = false
+            vim.g.doom_one_pumblend_transparency = 20
+
+            -- Plugins integration
+            vim.g.doom_one_plugin_neorg = true
+            vim.g.doom_one_plugin_barbar = false
+            vim.g.doom_one_plugin_telescope = false
+            vim.g.doom_one_plugin_neogit = true
+            vim.g.doom_one_plugin_nvim_tree = false
+            vim.g.doom_one_plugin_dashboard = false
+            vim.g.doom_one_plugin_startify = false
+            vim.g.doom_one_plugin_whichkey = true
+            vim.g.doom_one_plugin_indent_blankline = false
+            vim.g.doom_one_plugin_vim_illuminate = true
+            vim.g.doom_one_plugin_lspsaga = false
             vim.cmd [[colorscheme doom-one]]
+
         end
     })
     -- Or with configuration

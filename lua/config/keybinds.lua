@@ -216,7 +216,7 @@ end
 
 -- center everything
 for _, jumps in ipairs({
-    "G", "n", "N", "%", "(", ")", "[[", "]]", "{", "}", "L", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
+    "G", "n", "N", "(", ")", "[[", "]]", "{", "}", "L", "H", Ctrl("u"), Ctrl("d"), Ctrl("i"), Ctrl("o"), Ctrl("t")
 }) do
     nmap(jumps, { _zz(jumps), "" })
     vmap(jumps, { _zz(jumps), "" })
