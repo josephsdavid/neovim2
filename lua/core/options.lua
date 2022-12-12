@@ -110,5 +110,5 @@ M.setglobal("parinfer_no_maps", true)
 vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
 vim.cmd[[hi clear DiffText]]
 vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
-vim.api.nvim_set_hl(0,"Spell", {undercurl=true})
+-- vim.api.nvim_set_hl(0,"Spell", {undercurl=true})
 return M

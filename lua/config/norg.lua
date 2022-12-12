@@ -27,7 +27,9 @@ require("neorg").setup({
         ["core.norg.journal"] = { config = { workspace = "notes", strategy = "nested" } }, -- Enable the notes
         ["core.norg.completion"] = { config = { engine = "nvim-cmp" } }, -- We current support nvim-compe and nvim-cmp only
         ["core.norg.concealer"] = {
-            config = {
+                    config = {
+                -- markup_preset = "dimmed",
+                -- markup_preset = "conceal",
                 icon_preset = "diamond",
             }, -- Allows for use of icons
             -- dim_code_blocks = {enabled=false}
