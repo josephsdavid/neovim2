@@ -266,7 +266,7 @@ local mode_names = { -- change the strings if you like it vvvvverbose!
     rm = "M",
     ["r?"] = "?",
     ["!"] = "!",
-    t = "T",
+    t = "Terminal",
 }
 --
 function _G._MODE()

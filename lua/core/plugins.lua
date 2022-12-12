@@ -427,6 +427,18 @@ return packer.startup({ function(use)
         config = function() require('leap-spooky').setup {} end
     })
     use "ziglang/zig.vim"
+    -- init.lua
+    use {
+        'lukas-reineke/headlines.nvim',
+        config = function()
+            require("headlines").setup({
+                norg = {
+                    headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
+                    codeblock_highlight = { "NeorgCodeBlock" },
+                }
+            })
+        end,
+    }
 
     -- use({
     --   "folke/noice.nvim",

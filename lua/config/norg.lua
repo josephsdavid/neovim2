@@ -30,6 +30,7 @@ require("neorg").setup({
             config = {
                 icon_preset = "diamond",
             }, -- Allows for use of icons
+            -- dim_code_blocks = {enabled=false}
         },
         ["core.norg.qol.toc"] = {},
         ["core.keybinds"] = { -- Configure core.keybinds
@@ -60,3 +61,10 @@ require("neorg").setup({
         },
     },
 })
+
+vim.cmd[[
+hi link @neorg.markup.bold TSStrong
+hi link @neorg.markup.italic markdownItalic
+set conceallevel=3
+]]
+

@@ -47,7 +47,7 @@ vim.api.nvim_create_autocmd("TabLeave", {
 
 vim.api.nvim_create_autocmd(
     { "BufRead", "BufNewFile" },
-    { pattern = { "*.txt", "*.md", "*.tex", "*.norg", "*.jl" }, command = "setlocal spell" }
+    { pattern = { "*.txt", "*.md", "*.tex", "*.jl" }, command = "setlocal spell" }
 )
 
 vim.api.nvim_create_autocmd(
