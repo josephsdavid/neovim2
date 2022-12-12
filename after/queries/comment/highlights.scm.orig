@@ -1,0 +1,28 @@
+<<<<<<< HEAD
+; extends
+||||||| 083d531
+((tag ((name) @text.note))
+ (#any-of? @text.note "TODO"))
+
+("text" @text.note
+ (#any-of? @text.note "TODO"))
+
+((tag ((name) @text.danger))
+ (#any-of? @text.danger "FIX"))
+
+("text" @text.danger
+ (#any-of? @text.danger "FIX"))
+=======
+; extends
+((tag ((name) @text.note))
+ (#any-of? @text.note "TODO"))
+
+("text" @text.note
+ (#any-of? @text.note "TODO"))
+
+((tag ((name) @text.danger))
+ (#any-of? @text.danger "FIX"))
+
+("text" @text.danger
+ (#any-of? @text.danger "FIX"))
+>>>>>>> 4f9fb6889d2884b09fe8ff6e9c06537a1a679c1f

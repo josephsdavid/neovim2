@@ -248,7 +248,7 @@ return packer.startup({ function(use)
             })
         end
     })
-    use({ "nvim-neorg/neorg", ft = "norg", cmd = "NeorgStart", config = function()
+    use({ "nvim-neorg/neorg", config = function()
         require("config.norg")
     end })
     -- use({ "~/projects/neorg", ft = "norg", cmd = "NeorgStart", config = function()
