@@ -1,3 +1,9 @@
+vim.cmd([[
+  syntax off
+  filetype off
+  filetype plugin indent off
+]])
+
 -- require("impatient").enable_profile()
 E = require("core.events")
 km = require("core.keymap")
@@ -9,3 +15,10 @@ end
 require"core"
 require "config"
 require "user"
+
+vim.cmd([[
+  syntax on
+  filetype on
+  filetype plugin indent on
+]])
+
