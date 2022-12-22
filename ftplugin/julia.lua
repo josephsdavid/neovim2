@@ -23,10 +23,10 @@ vim.keymap.set( "n",km.localleader("v"), ":lua JLVERT()<CR>",
 vim.keymap.set( "n",km.localleader("h"), ":lua JLHORIZ()<CR>",
     {desc =  "Julia repl (horiz)",  noremap = true, silent = false })
 
-vim.cmd([[
-    set conceallevel=2
-    hi link Arrow Normal
-    ]])
+-- vim.cmd([[
+--     set conceallevel=2
+--     hi link Arrow Normal
+--     ]])
 
 
 -- NOTE: parinfer is supporting julia in core.options, but we turn it off by default because sometimes its annoying

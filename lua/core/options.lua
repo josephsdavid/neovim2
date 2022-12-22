@@ -22,7 +22,7 @@ M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
 
 M.setopt("background", "light")
 vim.cmd[[hi function gui=bold]]
-vim.cmd [[colorscheme doom-one]]
+--vim.cmd [[colorscheme doom-one]]
 vim.cmd [[hi macro gui=bold]]
 M.setopt("laststatus", 3)
 M.setopt("foldlevel", 999)

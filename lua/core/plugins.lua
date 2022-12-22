@@ -17,101 +17,80 @@ local function host_is_not(s)
     end
 end
 
-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
-if fn.empty(fn.glob(install_path)) > 0 then
-    PACKER_BOOTSTRAP = fn.system {
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+    vim.fn.system({
         "git",
         "clone",
-        "--depth",
-        "1",
-        "https://github.com/wbthomason/packer.nvim",
-        install_path,
-    }
-    vim.cmd [[packadd packer.nvim]]
+        "--filter=blob:none",
+        "--single-branch",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
+    })
 end
+vim.opt.runtimepath:prepend(lazypath)
 
-vim.cmd [[
-augroup packer_user_config
-autocmd!
-autocmd BufWritePost plugins.lua source <afile> | PackerSync
-augroup end
-]]
 
 local status_ok, packer = pcall(require, "packer")
 if not status_ok then
     return
 end
 
-packer.init {}
+local function push(tab, new)
+    tab[#tab + 1] = new
+end
 
--- Install your plugins here
-return packer.startup({ function(use)
-    use 'lewis6991/impatient.nvim' -- My plugins here
-    use "wbthomason/packer.nvim" -- Have packer manage itself
-    use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
-    use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
-    use({ "nvim-telescope/telescope.nvim" })
-    use({ "neovim/nvim-lspconfig" })
-    -- Lua
-    use {
-        "max397574/which-key.nvim",
-        config = function()
-            require("which-key").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
-            }
+local plugins = {
+    "folke/lazy.nvim", "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "folke/which-key.nvim",
+    "neovim/nvim-lspconfig", "kyazdani42/nvim-web-devicons", { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
+    "nvim-treesitter/playground", "nvim-treesitter/nvim-treesitter-textobjects", "nvim-treesitter/nvim-treesitter-refactor",
+    'nvim-treesitter/nvim-treesitter-context',
+    "L3MON4D3/LuaSnip", { "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query" } },
+    -- TODO: lazy load cmp
+    "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline",
+    "hrsh7th/nvim-cmp", "saadparwaiz1/cmp_luasnip", "lukas-reineke/cmp-rg",
+     "tpope/vim-repeat",
+      {
+    "dstein64/vim-startuptime",
+    -- lazy-load on a command
+    cmd = "StartupTime",
+  },
+    {
+        'andymass/vim-matchup',
+        setup = function()
+            -- may set any options here
+            vim.g.matchup_matchparen_offscreen = { method = "status" }
         end
-    }
-    use({ "kyazdani42/nvim-web-devicons" })
-    use({ "nvim-treesitter/nvim-treesitter", run = ":TSUpdate" })
-    use({ "nvim-treesitter/playground" })
-    use({ "nvim-treesitter/nvim-treesitter-textobjects" })
-    use({ "nvim-treesitter/nvim-treesitter-refactor" })
-    use 'nvim-treesitter/nvim-treesitter-context'
-    use({ "L3MON4D3/LuaSnip" })
-    use({ "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query" } })
-    use({ "hrsh7th/cmp-nvim-lsp" })
-    use({ "hrsh7th/cmp-buffer" })
-    use({ "hrsh7th/cmp-path" })
-    use({ "hrsh7th/cmp-cmdline" })
-    use({ "hrsh7th/nvim-cmp" })
-    use({ "saadparwaiz1/cmp_luasnip" })
-    use "lukas-reineke/cmp-rg"
-
-    use({ "Yggdroot/hiPairs", })
-    use({ "tpope/vim-repeat", })
-    use({ "tpope/vim-fugitive", cmd = { "Git" }, config = function()
+    },
+    { "tpope/vim-fugitive", cmd = {"Gdiffsplit", "Git" }, config = function()
         vim.cmd [[hi clear DiffText]]
         vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
-
-    end })
-    use({ "vimlab/split-term.vim", cmd = { "Term", "VTerm" } })
-    use({ "akinsho/toggleterm.nvim" })
-    use({ "folke/lsp-colors.nvim" })
-    use({ "jose-elias-alvarez/null-ls.nvim" })
-    use({ "rmagatti/goto-preview", event = "LspAttach",
+    end
+    },
+    { "vimlab/split-term.vim", cmd = { "Term", "VTerm" } },
+    {"akinsho/toggleterm.nvim", },
+    "folke/lsp-colors.nvim",
+    "jose-elias-alvarez/null-ls.nvim",
+    { "rmagatti/goto-preview", event = "LspAttach",
         config = function()
             require("goto-preview").setup({})
-        end })
-    -- Lua
-    use "stsewd/tree-sitter-comment"
-
-    use({
+        end
+    },
+    "stsewd/tree-sitter-comment",
+    {
         'numToStr/Comment.nvim',
         config = function()
             require("Comment").setup()
         end
-    })
-    use({ "haringsrob/nvim_context_vt" })
-    use({ 'jghauser/mkdir.nvim' })
-    use "direnv/direnv.vim"
-    use({ 'pwntester/octo.nvim', config = function()
+    },
+    "haringsrob/nvim_context_vt",
+    {"jghauser/mkdir.nvim"},
+    "direnv/direnv.vim",
+    { 'pwntester/octo.nvim', config = function()
         require("config.git")
-    end })
-    use {
+    end },
+    {
         "amrbashir/nvim-docs-view",
-        opt = true,
         cmd = { "DocsViewToggle" },
         config = function()
             require("docs-view").setup {
@@ -119,80 +98,48 @@ return packer.startup({ function(use)
                 width = 60,
             }
         end
-    }
+    },
+   {
+       'NTBBloodbath/doom-one.nvim',
+       config = function()
+           vim.g.doom_one_cursor_coloring = true
+           -- Set :terminal colors
+           vim.g.doom_one_terminal_colors = true
+           -- Enable italic comments
+           vim.g.doom_one_italic_comments = true
+           -- Enable TS support
+           vim.g.doom_one_enable_treesitter = true
+           -- Color whole diagnostic text or only underline
+           vim.g.doom_one_diagnostics_text_color = false
+           -- Enable transparent background
+           vim.g.doom_one_transparent_background = false
 
-    use({
-        'NTBBloodbath/doom-one.nvim',
-        config = function()
-            vim.g.doom_one_cursor_coloring = true
-            -- Set :terminal colors
-            vim.g.doom_one_terminal_colors = true
-            -- Enable italic comments
-            vim.g.doom_one_italic_comments = true
-            -- Enable TS support
-            vim.g.doom_one_enable_treesitter = true
-            -- Color whole diagnostic text or only underline
-            vim.g.doom_one_diagnostics_text_color = false
-            -- Enable transparent background
-            vim.g.doom_one_transparent_background = false
+           -- Pumblend transparency
+           vim.g.doom_one_pumblend_enable = false
+           vim.g.doom_one_pumblend_transparency = 20
 
-            -- Pumblend transparency
-            vim.g.doom_one_pumblend_enable = false
-            vim.g.doom_one_pumblend_transparency = 20
+           -- Plugins integration
+           vim.g.doom_one_plugin_neorg = true
+           vim.g.doom_one_plugin_barbar = false
+           vim.g.doom_one_plugin_telescope = false
+           vim.g.doom_one_plugin_neogit = true
+           vim.g.doom_one_plugin_nvim_tree = false
+           vim.g.doom_one_plugin_dashboard = false
+           vim.g.doom_one_plugin_startify = false
+           vim.g.doom_one_plugin_whichkey = true
+           vim.g.doom_one_plugin_indent_blankline = false
+           vim.g.doom_one_plugin_vim_illuminate = true
+           vim.g.doom_one_plugin_lspsaga = false
+           vim.cmd [[colorscheme doom-one]]
 
-            -- Plugins integration
-            vim.g.doom_one_plugin_neorg = true
-            vim.g.doom_one_plugin_barbar = false
-            vim.g.doom_one_plugin_telescope = false
-            vim.g.doom_one_plugin_neogit = true
-            vim.g.doom_one_plugin_nvim_tree = false
-            vim.g.doom_one_plugin_dashboard = false
-            vim.g.doom_one_plugin_startify = false
-            vim.g.doom_one_plugin_whichkey = true
-            vim.g.doom_one_plugin_indent_blankline = false
-            vim.g.doom_one_plugin_vim_illuminate = true
-            vim.g.doom_one_plugin_lspsaga = false
-            vim.cmd [[colorscheme doom-one]]
-
-        end
-    })
-    -- Or with configuration
-    use { "chentoast/marks.nvim",
-        config = function()
-            require 'marks'.setup {
-                default_mappings = true,
-                builtin_marks = {},
-                cyclic = true,
-                force_write_shada = false,
-                refresh_interval = 250,
-                sign_priority = { lower = 10, upper = 15, builtin = 0, bookmark = 20 },
-                excluded_filetypes = {},
-                mappings = {}
-            }
-        end
-    }
-
-    use "antoinemadec/FixCursorHold.nvim"
-    use "unblevable/quick-scope"
-    -- use 'radenling/vim-dispatch-neovim'
-    -- use "Olical/conjure"
-    use {
-        "X3eRo0/dired.nvim",
-        requires = "MunifTanjim/nui.nvim",
-        config = function()
-            require("dired").setup {
-                path_separator = "/",
-                show_banner = false,
-                show_hidden = true
-            }
-        end
-    }
-    use "gpanders/nvim-parinfer"
-    -- use "PaterJason/cmp-conjure"
-    use "mtikekar/nvim-send-to-term"
-    use "nvim-telescope/telescope-symbols.nvim"
-    -- Lua
-    use {
+       end
+   },
+     "antoinemadec/FixCursorHold.nvim",
+     {"mtikekar/nvim-send-to-term", cmd = "SendHere", config = function ()
+        vim.g.send_disable_mapping=true
+     end},
+     "nvim-telescope/telescope-symbols.nvim",
+    {
         'abecodes/tabout.nvim',
         config = function()
             require('tabout').setup {
@@ -216,23 +163,18 @@ return packer.startup({ function(use)
                 exclude = {} -- tabout will ignore these filetypes
             }
         end,
-        wants = { 'nvim-treesitter' }, -- or require if not used so far
-        after = { "nvim-cmp" } -- if a completion plugin is using tabs load it before
-    }
-    use 'tjdevries/complextras.nvim'
-    use 'onsails/lspkind.nvim'
-    use { 'j-hui/fidget.nvim',
+    },
+     "tjdevries/complextras.nvim",
+     "onsails/lspkind.nvim",
+    { 'j-hui/fidget.nvim',
         config = function()
             require "fidget".setup()
         end
-    }
-    -- use {
-    --     "windwp/nvim-autopairs",
-    --     config = function() require("nvim-autopairs").setup {} end
-    -- }
-    use { 'kdheepak/JuliaFormatter.vim', ft = "julia" }
-    use { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
-    use({ "pocco81/true-zen.nvim",
+    },
+    { 'kdheepak/JuliaFormatter.vim', cmd="JuliaFormatterFormat" },
+    { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
+    { "pocco81/true-zen.nvim",
+        cmd="TZAtaraxis",
         config = function()
             require("true-zen").setup({
                 modes = {
@@ -247,54 +189,27 @@ return packer.startup({ function(use)
                 }
             })
         end
-    })
-    use({ "nvim-neorg/neorg", config = function()
+    },
+    { "nvim-neorg/neorg", ft="norg", config = function()
         require("config.norg")
-    end })
-    -- use({ "~/projects/neorg", ft = "norg", cmd = "NeorgStart", config = function()
-    --     require("config.norg")
-    -- end })
-    use({ "nvim-neorg/neorg-telescope" })
-    -- here is hunk
-    -- hunk 2
-    -- hunk 3
-    use({ "tiagovla/scope.nvim",
-        -- hunk
-        config = function()
-            require("scope").setup()
-        end
-    })
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim',
+    end, dependencies = {"nvim-neorg/neorg-telescope"}},
+    { "tiagovla/scope.nvim",
+            config = function()
+                require("scope").setup()
+            end
+    },
+{ 'TimUntersberger/neogit', dependencies = { 'nvim-lua/plenary.nvim' },
+        lazy = true,
         config = function()
             require('neogit').setup {
                 disable_commit_confirmation = true,
                 use_magit_keybindgs = true
             }
         end
-    }
-    use({
-        "quarto-dev/quarto-vim",
-        requires = {
-            { "vim-pandoc/vim-pandoc-syntax" },
-        },
-        ft = { "quarto" },
-    })
-    use { 'quarto-dev/quarto-nvim',
-        requires = { 'neovim/nvim-lspconfig' },
-        config = function()
-            local quarto = require 'quarto'
-            vim.keymap.set('n', '<leader>qp', quarto.quartoPreview, { silent = true, noremap = true })
-            quarto.setup {
-                diagnostics = {
-                    enabled = true, -- enable diagnostics for embedded languages
-                    languages = { 'python', 'julia' }
-                }
-            }
-        end
-
-    }
-    use({
+    },
+{
         "kylechui/nvim-surround",
+        keys = { "<C-s>", "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
@@ -311,171 +226,52 @@ return packer.startup({ function(use)
                 -- Configuration here, or leave empty to use defaults
             })
         end
-    })
-
-    use { 'ibhagwan/fzf-lua',
-        -- optional for icon support
-        requires = { 'kyazdani42/nvim-web-devicons' },
+    },
+    { 'ibhagwan/fzf-lua',
         config = function()
             vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
         end
-    }
-
-    use({
+    },
+    {
         "ggandor/leap.nvim",
+        keys={"s", "S"},
         config = function()
             require "config.leap".setup()
         end
-    })
-    --- packer
-    use "natecraddock/telescope-zf-native.nvim"
-    use { "haya14busa/vim-asterisk", }
-    use "ThePrimeagen/harpoon"
-    use {
-        'rlch/github-notifications.nvim',
-        config = function()
-            require "github-notifications"
-        end,
-        requires = {
-            'nvim-lua/plenary.nvim',
-            'nvim-telescope/telescope.nvim',
-        },
-    }
-    use({ "bfredl/nvim-luadev", cmd = "Luadev" })
-    if host_is_not("djosephs") then
-        use({
-            "NTBBloodbath/daylight.nvim",
-            config = function()
-                vim.cmd([[colorscheme doom-one]])
-                require("daylight").setup({
-                    day = {
-                        name = vim.g.colors_name,
-                        time = 8, -- 8 am
-                    },
-                    night = {
-                        name = vim.g.colors_name,
-                        time = 19, -- 7 pm, changes to dark theme on 07:01
-                    },
-                    interval = 60000, -- Time in milliseconds, 1 minute
-                })
-            end,
-        })
-    end
-    use { "rafcamlet/tabline-framework.nvim", requires = "kyazdani42/nvim-web-devicons" } -- BROKEN: dev comments
-    use "sindrets/diffview.nvim"
-    -- use {
-    --     "b0o/incline.nvim",
-    --     config = function ()
-    --         require('incline').setup()
-    --     end
-    -- }
-    use {
-        'tamton-aquib/duck.nvim',
-        config = function()
-            vim.api.nvim_set_keymap('n', '<leader>dd', ':lua require("duck").hatch()<CR>', { noremap = true })
-            vim.api.nvim_set_keymap('n', '<leader>dk', ':lua require("duck").cook()<CR>', { noremap = true })
-        end
-    }
-    use {
-        "jbyuki/venn.nvim",
-        config = function()
-            -- venn.nvim: enable or disable keymappings
-            function _G.Toggle_venn()
-                local venn_enabled = vim.inspect(vim.b.venn_enabled)
-                if venn_enabled == "nil" then
-                    vim.b.venn_enabled = true
-                    vim.cmd [[setlocal ve=all]]
-                    -- draw a line on HJKL keystokes
-                    vim.api.nvim_buf_set_keymap(0, "n", "J", "<C-v>j:VBox<CR>", { noremap = true })
-                    vim.api.nvim_buf_set_keymap(0, "n", "K", "<C-v>k:VBox<CR>", { noremap = true })
-                    vim.api.nvim_buf_set_keymap(0, "n", "L", "<C-v>l:VBox<CR>", { noremap = true })
-                    vim.api.nvim_buf_set_keymap(0, "n", "H", "<C-v>h:VBox<CR>", { noremap = true })
-                    -- draw a box by pressing "f" with visual selection
-                    vim.api.nvim_buf_set_keymap(0, "v", "f", ":VBox<CR>", { noremap = true })
-                else
-                    vim.cmd [[setlocal ve=]]
-                    vim.cmd [[mapclear <buffer>]]
-                    vim.b.venn_enabled = nil
-                end
-            end
-
-            -- toggle keymappings for venn using <leader>v
-            vim.api.nvim_set_keymap('n', '<leader>v', ":lua Toggle_venn()<CR>", { noremap = true })
-        end
-    }
-    use { "dstein64/vim-startuptime" }
-    use({
+    },
+     {"haya14busa/vim-asterisk", keys={"*", "z*", "g*", "#", "z#", "g#"}},
+     "ThePrimeagen/harpoon",
+     "rafcamlet/tabline-framework.nvim",
+     "sindrets/diffview.nvim",
+    {
         "aserowy/tmux.nvim",
         config = function() require("tmux").setup({
-                copy_sync = { enable = false },
-                navigation = {
-                    -- cycles to opposite pane while navigating into the border
-                    cycle_navigation = true,
+            copy_sync = { enable = false },
+            navigation = {
+                -- cycles to opposite pane while navigating into the border
+                cycle_navigation = false,
 
-                    -- enables default keybindings (C-hjkl) for normal mode
-                    enable_default_keybindings = false,
+                -- enables default keybindings (C-hjkl) for normal mode
+                enable_default_keybindings = false,
 
-                    -- prevents unzoom tmux when navigating beyond vim border
-                    persist_zoom = false,
-                },
-            }
-            )
+                -- prevents unzoom tmux when navigating beyond vim border
+                persist_zoom = false,
+            },
+        }
+        )
         end
-    })
-    use({
-        'andymass/vim-matchup',
-    })
-    use {
+    },
+    {
         "folke/todo-comments.nvim",
-        requires = "nvim-lua/plenary.nvim",
         config = function()
             require("todo-comments").setup {
-                -- your configuration comes here
-                -- or leave it empty to use the default settings
-                -- refer to the configuration section below
             }
         end
-    }
-    use 'anuvyklack/hydra.nvim'
-
-    use {
-        'TheBlob42/houdini.nvim',
-        config = function()
-            require("houdini").setup({
-                mappings = { "jk", "AA", "II" },
-                escape_sequences = {
-                    t = false,
-                    i = function(first, second)
-                        local seq = first .. second
-
-                        if vim.opt.filetype:get() == "terminal" then
-                            return "" -- disabled
-                        end
-
-                        if seq == "AA" then
-                            -- jump to the end of the line in insert mode
-                            return "<BS><BS><End>"
-                        end
-                        if seq == "II" then
-                            -- jump to the beginning of the line in insert mode
-                            return "<BS><BS><Home>"
-                        end
-                        return "<BS><BS><ESC>"
-                    end,
-                    R = "<BS><BS><ESC>",
-                    c = "<BS><BS><C-c>",
-                },
-            })
-        end
-    }
-    use({
-        "ggandor/leap-spooky.nvim",
-        config = function() require('leap-spooky').setup {} end
-    })
-    use "ziglang/zig.vim"
-    -- init.lua
-    use {
+    },
+     "anuvyklack/hydra.nvim",
+        {
         'lukas-reineke/headlines.nvim',
+        ft={"markdown", "norg"},
         config = function()
             require("headlines").setup({
                 norg = {
@@ -483,30 +279,48 @@ return packer.startup({ function(use)
                     codeblock_highlight = { "NeorgCodeBlock" },
                 }
             })
-        end,
-    }
+        end
+    },
+}
 
-    -- use({
-    --   "folke/noice.nvim",
-    --   event = "VimEnter",
-    --   config = function()
-    --     require("noice").setup(
-    --             {
-    --                 notify = {enabled = false}
-    --             }
-    --         )
-    --   end,
-    --   requires = {
-    --     -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
-    --     "MunifTanjim/nui.nvim",
-    --     "rcarriga/nvim-notify",
-    --     }
-    -- })
-    -- Automatically set up your configuration after cloning packer.nvim
-    -- Put this at the end after all plugins
-    if PACKER_BOOTSTRAP then
-        require("packer").sync()
-    end
-end,
-config = { max_jobs = 25 } }
+push(plugins, {
+    "nvim-telescope/telescope.nvim",
+    config = function()
+        require("config.telescope")
+    end,
+    lazy="true",
+    dependencies = {
+        "nvim-lua/plenary.nvim",
+        { "nvim-telescope/telescope-frecency.nvim", dependencies = "kkharji/sqlite.lua" },
+    },
+})
+
+if host_is_not("djosephs") then
+    push(plugins ,{
+        "NTBBloodbath/daylight.nvim",
+        config = function()
+            vim.cmd([[colorscheme doom-one]])
+            require("daylight").setup({
+                day = {
+                    name = vim.g.colors_name,
+                    time = 8, -- 8 am
+                },
+                night = {
+                    name = vim.g.colors_name,
+                    time = 19, -- 7 pm, changes to dark theme on 07:01
+                },
+                interval = 60000, -- Time in milliseconds, 1 minute
+            })
+        end,
+    })
+end
+
+require("lazy").setup(plugins,
+  {install = {
+    -- install missing plugins on startup. This doesn't increase startup time.
+    missing = true,
+    -- try to load one of these colorschemes when starting an installation during startup
+    colorscheme = { "doom-one" },
+  },}
+
 )
