@@ -48,8 +48,8 @@ local plugins = {
     'nvim-treesitter/nvim-treesitter-context',
     {
         "L3MON4D3/LuaSnip",
-        event="InsertEnter",
-        config = function ()
+        event = "InsertEnter",
+        config = function()
             require "config.snippets"
         end
     },
@@ -63,13 +63,15 @@ local plugins = {
         -- lazy-load on a command
         cmd = "StartupTime",
     },
-    {
-        'andymass/vim-matchup',
-        setup = function()
-            -- may set any options here
-            vim.g.matchup_matchparen_offscreen = { method = "popup" }
-        end
-    },
+    {"Yggdroot/hiPairs",
+    config = function ()
+        vim.g["hiPairs_timeout"]= 1
+        vim.g["hiPairs_insert_timeout"] =  1
+        vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
+        gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
+
+    end
+},
     { "tpope/vim-fugitive", cmd = { "Gdiffsplit", "Git" }, config = function()
         vim.cmd [[hi clear DiffText]]
         vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
@@ -148,31 +150,6 @@ local plugins = {
     { "mtikekar/nvim-send-to-term", cmd = "SendHere", config = function()
         vim.g.send_disable_mapping = true
     end },
-    {
-        'abecodes/tabout.nvim',
-        config = function()
-            require('tabout').setup {
-                tabkey = '<Tab>', -- key to trigger tabout, set to an empty string to disable
-                backwards_tabkey = '<S-Tab>', -- key to trigger backwards tabout, set to an empty string to disable
-                act_as_tab = true, -- shift content if tab out is not possible
-                act_as_shift_tab = false, -- reverse shift content if tab out is not possible (if your keyboard/terminal supports <S-Tab>)
-                default_tab = '<C-t>', -- shift default action (only at the beginning of a line, otherwise <TAB> is used)
-                default_shift_tab = '<C-d>', -- reverse shift default action,
-                enable_backwards = true, -- well ...
-                completion = true, -- if the tabkey is used in a completion pum
-                tabouts = {
-                    { open = "'", close = "'" },
-                    { open = '"', close = '"' },
-                    { open = '`', close = '`' },
-                    { open = '(', close = ')' },
-                    { open = '[', close = ']' },
-                    { open = '{', close = '}' }
-                },
-                ignore_beginning = true, --[[ if the cursor is at the beginning of a filled element it will rather tab out than shift the content ]]
-                exclude = {} -- tabout will ignore these filetypes
-            }
-        end,
-    },
     "tjdevries/complextras.nvim",
     "onsails/lspkind.nvim",
     { 'j-hui/fidget.nvim',
@@ -247,13 +224,13 @@ local plugins = {
             require "config.leap".setup()
         end
     },
-    { "haya14busa/vim-asterisk", keys = { "*", "z*", "g*", "#", "z#", "g#" } },
+    { "haya14busa/vim-asterisk" },
     "ThePrimeagen/harpoon",
     "rafcamlet/tabline-framework.nvim",
     "sindrets/diffview.nvim",
     {
         "aserowy/tmux.nvim",
-        lazy=true,
+        lazy = true,
         config = function() require("tmux").setup({
                 copy_sync = { enable = false },
                 navigation = {
@@ -295,7 +272,7 @@ local plugins = {
 push(plugins, {
     "nvim-telescope/telescope.nvim",
     -- keys = { "<Leader>f", "<C-f>", "<C-p>"},
-    -- cmd = {"Telescope"},
+    cmd = {"Telescope"},
     config = function()
         require("config.telescope")
     end,
