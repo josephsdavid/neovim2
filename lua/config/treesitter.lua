@@ -124,7 +124,7 @@ local function setup()
             enable_autocmd = true,
         },
 
-        indent = { enable = true, disable = { "yaml", "julia", "vim", "help" } },
+        indent = { enable = true, disable = { "yaml", "vim", "help", "julia" } },
 
         incremental_selection = {
             enable = false,
@@ -261,6 +261,7 @@ end
 
 return {
     "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
+    config = setup,
     event = "BufRead",
     dependencies = {
         "nvim-treesitter/playground", "nvim-treesitter/nvim-treesitter-textobjects",
