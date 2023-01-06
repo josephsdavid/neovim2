@@ -11,7 +11,8 @@ end
 appendconfig(require("config.simple_plugins"))
 
 local enabled_modules = {
-    "daylight", "telescope", "snippets", "completion", "norg", "treesitter",
+    -- "daylight", "telescope", "snippets", "completion", "norg",
+    "treesitter",
     "leap", "git"
 }
 
@@ -20,8 +21,6 @@ for _, value in ipairs(enabled_modules) do
     pushconfig(require("config." .. value))
     -- TODO: refactor the rest of the plugins to be good
 end
-
-vim.pretty_print(plugins)
 
 return {
     setup = function()
@@ -53,7 +52,6 @@ return {
 
         require("config.lsp").setup()
         require("config.toggleterm").setup()
-        require("config.keybinds").setup()
         require("config.ui").setup()
         require("config.autocmds").setup()
     end,

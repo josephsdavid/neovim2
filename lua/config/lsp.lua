@@ -1,4 +1,6 @@
 M = {}
+
+local bindings = require "core.keybinds"
 local nvim_lsp = require("lspconfig")
 local null_ls = require("null-ls")
 local helpers = require("null-ls.helpers")
@@ -129,12 +131,12 @@ M.setup = function()
     })
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
 
-    Bindings.config.lsp = { normal = {}, visual = {}, insert = {} }
+    bindings.config.lsp = { normal = {}, visual = {}, insert = {} }
     local g = km.genleader("g")
 
     local function _bind(key, mode)
         local out = function(k, v)
-            Bindings.config[key][mode][k] = v
+            bindings.config[key][mode][k] = v
         end
         return out
     end

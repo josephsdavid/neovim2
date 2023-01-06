@@ -15,9 +15,10 @@ end
 Config = require("config")
 
 Config.setup()
-Config.load_plugins()
 
-require("core.keybinds").setup()
+local bindings = require("core.keybinds")
+
+Config.load_plugins()
 
 vim.cmd([[
   syntax on

@@ -1,6 +1,6 @@
 require "config.ts"
 term = require "config.terminal"
-Bindings = require "config.keybinds"
+local bindings = require "config.keybinds"
 local lsp = require "config.lsp"
 -- alter any treesitter setups here
 lsp.setup()
