@@ -29,11 +29,7 @@ end
 
 local function host_is(s)
     local hostname = string.lower(getHostname())
-    if string.find(hostname, s) then
-        return true
-    else
-        return false
-    end
+    return string.find(hostname, s)
 end
 
 
