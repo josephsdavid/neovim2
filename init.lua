@@ -32,10 +32,7 @@ if table.unpack == nil then
     table.unpack = unpack
 end
 
-Config = require("config")
-
-Config.setup()
-
+require("config")
 require("core.keybinds")
 
 vim.cmd([[
