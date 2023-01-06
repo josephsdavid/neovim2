@@ -8,7 +8,7 @@ local function setup()
 
     local select = {
         enable = true,
-        disable = { "vim" },
+        disable = { "vim", "help" },
 
         -- Automatically jump forward to textobj, similar to targets.vim
         lookahead = true,
@@ -35,7 +35,7 @@ local function setup()
 
     local swap = {
         enable = true,
-        disable = { "vim" },
+        disable = { "vim", "help" },
         swap_next = {
             [swapl("p")] = "@parameter.inner",
             [swapl("f")] = "@function.outer",
@@ -49,7 +49,7 @@ local function setup()
     local move = {
         enable = true,
 
-        disable = { "vim" },
+        disable = { "vim" , "help"},
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
             ["]}"] = "@class.outer",
@@ -72,7 +72,7 @@ local function setup()
     local lsp_interop = {
         enable = true,
 
-        disable = { "vim" },
+        disable = { "vim" , "help"},
         border = "none",
         peek_definition_code = {
             [peekl("f")] = "@function.inner",
@@ -84,7 +84,7 @@ local function setup()
 
     local textob = {
 
-        disable = { "vim" },
+        disable = { "vim" , "help"},
         select = select,
         swap = swap,
         move = move,
@@ -94,7 +94,7 @@ local function setup()
     require("nvim-treesitter.configs").setup({
         playground = {
             enable = true,
-            disable = { "vim" },
+            disable = { "vim" , "help"},
             updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
             persist_queries = false, -- Whether the query persists across vim sessions
             keybindings = {
@@ -119,16 +119,16 @@ local function setup()
             },
         },
         context_commentstring = {
-            disable = { "vim" },
+            disable = { "vim" , "help"},
             enable = true,
             enable_autocmd = true,
         },
 
-        indent = { enable = true, disable = { "yaml", "julia", "vim" } },
+        indent = { enable = true, disable = { "yaml", "julia", "vim" , "help"} },
 
         incremental_selection = {
             enable = false,
-            disable = { "cpp", "vim" },
+            disable = { "cpp", "vim",  "help"},
             keymaps = { -- Keys for incremental selection (visual Keys)
                 init_selection = "gnt", -- maps in normal mode to init the node/scope selection
                 node_incremental = "gtt", -- increment to the upper named parent
@@ -137,7 +137,7 @@ local function setup()
             },
         },
         refactor = {
-            disable = { "vim" },
+            disable = { "vim", "help" },
             highlight_definitions = {
                 enable = false,
             },
@@ -162,7 +162,7 @@ local function setup()
             },
         },
         textsubjects = {
-            disable = { "vim" },
+            disable = { "vim", "help" },
             enable = true,
             prev_selection = ",", -- (Optional) keymap to select the previous selection
             keymaps = {
@@ -194,7 +194,7 @@ local function setup()
 
     require 'treesitter-context'.setup {
         enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
-        disable = { "vim" },
+        disable = { "vim", "help" },
         max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
         trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'
         patterns = { -- Match patterns for TS nodes. These get wrapped to match at word boundaries.

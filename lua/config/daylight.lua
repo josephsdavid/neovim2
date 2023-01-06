@@ -20,7 +20,6 @@ if host_is_not("djosephs") then
     return {
         "NTBBloodbath/daylight.nvim",
         config = function()
-            vim.cmd([[colorscheme doom-one]])
             local daylight = require"daylight"
             daylight.setup({
                 day = {
@@ -33,7 +32,7 @@ if host_is_not("djosephs") then
                 },
                 interval = 60000, -- Time in milliseconds, 1 minute
             })
-            daylight.start()
+            vim.cmd([[DaylightToggle]])
         end,
     }
 else

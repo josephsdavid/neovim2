@@ -131,17 +131,16 @@ M.setup = function()
     })
     vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format{async=true}' ]])
 
-    bindings.config.lsp = { normal = {}, visual = {}, insert = {} }
     local g = km.genleader("g")
 
-    local function _bind(key, mode)
+    local function _bind(mode)
         local out = function(k, v)
-            bindings.config[key][mode][k] = v
+            km.keymap(mode, k, v[1],{noremap = true, silent = true}, v[2])
         end
         return out
     end
 
-    local lspbind = _bind("lsp", "normal")
+    local lspbind = _bind("n")
     -- local lspvbind = _bind("lsp", "visual")
     -- local lspibind = _bind("lsp", "insert")
 

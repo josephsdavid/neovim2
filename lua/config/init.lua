@@ -11,9 +11,12 @@ end
 appendconfig(require("config.simple_plugins"))
 
 local enabled_modules = {
-    -- "daylight", "telescope", "snippets", "completion", "norg",
+    "telescope",
+    "completion",
+    "norg",
     "treesitter",
-    "leap", "git"
+    "leap", "git",
+    "daylight",
 }
 
 
@@ -51,8 +54,8 @@ return {
         )
 
         require("config.lsp").setup()
-        require("config.toggleterm").setup()
-        require("config.ui").setup()
-        require("config.autocmds").setup()
+        require("config.toggleterm")
+        require("config.ui")
+        require("config.autocmds")
     end,
 }

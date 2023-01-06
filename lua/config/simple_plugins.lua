@@ -67,8 +67,6 @@ return {
             vim.g.doom_one_plugin_indent_blankline = false
             vim.g.doom_one_plugin_vim_illuminate = false
             vim.g.doom_one_plugin_lspsaga = false
-            vim.cmd [[colorscheme doom-one]]
-
         end
     },
     "antoinemadec/FixCursorHold.nvim",
@@ -131,7 +129,6 @@ return {
     { "haya14busa/vim-asterisk" },
     "ThePrimeagen/harpoon",
     "rafcamlet/tabline-framework.nvim",
-    "sindrets/diffview.nvim",
     {
         "aserowy/tmux.nvim",
         lazy = true,
@@ -162,6 +159,15 @@ return {
                     codeblock_highlight = { "NeorgCodeBlock" },
                 }
             })
+        end
+    },
+    { 'TimUntersberger/neogit', dependencies = { 'nvim-lua/plenary.nvim' },
+        lazy = true,
+        config = function()
+            require('neogit').setup {
+                disable_commit_confirmation = true,
+                use_magit_keybindgs = true
+            }
         end
     },
 }
