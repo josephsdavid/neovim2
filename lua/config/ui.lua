@@ -288,3 +288,4 @@ end
 vim.cmd [[
     set statusline=%!v:lua._LINE()
 ]]
+

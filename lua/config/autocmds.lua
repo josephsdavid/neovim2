@@ -102,3 +102,4 @@ endif
 --     autocmd CmdlineEnter * call ch_log("::Entering command-line mode::")
 --     autocmd CmdlineLeave * call ch_log("::Leaving command-line mode::")
 -- augroup END
+

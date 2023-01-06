@@ -86,3 +86,4 @@ end
 vim.api.nvim_set_keymap("n", "<localleader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
 
 return M
+

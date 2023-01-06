@@ -230,13 +230,11 @@ end
 
 local mode_map = { normal = "n", visual = "v", terminal = "t", insert = "t", xmode = "x", omni = "o" }
 
-M.setup = function(config)
-    for _, v in pairs(config) do
-        for mode, def in pairs(v) do
-            local modestr = mode_map[mode]
-            for lhs, rhs in pairs(def) do
-                km.keymap(modestr, lhs, rhs[1], {noremap = true, silent = true}, rhs[2])
-            end
+for _, v in pairs(M.config) do
+    for mode, def in pairs(v) do
+        local modestr = mode_map[mode]
+        for lhs, rhs in pairs(def) do
+            km.keymap(modestr, lhs, rhs[1], {noremap = true, silent = true}, rhs[2])
         end
     end
 end
@@ -246,3 +244,4 @@ vim.cmd([[ command! NeorgStart execute 'tabe ~/neorg/index.norg' ]])
 
 
 return M
+
