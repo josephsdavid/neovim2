@@ -21,6 +21,7 @@ for _, value in ipairs(enabled_modules) do
     -- TODO: refactor the rest of the plugins to be good
 end
 
+vim.pretty_print(plugins)
 
 return {
     setup = function()
