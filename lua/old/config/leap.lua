@@ -1,4 +1,4 @@
-local function setup()
+return { setup = function()
     local leap = require "leap"
     leap.setup {
         max_phase_one_targets = nil,
@@ -22,11 +22,5 @@ local function setup()
     leap.set_default_keymaps()
     vim.cmd([[autocmd ColorScheme * lua require('leap').init_highlight(true)]])
 
-
 end
-
-return {
-    "ggandor/leap.nvim",
-    keys = { "s", "S" },
-    config = setup
 }

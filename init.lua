@@ -12,9 +12,12 @@ if table.unpack == nil then
     table.unpack = unpack
 end
 
-require"core"
-require "config"
-require "user"
+Config = require("config")
+
+Config.setup()
+Config.load_plugins()
+
+require("core.keybinds").setup()
 
 vim.cmd([[
   syntax on

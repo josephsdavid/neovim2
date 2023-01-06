@@ -1,77 +1,22 @@
-local fn = vim.fn
-
-local function getHostname()
-    local f = io.popen("/bin/hostname")
-    local hostname = f:read("*a") or ""
-    f:close()
-    hostname = string.gsub(hostname, "\n$", "")
-    return hostname
-end
-
-local function host_is_not(s)
-    local hostname = string.lower(getHostname())
-    if string.find(hostname, s) then
-        return false
-    else
-        return true
-    end
-end
-
-local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
-    vim.fn.system({
-        "git",
-        "clone",
-        "--filter=blob:none",
-        "--single-branch",
-        "https://github.com/folke/lazy.nvim.git",
-        lazypath,
-    })
-end
-vim.opt.runtimepath:prepend(lazypath)
-
-
-local status_ok, packer = pcall(require, "packer")
-if not status_ok then
-    return
-end
-
-local function push(tab, new)
-    tab[#tab + 1] = new
-end
-
-local plugins = {
+return {
     "folke/lazy.nvim", "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "folke/which-key.nvim",
-    "neovim/nvim-lspconfig", "kyazdani42/nvim-web-devicons", { "nvim-treesitter/nvim-treesitter", build = ":TSUpdate" },
-    "nvim-treesitter/playground", "nvim-treesitter/nvim-treesitter-textobjects",
-    "nvim-treesitter/nvim-treesitter-refactor",
-    'nvim-treesitter/nvim-treesitter-context',
-    {
-        "L3MON4D3/LuaSnip",
-        event = "InsertEnter",
-        config = function()
-            require "config.snippets"
-        end
-    },
-    { "kdheepak/cmp-latex-symbols", ft = { "julia", "norg", "query" } },
-    -- TODO: lazy load cmp
-    "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline",
-    "hrsh7th/nvim-cmp", "saadparwaiz1/cmp_luasnip", "lukas-reineke/cmp-rg",
+    "neovim/nvim-lspconfig", "kyazdani42/nvim-web-devicons",
+    -- TODO: make this good
     "tpope/vim-repeat",
     {
         "dstein64/vim-startuptime",
         -- lazy-load on a command
         cmd = "StartupTime",
     },
-    {"Yggdroot/hiPairs",
-    config = function ()
-        vim.g["hiPairs_timeout"]= 1
-        vim.g["hiPairs_insert_timeout"] =  1
-        vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
-        gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
+    { "Yggdroot/hiPairs",
+        config = function()
+            vim.g["hiPairs_timeout"] = 1
+            vim.g["hiPairs_insert_timeout"] = 1
+            vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
+                gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
 
-    end
-},
+        end
+    },
     { "tpope/vim-fugitive", cmd = { "Gdiffsplit", "Git" }, config = function()
         vim.cmd [[hi clear DiffText]]
         vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
@@ -86,21 +31,8 @@ local plugins = {
             require("goto-preview").setup({})
         end
     },
-    "stsewd/tree-sitter-comment",
-    {
-        'numToStr/Comment.nvim',
-        config = function()
-            require("Comment").setup()
-        end
-    },
-    "haringsrob/nvim_context_vt",
-    { "jghauser/mkdir.nvim" },
+    "jghauser/mkdir.nvim",
     "direnv/direnv.vim",
-    { 'pwntester/octo.nvim', config = function()
-        require("config.git")
-    end,
-        cmd = "Octo"
-    },
     {
         "amrbashir/nvim-docs-view",
         cmd = { "DocsViewToggle" },
@@ -115,32 +47,25 @@ local plugins = {
         'NTBBloodbath/doom-one.nvim',
         config = function()
             vim.g.doom_one_cursor_coloring = true
-            -- Set :terminal colors
             vim.g.doom_one_terminal_colors = true
-            -- Enable italic comments
             vim.g.doom_one_italic_comments = true
-            -- Enable TS support
             vim.g.doom_one_enable_treesitter = true
-            -- Color whole diagnostic text or only underline
             vim.g.doom_one_diagnostics_text_color = false
-            -- Enable transparent background
             vim.g.doom_one_transparent_background = false
 
-            -- Pumblend transparency
             vim.g.doom_one_pumblend_enable = false
             vim.g.doom_one_pumblend_transparency = 20
 
-            -- Plugins integration
             vim.g.doom_one_plugin_neorg = true
             vim.g.doom_one_plugin_barbar = false
-            vim.g.doom_one_plugin_telescope = false
+            vim.g.doom_one_plugin_telescope = true
             vim.g.doom_one_plugin_neogit = true
             vim.g.doom_one_plugin_nvim_tree = false
             vim.g.doom_one_plugin_dashboard = false
             vim.g.doom_one_plugin_startify = false
             vim.g.doom_one_plugin_whichkey = true
             vim.g.doom_one_plugin_indent_blankline = false
-            vim.g.doom_one_plugin_vim_illuminate = true
+            vim.g.doom_one_plugin_vim_illuminate = false
             vim.g.doom_one_plugin_lspsaga = false
             vim.cmd [[colorscheme doom-one]]
 
@@ -150,8 +75,6 @@ local plugins = {
     { "mtikekar/nvim-send-to-term", cmd = "SendHere", config = function()
         vim.g.send_disable_mapping = true
     end },
-    "tjdevries/complextras.nvim",
-    "onsails/lspkind.nvim",
     { 'j-hui/fidget.nvim',
         config = function()
             require "fidget".setup()
@@ -175,21 +98,9 @@ local plugins = {
             })
         end
     },
-    { "nvim-neorg/neorg", ft = "norg", config = function()
-        require("config.norg")
-    end, dependencies = { "nvim-neorg/neorg-telescope" } },
     { "tiagovla/scope.nvim",
         config = function()
             require("scope").setup()
-        end
-    },
-    { 'TimUntersberger/neogit', dependencies = { 'nvim-lua/plenary.nvim' },
-        lazy = true,
-        config = function()
-            require('neogit').setup {
-                disable_commit_confirmation = true,
-                use_magit_keybindgs = true
-            }
         end
     },
     {
@@ -217,13 +128,6 @@ local plugins = {
             vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
         end
     },
-    {
-        "ggandor/leap.nvim",
-        keys = { "s", "S" },
-        config = function()
-            require "config.leap".setup()
-        end
-    },
     { "haya14busa/vim-asterisk" },
     "ThePrimeagen/harpoon",
     "rafcamlet/tabline-framework.nvim",
@@ -247,13 +151,6 @@ local plugins = {
             )
         end
     },
-    {
-        "folke/todo-comments.nvim",
-        config = function()
-            require("todo-comments").setup {
-            }
-        end
-    },
     "anuvyklack/hydra.nvim",
     {
         'lukas-reineke/headlines.nvim',
@@ -268,48 +165,3 @@ local plugins = {
         end
     },
 }
-
-push(plugins, {
-    "nvim-telescope/telescope.nvim",
-    -- keys = { "<Leader>f", "<C-f>", "<C-p>"},
-    cmd = {"Telescope"},
-    config = function()
-        require("config.telescope")
-    end,
-    dependencies = {
-        "nvim-lua/plenary.nvim",
-        { "nvim-telescope/telescope-frecency.nvim", dependencies = "kkharji/sqlite.lua" },
-        "nvim-telescope/telescope-symbols.nvim",
-        { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
-    },
-})
-
-if host_is_not("djosephs") then
-    push(plugins, {
-        "NTBBloodbath/daylight.nvim",
-        config = function()
-            vim.cmd([[colorscheme doom-one]])
-            require("daylight").setup({
-                day = {
-                    name = vim.g.colors_name,
-                    time = 8, -- 8 am
-                },
-                night = {
-                    name = vim.g.colors_name,
-                    time = 19, -- 7 pm, changes to dark theme on 07:01
-                },
-                interval = 60000, -- Time in milliseconds, 1 minute
-            })
-        end,
-    })
-end
-
-require("lazy").setup(plugins,
-    { install = {
-        -- install missing plugins on startup. This doesn't increase startup time.
-        missing = true,
-        -- try to load one of these colorschemes when starting an installation during startup
-        colorscheme = { "doom-one" },
-    }, }
-
-)

@@ -27,4 +27,3 @@ return {
     notifier = notifier,
     inspect = inspect
 }
-
