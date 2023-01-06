@@ -20,7 +20,6 @@ M.setbuffer = M.setkey("b")
 M.setters = { opt = M.setopt, global = M.setglobal, buffer = M.setbuffer }
 
 
-M.setopt("background", "light")
 vim.cmd[[hi function gui=bold]]
 --vim.cmd [[colorscheme doom-one]]
 vim.cmd [[hi macro gui=bold]]
