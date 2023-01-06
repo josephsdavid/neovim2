@@ -12,17 +12,37 @@ end
 appendconfig(require("config.simple_plugins"))
 
 local enabled_modules = {
-    "telescope",
+   "telescope",
     "completion",
     "norg",
     "treesitter",
     "leap", "git",
-    "daylight",
 }
+
+local function getHostname()
+    local f = io.popen("/bin/hostname")
+    local hostname = f:read("*a") or ""
+    f:close()
+    hostname = string.gsub(hostname, "\n$", "")
+    return hostname
+end
+
+local function host_is_not(s)
+    local hostname = string.lower(getHostname())
+    if string.find(hostname, s) then
+        return false
+    else
+        return true
+    end
+end
 
 
 for _, value in ipairs(enabled_modules) do
     pushconfig(require("config." .. value))
+end
+
+if host_is_not("djosephs") then
+    pushconfig(require("config.daylight"))
 end
 
 -- load in options and vim only configuration
