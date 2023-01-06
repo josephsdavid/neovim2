@@ -22,7 +22,6 @@ local enabled_modules = {
 
 for _, value in ipairs(enabled_modules) do
     pushconfig(require("config." .. value))
-    -- TODO: refactor the rest of the plugins to be good
 end
 
 return {
