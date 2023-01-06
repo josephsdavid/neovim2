@@ -1,3 +1,12 @@
+
+local function getHostname()
+    local f = io.popen("/bin/hostname")
+    local hostname = f:read("*a") or ""
+    f:close()
+    hostname = string.gsub(hostname, "\n$", "")
+    return hostname
+end
+
 local function host_is_not(s)
     local hostname = string.lower(getHostname())
     if string.find(hostname, s) then
@@ -12,7 +21,8 @@ if host_is_not("djosephs") then
         "NTBBloodbath/daylight.nvim",
         config = function()
             vim.cmd([[colorscheme doom-one]])
-            require("daylight").setup({
+            local daylight = require"daylight"
+            daylight.setup({
                 day = {
                     name = vim.g.colors_name,
                     time = 8, -- 8 am
@@ -23,6 +33,7 @@ if host_is_not("djosephs") then
                 },
                 interval = 60000, -- Time in milliseconds, 1 minute
             })
+            daylight.start()
         end,
     }
 else
