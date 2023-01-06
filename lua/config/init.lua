@@ -27,12 +27,12 @@ local function getHostname()
     return hostname
 end
 
-local function host_is_not(s)
+local function host_is(s)
     local hostname = string.lower(getHostname())
     if string.find(hostname, s) then
-        return false
-    else
         return true
+    else
+        return false
     end
 end
 
@@ -41,7 +41,7 @@ for _, value in ipairs(enabled_modules) do
     pushconfig(require("config." .. value))
 end
 
-if host_is_not("djosephs") then
+if not host_is("djosephs") then
     pushconfig(require("config.daylight"))
 end
 
