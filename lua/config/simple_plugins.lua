@@ -9,6 +9,7 @@ return {
         cmd = "StartupTime",
     },
     { "Yggdroot/hiPairs",
+        event = "BufRead",
         config = function()
             vim.g["hiPairs_timeout"] = 1
             vim.g["hiPairs_insert_timeout"] = 1
@@ -24,7 +25,7 @@ return {
     },
     { "vimlab/split-term.vim", cmd = { "Term", "VTerm" } },
     { "akinsho/toggleterm.nvim", },
-    "folke/lsp-colors.nvim",
+    { "folke/lsp-colors.nvim", event = "LspAttach" },
     "jose-elias-alvarez/null-ls.nvim",
     { "rmagatti/goto-preview", event = "LspAttach",
         config = function()
@@ -32,7 +33,7 @@ return {
         end
     },
     "jghauser/mkdir.nvim",
-    "direnv/direnv.vim",
+    {"direnv/direnv.vim", event = "BufRead"},
     {
         "amrbashir/nvim-docs-view",
         cmd = { "DocsViewToggle" },
@@ -74,6 +75,7 @@ return {
         vim.g.send_disable_mapping = true
     end },
     { 'j-hui/fidget.nvim',
+        event = "LspAttach",
         config = function()
             require "fidget".setup()
         end
