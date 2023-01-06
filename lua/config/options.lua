@@ -51,11 +51,6 @@ local options = {
         lasttab = 1,
         qs_highlight_on_keys = { 'f', 'F', 't', 'T' },
         qs_lazy_highlight = 1,
-        hiPairs_enable_matchParen = 0,
-        hiPairs_timeout = 1,
-        hiPairs_insert_timeout = 1,
-        hiPairs_hl_matchPair = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
-            gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' },
         send_disable_mapping = 1,
         asterisk = 1,
         parinfer_filetypes = {

@@ -18,7 +18,7 @@
   "goto-preview": { "branch": "main", "commit": "54a5e18f6a42b39021b7aef62aae4dda8680d666" },
   "harpoon": { "branch": "master", "commit": "21d0d1bfa3000e4384740bfaefa0ebc51c773786" },
   "headlines.nvim": { "branch": "master", "commit": "1cd93a641c03419bb255f8b3fe734451517763b1" },
-  "hiPairs": { "branch": "master", "commit": "8272bf6979d0ee65a3fdbbb97eff3dda79b661b2" },
+  "hl_match_area.nvim": { "branch": "master", "commit": "e2368a1766fe4e89d22952523a5df182c2f2e4ec" },
   "hydra.nvim": { "branch": "master", "commit": "7e2aa29f88d534371c6b0263d3abbfac7c2376ce" },
   "lazy.nvim": { "branch": "main", "commit": "2ef44e2dee112ba7b83bdfca98f6c07967d65484" },
   "leap.nvim": { "branch": "main", "commit": "a968ab4250840dc879e805f918b4f3b892310a12" },
