@@ -36,42 +36,42 @@ local norg_setup = {
         },
         ["core.norg.qol.toc"] = {},
         ["core.keybinds"] = { -- Configure core.keybinds
-        config = {
-            default_keybinds = true, -- Generate the default keybinds
-            neorg_leader = km.localleader("o"), -- This is the default if unspecified
-            hook = function(keybinds)
-                keybinds.map_event("norg", "n", km.leader("fl"), "core.integrations.telescope.find_linkable")
-                keybinds.map_event("norg", "i", km.ctrl("l"), "core.integrations.telescope.insert_link")
-                keybinds.map_event("norg", "n", km.localleader("m"), "core.looking-glass.magnify-code-block")
-                -- keybinds.map_event("norg", "i", km.ctrl("m"), "core.looking-glass.magnify-code-block")
-            end,
+            config = {
+                default_keybinds = true, -- Generate the default keybinds
+                neorg_leader = km.localleader("o"), -- This is the default if unspecified
+                hook = function(keybinds)
+                    keybinds.map_event("norg", "n", km.leader("fl"), "core.integrations.telescope.find_linkable")
+                    keybinds.map_event("norg", "i", km.ctrl("l"), "core.integrations.telescope.insert_link")
+                    keybinds.map_event("norg", "n", km.localleader("m"), "core.looking-glass.magnify-code-block")
+                    -- keybinds.map_event("norg", "i", km.ctrl("m"), "core.looking-glass.magnify-code-block")
+                end,
+            },
         },
-    },
-    ["core.norg.dirman"] = { -- Manage your directories with Neorg
-    config = {
-        workspaces = {
-            home = "~/neorg",
-            -- personal = "~/neorg/personal",
-            -- work = "~/neorg/work",
-            notes = "~/neorg/notes",
-            recipes = "~/neorg/notes/recipes",
-        },
-        index = "index.norg",
-        --[[ autodetect = true,
+        ["core.norg.dirman"] = { -- Manage your directories with Neorg
+            config = {
+                workspaces = {
+                    home = "~/neorg",
+                    -- personal = "~/neorg/personal",
+                    -- work = "~/neorg/work",
+                    notes = "~/neorg/notes",
+                    recipes = "~/neorg/notes/recipes",
+                },
+                index = "index.norg",
+                --[[ autodetect = true,
         autochdir = false, ]]
-    },
-},
+            },
+        },
     },
 }
 
-vim.cmd[[
+vim.cmd [[
 hi link @neorg.markup.bold TSStrong
 hi link @neorg.markup.italic markdownItalic
 set conceallevel=3
 ]]
 
 return {
-    "nvim-neorg/neorg", ft = "norg", config = function ()
+    "nvim-neorg/neorg", ft = "norg", config = function()
         require("neorg").setup(norg_setup)
     end,
     dependencies = { "nvim-neorg/neorg-telescope" }

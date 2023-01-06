@@ -33,7 +33,7 @@ return {
         end
     },
     "jghauser/mkdir.nvim",
-    {"direnv/direnv.vim", event = "BufRead"},
+    { "direnv/direnv.vim", event = "BufRead" },
     {
         "amrbashir/nvim-docs-view",
         cmd = { "DocsViewToggle" },

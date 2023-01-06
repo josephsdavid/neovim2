@@ -231,6 +231,7 @@ function _G._diagnostic_status()
     end
     return ''
 end
+
 --
 local mode_names = { -- change the strings if you like it vvvvverbose!
     n = "Normal",
@@ -274,6 +275,7 @@ function _G._MODE()
     return "[" .. mode_names[mode] .. "] "
 
 end
+
 --
 function _G._LINE()
     local parts = {
@@ -284,8 +286,8 @@ function _G._LINE()
     }
     return table.concat(parts, '')
 end
+
 --
 vim.cmd [[
     set statusline=%!v:lua._LINE()
 ]]
-

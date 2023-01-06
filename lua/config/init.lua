@@ -49,7 +49,7 @@ require("lazy").setup(
         -- try to load one of these colorschemes when starting an installation during startup
         colorscheme = { "doom-one" },
     },
-      performance = {rtp = {disabled_plugins = {
+    performance = { rtp = { disabled_plugins = {
         "gzip",
         "matchit",
         "matchparen",
@@ -57,8 +57,8 @@ require("lazy").setup(
         "tohtml",
         "tutor",
         "zipPlugin",
-      }}},
-}
+    } } },
+    }
 )
 
 require("config.lsp").setup()

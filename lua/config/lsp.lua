@@ -1,6 +1,5 @@
 M = {}
 
-local bindings = require "core.keybinds"
 local nvim_lsp = require("lspconfig")
 local null_ls = require("null-ls")
 local helpers = require("null-ls.helpers")
@@ -135,7 +134,7 @@ M.setup = function()
 
     local function _bind(mode)
         local out = function(k, v)
-            km.keymap(mode, k, v[1],{noremap = true, silent = true}, v[2])
+            km.keymap(mode, k, v[1], { noremap = true, silent = true }, v[2])
         end
         return out
     end

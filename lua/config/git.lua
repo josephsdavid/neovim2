@@ -19,4 +19,3 @@ local function setup()
 end
 
 return { 'pwntester/octo.nvim', config = setup, cmd = "Octo" }
-

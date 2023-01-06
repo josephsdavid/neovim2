@@ -1,4 +1,3 @@
-
 local function getHostname()
     local f = io.popen("/bin/hostname")
     local hostname = f:read("*a") or ""
@@ -20,7 +19,7 @@ if host_is_not("djosephs") then
     return {
         "NTBBloodbath/daylight.nvim",
         config = function()
-            local daylight = require"daylight"
+            local daylight = require "daylight"
             daylight.setup({
                 day = {
                     name = vim.g.colors_name,
@@ -38,4 +37,3 @@ if host_is_not("djosephs") then
 else
     return nil
 end
-

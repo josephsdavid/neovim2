@@ -49,7 +49,7 @@ local function setup()
     local move = {
         enable = true,
 
-        disable = { "vim" , "help"},
+        disable = { "vim", "help" },
         set_jumps = true, -- whether to set jumps in the jumplist
         goto_next_start = {
             ["]}"] = "@class.outer",
@@ -72,7 +72,7 @@ local function setup()
     local lsp_interop = {
         enable = true,
 
-        disable = { "vim" , "help"},
+        disable = { "vim", "help" },
         border = "none",
         peek_definition_code = {
             [peekl("f")] = "@function.inner",
@@ -84,7 +84,7 @@ local function setup()
 
     local textob = {
 
-        disable = { "vim" , "help"},
+        disable = { "vim", "help" },
         select = select,
         swap = swap,
         move = move,
@@ -94,7 +94,7 @@ local function setup()
     require("nvim-treesitter.configs").setup({
         playground = {
             enable = true,
-            disable = { "vim" , "help"},
+            disable = { "vim", "help" },
             updatetime = 25, -- Debounced time for highlighting nodes in the playground from source code
             persist_queries = false, -- Whether the query persists across vim sessions
             keybindings = {
@@ -119,16 +119,16 @@ local function setup()
             },
         },
         context_commentstring = {
-            disable = { "vim" , "help"},
+            disable = { "vim", "help" },
             enable = true,
             enable_autocmd = true,
         },
 
-        indent = { enable = true, disable = { "yaml", "julia", "vim" , "help"} },
+        indent = { enable = true, disable = { "yaml", "julia", "vim", "help" } },
 
         incremental_selection = {
             enable = false,
-            disable = { "cpp", "vim",  "help"},
+            disable = { "cpp", "vim", "help" },
             keymaps = { -- Keys for incremental selection (visual Keys)
                 init_selection = "gnt", -- maps in normal mode to init the node/scope selection
                 node_incremental = "gtt", -- increment to the upper named parent

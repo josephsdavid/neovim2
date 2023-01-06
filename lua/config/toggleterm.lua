@@ -1,7 +1,7 @@
 local toggleterm = require "toggleterm"
 M = {}
 
-local  config = {normal = {}}
+local config = { normal = {} }
 
 function M.set_terminal_keymaps()
     local opts = { noremap = true }
@@ -11,9 +11,6 @@ function M.set_terminal_keymaps()
     vim.api.nvim_buf_set_keymap(0, "t", "<C-k>", [[<C-\><C-n><C-W>k]], opts)
     vim.api.nvim_buf_set_keymap(0, "t", "<C-l>", [[<C-\><C-n><C-W>l]], opts)
 end
-
-
-
 
 M.genterm = function(opts)
     local term = require("toggleterm.terminal").Terminal:new(opts)
@@ -25,8 +22,8 @@ M.genterm = function(opts)
 end
 
 
-M.toggle_horizontal = M.genterm({direction = "horizontal", hidden=true})
-M.toggle_vertical = M.genterm({direction = "vertical", hidden=true})
+M.toggle_horizontal = M.genterm({ direction = "horizontal", hidden = true })
+M.toggle_vertical = M.genterm({ direction = "vertical", hidden = true })
 
 
 vim.cmd([[autocmd! TermOpen term://* lua require"config.terminal".set_terminal_keymaps()]])
@@ -60,28 +57,27 @@ toggleterm.setup({
 })
 
 
-local Terminal  = require('toggleterm.terminal').Terminal
-local lazygit = Terminal:new({
-  cmd = "lazygit",
-  dir = "git_dir",
-  direction = "float",
-  float_opts = {
-    border = "double",
-  },
-  -- function to run on opening the terminal
-  on_open = function(term)
-    vim.cmd("startinsert!")
-    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", {noremap = true, silent = true})
-  end,
-  -- function to run on closing the terminal
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({
+    cmd = "lazygit",
+    dir = "git_dir",
+    direction = "float",
+    float_opts = {
+        border = "double",
+    },
+    -- function to run on opening the terminal
+    on_open = function(term)
+        vim.cmd("startinsert!")
+        vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
+    end,
+    -- function to run on closing the terminal
 })
 
 function _lazygit_toggle()
-  lazygit:toggle()
+    lazygit:toggle()
 end
 
-vim.api.nvim_set_keymap("n", "<localleader>g", "<cmd>lua _lazygit_toggle()<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "<localleader>g", "<cmd>lua _lazygit_toggle()<CR>", { noremap = true, silent = true })
 
 
 return M
-

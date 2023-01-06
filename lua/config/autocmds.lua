@@ -1,18 +1,18 @@
-vim.api.nvim_create_autocmd({ "DirChanged"}, {
+vim.api.nvim_create_autocmd({ "DirChanged" }, {
     pattern = "tabpage",
     callback = E.notifier("harpoon", true),
 })
-vim.api.nvim_create_autocmd({ "DirChanged"}, {
+vim.api.nvim_create_autocmd({ "DirChanged" }, {
     pattern = "global",
     callback = E.notifier("harpoon", true),
 })
 
-vim.api.nvim_create_autocmd({ "BufWritePost"}, {
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
     pattern = "*",
     callback = E.notifier("harpoon", true),
 })
 
-vim.api.nvim_create_autocmd({ "TabEnter"}, {
+vim.api.nvim_create_autocmd({ "TabEnter" }, {
     pattern = "*",
     callback = E.notifier("harpoon", true),
 })
@@ -102,4 +102,3 @@ endif
 --     autocmd CmdlineEnter * call ch_log("::Entering command-line mode::")
 --     autocmd CmdlineLeave * call ch_log("::Leaving command-line mode::")
 -- augroup END
-
