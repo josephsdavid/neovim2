@@ -1,6 +1,5 @@
 local km = require "core.keymap"
 
-
 vim.keymap.set( "n",km.localleader("f"), km.cmd("Format"),
     {desc =  "format",  noremap = true, silent = false })
 
