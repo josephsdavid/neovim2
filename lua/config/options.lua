@@ -66,7 +66,6 @@ return {
         vim.cmd([[set whichwrap+=<,>,[,],h,l]])
         vim.cmd([[set iskeyword+=-]])
         vim.cmd([[set formatoptions-=cro]])
-        vim.cmd([[filetype plugin on]])
         vim.cmd([[set lazyredraw]])
         vim.cmd [[hi function gui=bold]]
         vim.cmd [[hi macro gui=bold]]

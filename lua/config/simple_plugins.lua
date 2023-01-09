@@ -1,33 +1,22 @@
 return {
     "folke/lazy.nvim", "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "folke/which-key.nvim",
     "neovim/nvim-lspconfig", "kyazdani42/nvim-web-devicons",
-    { 'rareitems/hl_match_area.nvim',
-        config = function()
-            require("hl_match_area").setup()
-            vim.api.nvim_set_hl(0, 'MatchArea', {bg = "#FFFFFF"})
-        end
-    },
     "tpope/vim-repeat",
     {
         "dstein64/vim-startuptime",
         -- lazy-load on a command
         cmd = "StartupTime",
     },
-    -- { "Yggdroot/hiPairs",
-    --     event = "BufReadPost",
-    --     config = function()
-    --         vim.g["hiPairs_timeout"] = 1
-    --         vim.g["hiPairs_insert_timeout"] = 1
-    --         vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
-    --             gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
-    --
-    --         vim.ghiPairs_enable_matchParen = 1
-    --         vim.ghiPairs_timeout = 1
-    --         vim.ghiPairs_insert_timeout = 1
-    --         vim.ghiPairs_hl_matchPair = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
-    --             gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
-    --     end
-    -- },
+    { "Yggdroot/hiPairs",
+        event = "BufRead",
+        config = function()
+            vim.g["hiPairs_timeout"] = 1
+            vim.g["hiPairs_insert_timeout"] = 1
+            vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
+                gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
+
+        end
+    },
     { "tpope/vim-fugitive", cmd = { "Gdiffsplit", "Git" }, config = function()
         vim.cmd [[hi clear DiffText]]
         vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
