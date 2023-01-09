@@ -66,10 +66,6 @@ require("lazy").setup(
         -- try to load one of these colorschemes when starting an installation during startup
         colorscheme = { "doom-one" },
     },
-        defaults = {
-            lazy = true, -- every plugin is lazy-loaded by default
-            version = "*", -- try installing the latest stable version for plugins that support semver
-        },
         performance = { rtp = { disabled_plugins = {
             "gzip",
             -- "matchit",

@@ -128,7 +128,7 @@ return {
             vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
         end
     },
-    { "haya14busa/vim-asterisk" },
+    "haya14busa/vim-asterisk" ,
     "ThePrimeagen/harpoon",
     "rafcamlet/tabline-framework.nvim",
     {
