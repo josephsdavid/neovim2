@@ -19,7 +19,7 @@ appendconfig(require("config.simple_plugins"))
 -- list of modules found in this directory, which return
 -- plugins + their dependencies configured
 local enabled_modules = {
-   "telescope",
+    "telescope",
     "completion",
     "norg",
     "treesitter",
@@ -66,15 +66,19 @@ require("lazy").setup(
         -- try to load one of these colorschemes when starting an installation during startup
         colorscheme = { "doom-one" },
     },
-    performance = { rtp = { disabled_plugins = {
-        "gzip",
-        -- "matchit",
-        -- "matchparen",
-        "tarPlugin",
-        "tohtml",
-        "tutor",
-        "zipPlugin",
-    } } },
+        defaults = {
+            lazy = true, -- every plugin is lazy-loaded by default
+            version = "*", -- try installing the latest stable version for plugins that support semver
+        },
+        performance = { rtp = { disabled_plugins = {
+            "gzip",
+            -- "matchit",
+            -- "matchparen",
+            "tarPlugin",
+            "tohtml",
+            "tutor",
+            "zipPlugin",
+        } } },
     }
 )
 
