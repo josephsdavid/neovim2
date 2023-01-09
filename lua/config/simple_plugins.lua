@@ -105,6 +105,7 @@ return {
     {
         "kylechui/nvim-surround",
         keys = { "<C-s>", "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
+        events= {"InsertEnter"},
         config = function()
             require("nvim-surround").setup({
                 keymaps = {

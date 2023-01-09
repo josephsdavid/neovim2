@@ -159,8 +159,11 @@ local function setup()
         sources = sources,
         sorting = sorting,
         snippet = snippet,
+        -- view = {entries = "native"},
         formatting = formatting,
-        experimental = { native_menu = false, ghost_text = true }
+        experimental = { ghost_text = {
+            hl_group = "@comment"
+        } }
     }
     cmp.setup.cmdline(":", {
         completion = {

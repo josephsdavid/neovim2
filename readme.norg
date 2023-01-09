@@ -1,0 +1,46 @@
+* My neovim configuration
+
+  This is really mostly for personal use, however feel free to steal!
+
+
+** How to make it your own
+
+*** Adding a simple plugin
+
+    If you want to add a simple plugin that does not require much configuration, simply add it to `lua/config/simple_plugins.lua`! It follows the {https://github.com/folke/lazy.nvim}[lazy plugin format], and you can just add things here however you like
+
+*** Adding a complex plugin
+    Sometimes, plugins require a bit more configuration, or have a lot of dependencies! To add something like this, you /could/ simply add it to simple_plugins.lua, configure it somewhere, then require it, _or_ you could do it in a nicer way! Lets pretend we are adding "me/my-plugin.nvim". First lets add a file `lua/config/myplugin.lua`, which says
+
+    @code lua 
+    -- some code up here maybe
+    local function config() 
+        vim.pretty_print("initializing my plugin!") -- dont actually do this lol
+        require ("my-plugin")
+        -- do whatever you need to do to configure your plugin here, keeping the calls to requires in the function
+        -- means we can lazy load safely
+    end
+
+    return {
+        "me/my-plugin.nvim",
+        config = config,
+    } -- a lazy.nvim setup table
+    @end 
+
+    Then, we can add to `lua/config/init.lua`:
+
+    @code lua
+    local enabled_modules = {
+        "telescope",
+        "completion",
+        "norg",
+        "treesitter",
+        "leap", "git",
+        "myplugin"
+    }
+    @end
+
+    By adding to this table, the lazy table returned by our config is added to the list of plugins which lazy installs! This way, you can delete pieces and turn them off and on. 
+
+
+    I will perhaps document the rest later, but again this is for personal use
