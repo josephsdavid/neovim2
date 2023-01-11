@@ -289,12 +289,12 @@ return {
             end
         },
         { "folke/lsp-colors.nvim", event = "LspAttach" },
-        { 'j-hui/fidget.nvim',
-            event = "LspAttach",
-            config = function()
-                require "fidget".setup()
-            end
-        },
+        -- { 'j-hui/fidget.nvim',
+        --     event = "LspAttach",
+        --     config = function()
+        --         require "fidget".setup()
+        --     end
+        -- },
         {
             "amrbashir/nvim-docs-view",
             cmd = { "DocsViewToggle" },
