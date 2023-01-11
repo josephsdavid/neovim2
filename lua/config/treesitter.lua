@@ -262,7 +262,7 @@ end
 return {
     "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
     config = setup,
-    event = "BufRead",
+    event = "ColorScheme",
     dependencies = {
         { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" }, "nvim-treesitter/nvim-treesitter-textobjects",
         {

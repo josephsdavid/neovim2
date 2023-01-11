@@ -2,41 +2,41 @@ function setup()
     local ret = {}
 
     local nvim_lsp = require("lspconfig")
-    local null_ls = require("null-ls")
-    local helpers = require("null-ls.helpers")
-    local builtins = null_ls.builtins
-    local generator = null_ls.generator
-
-    local jet_julia = {
-        method = null_ls.methods.DIAGNOSTICS,
-        filetypes = { "julia" },
-        generator = null_ls.generator({
-            command = { "jet" },
-            to_stdin = true,
-            from_stderr = true,
-            -- timeout = timeout,
-            format = "line",
-            check_exit_code = function(code)
-                return code <= 1
-            end,
-            args = { "$FILENAME" },
-            on_output = helpers.diagnostics.from_patterns({
-                {
-                    -- TODO: FIXME
-                    pattern = [[(%d+):([EIW]):(.*)]],
-                    groups = { "row", "severity", "message" },
-                    overrides = {
-                        severities = {
-                            E = helpers.diagnostics.severities["error"],
-                            W = helpers.diagnostics.severities["warning"],
-                            I = helpers.diagnostics.severities["information"],
-                        },
-                    },
-                },
-            }),
-        }),
-    }
-
+    -- local null_ls = require("null-ls")
+    -- local helpers = require("null-ls.helpers")
+    -- local builtins = null_ls.builtins
+    -- local generator = null_ls.generator
+    --
+    -- local jet_julia = {
+    --     method = null_ls.methods.DIAGNOSTICS,
+    --     filetypes = { "julia" },
+    --     generator = null_ls.generator({
+    --         command = { "jet" },
+    --         to_stdin = true,
+    --         from_stderr = true,
+    --         -- timeout = timeout,
+    --         format = "line",
+    --         check_exit_code = function(code)
+    --             return code <= 1
+    --         end,
+    --         args = { "$FILENAME" },
+    --         on_output = helpers.diagnostics.from_patterns({
+    --             {
+    --                 -- TODO: FIXME
+    --                 pattern = [[(%d+):([EIW]):(.*)]],
+    --                 groups = { "row", "severity", "message" },
+    --                 overrides = {
+    --                     severities = {
+    --                         E = helpers.diagnostics.severities["error"],
+    --                         W = helpers.diagnostics.severities["warning"],
+    --                         I = helpers.diagnostics.severities["information"],
+    --                     },
+    --                 },
+    --             },
+    --         }),
+    --     }),
+    -- }
+    --
     -- null_ls.register(jet_julia)
 
 
@@ -273,37 +273,16 @@ function setup()
 
     end
     ret.setup()
-    return ret
+    return nil
 
 end
 
 return {
     "neovim/nvim-lspconfig",
     config = setup,
-    event = "BufReadPost",
+    -- event = {"InsertEnter", "CursorMoved", "ModeChanged", "CursorHold"}, -- i just want it to load a little later
     dependencies = {
-        "jose-elias-alvarez/null-ls.nvim",
-        { "rmagatti/goto-preview", event = "LspAttach",
-            config = function()
-                require("goto-preview").setup({})
-            end
-        },
-        { "folke/lsp-colors.nvim", event = "LspAttach" },
-        -- { 'j-hui/fidget.nvim',
-        --     event = "LspAttach",
-        --     config = function()
-        --         require "fidget".setup()
-        --     end
-        -- },
-        {
-            "amrbashir/nvim-docs-view",
-            cmd = { "DocsViewToggle" },
-            config = function()
-                require("docs-view").setup {
-                    position = "bottom",
-                    width = 60,
-                }
-            end
-        },
+        "hrsh7th/cmp-nvim-lsp"
+        -- "jose-elias-alvarez/null-ls.nvim",
     }
 }

@@ -102,7 +102,8 @@ return {
     { 'ibhagwan/fzf-lua',
         config = function()
             vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
-        end
+        end,
+        cmd="FzfLua"
     },
     "haya14busa/vim-asterisk",
     "ThePrimeagen/harpoon",
@@ -145,6 +146,28 @@ return {
             require('neogit').setup {
                 disable_commit_confirmation = true,
                 use_magit_keybindgs = true
+            }
+        end
+    },
+    { "rmagatti/goto-preview", event = "LspAttach",
+        config = function()
+            require("goto-preview").setup({})
+        end
+    },
+    { "folke/lsp-colors.nvim", event = "LspAttach" },
+    { 'j-hui/fidget.nvim',
+        event = "LspAttach",
+        config = function()
+            require "fidget".setup()
+        end
+    },
+    {
+        "amrbashir/nvim-docs-view",
+        cmd = { "DocsViewToggle" },
+        config = function()
+            require("docs-view").setup {
+                position = "bottom",
+                width = 60,
             }
         end
     },
