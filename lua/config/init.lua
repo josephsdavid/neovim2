@@ -24,6 +24,7 @@ local enabled_modules = {
     "norg",
     "treesitter",
     "leap", "git",
+    "lsp"
 }
 
 -- if we are not on work server, enable the "daylight" module
@@ -79,7 +80,7 @@ require("lazy").setup(
 )
 
 -- setup other more complex configuration options
-require("config.lsp").setup()
+-- require("config.lsp").setup()
 require("config.toggleterm")
 require("config.ui")
 require("config.autocmds")

@@ -1,7 +1,6 @@
 return {
-    "folke/lazy.nvim", "nvim-lua/popup.nvim", "nvim-lua/plenary.nvim", "folke/which-key.nvim",
-    "neovim/nvim-lspconfig", "kyazdani42/nvim-web-devicons",
-    "tpope/vim-repeat",
+    "folke/lazy.nvim", "nvim-lua/popup.nvim", { "nvim-lua/plenary.nvim", lazy = true },
+    "folke/which-key.nvim", "kyazdani42/nvim-web-devicons", "tpope/vim-repeat",
     {
         "dstein64/vim-startuptime",
         -- lazy-load on a command
@@ -12,7 +11,8 @@ return {
         config = function()
             vim.g["hiPairs_timeout"] = 1
             vim.g["hiPairs_insert_timeout"] = 1
-            vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0', ctermbg = '180',
+            vim.g["hiPairs_hl_matchPair"] = { term = 'underline,bold', cterm = 'underline,bold', ctermfg = '0',
+                ctermbg = '180',
                 gui = 'underline,bold,italic', guifg = '#fb94ff', guibg = 'NONE' }
 
         end
@@ -23,26 +23,8 @@ return {
     end
     },
     { "vimlab/split-term.vim", cmd = { "Term", "VTerm" } },
-    { "akinsho/toggleterm.nvim", },
-    { "folke/lsp-colors.nvim", event = "LspAttach" },
-    "jose-elias-alvarez/null-ls.nvim",
-    { "rmagatti/goto-preview", event = "LspAttach",
-        config = function()
-            require("goto-preview").setup({})
-        end
-    },
-    "jghauser/mkdir.nvim",
+    "akinsho/toggleterm.nvim", "jghauser/mkdir.nvim",
     { "direnv/direnv.vim", event = "BufRead" },
-    {
-        "amrbashir/nvim-docs-view",
-        cmd = { "DocsViewToggle" },
-        config = function()
-            require("docs-view").setup {
-                position = "bottom",
-                width = 60,
-            }
-        end
-    },
     {
         'NTBBloodbath/doom-one.nvim',
         config = function()
@@ -73,12 +55,6 @@ return {
     { "mtikekar/nvim-send-to-term", cmd = "SendHere", config = function()
         vim.g.send_disable_mapping = true
     end },
-    { 'j-hui/fidget.nvim',
-        event = "LspAttach",
-        config = function()
-            require "fidget".setup()
-        end
-    },
     { 'kdheepak/JuliaFormatter.vim', cmd = "JuliaFormatterFormat" },
     { "pocco81/true-zen.nvim",
         cmd = "TZAtaraxis",
@@ -105,7 +81,7 @@ return {
     {
         "kylechui/nvim-surround",
         keys = { "<C-s>", "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
-        events= {"InsertEnter"},
+        events = { "InsertEnter" },
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
@@ -128,7 +104,7 @@ return {
             vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
         end
     },
-    "haya14busa/vim-asterisk" ,
+    "haya14busa/vim-asterisk",
     "ThePrimeagen/harpoon",
     "rafcamlet/tabline-framework.nvim",
     {

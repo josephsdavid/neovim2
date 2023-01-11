@@ -264,16 +264,21 @@ return {
     config = setup,
     event = "BufRead",
     dependencies = {
-        "nvim-treesitter/playground", "nvim-treesitter/nvim-treesitter-textobjects",
-        "nvim-treesitter/nvim-treesitter-refactor",
+        { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" }, "nvim-treesitter/nvim-treesitter-textobjects",
+        {
+            "nvim-treesitter/nvim-treesitter-refactor",
+            keys = { km.localleader("rn"), km.alt(";"), km.alt("'"), "gO", km.localleader("D"), km.localleader("d"), }
+        },
         'nvim-treesitter/nvim-treesitter-context',
-        "stsewd/tree-sitter-comment",
         "haringsrob/nvim_context_vt",
         {
             'numToStr/Comment.nvim',
             config = function()
                 require("Comment").setup()
-            end
+            end,
+            dependencies = {
+                "stsewd/tree-sitter-comment",
+            }
         },
         {
             "folke/todo-comments.nvim",

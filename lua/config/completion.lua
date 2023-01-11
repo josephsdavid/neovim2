@@ -189,7 +189,7 @@ return {
     -- load cmp on InsertEnter
     event = "InsertEnter",
     dependencies = {
-        { "kdheepak/cmp-latex-symbols" },
+        { "https://gitlab.com/ExpandingMan/cmp-latex" },
         {
             "L3MON4D3/LuaSnip",
             config = function()
