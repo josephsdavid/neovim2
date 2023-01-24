@@ -103,7 +103,7 @@ return {
         config = function()
             vim.api.nvim_set_hl(0, "FzfLuaBorder", { link = "FloatBorder" })
         end,
-        cmd="FzfLua"
+        cmd = "FzfLua"
     },
     "haya14busa/vim-asterisk",
     "ThePrimeagen/harpoon",
@@ -169,6 +169,18 @@ return {
                 position = "bottom",
                 width = 60,
             }
+        end
+    },
+    {
+        'chomosuke/term-edit.nvim',
+        lazy = false, -- or ft = 'toggleterm' if you use toggleterm.nvim
+        version = '1.*',
+    },
+    {
+        'stevearc/oil.nvim',
+        config = function()
+            require('oil').setup()
+            vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
         end
     },
 }
