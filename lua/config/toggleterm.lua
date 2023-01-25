@@ -26,7 +26,7 @@ M.toggle_horizontal = M.genterm({ direction = "horizontal", hidden = true })
 M.toggle_vertical = M.genterm({ direction = "vertical", hidden = true })
 
 
-vim.cmd([[autocmd! TermOpen term://* lua require"config.toggleterm".set_terminal_keymaps()]])
+-- vim.cmd([[autocmd! TermOpen term://* lua require"config.toggleterm".set_terminal_keymaps()]])
 toggleterm.setup({
     size = function(term)
         if term.direction == "horizontal" then
@@ -41,7 +41,7 @@ toggleterm.setup({
     shade_terminals = false,
     shading_factor = 2,
     start_in_insert = false,
-    insert_mappings = true,
+    insert_mappings = false,
     persist_size = true,
     direction = "vertical",
     close_on_exit = false,

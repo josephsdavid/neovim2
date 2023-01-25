@@ -220,7 +220,7 @@ function setup()
                 settings = {
                     julia = {
                         usePlotPane = false,
-                        symbolCacheDownload = true,
+                        symbolCacheDownload = false,
                         runtimeCompletions = true,
                         singleFileSupport = true,
                         useRevise = true,

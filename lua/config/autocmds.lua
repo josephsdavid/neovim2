@@ -66,6 +66,7 @@ vim.cmd [[
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR>
     autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Search', timeout = 200})
     autocmd BufWinEnter * :set formatoptions-=cro
+    autocmd TermOpen * :set nonumber norelativenumber
     autocmd InsertLeave,WinEnter * set cursorline
     autocmd InsertEnter,WinLeave * set nocursorline
     autocmd FileType qf set nobuflisted
@@ -86,6 +87,11 @@ if has("autocmd")
 	autocmd BufWritePre *.txt,*.jl,*.js,*.py,*.wiki,*.sh,*.coffee,*.lua :call CleanExtraSpaces()
 endif
 ]]
+
+vim.api.nvim_create_autocmd({ "TermOpen" }, {
+    pattern = "*",
+    callback = E.notifier("harpoon", true),
+})
 
 -- TODO: some vim sensei stuff
 
