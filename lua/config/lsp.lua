@@ -221,6 +221,7 @@ function setup()
                     julia = {
                         usePlotPane = false,
                         symbolCacheDownload = false,
+                        enableCrashReporter = false,
                         runtimeCompletions = true,
                         singleFileSupport = true,
                         useRevise = true,
