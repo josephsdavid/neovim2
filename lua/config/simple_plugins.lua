@@ -1,4 +1,4 @@
-return {
+local plugins = {
     "folke/lazy.nvim", "nvim-lua/popup.nvim", { "nvim-lua/plenary.nvim", lazy = true },
     "folke/which-key.nvim", "kyazdani42/nvim-web-devicons", "tpope/vim-repeat",
     {
@@ -198,4 +198,41 @@ return {
             vim.keymap.set("n", "-", require("oil").open, { desc = "Open parent directory" })
         end
     },
+    { 'kosayoda/nvim-lightbulb',
+        dependencies = 'antoinemadec/FixCursorHold.nvim',
+        event = "LspAttach",
+        config = function()
+            require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+        end
+    }
 }
+
+
+local f = io.popen("/bin/hostname")
+local hostname = f:read("*a") or ""
+
+-- if hostname == "computer" then
+--     plugins[#plugins + 1] = {
+--         "xiyaowong/nvim-transparent",
+--         config = function()
+--             require("transparent").setup({
+--               enable = true, -- boolean: enable transparent
+--               extra_groups = { -- table/string: additional groups that should be cleared
+--                 -- In particular, when you set it to 'all', that means all available groups
+--
+--                 -- example of akinsho/nvim-bufferline.lua
+--                 "BufferLineTabClose",
+--                 "BufferlineBufferSelected",
+--                 "BufferLineFill",
+--                 "BufferLineBackground",
+--                 "BufferLineSeparator",
+--                 "BufferLineIndicatorSelected",
+--               },
+--               exclude = {}, -- table: groups you don't want to clear
+--             })
+--             vim.cmd([[TransparentEnable]])
+--         end
+--     }
+-- end
+
+return plugins
