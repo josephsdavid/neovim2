@@ -170,6 +170,8 @@ function setup()
             -- local function vim.api.nvim_buf_set_keymap(a,b,c,d)
             -- 	vim.api.nvim_vim.api.nvim_buf_set_keymap(bufnr, a,b,c,d)
             -- end
+            local lsp_format_modifications = require "lsp-format-modifications"
+            lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
             local function buf_set_option(...)
                 vim.api.nvim_buf_set_option(bufnr, ...)
             end
@@ -237,7 +239,7 @@ function setup()
                 },
 
             },
-            sumneko_lua = {
+            lua_ls = {
                 cmd = {
                     "lua-language-server",
                 },
@@ -283,7 +285,8 @@ return {
     config = setup,
     -- event = {"InsertEnter", "CursorMoved", "ModeChanged", "CursorHold"}, -- i just want it to load a little later
     dependencies = {
-        "hrsh7th/cmp-nvim-lsp"
+        "hrsh7th/cmp-nvim-lsp",
+        'joechrisellis/lsp-format-modifications.nvim'
         -- "jose-elias-alvarez/null-ls.nvim",
     }
 }
