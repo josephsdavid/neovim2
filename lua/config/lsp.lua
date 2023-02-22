@@ -147,7 +147,7 @@ function setup()
         local ntable = {
             [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
             [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
-            [km.leader("c")] = { km.luacmd("vim.lsp.buf.code_action()"), "code action" },
+            [km.leader("a")] = { km.luacmd("vim.lsp.buf.code_action()"), "code action" },
             [g("D")] = { km.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
             [g("q")] = { km.luacmd("require('goto-preview').close_all_win()"), "close popups" },
             [g("l")] = { km.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
@@ -172,7 +172,7 @@ function setup()
             -- 	vim.api.nvim_vim.api.nvim_buf_set_keymap(bufnr, a,b,c,d)
             -- end
             local lsp_format_modifications = require "lsp-format-modifications"
-            lsp_format_modifications.attach(client, bufnr, { format_on_save = true })
+            lsp_format_modifications.attach(client, bufnr, { format_on_save = false })
             local function buf_set_option(...)
                 vim.api.nvim_buf_set_option(bufnr, ...)
             end
