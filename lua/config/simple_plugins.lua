@@ -25,6 +25,25 @@ local plugins = {
     { "vimlab/split-term.vim", cmd = { "Term", "VTerm" } },
     "akinsho/toggleterm.nvim", "jghauser/mkdir.nvim",
     { "direnv/direnv.vim", event = "BufRead" },
+    { "NTBBloodbath/sweetie.nvim",
+        config = function()
+            require("sweetie").setup({
+                pumblend = {
+                    enable = true,
+                    transparency_amount = 20,
+                },
+                overrides = {},
+                integrations = {
+                    lazy = true,
+                    neorg = true,
+                    neogit = true,
+                    telescope = true,
+                },
+                cursor_color = true,
+                terminal_colors = true,
+            })
+        end
+    },
     {
         'NTBBloodbath/doom-one.nvim',
         config = function()
@@ -202,7 +221,7 @@ local plugins = {
         dependencies = 'antoinemadec/FixCursorHold.nvim',
         event = "LspAttach",
         config = function()
-            require('nvim-lightbulb').setup({autocmd = {enabled = true}})
+            require('nvim-lightbulb').setup({ autocmd = { enabled = true } })
         end
     }
 }
