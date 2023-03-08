@@ -1,6 +1,9 @@
 local plugins = {
     "folke/lazy.nvim", "nvim-lua/popup.nvim", { "nvim-lua/plenary.nvim", lazy = true },
-    "folke/which-key.nvim", "kyazdani42/nvim-web-devicons", "tpope/vim-repeat",
+    { "folke/which-key.nvim", config = function()
+        require("which-key").setup()
+    end },
+    "kyazdani42/nvim-web-devicons", "tpope/vim-repeat",
     {
         "dstein64/vim-startuptime",
         -- lazy-load on a command
