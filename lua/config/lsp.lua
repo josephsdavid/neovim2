@@ -147,7 +147,7 @@ function setup()
         local ntable = {
             [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
             [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
-            [km.leader("a")] = { km.luacmd("vim.lsp.buf.code_action()"), "code action" },
+            [km.leader("a")] = { km.cmd("CodeActionMenu"), "code action" },
             [g("D")] = { km.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
             [g("q")] = { km.luacmd("require('goto-preview').close_all_win()"), "close popups" },
             [g("l")] = { km.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
@@ -156,7 +156,6 @@ function setup()
             ["]d"] = { km.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
             ["[d"] = { km.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
             ["[d"] = { km.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
-            [g("a")] = {km.cmd("CodeActionMenu"), "code actions"}
         }
 
 
