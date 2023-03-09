@@ -29,6 +29,7 @@
   "neorg": { "branch": "main", "commit": "b977fa0f2069ff71111237df07de2bdeeb2b7079" },
   "neorg-telescope": { "branch": "main", "commit": "8d15129818c5dc224be97c9c6350d3386addeac8" },
   "nvim-cmp": { "branch": "main", "commit": "e7e2ef7031db8e0cfad7ad9916ec766ddd9dbb3b" },
+  "nvim-code-action-menu": { "branch": "main", "commit": "e4399dbaf6eabff998d3d5f1cbcd8d9933710027" },
   "nvim-docs-view": { "branch": "master", "commit": "698137623513235f40822c175012826c44eab466" },
   "nvim-lightbulb": { "branch": "master", "commit": "56b9ce31ec9d09d560fe8787c0920f76bc208297" },
   "nvim-lspconfig": { "branch": "master", "commit": "3aac7515545862a2815c47f2830dd567e6f81dfc" },

@@ -204,6 +204,11 @@ local plugins = {
         config = function()
             require('nvim-lightbulb').setup({autocmd = {enabled = true}})
         end
+
+    },
+    {
+      'weilbith/nvim-code-action-menu',
+      cmd = 'CodeActionMenu',
     }
 }
 

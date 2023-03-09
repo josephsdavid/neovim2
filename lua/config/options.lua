@@ -67,7 +67,7 @@ return {
         vim.cmd([[set iskeyword+=-]])
         vim.cmd([[set formatoptions-=cro]])
         vim.cmd([[set lazyredraw]])
-        vim.cmd [[hi function gui=bold]]
+        -- vim.cmd [[hi function gui=bold]]
         vim.cmd [[hi macro gui=bold]]
         vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
         vim.cmd [[hi clear DiffText]]

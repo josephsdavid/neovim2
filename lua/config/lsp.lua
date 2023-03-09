@@ -154,6 +154,8 @@ function setup()
             [km.leader("rn")] = { rename, "rename" },
             ["]d"] = { km.luacmd("vim.diagnostic.goto_next({border='rounded'})"), "next diagnostic" },
             ["[d"] = { km.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
+            ["[d"] = { km.luacmd("vim.diagnostic.goto_prev({border='rounded'})"), "next diagnostic" },
+            [g("a")] = {km.cmd("CodeActionMenu"), "code actions"}
         }
 
 
