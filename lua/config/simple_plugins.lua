@@ -1,6 +1,8 @@
 local plugins = {
     "folke/lazy.nvim", "nvim-lua/popup.nvim", { "nvim-lua/plenary.nvim", lazy = true },
     { "folke/which-key.nvim", config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 500
         require("which-key").setup()
     end },
     "kyazdani42/nvim-web-devicons", "tpope/vim-repeat",
@@ -150,18 +152,18 @@ local plugins = {
         end
     },
     "anuvyklack/hydra.nvim",
-    {
-        'lukas-reineke/headlines.nvim',
-        ft = { "markdown", "norg" },
-        config = function()
-            require("headlines").setup({
-                norg = {
-                    headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
-                    codeblock_highlight = { "NeorgCodeBlock" },
-                }
-            })
-        end
-    },
+    -- {
+    --     'lukas-reineke/headlines.nvim',
+    --     ft = { "markdown", "norg" },
+    --     config = function()
+    --         require("headlines").setup({
+    --             norg = {
+    --                 headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
+    --                 codeblock_highlight = { "NeorgCodeBlock" },
+    --             }
+    --         })
+    --     end
+    -- },
     { 'TimUntersberger/neogit', dependencies = { 'nvim-lua/plenary.nvim' },
         lazy = true,
         config = function()

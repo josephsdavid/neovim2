@@ -76,17 +76,17 @@ return {
     end,
     dependencies = {
         "nvim-neorg/neorg-telescope",
-        {
-            'lukas-reineke/headlines.nvim',
-            ft = { "markdown", "norg" },
-            config = function()
-                require("headlines").setup({
-                    norg = {
-                        headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
-                        codeblock_highlight = { "NeorgCodeBlock" },
-                    }
-                })
-            end
-        }
+        -- {
+        --     'lukas-reineke/headlines.nvim',
+        --     ft = { "markdown", "norg" },
+        --     config = function()
+        --         require("headlines").setup({
+        --             norg = {
+        --                 headline_highlights = { "Headline1", "Headline2", "Headline3", "Headline4", "Headline5", "Headline6" },
+        --                 codeblock_highlight = { "NeorgCodeBlock" },
+        --             }
+        --         })
+        --     end
+        -- }
     }
 }
