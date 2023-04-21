@@ -24,9 +24,9 @@ local norg_setup = {
         ["core.looking-glass"] = {}, -- Enable the looking_glass module
         ["core.export"] = {}, -- Enable the truezen module
         ["core.export.markdown"] = {}, -- Enable the truezen module
-        ["core.norg.journal"] = { config = { workspace = "notes", strategy = "nested" } }, -- Enable the notes
-        ["core.norg.completion"] = { config = { engine = "nvim-cmp" } }, -- We current support nvim-compe and nvim-cmp only
-        ["core.norg.concealer"] = {
+        ["core.journal"] = { config = { workspace = "notes", strategy = "nested" } }, -- Enable the notes
+        ["core.completion"] = { config = { engine = "nvim-cmp" } }, -- We current support nvim-compe and nvim-cmp only
+        ["core.concealer"] = {
             config = {
                 -- markup_preset = "dimmed",
                 -- markup_preset = "conceal",
@@ -34,7 +34,7 @@ local norg_setup = {
             }, -- Allows for use of icons
             -- dim_code_blocks = {enabled=false}
         },
-        ["core.norg.qol.toc"] = {},
+        ["core.qol.toc"] = {},
         ["core.keybinds"] = { -- Configure core.keybinds
             config = {
                 default_keybinds = true, -- Generate the default keybinds
@@ -47,7 +47,7 @@ local norg_setup = {
                 end,
             },
         },
-        ["core.norg.dirman"] = { -- Manage your directories with Neorg
+        ["core.dirman"] = { -- Manage your directories with Neorg
             config = {
                 workspaces = {
                     home = "~/neorg",

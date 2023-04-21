@@ -1,5 +1,5 @@
 ; use wezterm 
-; ; extends
+; extends
 ; (("->" @keyword) (#set! conceal "→"))
 ; (("=>" @macro) (#set! conceal "⇒"))
 

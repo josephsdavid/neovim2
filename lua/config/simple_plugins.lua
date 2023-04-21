@@ -1,5 +1,9 @@
 local plugins = {
     "folke/lazy.nvim", "nvim-lua/popup.nvim", { "nvim-lua/plenary.nvim", lazy = true },
+    "EdenEast/nightfox.nvim",
+
+    { "akinsho/horizon.nvim", version = "*" },
+    "sainnhe/everforest",
     { "folke/which-key.nvim", config = function()
         vim.o.timeout = true
         vim.o.timeoutlen = 500
@@ -230,8 +234,8 @@ local plugins = {
 
     },
     {
-      'weilbith/nvim-code-action-menu',
-      cmd = 'CodeActionMenu',
+        'weilbith/nvim-code-action-menu',
+        cmd = 'CodeActionMenu',
     }
 }
 
