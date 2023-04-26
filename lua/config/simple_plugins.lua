@@ -4,11 +4,11 @@ local plugins = {
 
     { "akinsho/horizon.nvim", version = "*" },
     "sainnhe/everforest",
-    { "folke/which-key.nvim", config = function()
-        vim.o.timeout = true
-        vim.o.timeoutlen = 500
-        require("which-key").setup()
-    end },
+    -- { "folke/which-key.nvim", config = function()
+    --     vim.o.timeout = true
+    --     vim.o.timeoutlen = 500
+    --     require("which-key").setup()
+    -- end },
     "kyazdani42/nvim-web-devicons", "tpope/vim-repeat",
     {
         "dstein64/vim-startuptime",
@@ -73,7 +73,7 @@ local plugins = {
             vim.g.doom_one_plugin_nvim_tree = false
             vim.g.doom_one_plugin_dashboard = false
             vim.g.doom_one_plugin_startify = false
-            vim.g.doom_one_plugin_whichkey = true
+            vim.g.doom_one_plugin_whichkey = false
             vim.g.doom_one_plugin_indent_blankline = false
             vim.g.doom_one_plugin_vim_illuminate = false
             vim.g.doom_one_plugin_lspsaga = false
