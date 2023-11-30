@@ -265,7 +265,7 @@ function setup()
                     }
                 }
             },
-            pyright = {},
+            anakin_language_server = {},
             zls = {}
         }
 
