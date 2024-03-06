@@ -270,7 +270,13 @@ return {
             keys = { km.localleader("rn"), km.alt(";"), km.alt("'"), "gO", km.localleader("D"), km.localleader("d"), }
         },
         'nvim-treesitter/nvim-treesitter-context',
-        "haringsrob/nvim_context_vt",
+        {"haringsrob/nvim_context_vt",
+            config = function()
+                require("nvim_context_vt").setup({
+                  disable_virtual_lines = true
+                })
+            end
+        },
         {
             'numToStr/Comment.nvim',
             config = function()
