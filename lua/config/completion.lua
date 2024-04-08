@@ -103,7 +103,7 @@ local function setup()
         { name = "treesitter", },
         -- { name = "conjure" },
         { name = "buffer", },
-        { name = "latex_symbols" },
+        -- { name = "latex_symbols" },
     }
 
     local sorting = {
@@ -197,7 +197,7 @@ return {
             end
         },
         "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp", "saadparwaiz1/cmp_luasnip", "lukas-reineke/cmp-rg", "onsails/lspkind.nvim",
+        "hrsh7th/nvim-cmp", "saadparwaiz1/cmp_luasnip", --[[ "lukas-reineke/cmp-rg", ]] "onsails/lspkind.nvim",
     },
     config = setup
 }

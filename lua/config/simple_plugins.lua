@@ -218,6 +218,33 @@ cmd = "FzfLua"
                 'weilbith/nvim-code-action-menu',
                 cmd = 'CodeActionMenu',
             },
+
+    {
+
+        {
+            'quarto-dev/quarto-nvim',
+            ft = { 'quarto' },
+            dev = false,
+            opts = {
+                lspFeatures = {
+                    languages = { 'r', 'python', 'julia', 'bash', 'lua', 'html', 'dot', 'javascript', 'typescript', 'ojs' },
+                },
+                codeRunner = {
+                    enabled = false,
+                    default_method = 'slime',
+                },
+            },
+            dependencies = {
+                {
+                    'jmbuhr/otter.nvim',
+                    dev = false,
+                    dependencies = {
+                        { 'neovim/nvim-lspconfig' },
+                    },
+                },
+            },
+        }
+    },
             {
                 'huggingface/llm.nvim',
                 config = function()
