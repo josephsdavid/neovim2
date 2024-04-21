@@ -114,10 +114,7 @@ local snippets = {
 			})
 		),
 	},
-	-- python = require("user.snippets.python"),
-    python = {
-        s("pdb", t("__import__('pdb').set_trace()"))
-    },
+	python = require("config.snippets.python"),
 	lua = {
 		ls.parser.parse_snippet("lf", "-- Defined in $TM_FILE\nlocal $1 = function($2)\n\t$0\nend"),
 		ls.parser.parse_snippet("mf", "-- Defined in $TM_FILE\nlocal $1.$2 = function($3)\n\t$0\nend"),

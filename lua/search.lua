@@ -1,15 +1,14 @@
-return {
+add_plugin({
     "nvim-telescope/telescope.nvim",
     -- keys = { "<Leader>f", "<C-f>", "<C-p>"},
     cmd = { "Telescope" },
     config = function()
-        local telescope = require("telescope")
         local actions = require("telescope.actions")
         local pickers = require("telescope.pickers")
         local finders = require "telescope.finders"
         local conf = require("telescope.config").values
 
-        telescope.setup({
+        require("telescope").setup({
             defaults = {
 
                 prompt_prefix = " ",
@@ -115,4 +114,4 @@ return {
         "nvim-telescope/telescope-symbols.nvim",
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
-}
+})

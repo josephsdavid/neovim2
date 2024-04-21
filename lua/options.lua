@@ -1,6 +1,6 @@
 local options = {
     opt = {
-        background = "light",
+        background = "dark",
         laststatus = 3,
         foldlevel = 0,
         backup = false,
@@ -61,22 +61,20 @@ local options = {
         parinfer_no_maps = true,
     }
 }
-return {
-    setup = function()
-        vim.cmd([[set whichwrap+=<,>,[,],h,l]])
-        vim.cmd([[set iskeyword+=-]])
-        vim.cmd([[set formatoptions-=cro]])
-        vim.cmd([[set lazyredraw]])
-        -- vim.cmd [[hi function gui=bold]]
-        vim.cmd [[hi macro gui=bold]]
-        vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
-        vim.cmd [[hi clear DiffText]]
-        vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
-        vim.opt.shortmess:append("c")
-        for k, v in pairs(options) do
-            for kk, vv in pairs(v) do
-                vim[k][kk] = vv
-            end
-        end
+
+vim.cmd([[set whichwrap+=<,>,[,],h,l]])
+vim.cmd([[set iskeyword+=-]])
+vim.cmd([[set formatoptions-=cro]])
+vim.cmd([[set lazyredraw]])
+-- vim.cmd [[hi function gui=bold]]
+vim.cmd [[hi macro gui=bold]]
+vim.api.nvim_set_hl(0, 'LeapBackdrop', { link = 'Comment' })
+vim.cmd [[hi clear DiffText]]
+vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
+vim.opt.shortmess:append("c")
+for k, v in pairs(options) do
+    for kk, vv in pairs(v) do
+        vim[k][kk] = vv
     end
-}
+end
+

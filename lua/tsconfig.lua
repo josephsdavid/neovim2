@@ -1,5 +1,37 @@
-local function setup()
+local km = Mappings
 
+local treesitter =  {
+    "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
+    event = "ColorScheme",
+    dependencies = {
+        { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" }, "nvim-treesitter/nvim-treesitter-textobjects",
+        {
+            "nvim-treesitter/nvim-treesitter-refactor",
+            keys = { km.localleader("rn"), km.alt(";"), km.alt("'"), "gO", km.localleader("D"), km.localleader("d"), }
+        },
+        'nvim-treesitter/nvim-treesitter-context',
+        {
+            'numToStr/Comment.nvim',
+            config = function()
+                require("Comment").setup()
+            end,
+            lazy=false,
+            dependencies = {
+                "stsewd/tree-sitter-comment",
+            }
+        },
+        {
+            "folke/todo-comments.nvim",
+            config = function()
+                require("todo-comments").setup {
+                }
+            end
+        },
+    }
+}
+
+
+function treesitter.config()
     local parser_configs = require("nvim-treesitter.parsers").get_parser_configs()
     local swapl = km.genleader(km.leader("s"))
 
@@ -173,6 +205,8 @@ local function setup()
         textobjects = textob,
         ensure_installed = {
             "comment",
+            "vim",
+            "vimdoc",
             "python",
             "julia",
             "html",
@@ -259,39 +293,4 @@ local function setup()
     }
 end
 
-return {
-    "nvim-treesitter/nvim-treesitter", build = ":TSUpdate",
-    config = setup,
-    event = "ColorScheme",
-    dependencies = {
-        { "nvim-treesitter/playground", cmd = "TSPlaygroundToggle" }, "nvim-treesitter/nvim-treesitter-textobjects",
-        {
-            "nvim-treesitter/nvim-treesitter-refactor",
-            keys = { km.localleader("rn"), km.alt(";"), km.alt("'"), "gO", km.localleader("D"), km.localleader("d"), }
-        },
-        'nvim-treesitter/nvim-treesitter-context',
-        {"haringsrob/nvim_context_vt",
-            config = function()
-                require("nvim_context_vt").setup({
-                  disable_virtual_lines = true
-                })
-            end
-        },
-        {
-            'numToStr/Comment.nvim',
-            config = function()
-                require("Comment").setup()
-            end,
-            dependencies = {
-                "stsewd/tree-sitter-comment",
-            }
-        },
-        {
-            "folke/todo-comments.nvim",
-            config = function()
-                require("todo-comments").setup {
-                }
-            end
-        },
-    }
-}
+add_plugin(treesitter)

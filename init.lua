@@ -4,16 +4,63 @@ vim.cmd([[
   filetype plugin indent off
 ]])
 
--- require("impatient").enable_profile()
-E = require("core.events")
-km = require("core.keymap")
+Plugins = {}
 
-if table.unpack == nil then
-    table.unpack = unpack
+function add_plugin(plugin)
+    Plugins[#Plugins + 1] = plugin
+    return Plugins
 end
 
-require("config")
-require("core.keybinds")
+function add_plugins(plugins)
+    for _, plugin in ipairs(plugins) do
+        add_plugin(plugin)
+    end
+    return Plugins
+end
+
+require("bootstrap")
+
+
+-- configure everything here
+require("colorscheme")
+require("options")
+Mappings = require("mappings")
+require("misc_plugins")
+require("completion")
+require("lsp")
+require("search")
+require("tsconfig")
+require("terminal")
+require("testing")
+require("autocmds")
+require("debugger")
+require("norgconfig")
+
+require("lazy").setup(Plugins, {
+    install = {
+        -- install missing plugins on startup. This doesn't increase startup time.
+        missing = true,
+        -- try to load one of these colorschemes when starting an installation during startup
+        colorscheme = { "doom-one" },
+    },
+    performance = {
+        rtp = {
+            disabled_plugins = {
+                "gzip",
+                -- "matchit",
+                -- "matchparen",
+                "tarPlugin",
+                "tohtml",
+                "tutor",
+                "zipPlugin",
+            }
+        }
+    },
+})
+
+Mappings.setup()
+
+
 
 vim.cmd([[
   syntax on
@@ -21,4 +68,3 @@ vim.cmd([[
   filetype plugin indent on
   colorscheme doom-one
 ]])
-

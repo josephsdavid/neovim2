@@ -1,16 +1,35 @@
-local function setup()
+local km = Mappings
+local completion = {
+    "hrsh7th/nvim-cmp",
+    -- load cmp on InsertEnter
+    event = "InsertEnter",
+    dependencies = {
+        { "https://gitlab.com/ExpandingMan/cmp-latex" },
+        {
+            "L3MON4D3/LuaSnip",
+            config = function()
+                require "snippets"
+            end
+        },
+        "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline",
+        "hrsh7th/nvim-cmp", "saadparwaiz1/cmp_luasnip", --[[ "lukas-reineke/cmp-rg", ]] "onsails/lspkind.nvim",
+    },
+}
+
+
+local with_control = function(t)
+    local ret = {}
+    for k, v in pairs(t) do
+        ret[km.ctrl(k)] = v
+    end
+    return ret
+end
+
+function completion.config()
     local cmp = require("cmp")
     local luasnip = require("luasnip")
     local lspkind = require("lspkind")
     lspkind.init()
-
-    local with_control = function(t)
-        local ret = {}
-        for k, v in pairs(t) do
-            ret[km.ctrl(k)] = v
-        end
-        return ret
-    end
 
     local mapping = with_control({
         n = cmp.mapping.select_next_item { behavior = cmp.SelectBehavior.Insert },
@@ -72,7 +91,6 @@ local function setup()
             "s",
         }),
         k = cmp.mapping(function(fallback)
-
             if cmp.visible() then
                 cmp.mapping.abort()
                 cmp.mapping.close()
@@ -97,7 +115,7 @@ local function setup()
         { name = "nvim_lua" },
         { name = "luasnip" },
         { name = "nvim_lsp" },
-        { name = "rg", keyword_length = 3 },
+        { name = "rg",         keyword_length = 3 },
         { name = "path" },
         { name = "neorg" },
         { name = "treesitter", },
@@ -182,22 +200,7 @@ local function setup()
             },
         }),
     })
+
 end
 
-return {
-    "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    event = "InsertEnter",
-    dependencies = {
-        { "https://gitlab.com/ExpandingMan/cmp-latex" },
-        {
-            "L3MON4D3/LuaSnip",
-            config = function()
-                require "config.snippets"
-            end
-        },
-        "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", "hrsh7th/cmp-path", "hrsh7th/cmp-cmdline",
-        "hrsh7th/nvim-cmp", "saadparwaiz1/cmp_luasnip", --[[ "lukas-reineke/cmp-rg", ]] "onsails/lspkind.nvim",
-    },
-    config = setup
-}
+add_plugin(completion)
