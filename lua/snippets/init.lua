@@ -114,7 +114,7 @@ local snippets = {
 			})
 		),
 	},
-	python = require("config.snippets.python"),
+	python = require("snippets.python"),
 	lua = {
 		ls.parser.parse_snippet("lf", "-- Defined in $TM_FILE\nlocal $1 = function($2)\n\t$0\nend"),
 		ls.parser.parse_snippet("mf", "-- Defined in $TM_FILE\nlocal $1.$2 = function($3)\n\t$0\nend"),
@@ -146,8 +146,8 @@ local snippets = {
 		s("i2", d(1, iterator("~~ "), {})), -- to lreq, bind parse the list
 		s("i3", d(1, iterator("~~~ "), {})), -- to lreq, bind parse the list
 	},
-	julia = require("config.snippets.julia").snippets,
-    c = require("config.snippets.c").snippets,
+	julia = require("snippets.julia").snippets,
+    c = require("snippets.c").snippets,
 }
 ls.autosnippets = {
 	all = {
