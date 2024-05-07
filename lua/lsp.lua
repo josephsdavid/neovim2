@@ -12,8 +12,14 @@ local on_attach = function(client, bufnr)
     -- local function vim.api.nvim_buf_set_keymap(a,b,c,d)
     -- 	vim.api.nvim_vim.api.nvim_buf_set_keymap(bufnr, a,b,c,d)
     -- end
-    local lsp_format_modifications = require "lsp-format-modifications"
-    lsp_format_modifications.attach(client, bufnr, { format_on_save = false })
+    if client.name == 'ruff_lsp' then
+        -- Disable hover in favor of Pyright
+        client.server_capabilities.hoverProvider = false
+    end
+    if client.name ~= "basedpyright" then
+        local lsp_format_modifications = require "lsp-format-modifications"
+        lsp_format_modifications.attach(client, bufnr, { format_on_save = false })
+    end
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
@@ -106,7 +112,28 @@ local servers = {
             }
         }
     },
-    anakin_language_server = {},
+    basedpyright = {
+        settings = {
+            basedpyright = {
+                analysis = {
+                    diagnosticSeverityOverrides = {
+                        reportMissingTypeStubs = "warning",
+                        reportUnknownParameterType = "warning",
+                        reportMissingParameterType = "warning",
+                        reportUnknownMemberType = "warning",
+                        reportUnknownArgumentType = "warning",
+                        reportUnknownVariableType = "warning",
+                        reportUnknownLambdaType = "warning",
+                        reportUnnecessaryComparison = "warning",
+                        reportMissingTypeArgument = "warning",
+                        reportUnusedCallResult = "warning",
+                        reportReturnType = "warning",
+                        reportAny = "warning"
+                    }
+                }
+            }
+        }
+    },
     ruff_lsp = {},
     zls = {}
 }
@@ -180,7 +207,7 @@ end
 function lsp.config()
     local nvim_lsp = require("lspconfig")
     local signs = {
-        { name = "DiagnosticSignError", text = "😱" },
+        { name = "DiagnosticSignError", text = " " },
         { name = "DiagnosticSignWarn", text = "" },
         { name = "DiagnosticSignHint", text = "" },
         { name = "DiagnosticSignInfo", text = "" },
