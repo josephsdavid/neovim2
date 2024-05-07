@@ -155,7 +155,7 @@ local plugins = {
             local llm = require('llm')
 
             llm.setup({
-                api_token = "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", -- cf Install paragraph
+                 -- cf Install paragraph
                 model = "bigcode/starcoder",                         -- the model ID, behavior depends on backend
                 backend = "huggingface",                             -- backend ID, "huggingface" | "ollama" | "openai" | "tgi"
                 url = nil,                                           -- the http url of the backend
