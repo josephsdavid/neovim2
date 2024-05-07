@@ -106,7 +106,7 @@ add_plugin({
         })
 
         -- require('telescope').load_extension('fzf')
-        require("telescope").load_extension('harpoon')
+        -- require("telescope").load_extension('harpoon')
     end,
     dependencies = {
         "nvim-lua/plenary.nvim",

@@ -34,7 +34,8 @@ require("terminal")
 require("testing")
 require("autocmds")
 require("debugger")
-require("norgconfig")
+-- require("norgconfig")
+require("ui")
 
 require("lazy").setup(Plugins, {
     install = {

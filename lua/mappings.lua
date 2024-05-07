@@ -62,7 +62,7 @@ local cxc_ = function(s)
     return cx(Ctrl(s))
 end
 
-function M.clever_root()
+local function clever_root()
     local root = require('lspconfig').util.root_pattern('Project.toml', '.git', 'pyproject.toml', '.envrc')(vim.api.nvim_buf_get_name(0))
     if root == nil then
         root = "%:p:h"
@@ -70,8 +70,8 @@ function M.clever_root()
     return root
 end
 
-local clever_tcd = function()
-    vim.cmd("tcd " .. M.clever_root())
+local function clever_tcd()
+    vim.cmd("tcd " .. clever_root())
     vim.cmd("pwd")
 end
 
@@ -93,6 +93,7 @@ M.n = {
     [Alt("Down")] = { luacmd("require('tmux').resize_bottom()"), "Decrease window size horizontal" },
     [Ctrl(".")] = { cmd("bp"), "Previous buffer" },
     [Ctrl(",")] = { cmd("bn"), "next buffer" },
+    [Ctrl("/")] = { cmd("BufferLinePick"), "find buffer" },
     [g("G")] = { luacmd("require'neogit'.open()"), "Git" },
     --[cxc_("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
     --[cx("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
@@ -146,14 +147,9 @@ M.n = {
     [tabl("l")] = { cmd("exe 'tabn '.g:lasttab"), "previos tab" },
     [bufl("n")] = { cmd("bnext"), "next buffer" },
     [bufl("p")] = { cmd("bprevious"), "previous buffer" },
-    [bufl("l")] = { cmd("bprevious"), "previous buffer" },
-    [bufl(" ")] = { cmd("bnext"), "next buffer" },
-    [bufl("b")] = { cmd("bnext"), "next buffer" },
     [bufl("x")] = { cmd("bdelete"), "close buffer" },
-    [bufl("s")] = { cmd("Telescope buffers theme=ivy"), "select buffer" },
-    [bufl("f")] = { cmd("Telescope buffers theme=ivy"), "select buffer" },
-    [bufl("1")] = { cmd("bfirst"), "first buffer" },
-    [bufl("0")] = { cmd("blast"), "last buffer" },
+    [bufl("s")] = { cmd("BufferLinePick"), "select buffer" },
+    [bufl("f")] = { cmd("BufferLinePick"), "select buffer" },
 
 
 }

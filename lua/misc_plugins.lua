@@ -27,7 +27,7 @@ local plugins = {
     },
     {
         "kylechui/nvim-surround",
-        keys = {"ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
+        keys = { "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
         events = { "InsertEnter" },
         config = function()
             require("nvim-surround").setup({
@@ -47,7 +47,29 @@ local plugins = {
     },
     "haya14busa/vim-asterisk",
     -- TODO: Make harpoon2 work
-    "ThePrimeagen/harpoon",
+    -- {
+    --     "ThePrimeagen/harpoon",
+    --     branch = "harpoon2",
+    --     dependencies = { "nvim-lua/plenary.nvim" },
+    --     config = function()
+    --         -- local harpoon = require("harpoon")
+    --
+    --         -- REQUIRED
+    --         require"harpoon":setup()
+    --         -- REQUIRED
+    --         -- vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
+    --         -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+    --         --
+    --         -- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+    --         -- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+    --         -- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+    --         -- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+    --         --
+    --         -- -- Toggle previous & next buffers stored within Harpoon list
+    --         -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
+    --         -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
+    --     end
+    -- },
     {
         "aserowy/tmux.nvim",
         lazy = true,
@@ -192,14 +214,17 @@ local plugins = {
                 },
                 night = {
                     name = vim.g.colors_name,
-                    time = 19, -- 7 pm, changes to dark theme on 07:01
+                    time = 19,          -- 7 pm, changes to dark theme on 07:01
                 },
                 interval = 60000000000, -- Time in milliseconds, 1 minute
             })
         end,
-    }
-
-
+    },
+    {
+        "lukas-reineke/headlines.nvim",
+        dependencies = "nvim-treesitter/nvim-treesitter",
+        config = true, -- or `opts = {}`
+    },
 
 }
 
