@@ -508,7 +508,7 @@ return {
     }),
     s({ trig = "ifmain", descr = "(ifmain) \"ifmain\"", priority = -50, trigEngine = te("b") }, {
         t "if __name__ == ", f(function(args, snip) return c_py({ "python", 42 }, "snip.rv = get_quoting_style(snip)",
-            python_globals, args, snip, "", {}) end), t "__main__", f(function(args, snip) return c_py({ "python", 42 },
+            python_globals, args, snip, "", {}) end), t "'__main__'", f(function(args, snip) return c_py({ "python", 42 },
             "snip.rv = get_quoting_style(snip)", python_globals, args, snip, "", {}) end), t ":", nl(),
         t "\t", d(1,
         function(args, snip) return sn(nil, { i(1, jt({ snip.env.LS_SELECT_DEDENT or {} }, "\t"), { key = "i1" }) }) end)

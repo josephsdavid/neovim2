@@ -27,12 +27,11 @@ local plugins = {
     },
     {
         "kylechui/nvim-surround",
-        keys = { "<C-s>", "ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
+        keys = {"ys", "yss", "yS", "ySS", "S", "gS", "ds", "cs" },
         events = { "InsertEnter" },
         config = function()
             require("nvim-surround").setup({
                 keymaps = {
-                    insert_line = "<C-s>",
                     normal = "ys",
                     normal_cur = "yss",
                     normal_line = "yS",
@@ -106,7 +105,7 @@ local plugins = {
 
         {
             'quarto-dev/quarto-nvim',
-            ft = { 'quarto' },
+            ft = { 'quarto', 'markdown' },
             dev = false,
             opts = {
                 lspFeatures = {
@@ -181,7 +180,27 @@ local plugins = {
         end,
         opts = {
         }
+    },
+
+    {
+        "NTBBloodbath/daylight.nvim",
+        config = function()
+            require("daylight").setup({
+                day = {
+                    name = vim.g.colors_name,
+                    time = 8, -- 8 am
+                },
+                night = {
+                    name = vim.g.colors_name,
+                    time = 19, -- 7 pm, changes to dark theme on 07:01
+                },
+                interval = 60000000000, -- Time in milliseconds, 1 minute
+            })
+        end,
     }
+
+
+
 }
 
 add_plugins(plugins)

@@ -107,6 +107,7 @@ local servers = {
         }
     },
     anakin_language_server = {},
+    ruff_lsp = {},
     zls = {}
 }
 
