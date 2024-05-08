@@ -19,6 +19,7 @@
   "lsp-colors.nvim": { "branch": "main", "commit": "2bbe7541747fd339bdd8923fc45631a09bb4f1e5" },
   "lsp-format-modifications.nvim": { "branch": "main", "commit": "006d4cd88f4f09fdc4375fcb75dd5b7d981a723b" },
   "lspkind.nvim": { "branch": "master", "commit": "1735dd5a5054c1fb7feaf8e8658dbab925f4f0cf" },
+  "markdown.nvim": { "branch": "master", "commit": "951b7b567668608d60637d2c9e97f4baea5fdbbe" },
   "mkdir.nvim": { "branch": "main", "commit": "c55d1dee4f099528a1853b28bb28caa802eba217" },
   "neogit": { "branch": "master", "commit": "f4f7a1017da57f31c182c46fb2535099718fa178" },
   "neotest": { "branch": "master", "commit": "5caac5cc235d495a2382bc2980630ef36ac87032" },

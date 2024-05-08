@@ -36,6 +36,7 @@ require("autocmds")
 require("debugger")
 -- require("norgconfig")
 require("ui")
+require("ai")
 
 require("lazy").setup(Plugins, {
     install = {
