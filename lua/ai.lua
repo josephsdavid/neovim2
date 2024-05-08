@@ -1,5 +1,6 @@
 local llmnvim = {
     'huggingface/llm.nvim',
+    cmd = {"LLMSuggestion", "LLMToggleAutoSuggestion"},
     config = function()
         local llm = require('llm')
 
@@ -15,11 +16,13 @@ local llmnvim = {
                 }
             }
         })
+
     end
 }
 
 local model = {
     'gsuuon/model.nvim',
+    lazy=false,
 
     -- Don't need these if lazy = false
     cmd = { 'M', 'Model', 'Mchat' },
@@ -44,7 +47,7 @@ local model = {
         local ollama = require("model.providers.ollama")
         require('model').setup({
             prompts = {
-                ['ollama:phi3'] = {
+                phi3 = {
                     provider = ollama,
                     params = {
                         model = 'phi3'
@@ -64,3 +67,5 @@ local model = {
         })
     end
 }
+
+add_plugins({llmnvim, model})
