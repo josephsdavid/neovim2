@@ -27,6 +27,7 @@ require("options")
 Mappings = require("mappings")
 require("misc_plugins")
 require("completion")
+require("ai")
 require("lsp")
 require("search")
 require("tsconfig")
@@ -36,7 +37,6 @@ require("autocmds")
 require("debugger")
 -- require("norgconfig")
 require("ui")
-require("ai")
 
 require("lazy").setup(Plugins, {
     install = {
