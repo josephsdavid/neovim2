@@ -152,7 +152,7 @@ function treesitter.config()
         },
         context_commentstring = {
             disable = { "vim", "help" },
-            enable = true,
+            enable = false,
             enable_autocmd = true,
         },
 
@@ -227,7 +227,7 @@ function treesitter.config()
     })
 
     require 'treesitter-context'.setup {
-        enable = true, -- Enable this plugin (Can be enabled/disabled later via commands)
+        enable = false, -- Enable this plugin (Can be enabled/disabled later via commands)
         disable = { "vim", "help" },
         max_lines = 0, -- How many lines the window should span. Values <= 0 mean no limit.
         trim_scope = 'outer', -- Which context lines to discard if `max_lines` is exceeded. Choices: 'inner', 'outer'

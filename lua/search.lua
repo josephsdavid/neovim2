@@ -105,7 +105,7 @@ add_plugin({
             },
         })
 
-        -- require('telescope').load_extension('fzf')
+        require('telescope').load_extension('fzf')
         -- require("telescope").load_extension('harpoon')
     end,
     dependencies = {
@@ -114,4 +114,16 @@ add_plugin({
         "nvim-telescope/telescope-symbols.nvim",
         { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' },
     },
+})
+
+add_plugin({
+    {
+      "ibhagwan/fzf-lua",
+      -- optional for icon support
+      dependencies = { "nvim-tree/nvim-web-devicons" },
+      config = function()
+        -- calling `setup` is optional for customization
+        require("fzf-lua").setup({ fzf_colors = true })
+      end
+    }
 })

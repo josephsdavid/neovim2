@@ -47,29 +47,41 @@ local plugins = {
     },
     "haya14busa/vim-asterisk",
     -- TODO: Make harpoon2 work
-    -- {
-    --     "ThePrimeagen/harpoon",
-    --     branch = "harpoon2",
-    --     dependencies = { "nvim-lua/plenary.nvim" },
-    --     config = function()
-    --         -- local harpoon = require("harpoon")
-    --
-    --         -- REQUIRED
-    --         require"harpoon":setup()
-    --         -- REQUIRED
-    --         -- vim.keymap.set("n", "<leader>a", function() harpoon:list():add() end)
-    --         -- vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
-    --         --
-    --         -- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
-    --         -- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
-    --         -- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
-    --         -- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
-    --         --
-    --         -- -- Toggle previous & next buffers stored within Harpoon list
-    --         -- vim.keymap.set("n", "<C-S-P>", function() harpoon:list():prev() end)
-    --         -- vim.keymap.set("n", "<C-S-N>", function() harpoon:list():next() end)
-    --     end
-    -- },
+    {
+        "ThePrimeagen/harpoon",
+        branch = "harpoon2",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            local harpoon = require("harpoon")
+
+            -- REQUIRED
+            harpoon:setup(
+                { settings = { save_on_toggle = true, sync_on_ui_close = true } }
+            )
+            -- REQUIRED
+            vim.keymap.set("n", "<leader>h", function() harpoon:list():add() end)
+            vim.keymap.set("n", "<C-x><C-x>", function() harpoon:list():add() end)
+            vim.keymap.set("n", "<C-e>", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end)
+
+            -- vim.keymap.set("n", "<C-h>", function() harpoon:list():select(1) end)
+            -- vim.keymap.set("n", "<C-t>", function() harpoon:list():select(2) end)
+            -- vim.keymap.set("n", "<C-n>", function() harpoon:list():select(3) end)
+            -- vim.keymap.set("n", "<C-s>", function() harpoon:list():select(4) end)
+            vim.keymap.set("n", "g1", function() harpoon:list():select(1) end)
+            vim.keymap.set("n", "g2", function() harpoon:list():select(2) end)
+            vim.keymap.set("n", "g3", function() harpoon:list():select(3) end)
+            vim.keymap.set("n", "g4", function() harpoon:list():select(4) end)
+            vim.keymap.set("n", "g5", function() harpoon:list():select(5) end)
+            vim.keymap.set("n", "g6", function() harpoon:list():select(6) end)
+            vim.keymap.set("n", "g7", function() harpoon:list():select(7) end)
+            vim.keymap.set("n", "g8", function() harpoon:list():select(8) end)
+            vim.keymap.set("n", "g9", function() harpoon:list():select(9) end)
+
+            -- Toggle previous & next buffers stored within Harpoon list
+            vim.keymap.set("n", "<A-,>", function() harpoon:list():prev() end)
+            vim.keymap.set("n", "<A-.>", function() harpoon:list():next() end)
+        end
+    },
     {
         "aserowy/tmux.nvim",
         lazy = true,
@@ -183,13 +195,21 @@ local plugins = {
         config = true, -- or `opts = {}`
     },
     {
-        "tadmccorkle/markdown.nvim",
-        ft = "markdown", -- or 'event = "VeryLazy"'
-        opts = {
-            -- configuration here or empty for defaults
-        },
-    }
+        "kevinhwang91/nvim-bqf"
+    },
+    {
 
+        "GCBallesteros/jupytext.nvim",
+        config = true,
+        -- Depending on your nvim distro or config you may need to make the loading not lazy
+        -- lazy=false,
+
+    },
+    {
+        "chrisgrieser/nvim-various-textobjs",
+        event = "VeryLazy",
+        opts = { useDefaultKeymaps = true },
+    },
 }
 
 add_plugins(plugins)

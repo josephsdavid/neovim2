@@ -2,7 +2,8 @@ local lsp = {
     "neovim/nvim-lspconfig",
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
-        'joechrisellis/lsp-format-modifications.nvim'
+        'joechrisellis/lsp-format-modifications.nvim',
+        "stevanmilic/nvim-lspimport"
         -- "jose-elias-alvarez/null-ls.nvim",
     }
 }
@@ -127,6 +128,7 @@ local servers = {
                         reportUnnecessaryComparison = "warning",
                         reportMissingTypeArgument = "warning",
                         reportUnusedCallResult = "warning",
+                        reportUnusedVariable = "warning",
                         reportReturnType = "warning",
                         reportAny = "warning"
                     }
@@ -188,7 +190,7 @@ local g = Mappings.genleader("g")
 local maps = {
     [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
     [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
-    [Mappings.leader("a")] = { Mappings.cmd("CodeActionMenu"), "code action" },
+    [Mappings.leader("ca")] = { Mappings.cmd("CodeActionMenu"), "code action" },
     [g("D")] = { Mappings.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
     [g("q")] = { Mappings.luacmd("require('goto-preview').close_all_win()"), "close popups" },
     [g("l")] = { Mappings.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
