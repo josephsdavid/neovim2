@@ -24,3 +24,4 @@ Plugins[#Plugins+1] = {
             vim.g.doom_one_plugin_lspsaga = false
         end
     }
+

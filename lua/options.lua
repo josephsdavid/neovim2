@@ -2,7 +2,7 @@ local options = {
     opt = {
         background = "dark",
         laststatus = 3,
-        foldlevel = 0,
+        foldlevel = 999,
         backup = false,
         clipboard = "unnamedplus",
         cmdheight = 1,
@@ -78,3 +78,10 @@ for k, v in pairs(options) do
     end
 end
 
+vim.filetype.add({
+  filename = {
+    ["Tiltfile"] = "starlark",
+  },
+})
+
+-- autocmds

@@ -1,4 +1,4 @@
-M  = {}
+local M  = {}
 
 M.genleader = function(leader, f)
     if f == nil then
@@ -52,9 +52,11 @@ local Ctrl = M.ctrl
 local cmd = M.cmd
 local luacmd = M.luacmd
 
+
 local scope = M.extendleader(leader, "f")
 local bufl = M.extendleader(leader, "b")
-local repl = M.extendleader(leader, "g")
+local repl = M.extendleader(leader, "r")
+local gen = M.extendleader(leader, "g")
 local tabl = M.extendleader(leader, "t")
 local cx = M.genleader(Ctrl("x"))
 -- local cj = keymap.genleader(Ctrl("j"))
@@ -91,9 +93,10 @@ M.n = {
     [Alt("Left")] = { luacmd("require('tmux').resize_left()"), "Decrease window size vertical" },
     [Alt("Right")] = { luacmd("require('tmux').resize_right()"), "Increase window size vertical" },
     [Alt("Down")] = { luacmd("require('tmux').resize_bottom()"), "Decrease window size horizontal" },
-    [Ctrl(".")] = { cmd("bp"), "Previous buffer" },
-    [Ctrl(",")] = { cmd("bn"), "next buffer" },
-    [Ctrl("/")] = { cmd("BufferLinePick"), "find buffer" },
+    [Alt(",")] = { cmd("bp"), "Previous buffer" },
+    [Alt(".")] = { cmd("bn"), "next buffer" },
+    -- [Ctrl(",")] = {  luacmd("require('harpoon'):list():prev()"), "harpoon prev" },
+    -- [Ctrl(",")] = {  luacmd("require('harpoon'):list():next()"), "harpoon next" },
     [g("G")] = { luacmd("require'neogit'.open()"), "Git" },
     --[cxc_("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
     --[cx("h")] = { harpoon_notify(hm.add_file), "harpoon mark" },
@@ -137,7 +140,7 @@ M.n = {
     [scope("r")] = { cmd("FzfLua resume fzf_colors=true"), "fzf resume" },
     -- [Ctrl("s")] = { cmd("Telescope fd theme=ivy previewer=false"), "find oldfiles" },
     -- [scope(" ")] = { cmd("Telescope frecency"), "find frecency" }
-    [repl("g")] = { M.plugmapping("SendLine"), "Send to repl (line)" },
+    [repl("r")] = { M.plugmapping("SendLine"), "Send to repl (line)" },
     [repl(" ")] = { M.plugmapping("SendLine"), "Send to repl (line)" },
     [repl("")] = { M.plugmapping("Send"), "Send to repl" },
     [tabl("n")] = { cmd("tabnext"), "next tab" },
@@ -152,6 +155,11 @@ M.n = {
     [bufl("x")] = { cmd("bdelete"), "close buffer" },
     [bufl("s")] = { cmd("BufferLinePick"), "select buffer" },
     [bufl("f")] = { cmd("BufferLinePick"), "select buffer" },
+    [Ctrl("b")] = { cmd("BufferLinePick"), "select buffer" },
+    [gen("g")] = {cmd("Gen"), "gen"},
+    [gen("c")] = {cmd("Gen Chat"), "gen Chat"},
+    [gen("a")] = {cmd("Gen Ask"), "gen Ask"},
+    [gen("m")] = {cmd("Gen md_doc_file"), "gen md_doc_file"}
 
 
 }
@@ -167,6 +175,8 @@ M.v = {
             ["p"] = { '"_dP', "paste in place" },
             ["K"] = { ":move '>-2<CR>gv-gv", "Move text up (broken)" },
             ["J"] = { ":move '>+1<CR>gv-gv", "Move text down" },
+            [gen("g")] = {cmd("Gen"), "gen"},
+            [gen("d")] = {cmd("Gen document_method_or_class"), "gen"},
 }
 M.x = {
             ["p"] = { '"_dP', "paste in place" },
@@ -240,6 +250,7 @@ function M.setup()
             M.keymap(mode, lhs, rhs[1], {noremap=true, silent=true}, rhs[2])
         end
     end
+
 end
 
 return M

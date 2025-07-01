@@ -34,6 +34,14 @@ function term.config()
             },
         },
     })
+    local Terminal  = require('toggleterm.terminal').Terminal
+    local gemini = Terminal:new({ cmd = "gemini", hidden = true, direction="float"})
+
+    function _gemini_toggle()
+      gemini:toggle()
+    end
+
+    vim.api.nvim_set_keymap("n", Mappings.ctrl("g"), "<cmd>lua _gemini_toggle()<CR>", {noremap = true, silent = true})
 end
 
 add_plugin(term)

@@ -7,6 +7,7 @@ local plugins = {
         config = function()
             vim.cmd [[hi clear DiffText]]
             vim.api.nvim_set_hl(0, 'DiffText', { link = 'DiffChange' })
+            -- cv to run "Git commit --no-verify" only on fugitive filetypes
         end
     },
     "jghauser/mkdir.nvim",
@@ -78,8 +79,8 @@ local plugins = {
             vim.keymap.set("n", "g9", function() harpoon:list():select(9) end)
 
             -- Toggle previous & next buffers stored within Harpoon list
-            vim.keymap.set("n", "<A-,>", function() harpoon:list():prev() end)
-            vim.keymap.set("n", "<A-.>", function() harpoon:list():next() end)
+            vim.keymap.set("n", "<C-,>", function() harpoon:list():prev() end)
+            vim.keymap.set("n", "<C-.>", function() harpoon:list():next() end)
         end
     },
     {
@@ -131,10 +132,10 @@ local plugins = {
             }
         end
     },
-    {
-        'weilbith/nvim-code-action-menu',
-        cmd = 'CodeActionMenu',
-    },
+    -- {
+    --     'weilbith/nvim-code-action-menu',
+    --     cmd = 'CodeActionMenu',
+    -- },
     {
 
         {
@@ -198,18 +199,111 @@ local plugins = {
         "kevinhwang91/nvim-bqf"
     },
     {
-
-        "GCBallesteros/jupytext.nvim",
-        config = true,
-        -- Depending on your nvim distro or config you may need to make the loading not lazy
-        -- lazy=false,
-
-    },
-    {
         "chrisgrieser/nvim-various-textobjs",
         event = "VeryLazy",
-        opts = { useDefaultKeymaps = true },
+        opts = { keymaps = { use_defaults = true } },
     },
+    {
+        "chrisgrieser/nvim-puppeteer",
+        lazy = false, -- plugin lazy-loads itself. Can also load on filetypes.
+    },
+    {
+        "rest-nvim/rest.nvim",
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter",
+            opts = function(_, opts)
+                opts.ensure_installed = opts.ensure_installed or {}
+                table.insert(opts.ensure_installed, "http")
+            end,
+        }
+    },
+    {
+        'comfysage/evergarden',
+        priority = 1000, -- Colorscheme plugin is loaded first before any other plugins
+        opts = {
+            transparent_background = false,
+            variant = 'soft', -- 'hard'|'medium'|'soft'
+            overrides = {},   -- add custom overrides
+        }
+    },
+    {
+        "neanias/everforest-nvim",
+        version = false,
+        lazy = false,
+        priority = 1000, -- make sure to load this before all the other start plugins
+        -- Optional; default configuration will be used if setup isn't called.
+        config = function()
+            require("everforest").setup({
+                -- Your config here
+            })
+        end,
+    },
+    {
+        'projekt0n/github-nvim-theme',
+        name = 'github-theme',
+        lazy = false,    -- make sure we load this during startup if it is your main colorscheme
+        priority = 1000, -- make sure to load this before all the other start plugins
+        config = function()
+            require('github-theme').setup({
+                -- ...
+            })
+
+            vim.cmd('colorscheme github_light')
+        end,
+    },
+    {
+        "zenbones-theme/zenbones.nvim",
+        -- Optionally install Lush. Allows for more configuration or extending the colorscheme
+        -- If you don't want to install lush, make sure to set g:zenbones_compat = 1
+        -- In Vim, compat mode is turned on as Lush only works in Neovim.
+        dependencies = "rktjmp/lush.nvim",
+        lazy = false,
+        priority = 1000,
+        -- you can set set configuration options here
+        -- config = function()
+        --     vim.g.zenbones_darken_comments = 45
+        --     vim.cmd.colorscheme('zenbones')
+        -- end
+    },
+    -- {
+    --   dir ='/home/david/gemini-nvim', -- Path to where you've placed this plugin
+    --   name = 'gemini_cli',
+    --   config = function()
+    --     require('gemini_cli').setup({
+    --       gemini_path = '/usr/bin/gemini', -- **IMPORTANT**: Set the correct path to your gemini executable
+    --     })
+    --   end,
+    -- },
+    {
+        "nvim-neorg/neorg",
+        dependencies = "Pocco81/TrueZen.nvim",
+        lazy = false,  -- Disable lazy loading as some `lazy.nvim` distributions set `lazy = true` by default
+        version = "*", -- Pin Neorg to the latest stable release
+        config = function()
+            require("neorg").setup({
+                load = {
+                    ["core.defaults"] = {},
+                    ["core.completion"] = { config = { engine = "nvim-cmp" } },
+                    ["core.presenter"] = { config = { zen_mode = "truezen" } },
+                    ["core.summary"] = {},
+                    ["core.concealer"] = {}, -- We added this line!
+                    ["core.journal"] = {
+                        config={workspace="personal"}
+                    },
+                    ["core.dirman"] = {
+                        config = {
+                            workspaces = {
+                                work = "~/work/notes",
+                                personal = "~/notes",
+                            },
+                            index = "index.norg", -- The name of the main (root) .norg file
+                            default_workspace = "work", -- Optional fallback                default_workspace = "personal", -- Optional fallback
+                        }
+                    }
+                }
+            })
+        end,
+    }
 }
 
 add_plugins(plugins)

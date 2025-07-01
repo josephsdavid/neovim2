@@ -19,32 +19,31 @@ function add_plugins(plugins)
 end
 
 require("bootstrap")
-
-
--- configure everything here
-require("colorscheme")
 require("options")
-Mappings = require("mappings")
-require("misc_plugins")
-require("completion")
-require("ai")
-require("lsp")
-require("search")
-require("tsconfig")
-require("terminal")
-require("testing")
+require("colorscheme")
 require("autocmds")
-require("debugger")
--- require("norgconfig")
+Mappings = require("mappings")
 require("ui")
+require("lsp")
+require("completion")
+require("search")
 require("git")
+require("terminal")
+require("debugger")
+require("testing")
+require("norgconfig")
+require("misc_plugins")
+require("ai")
+require("tsconfig")
+
+
 
 require("lazy").setup(Plugins, {
     install = {
         -- install missing plugins on startup. This doesn't increase startup time.
         missing = true,
         -- try to load one of these colorschemes when starting an installation during startup
-        colorscheme = { "doom-one" },
+        colorscheme = { "vimbones" },
     },
     performance = {
         rtp = {
@@ -61,13 +60,13 @@ require("lazy").setup(Plugins, {
     },
 })
 
-Mappings.setup()
 
 
 
 vim.cmd([[
+  colorscheme doom-one
+  colorscheme doom-one
   syntax on
   filetype on
   filetype plugin indent on
-  colorscheme doom-one
 ]])

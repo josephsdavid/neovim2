@@ -125,6 +125,7 @@ function completion.config()
     }
 
     local sorting = {
+        priority_weight=2,
         comparators = {
             cmp.config.compare.offset,
             cmp.config.compare.exact,
@@ -163,7 +164,7 @@ function completion.config()
                 luasnip = "[snip]",
                 nvim_lsp = "[lsp]",
                 path = "[path]",
-                neorg = "[norg]",
+                -- neorg = "[norg]",
                 treesitter = "[ts]",
                 -- conjure = "[conj]",
                 buffer = "[buf]",
@@ -200,7 +201,6 @@ function completion.config()
             },
         }),
     })
-
 end
 
 add_plugin(completion)

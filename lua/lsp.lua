@@ -3,8 +3,32 @@ local lsp = {
     dependencies = {
         "hrsh7th/cmp-nvim-lsp",
         'joechrisellis/lsp-format-modifications.nvim',
-        "stevanmilic/nvim-lspimport"
-        -- "jose-elias-alvarez/null-ls.nvim",
+        "stevanmilic/nvim-lspimport",
+        {
+            "rachartier/tiny-code-action.nvim",
+            dependencies = {
+                { "nvim-lua/plenary.nvim" },
+                { "nvim-telescope/telescope.nvim" },
+            },
+            event = "LspAttach",
+            config = function()
+                require('tiny-code-action').setup()
+            end
+        },
+        {
+            "ray-x/lsp_signature.nvim",
+            event = "InsertEnter",
+            opts = {
+                -- cfg options
+            },
+        }
+        -- "jose-elias-alvarez/null-ls.nvim",,
+        -- {
+        --     "aznhe21/actions-preview.nvim",
+        --     -- config = function()
+        --     --     vim.keymap.set({ "v", "n" }, Mappings.leader("ca"), require("actions-preview").code_actions)
+        --     -- end,
+        -- }
     }
 }
 
@@ -13,14 +37,14 @@ local on_attach = function(client, bufnr)
     -- local function vim.api.nvim_buf_set_keymap(a,b,c,d)
     -- 	vim.api.nvim_vim.api.nvim_buf_set_keymap(bufnr, a,b,c,d)
     -- end
-    if client.name == 'ruff_lsp' then
+    if client.name == 'ruff' then
         -- Disable hover in favor of Pyright
         client.server_capabilities.hoverProvider = false
     end
-    if client.name ~= "basedpyright" then
-        local lsp_format_modifications = require "lsp-format-modifications"
-        lsp_format_modifications.attach(client, bufnr, { format_on_save = false })
-    end
+    -- if client.name ~= "basedpyright" then
+    --     local lsp_format_modifications = require "lsp-format-modifications"
+    --     lsp_format_modifications.attach(client, bufnr, { format_on_save = false })
+    -- end
     local function buf_set_option(...)
         vim.api.nvim_buf_set_option(bufnr, ...)
     end
@@ -136,7 +160,7 @@ local servers = {
             }
         }
     },
-    ruff_lsp = {},
+    ruff = {},
     zls = {}
 }
 
@@ -190,7 +214,7 @@ local g = Mappings.genleader("g")
 local maps = {
     [g("r")] = { ":Telescope lsp_references<CR>", "goto references" },
     [g("d")] = { "<cmd>lua vim.lsp.buf.definition()<CR>zz", "goto definition" },
-    [Mappings.leader("ca")] = { Mappings.cmd("CodeActionMenu"), "code action" },
+    [Mappings.leader("ca")] = { "<cmd>lua require('tiny-code-action').code_action()<CR>", "code action" },
     [g("D")] = { Mappings.luacmd("require('goto-preview').goto_preview_definition()"), "goto definition, popup" },
     [g("q")] = { Mappings.luacmd("require('goto-preview').close_all_win()"), "close popups" },
     [g("l")] = { Mappings.luacmd("vim.diagnostic.open_float()"), "diagnostics" },
