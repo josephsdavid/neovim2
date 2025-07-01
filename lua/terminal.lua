@@ -19,7 +19,7 @@ function term.config()
         shade_filetypes = {},
         shade_terminals = false,
         shading_factor = 2,
-        start_in_insert = false,
+        start_in_insert = true,
         insert_mappings = false,
         persist_size = true,
         direction = "vertical",
@@ -33,6 +33,10 @@ function term.config()
                 background = "Normal",
             },
         },
+        on_open = function(t)
+            vim.api.nvim_buf_set_keymap(t.bufnr, "t", "<esc>", "<esc>", { noremap = true, silent = true })
+            vim.api.nvim_buf_set_keymap(t.bufnr, "t", "<C-o>", "<C-\\><C-n>", { noremap = true, silent = true })
+        end,
     })
     local Terminal  = require('toggleterm.terminal').Terminal
     local gemini = Terminal:new({ cmd = "gemini", hidden = true, direction="float"})
