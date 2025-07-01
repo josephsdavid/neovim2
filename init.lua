@@ -36,6 +36,8 @@ require("misc_plugins")
 require("ai")
 require("tsconfig")
 
+Mappings.setup()
+
 
 
 require("lazy").setup(Plugins, {
