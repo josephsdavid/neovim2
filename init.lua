@@ -35,6 +35,7 @@ require("norgconfig")
 require("misc_plugins")
 require("ai")
 require("tsconfig")
+require("gemini")
 
 Mappings.setup()
 

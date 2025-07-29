@@ -159,7 +159,9 @@ M.n = {
     [gen("g")] = {cmd("Gen"), "gen"},
     [gen("c")] = {cmd("Gen Chat"), "gen Chat"},
     [gen("a")] = {cmd("Gen Ask"), "gen Ask"},
-    [gen("m")] = {cmd("Gen md_doc_file"), "gen md_doc_file"}
+    [gen("m")] = {cmd("Gen md_doc_file"), "gen md_doc_file"},
+    [M.leader("go")] = { cmd("GeminiOpenLast"), "open last modified file from Gemini" },
+    [M.leader("gd")] = { cmd("GeminiDiffLast"), "diff last modified file from Gemini" }
 
 
 }
